@@ -16,5 +16,5 @@ class ClientHandler(Thread):
     #Method whose listen the message coming from the handled client,showing its content
     def run(self):
         while True:
-            data = conn.recv(MSG_LEN)
+            data = self.conn.recv(self.MSG_LEN)
             print "Message receveid: "+data

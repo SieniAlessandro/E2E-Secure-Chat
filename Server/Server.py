@@ -1,6 +1,7 @@
 import socket
 from threading import Thread
 from SocketServer import ThreadingMixIn
+from ClientHandler import *
 
 class Server:
     def __init__(self,port):
@@ -21,4 +22,3 @@ class Server:
             newClient = ClientHandler(conn,ip,port);
             newClient.start();
             self.clients.append(newClient);
-        
