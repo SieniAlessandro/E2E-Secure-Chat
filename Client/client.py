@@ -15,3 +15,5 @@ while MESSAGE != 'exit':
     MESSAGE = raw_input("tcpClientA: Enter message to continue/ Enter exit:")
 
 tcpClientA.close()
+
+ciao
