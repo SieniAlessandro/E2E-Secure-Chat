@@ -17,3 +17,4 @@ while MESSAGE != 'exit':
 tcpClientA.close()
 
 ciao
+rob
