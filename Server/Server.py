@@ -22,4 +22,3 @@ class Server:
             newClient = ClientHandler(conn,ip,port);
             newClient.start();
             self.clients.append(newClient);
-Prova
