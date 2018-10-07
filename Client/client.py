@@ -11,11 +11,12 @@ class Client:
     #Functions to communicate with Server#
 
     def connectServer(self):
-        self.connectionToServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         tcpClientA.connect((host, port))
 
     def sendServer(self, ...):
 
+    def receiveServer(self, ...):
     ######################################
 
     #Functions for the FrontEnd#
@@ -32,7 +33,16 @@ class Client:
 
     #UDP connection with clients?
     def connectClient(self, ...):
+        #request to Server for the IP of the receiver
+        sendServer(...)
 
+        msg = receiveServer(...)
+
+        if(check_msg_is_VALID_IP)
+            #start a new connection with another client with a Thread
+        else
+            #with a new Thread send message to the server crypthed with key of B
+            
     def receiveMessage(self, ...):
         while True:
             try:
@@ -48,9 +58,9 @@ class Client:
         msg = my_msg.get()
         my_msg.set("")  # Clears input field.
         if(self.clientReceiverOnline(index))
-            client_socket.send(bytes(msg, "utf8"))
+            #client_socket.send(bytes(msg, "utf8"))
         else
-            server_socket.send(bytes(msg, "utf8"))
+            self.serverSocket.send(bytes(msg, "utf8"))
         if msg == "{quit}":
             client_socket.close()
             top.quit()
