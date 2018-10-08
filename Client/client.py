@@ -1,7 +1,5 @@
-import socket
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
->>>>>>> 4899d035486905a5d5e9509df4d4db1711d3f94e
 
 class Client:
 
@@ -11,6 +9,7 @@ class Client:
         self.BUFFER_SIZE = 2000
 
     #Functions to communicate with Server#
+
     def connectServer(self):
         self.socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         tcpClientA.connect((host, port))
@@ -74,4 +73,3 @@ class Client:
     #Functions for the Security#
     ##TO DO TO DO  TO DO TO DO##
     ############################
->>>>>>> 4899d035486905a5d5e9509df4d4db1711d3f94e
