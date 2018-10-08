@@ -1,17 +1,18 @@
-import socket
+from client import Client
 
-host = socket.gethostname()
-port = 1745
-BUFFER_SIZE = 2000
-MESSAGE = raw_input("tcpClientA: Enter message/ Enter exit:")
+host = '10.102.7.116'
+port = 6000
+MESSAGE = 'hi'
 
-tcpClientA = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-tcpClientA.connect((host, port))
+a = Client(host, port)
+a.connectServer()
 
-while MESSAGE != 'exit':
-    tcpClientA.send(MESSAGE)
-    data = tcpClientA.recv(BUFFER_SIZE)
-    print " Client2 received data:", data
-    MESSAGE = raw_input("tcpClientA: Enter message to continue/ Enter exit:")
+#while MESSAGE != 'exit':
+a.sendServer(MESSAGE)
 
-tcpClientA.close()
+a.register()
+#data = tcpClientA.recv(BUFFER_SIZE)
+#print " Client2 received data:", data
+#MESSAGE = raw_input("tcpClientA: Enter message to continue/ Enter exit:")
+
+#a.socketServer.close()
