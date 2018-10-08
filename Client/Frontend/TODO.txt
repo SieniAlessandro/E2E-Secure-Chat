@@ -1,0 +1,6 @@
+TODO
+
+Portare il subframe sopra le label
+la scrollbar non funziona
+settare una dimensione fissa dei ChatListElement
+Arrontadare la foto profilo
