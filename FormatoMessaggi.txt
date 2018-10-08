@@ -10,7 +10,7 @@ Registrazione
 
 login
 
-2|Username,password
+2|username,password
 
 -----
 

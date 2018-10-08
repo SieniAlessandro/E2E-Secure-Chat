@@ -10,8 +10,6 @@ class Client:
         self.portServer = portServer
 
     #Functions to communicate with Server#
-
-<<<<<<< HEAD
     def sendServer(self, text):
         ret = self.socketServer.send(text.encode('utf-16'))
         if ret == 0:
@@ -27,33 +25,34 @@ class Client:
         except ConnectionRefusedError or OSError:
             print('connection refused, the server is down!\ We apologize for the inconvenient')
             return
+
     def receiveServer(self):
         ret = self.socketServer.recv(BUFFER_SIZE)
         if not ret:
             print('Socket closed')
         else:
-            print(ret.decode('utf-16'))
-=======
-    def connectServer(self):
-        self.socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        tcpClientA.connect((host, port))
+            print('Message received from Server')
+            return ret.decode()
 
-    def sendServer(self, ...):
-        '''
-    def receiveServer(self, ...):
->>>>>>> 77f1a66ff1284783f576f88ce344b124adb3790d
+
     ######################################
 
     #Functions for the FrontEnd#
 
-    def register(self):
-        self.sendServer('1')
-        self.receiveServer();
-'''
-    def login(self,  ):
+    def register(self, username, password, name, surname, email, key):
+        self.sendServer('1|' + username ',' + password + ',' + name + ',' +
+                surname + ',' + email + ',' + key')
+        msg = self.receiveServer();
 
-    def sendMessage(self,  ):
+    def login(self, username, password):
+        self.sendServer('2|' + username + ',' + password)
+        msg = self.receiveServer();
 
+    def sendMessage(self, receiver, text, time):
+        self.sendServer('3|' + receiver + ',' + text + ',' + time)
+        msg = self.receiveServer();
+
+    '''
     ############################
 
     #Functions to communicate with others Clients
@@ -100,8 +99,3 @@ class Client:
     #Functions for the Security#
     ##TO DO TO DO  TO DO TO DO##
     ############################
-<<<<<<< HEAD
-    '''
-=======
-'''
->>>>>>> 77f1a66ff1284783f576f88ce344b124adb3790d
