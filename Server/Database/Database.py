@@ -13,7 +13,6 @@ class Database:
 
     #This method allows us to insert a new user a is invoked when a new user has completed the registration form on
     #the client application
-
     def insert_user(self,user,password,name,surname,email,key):
         #Preparing the insertion query
         query = "INSERT INTO user (UserName,Email,Name,Surname,Password,PublicKey) VALUES ('%s','%s','%s','%s','%s','%s') " \
