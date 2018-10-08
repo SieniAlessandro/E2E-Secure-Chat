@@ -1,0 +1,115 @@
+import pymysql
+class Database:
+
+    #In the init function the class try to establish a connection with the database, in order to allows
+    #the programmer to modify the information stored in the database using the methods offered by this class
+
+    def __init__(self,host,user,password,datab):
+        #Establishing the connection with the database
+        self.db = pymysql.connect(host='localhost', port=3306, user='root', passwd='rootroot', db='messaggistica_mps')
+        #Creating a cursor useful to execute the desired query
+        self.cursor = self.db.cursor()
+
+    #This method allows us to insert a new user a is invoked when a new user has completed the registration form on
+    #the client application
+
+    def insert_user(self,user,password,name,surname,email,key):
+        #Preparing the insertion query
+        query = "INSERT INTO user (UserName,Email,Name,Surname,Password,PublicKey) VALUES ('%s','%s','%s','%s','%s','%s') " \
+        % (user,email,name,surname,password,str(key))
+        try:
+            #Executing the query
+            self.cursor.execute(query)
+            #Commit the changes to the databes
+            self.db.commit()
+            return 0
+        except:
+            #rollback to the previous operations
+            self.db.rollback()
+            print ("Error in the user insertion query")
+            return -1
+
+    #This method is used to store a message in the database and is invoked when the receiver of that message is offline,
+    #in order to send it when the last one will back online
+
+
+    def insert_message(self,sender,receiver,message,time):
+        #Preparing the insertion query
+        query = "INSERT INTO message(Sender,Receiver,Text,Time) VALUES ('%s','%s','%s','%s') " \
+        % (sender,receiver,message,time)
+        try:
+            #Executing the query
+            self.cursor.execute(query)
+            #Commit the changes to the databes
+            self.db.commit()
+            return 0
+        except:
+            #rollback to the previous operations
+            self.db.rollback()
+            print ("Error in the message insertion query")
+            return -1
+
+    #If a user want to unscribe to our platform he can do it and this method is used to remove all his information from
+    #the database
+
+    def remove_user(self,user):
+        query = "DELETE from user WHERE UserName = '%s'" % (user)
+        try:
+            #Executing the query
+            self.cursor.execute(query)
+            #Commit the changes to the databes
+            self.db.commit()
+            return 0
+        except:
+            #rollback the previous operations
+            self.db.rollback()
+            print ("Error in the user delete query")
+            return -1
+
+    #This method is invkoed when a user back online and there are several waiting message with him as receiver.
+
+    def remove_waiting_messages_by_receiver(self,receiver):
+        query = "DELETE from message WHERE Receiver = %s" % (receiver)
+        try:
+            #Executing the query
+            self.cursor.execute(query)
+            #Commit the changes to the databes
+            self.db.commit()
+            return 0
+        except:
+            #rollback the previous operations
+            self.db.rollback()
+            print ("Error in the message delete query")
+            return -1
+
+    def remove_waiting_messages_by_sender(self,sender):
+        query = "DELETE from message WHERE Sender = %s" % (sender)
+        try:
+            #Executing the query
+            self.cursor.execute(query)
+            #Commit the changes to the databes
+            self.db.commit()
+            return 0
+        except:
+            #rollback to the previous operations
+            self.db.rollback()
+            print ("Error in the message delete query")
+            return -1
+    def remove_waiting_messages_by_id(self,index):
+        query = "DELETE from message WHERE Index = %s" % (index)
+        try:
+            #Executing the query
+            self.cursor.execute(query)
+            #Commit the changes to the databes
+            self.db.commit()
+            return 0
+        except:
+            #rollback to the previous operations
+            self.db.rollback()
+            print ("Error in the message delete query")
+            return -1
+
+    #At the end of the execetion the server close the connection with the database invoking this method
+
+    def close_connection():
+        self.db.close()

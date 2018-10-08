@@ -1,3 +1,3 @@
 from Server import Server
-s = Server(1745)
-s.listen()
+from Database.Database import Database
+data = Database("localhost","root","rootroot","messaggistica_mps")
