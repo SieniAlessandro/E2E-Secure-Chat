@@ -1,7 +1,7 @@
 import socket
 from threading import Thread
-from SocketServer import ThreadingMixIn
 from ClientHandler import *
+
 
 class Server:
     def __init__(self,port):
@@ -11,14 +11,14 @@ class Server:
         self.server.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);
         self.server.bind((self.ip,self.port))
         self.clients = []
-        print "Server iniziallizato"
+        print ("Server iniziallizato")
 
     def listen(self):
         while True:
             self.server.listen(50)
-            print "In attesa di richieste..."
+            print ("In attesa di richieste...")
             (conn, (ip,port)) = self.server.accept()
-            print "Nuova richiesta arrivata.."
+            print ("Nuova richiesta arrivata..")
             newClient = ClientHandler(conn,ip,port);
             newClient.start();
             self.clients.append(newClient);
