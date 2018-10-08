@@ -31,7 +31,7 @@ class Client:
 
     #Functions to communicate with others Clients
 
-    #UDP connection with clients?
+    #TCP connection with clients?
     def connectClient(self, ...):
         #request to Server for the IP of the receiver
         sendServer(...)
@@ -42,7 +42,7 @@ class Client:
             #start a new connection with another client with a Thread
         else
             #with a new Thread send message to the server crypthed with key of B
-            
+
     def receiveMessage(self, ...):
         while True:
             try:
