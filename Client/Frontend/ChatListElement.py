@@ -4,37 +4,35 @@ from PIL import ImageTk, Image
 class ChatListElement(Frame):
     MAXMESSAGELEN = 15
 
-    def __init__(self, master):
+    def __init__(self, master, background):
 
-        Frame.__init__(self,master)
+        Frame.__init__(self, master)
+        self.configure(background=background, padx=10, pady=5)
         self.pack()
 
         self.photo = ImageTk.PhotoImage(Image.open("crash.jpg").resize( (40,40), Image.ANTIALIAS ))
         self.chatName, self.lastMessage, self.lastMessageTime = StringVar(), StringVar(), StringVar()
-        self.setElements("ChatName", "lastMessage", "0:00")
         self.createWidgets()
 
     def changeChatRoom(self, event):
-        print("Changing Chat Room")
+        print("Changing Chat Room...")
 
     def createWidgets(self):
-        subFrame = Frame(self)
-        photoLabel = Label(self, image = self.photo)
-        self.chatNameLabel = Label(subFrame, textvariable = self.chatName)
-        self.lastMessageLabel = Label(subFrame, textvariable = self.lastMessage)
-        self.lastMessageTimeLabel = Label(subFrame, textvariable = self.lastMessageTime )
+        photoLabel = Label(self, image = self.photo, )
+        chatNameLabel = Label(self, textvariable = self.chatName, background=self['bg'], fg='white', anchor='e')
+        lastMessageLabel = Label(self, textvariable = self.lastMessage, background=self['bg'],  fg='white', anchor='e')
+        lastMessageTimeLabel = Label(self, textvariable = self.lastMessageTime, background=self['bg'],  fg='white', anchor='e')
 
-        photoLabel.grid(row=0,column=0)
-        subFrame.grid(row=0,column=1)
-        self.chatNameLabel.grid(row=0,column=0)
-        self.lastMessageLabel.grid(row=1,column=0)
-        self.lastMessageTimeLabel.grid(row=0,column=1)
+        photoLabel.grid(row=0, column=0, rowspan=2, sticky=W, padx=5, pady=5)
+        chatNameLabel.grid(row=0,column=1, sticky=W, padx=5)
+        lastMessageLabel.grid(row=1,column=1, sticky=W, padx=5)
+        lastMessageTimeLabel.grid(row=0,column=2, sticky=W)
 
-        # self.bind('<Button-1>', self.changeChatRoom)
+        self.bind('<Button-1>', self.changeChatRoom)
 
     def checkStringLenght(self, s):
         if ( len(s) > self.MAXMESSAGELEN ):
-            return s[0:15] + " ..."
+            return s[0:self.MAXMESSAGELEN] + " ..."
         return s
 
     def setLastMessage(self, message):
@@ -50,4 +48,3 @@ class ChatListElement(Frame):
         self.chatName.set(self.checkStringLenght(chatName))
         self.lastMessage.set(self.checkStringLenght(lastMessage))
         self.lastMessageTime.set(lastMessageTime)
-        self.createWidgets()
