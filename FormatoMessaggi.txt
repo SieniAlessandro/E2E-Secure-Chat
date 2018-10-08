@@ -25,5 +25,5 @@ Messaggio
 Formato Server->Client
 
 0 = Nessun Messaggio in attesa per te
-u
+
 N|<sender,message,time>;.... = N = numero di messaggi da inviare e tuple di messaggi
