@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-'''
 import socket
-=======
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 >>>>>>> 4899d035486905a5d5e9509df4d4db1711d3f94e
@@ -14,40 +11,6 @@ class Client:
         self.BUFFER_SIZE = 2000
 
     #Functions to communicate with Server#
-
-<<<<<<< HEAD
-tcpClientA.close()
-'''
-import sys
-
-try:
-    # for Python2
-    from Tkinter import *
-except ImportError:
-    # for Python3
-    from tkinter import *
-root = Tk()
-counter = 0;
-print(sys.version)
-def registration_window(event=None):
-    global counter
-    counter = counter+1;
-    if(counter == 1):
-        form = Toplevel(root)
-        l = Label(form,text="Ciao")
-        l.pack()
-def change_color(event=None):
-    l1.config(fg="blue")
-def orig_color(event=None):
-    l1.config(fg="black")
-
-l1 = Label(root,text="Non sei ancora registrato? Clicca qui!!")
-l1.bind("<Button-1>",registration_window)
-l1.bind("<Enter>",change_color)
-l1.bind("<Leave>",orig_color)
-l1.grid()
-root.mainloop()
-=======
     def connectServer(self):
         self.socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         tcpClientA.connect((host, port))
@@ -80,7 +43,7 @@ root.mainloop()
             #start a new connection with another client with a Thread
         else
             #with a new Thread send message to the server crypthed with key of B
-            
+
     def receiveMessage(self, ...):
         while True:
             try:
