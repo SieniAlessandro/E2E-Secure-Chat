@@ -11,6 +11,7 @@ class Client:
 
     #Functions to communicate with Server#
 
+<<<<<<< HEAD
     def sendServer(self, text):
         ret = self.socketServer.send(text.encode('utf-16'))
         if ret == 0:
@@ -32,6 +33,15 @@ class Client:
             print('Socket closed')
         else:
             print(ret.decode('utf-16'))
+=======
+    def connectServer(self):
+        self.socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        tcpClientA.connect((host, port))
+
+    def sendServer(self, ...):
+        '''
+    def receiveServer(self, ...):
+>>>>>>> 77f1a66ff1284783f576f88ce344b124adb3790d
     ######################################
 
     #Functions for the FrontEnd#
@@ -90,4 +100,8 @@ class Client:
     #Functions for the Security#
     ##TO DO TO DO  TO DO TO DO##
     ############################
+<<<<<<< HEAD
     '''
+=======
+'''
+>>>>>>> 77f1a66ff1284783f576f88ce344b124adb3790d

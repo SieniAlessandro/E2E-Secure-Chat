@@ -4,15 +4,15 @@ class Database:
     #In the init function the class try to establish a connection with the database, in order to allows
     #the programmer to modify the information stored in the database using the methods offered by this class
 
-    def __init__(self,host,user,password,datab):
+    def __init__(self,_host,_port,_user,_password,_db):
         #Establishing the connection with the database
-        self.db = pymysql.connect(host='localhost', port=3306, user='root', passwd='rootroot', db='messaggistica_mps')
+        #self.db = pymysql.connect(host='localhost', port=3306, user='root', passwd='rootroot', db='messaggistica_mps')
+        self.db = pymysql.connect(host=_host, port=_port, user=_user, passwd=_password, db=_db)
         #Creating a cursor useful to execute the desired query
         self.cursor = self.db.cursor()
 
     #This method allows us to insert a new user a is invoked when a new user has completed the registration form on
     #the client application
-
     def insert_user(self,user,password,name,surname,email,key):
         #Preparing the insertion query
         query = "INSERT INTO user (UserName,Email,Name,Surname,Password,PublicKey) VALUES ('%s','%s','%s','%s','%s','%s') " \
