@@ -1,0 +1,29 @@
+Formato Client->Server
+
+----
+
+Registrazione
+
+1|UserName,Email,Name,Surname,Password,PublicKey
+
+-----
+
+login
+
+2|Username,password
+
+-----
+
+Messaggio
+
+3|Receiver,Text
+
+
+----------------------------------------------------------------------------------------------------
+
+
+Formato Server->Client
+
+0 = Nessun Messaggio in attesa per te
+
+N|<sender,message,time>;.... = N = numero di messaggi da inviare e tuple di messaggi

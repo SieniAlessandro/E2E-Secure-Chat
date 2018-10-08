@@ -15,7 +15,7 @@ class Client:
         tcpClientA.connect((host, port))
 
     def sendServer(self, ...):
-
+        '''
     def receiveServer(self, ...):
     ######################################
 
@@ -73,3 +73,4 @@ class Client:
     #Functions for the Security#
     ##TO DO TO DO  TO DO TO DO##
     ############################
+'''
