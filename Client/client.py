@@ -35,11 +35,13 @@ class Client:
         ret = self.socketServer.recv(self.BUFFER_SIZE)
         if not ret:
             print('Socket closed')
+            return -1
         else:
             print('Message received from Server')
             msg = ret.decode('utf-16')
             msgs = msg.split('|')
             identifier = msgs[0]
+            value = msgs[1]
             if identifier.isdigit():
                 if identifier > 0 :
                     #retrieveMessage(msgs[1]);
@@ -47,13 +49,11 @@ class Client:
                 else :
                     print('no message for you')
             elif identifier == '!' :
-                if msgs[1].isdigit() :
-                    msg = 'client offline'
-                else :
-                    msg = msgs[1]
-                return msg
+                return value
+            elif identifier == '?' :
+                return value
             else :
-                return msgs[0]
+                return identifier
 
 
     ######################################
@@ -68,15 +68,29 @@ class Client:
 
     def login(self, username, password):
         self.sendServer('2|' + username + ',' + password)
-        msg = self.receiveServer()
-        print(msg)
+        ret = self.receiveServer()
+        if ret == 1 :
+            print('Login done succesfully')
+        elif ret == 0 :
+            print('Wrong Username or Password')
+        elif ret == -1 :
+            print('You are already connected with another device')
+
 
     def startConnection(self, receiver):
         self.sendServer('3|' + receiver)
         msg = self.receiveServer(socket.AF_INET, socket.SOCK_STREAM)
-
+        if value.isdigit() :
+            if value == 0 :
+                msg = 'client offline'
+            elif value == -1 :
+                msg = 'Error: client offline'
+            elif value == -2 :
+                msg = 'Error: you can not connect with yourself'
+        else :
+            msg = receiver + 'has IP: ' + value
         print(msg)
-        if msg :
+        if not value.isdigit() :
             self.socketClient[receiver] = socket.socket()
             self.socketClient[receiver].connect((msg, self.PORT_P2P))
 
