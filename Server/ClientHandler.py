@@ -37,6 +37,6 @@ class ClientHandler(Thread):
                 param = msgs[1].split(',')
                 if(self.DB.userIsPresent(*param) == 1):
                     self.conn.sendall("Login OK")
-                    self.OnlineClients.append(User(param[0])
+                    self.OnlineClients.append(User(param[0]))
                 else:
                     self.conn.sendall("Username o password errati")
