@@ -22,17 +22,33 @@ class Client:
         try:
             self.socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socketServer.connect((self.hostServer, self.portServer))
-        except ConnectionRefusedError or OSError:
+        except:
             print('connection refused, the server is down!\ We apologize for the inconvenient')
             return
 
     def receiveServer(self):
-        ret = self.socketServer.recv(BUFFER_SIZE)
+        ret = self.socketServer.recv(self.BUFFER_SIZE)
         if not ret:
             print('Socket closed')
         else:
             print('Message received from Server')
-            return ret.decode()
+            msg = ret.decode('utf-16')
+            msgs = msg.split('|')
+            identifier = msgs[0]
+            if identifier.isdigit():
+                if identifier > 0 :
+                    #retrieveMessage(msgs[1]);
+                    print('message pending in the server')
+                else :
+                    print('no message for you')
+            elif identifier == '!' :
+                if msgs[1].isdigit() :
+                    msg = 'client offline'
+                else :
+                    msg = 'msgs[1]'
+                    return msg
+            else :
+                return msgs[0]
 
 
     ######################################
@@ -41,19 +57,25 @@ class Client:
 
     def register(self, username, password, name, surname, email, key):
         self.sendServer('1|' + username + ',' + password + ',' + name + ',' +
-                surname + ',' + email + ',' + key')
+                surname + ',' + email + ',' + key)
         msg = self.receiveServer();
-        print msg
+        print(msg)
 
     def login(self, username, password):
         self.sendServer('2|' + username + ',' + password)
-        msg = self.receiveServer();
-        print msg
+        msg = self.receiveServer()
+        print(msg)
+
+    def startConnection(self, receiver):
+        self.sendServer('3|' + receiver)
+        msg = self.receiveServer()
+        print(msg)
+
 
     def sendMessageOffline(self, receiver, text, time):
-        self.sendServer('3|' + receiver + ',' + text + ',' + time)
-        msg = self.receiveServer();
-        print msg
+        self.sendServer('4|' + receiver + ',' + text + ',' + time)
+        msg = self.receiveServer()
+        print(msg)
     '''
     ############################
 
@@ -101,3 +123,4 @@ class Client:
     #Functions for the Security#
     ##TO DO TO DO  TO DO TO DO##
     ############################
+'''
