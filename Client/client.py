@@ -46,7 +46,7 @@ class Client:
                     msg = 'client offline'
                 else :
                     msg = msgs[1]
-                    return msg
+                return msg
             else :
                 return msgs[0]
 
