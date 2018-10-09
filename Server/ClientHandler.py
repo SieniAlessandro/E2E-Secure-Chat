@@ -22,6 +22,8 @@ class ClientHandler(Thread):
             msg = data.decode('utf-16')
             if not data:
                 print("Client disconnesso")
+                if self.ip in self.OnlineClients.values():
+                    self.OnlineClients.remove(self.ip)
                 return -1
             print ("Message received: "+msg)
             msgs = msg.split('|')
