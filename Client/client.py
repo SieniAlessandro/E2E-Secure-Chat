@@ -4,10 +4,15 @@ from threading import Thread
 
 class Client:
     BUFFER_SIZE = 2048
+    PORT_P2P = 7000
+    PORT_SERVER = 6000
+    HOST_SERVER = '10.102.8.250'
+
+    socketClient = {}
 
     def __init__(self, hostServer, portServer):
-        self.hostServer = hostServer; #IPv4 Address of the server
-        self.portServer = portServer
+        self.hostServer = HOST_SERVER #IPv4 Address of the server
+        self.portServer = PORT_SERVER
 
     #Functions to communicate with Server#
     def sendServer(self, text):
@@ -68,9 +73,12 @@ class Client:
 
     def startConnection(self, receiver):
         self.sendServer('3|' + receiver)
-        msg = self.receiveServer()
-        print(msg)
+        msg = self.receiveServer(socket.AF_INET, socket.SOCK_STREAM)
 
+        print(msg)
+        if msg :
+            self.socketClient[receiver] = socket.socket()
+            self.socketClient[receiver].connect((msg, self.PORT_P2P))
 
     def sendMessageOffline(self, receiver, text, time):
         self.sendServer('4|' + receiver + ',' + text + ',' + time)
