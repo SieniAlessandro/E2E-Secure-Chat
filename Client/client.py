@@ -45,7 +45,7 @@ class Client:
                 if msgs[1].isdigit() :
                     msg = 'client offline'
                 else :
-                    msg = 'msgs[1]'
+                    msg = msgs[1]
                     return msg
             else :
                 return msgs[0]
