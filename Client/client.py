@@ -40,18 +40,20 @@ class Client:
     #Functions for the FrontEnd#
 
     def register(self, username, password, name, surname, email, key):
-        self.sendServer('1|' + username ',' + password + ',' + name + ',' +
+        self.sendServer('1|' + username + ',' + password + ',' + name + ',' +
                 surname + ',' + email + ',' + key')
         msg = self.receiveServer();
+        print msg
 
     def login(self, username, password):
         self.sendServer('2|' + username + ',' + password)
         msg = self.receiveServer();
+        print msg
 
-    def sendMessage(self, receiver, text, time):
+    def sendMessageOffline(self, receiver, text, time):
         self.sendServer('3|' + receiver + ',' + text + ',' + time)
         msg = self.receiveServer();
-
+        print msg
     '''
     ############################
 
