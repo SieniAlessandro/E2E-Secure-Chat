@@ -31,7 +31,7 @@ while(continua) :
 
 #a.register('nuovoUser','pwd','pippo','gianfilippo','pippo@mail.com','0')
 
-a.login('nuovoUser','pwd')
+#a.login('nuovoUser','pwd')
 #data = tcpClientA.recv(BUFFER_SIZE)
 #print " Client2 received data:", data
 #MESSAGE = raw_input("tcpClientA: Enter message to continue/ Enter exit:")
