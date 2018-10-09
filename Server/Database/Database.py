@@ -56,12 +56,12 @@ class Database:
             #Executing the query
             self.cursor.execute(query)
             #Obtaining the result as a list
-            results = cursor.fetchall()
+            results = self.cursor.fetchall()
             return len(results) == 1
         except:
             #rollback to the previous operations
             self.db.rollback()
-            print ("Error in the message insertion query")
+            print ("Error in the select query")
             return -1
 
     #If a user want to unscribe to our platform he can do it and this method is used to remove all his information from

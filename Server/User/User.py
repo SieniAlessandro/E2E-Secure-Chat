@@ -1,6 +1,5 @@
 class User:
-    def __init__(self,_ip):
+    def __init__(self,_ip,_username):
         self.ip = _ip
-        self.online = True
     def getIp(self):
         return self.ip

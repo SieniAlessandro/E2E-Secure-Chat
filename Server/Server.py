@@ -11,7 +11,8 @@ class Server:
         self.server = socket.socket(socket.AF_INET,socket.SOCK_STREAM);
         self.server.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);
         self.server.bind((self.ip,self.port))
-        self.clients = []
+        self.Users = {}
+        self.Threads = []
         self.DB = Database('localhost',3306,'root','rootroot','messaggistica_mps');
         print ("Server iniziallizato")
     def listen(self):
@@ -19,6 +20,6 @@ class Server:
             self.server.listen(50)
             print ("In attesa di richieste...")
             (conn, (ip,port)) = self.server.accept()
-            newClient = ClientHandler(conn,ip,port,self.DB,self.clients);
+            newClient = ClientHandler(conn,ip,port,self.DB,self.Users);
             newClient.start();
-            self.clients.append(newClient);
+            self.Threads.append(newClient);
