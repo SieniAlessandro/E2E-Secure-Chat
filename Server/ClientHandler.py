@@ -48,8 +48,17 @@ class ClientHandler(Thread):
             elif msgs[0] == '3':
                 print("Richiesta di utente online")
                 response = ""
-                if msgs[1] in self.OnlineClients.keys():
-                    response = "!|"+self.OnlineClients[msgs[1]]
+                #Check if the clients is logged in
+                if self.ip not in self.OnlineClients.values():
+                    response = "!|"+str(-1)
                 else:
-                    response = "!|"+str(0)
+                    if msgs[1] in self.OnlineClients.keys():
+                        #Check if the client asks for its own import ip
+                        if self.OnlineClients[msgs[1]] == self.ip:
+                            response = "!|"+str(-2)
+                        #Otherwise the server provide the ip of the client
+                        else:
+                            response = "!|"+self.OnlineClients[msgs[1]]
+                    else:
+                        response = "!|"+str(0)
                 self.conn.send(response.encode('utf-16'))
