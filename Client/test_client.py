@@ -10,7 +10,7 @@ a.connectServer()
 
 continua = 1
 while(continua) :
-    x = int(input('inserire:\ 1-registrarsi\ 2-login\ 3-startConnection\ 0-logout'))
+    x = int(input('inserire:\n 1-registrarsi\n 2-login\n 3-startConnection\n 0-logout'))
     if x == 1 :
         user = str(input('inserire username : '))
         psw = str(input('inserire psw : '))
