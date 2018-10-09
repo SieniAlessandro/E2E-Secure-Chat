@@ -13,6 +13,7 @@ class Database:
 
     #This method allows us to insert a new user a is invoked when a new user has completed the registration form on
     #the client application
+
     def insert_user(self,user,password,name,surname,email,key):
         #Preparing the insertion query
         query = "INSERT INTO user (UserName,Email,Name,Surname,Password,PublicKey) VALUES ('%s','%s','%s','%s','%s','%s') " \
@@ -43,6 +44,20 @@ class Database:
             #Commit the changes to the databes
             self.db.commit()
             return 0
+        except:
+            #rollback to the previous operations
+            self.db.rollback()
+            print ("Error in the message insertion query")
+            return -1
+
+    def userIsPresent(self,_user,_password):
+        query = "SELECT * from user where UserName = '%s' AND Password = '%s' " % (_user,_password)
+        try:
+            #Executing the query
+            self.cursor.execute(query)
+            #Obtaining the result as a list
+            results = cursor.fetchall()
+            return len(results) == 1
         except:
             #rollback to the previous operations
             self.db.rollback()

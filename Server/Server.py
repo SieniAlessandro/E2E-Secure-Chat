@@ -19,6 +19,6 @@ class Server:
             self.server.listen(50)
             print ("In attesa di richieste...")
             (conn, (ip,port)) = self.server.accept()
-            newClient = ClientHandler(conn,ip,port,self.DB);
+            newClient = ClientHandler(conn,ip,port,self.DB,self.clients);
             newClient.start();
             self.clients.append(newClient);
