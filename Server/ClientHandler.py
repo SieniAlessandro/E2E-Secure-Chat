@@ -44,11 +44,8 @@ class ClientHandler(Thread):
                     response = "?|"+str(-1)
                 elif self.DB.userIsPresent(*param) == 1:
                     response = "?|"+str(1)
-                    #self.conn.sendall("Login OK".encode('utf-16'))
-                    #self.OnlineClients.append(User(param[0]))
                     self.OnlineClients[param[0]] = self.ip
                 else:
-                    #self.conn.sendall("Username o password errati".encode('utf-16'))
                     response = "?|"+str(0)
                 self.conn.send(response.encode('utf-16'))
                 print(self.OnlineClients)
