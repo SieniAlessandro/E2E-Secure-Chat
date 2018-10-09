@@ -36,9 +36,9 @@ N|<sender,message,time>;.... = N = numero di messaggi da inviare e tuple di mess
 
 
 !|<ip> = Risposta se il client è online o meno (
-0 se il client è offline
--1 se il client fa la richiesta ma non ha fatto il login
--2 se il client chiede il proprio indirizzo IP)
+!|0 se il client è offline
+!|-1 se il client fa la richiesta ma non ha fatto il login
+!|-2 se il client chiede il proprio indirizzo IP)
 
 ?|1 Login Ok
 ?|0 Password o Username errati
