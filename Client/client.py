@@ -1,10 +1,11 @@
 #from socket import AF_INET, socket, SOCK_STREAM
 import socket
+import datetime
+import MessageHandler
 from threading import Thread
 
 class Client:
     BUFFER_SIZE = 2048
-    PORT_P2P = 7000
     PORT_SERVER = 6000
     HOST_SERVER = '10.102.19.29'
 
@@ -13,7 +14,7 @@ class Client:
     def __init__(self, hostServer, portServer):
         self.hostServer = self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.PORT_SERVER
-
+        self.Thread = []
     #Functions to communicate with Server#
     def sendServer(self, text):
         ret = self.socketServer.send(text.encode('utf-16'))
@@ -28,7 +29,7 @@ class Client:
             self.socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socketServer.connect((self.hostServer, self.portServer))
         except:
-            print('connection refused, the server is down!\ We apologize for the inconvenient')
+            print('connection refused, the server is down!\n We apologize for the inconvenient')
             return
 
     def receiveServer(self):
@@ -52,6 +53,8 @@ class Client:
                 return value
             elif identifier == '?' :
                 return value
+            elif identifier == '-' :
+                return value
             else :
                 return identifier
 
@@ -65,34 +68,49 @@ class Client:
                 surname + ',' + email + ',' + key)
         msg = self.receiveServer();
         print(msg)
+        if msg == 0 :
+            print('Error in registration')
+        else :
+            print('Succesfully registered')
 
     def login(self, username, password):
+        self.username = username
         self.sendServer('2|' + username + ',' + password)
-        ret = self.receiveServer()
-        if ret == 1 :
+        msg = int(self.receiveServer())
+        if msg == 1 :
             print('Login done succesfully')
-        elif ret == 0 :
+            #retrieveMessage()
+            mh = MessageHandler()
+            mh.start()
+        elif msg == 0 :
             print('Wrong Username or Password')
-        elif ret == -1 :
+        elif msg == -1 :
             print('You are already connected with another device')
-
+        else:
+            print(msg)
 
     def startConnection(self, receiver):
         self.sendServer('3|' + receiver)
-        msg = self.receiveServer(socket.AF_INET, socket.SOCK_STREAM)
+        value = self.receiveServer(socket.AF_INET, socket.SOCK_STREAM)
+        msg = ''
         if value.isdigit() :
             if value == 0 :
-                msg = 'client offline'
+                msg = 'user offline'
+                return 0
             elif value == -1 :
-                msg = 'Error: client offline'
+                msg = 'Error: user does not exist'
             elif value == -2 :
                 msg = 'Error: you can not connect with yourself'
         else :
+            ip = value
             msg = receiver + 'has IP: ' + value
         print(msg)
         if not value.isdigit() :
             self.socketClient[receiver] = socket.socket()
-            self.socketClient[receiver].connect((msg, self.PORT_P2P))
+            self.socketClient[receiver].connect((ip, self.PORT_P2P))
+            self.socketClient[receiver].send(self.username.encode('utf-16'))
+            return 1
+        return -1
 
     def sendMessageOffline(self, receiver, text, time):
         self.sendServer('4|' + receiver + ',' + text + ',' + time)
@@ -124,15 +142,22 @@ class Client:
             except OSError: #The other client could have left the chat
                 #the Thread that listens can put to do something else or closed
                 break
-
-    def send(self, event=None,  ):  # event is passed by binders of the tkinter GUI automatically
+'''
+    def sendClient(self, receiver, text, event=None):  # event is passed by binders of the tkinter GUI automatically
         #Handles sending of messages
-        msg = my_msg.get()
-        my_msg.set("")  # Clears input field.
-        if(self.clientReceiverOnline(index))
-            #client_socket.send(bytes(msg, "utf8"))
-        else
-            self.serverSocket.send(bytes(msg, "utf8"))
+        if self.socketClient[receiver] is None :
+            msg = startConnection(receiver)
+            if msg == 0 : #client offline
+                self.socketClient[receiver] = 'server'
+            elif msg == 1 : #client online, connection established correctly
+                print('Connection established with ' + receiver)
+                self.socketClient[receiver].send(text.encode('utf-16'))
+        elif self.socketClient[receiver] == 'server' :
+            sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])
+        else :
+            self.socketClient[receiver].send(text.encode('utf-16'))
+
+'''
         if msg == "{quit}":
             client_socket.close()
             top.quit()

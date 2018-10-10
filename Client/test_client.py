@@ -10,7 +10,7 @@ a.connectServer()
 
 continua = 1
 while(continua) :
-    x = int(input('inserire:\n 1-registrarsi\n 2-login\n 3-startConnection\n 0-logout\n'))
+    x = int(input('inserire:\n 1-registrarsi\n 2-login\n 3-sendMessage\n 0-logout\n'))
     if x == 1 :
         user = str(input('inserire username : '))
         psw = str(input('inserire psw : '))
@@ -24,7 +24,8 @@ while(continua) :
         a.login(user,psw)
     elif x == 3 :
         receiver = str(input('inserire username del ricevitore : '))
-        a.startConnection(receiver)
+        text = str(input('inserire il testo da inviare : '))
+        a.sendClient(receiver, text)
     elif x == 0 :
         continua = not continua
 #while MESSAGE != 'exit':
