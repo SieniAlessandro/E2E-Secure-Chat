@@ -44,7 +44,11 @@ class Server:
     def handleServer(self):
         choice = 1
         while choice != 0:
-            choice = int(input("What you want to do?\n1) Count online user \n2)Count thread active \n3)Ban an user \n4)Close Server\n:"))
+            try:
+                choice = int(input("What you want to do?\n1) Count online user \n2)Count thread active \n3)Ban an user \n4)Close Server\n:"))
+            except ValueError:
+                print("Ok i'll close the server")
+                os._exit(0)
             if choice == 1:
                 if len(self.Users.values()):
                     print ("There are no online users")
@@ -57,8 +61,7 @@ class Server:
                 print("Actually i can't ban any user")
             else:
                 print("Ok i'll close the server")
-                
-                return
+                os._exit(0)
     def close(self):
         self.Log.log("Server Closed")
         for conn in self.sockets:
