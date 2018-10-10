@@ -43,3 +43,6 @@ N|<sender,message,time>;.... = N = numero di messaggi da inviare e tuple di mess
 ?|1 Login Ok
 ?|0 Password o Username errati
 ?|-1 Sei già online
+
+-|1 Registrazione Ok
+-|0 Registrazione Fallita

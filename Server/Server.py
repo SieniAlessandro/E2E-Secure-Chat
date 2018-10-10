@@ -4,7 +4,7 @@ from threading import Thread
 from ClientHandler import *
 from Log import *
 import signal, os
-
+from os import system, name
 
 class Server:
     def __init__(self,port):
@@ -40,12 +40,13 @@ class Server:
             self.sockets.append(conn)
 
     def handleServer(self):
+        system('cls') 
         choice = 1
         while choice != 0:
             choice = int(input("What you want to do?\n1) Count online user \n2)Count thread active \n3)Ban an user \n4)Close Server\n:"))
             if choice == 1:
-                if len(sel.Users.values()):
-                    print "There are no online users"
+                if len(self.Users.values()):
+                    print ("There are no online users")
                 else:
                     for user,addr in zip(self.Users.values(),self.Users.keys()):
                         print("User: "+str(user)+" has address: "+str(addr))
@@ -60,6 +61,4 @@ class Server:
         self.Log.log("Server Closed")
         for conn in self.sockets:
             conn.close()
-        del self.sockets[]
-        del self.Threads[]
         self.DB.close_connection()
