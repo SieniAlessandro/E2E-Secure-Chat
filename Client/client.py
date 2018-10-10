@@ -44,7 +44,7 @@ class Client:
             identifier = msgs[0]
             value = msgs[1]
             if identifier.isdigit():
-                if identifier > 0 :
+                if int(identifier) > 0 :
                     #retrieveMessage(msgs[1]);
                     print('message pending in the server')
                 else :
@@ -80,8 +80,8 @@ class Client:
         if msg == 1 :
             print('Login done succesfully')
             #retrieveMessage()
-            mh = MessageHandler()
-            mh.start()
+#            mh = MessageHandler()
+#            mh.start()
         elif msg == 0 :
             print('Wrong Username or Password')
         elif msg == -1 :
@@ -94,12 +94,12 @@ class Client:
         value = self.receiveServer(socket.AF_INET, socket.SOCK_STREAM)
         msg = ''
         if value.isdigit() :
-            if value == 0 :
+            if value == '0' :
                 msg = 'user offline'
                 return 0
-            elif value == -1 :
+            elif value == '-1' :
                 msg = 'Error: user does not exist'
-            elif value == -2 :
+            elif value == '-2' :
                 msg = 'Error: you can not connect with yourself'
         else :
             ip = value
@@ -147,9 +147,9 @@ class Client:
         #Handles sending of messages
         if self.socketClient[receiver] is None :
             msg = startConnection(receiver)
-            if msg == 0 : #client offline
+            if msg == '0' : #client offline
                 self.socketClient[receiver] = 'server'
-            elif msg == 1 : #client online, connection established correctly
+            elif msg == '1' : #client online, connection established correctly
                 print('Connection established with ' + receiver)
                 self.socketClient[receiver].send(text.encode('utf-16'))
         elif self.socketClient[receiver] == 'server' :
