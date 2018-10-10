@@ -60,3 +60,6 @@ class Server:
         self.Log.log("Server Closed")
         for conn in self.sockets:
             conn.close()
+        del self.sockets[]
+        del self.Threads[]
+        self.DB.close_connection()

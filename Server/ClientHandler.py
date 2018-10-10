@@ -23,7 +23,7 @@ class ClientHandler(Thread):
             #Check if the connection is closed analyzing the data (0 means that is close)
             if not data:
                 self.log.log("Client disconnected, closing this thread")
-                print("Client disconnesso")
+                #print("Client disconnesso")
                 if self.ip in self.OnlineClients.values():
                     self.OnlineClients.remove(self.ip)
                 return -1
@@ -73,7 +73,6 @@ class ClientHandler(Thread):
                 self.conn.send(response.encode('utf-16'))
                 self.log.log("Active users: "+str(self.OnlineClients))
             elif msgs[0] == '3':
-
                 self.log.log("A client want to find another user")
                 #print("Richiesta di utente online")
                 response = ""
@@ -91,3 +90,8 @@ class ClientHandler(Thread):
                     else:
                         response = "!|"+str(0)
                 self.conn.send(response.encode('utf-16'))
+            elif msgs[0] == '4':
+                self.log.log(str(threading.get_ident())+"The user has a massage to be stored on the DB")
+                param = msgs[1].split(',')
+                sender = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip)]
+                print(sender)
