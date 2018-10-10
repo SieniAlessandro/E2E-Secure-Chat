@@ -121,9 +121,9 @@ class Client:
        #Handles sending of messages
         if not receiver in self.socketClient.keys() :
             msg = self.startConnection(receiver)
-            if msg == '0' : #client offline
+            if msg == 0 : #client offline
                 self.socketClient[receiver] = 'server'
-            elif msg == '1' : #client online, connection established correctly
+            elif msg == 1 : #client online, connection established correctly
                 print('Connection established with ' + receiver)
                 #self.socketClient[receiver].send(text.encode('utf-16'))
         if self.socketClient[receiver] == 'server' :
