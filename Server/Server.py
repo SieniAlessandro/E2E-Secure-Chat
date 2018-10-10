@@ -8,13 +8,14 @@ import signal, os
 
 class Server:
     def __init__(self,port):
+        self.Users = {}
+        self.Threads = []
+        self.sockets =[]
         self.ip = "0.0.0.0"
         self.port = port
         self.server = socket.socket(socket.AF_INET,socket.SOCK_STREAM);
         self.server.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);
         self.server.bind((self.ip,self.port))
-        self.Users = {}
-        self.Threads = []
         self.DB = Database('localhost',3306,'root','rootroot','messaggistica_mps');
         self.Log = Log()
         print ("Server iniziallizato")
@@ -36,14 +37,18 @@ class Server:
             newClient.start();
             #Appending the new thread to the list of active thread in order to manage them if it is necessary
             self.Threads.append(newClient);
+            self.sockets.append(conn)
 
     def handleServer(self):
         choice = 1
         while choice != 0:
             choice = int(input("What you want to do?\n1) Count online user \n2)Count thread active \n3)Ban an user \n4)Close Server\n:"))
             if choice == 1:
-                for user,addr in zip(self.Users.values(),self.Users.keys()):
-                    print("User: "+str(user)+" has address: "+str(addr))
+                if len(sel.Users.values()):
+                    print "There are no online users"
+                else:
+                    for user,addr in zip(self.Users.values(),self.Users.keys()):
+                        print("User: "+str(user)+" has address: "+str(addr))
             elif choice == 2:
                 print ("Actually there are "+str(len(self.Threads)) +" working threads")
             elif choice == 3:
@@ -51,6 +56,7 @@ class Server:
             else:
                 print("Ok i'll close the server")
                 self.close()
-
     def close(self):
         self.Log.log("Server Closed")
+        for conn in self.sockets:
+            conn.close()
