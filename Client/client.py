@@ -116,37 +116,7 @@ class Client:
         self.sendServer('4|' + receiver + ',' + text + ',' + time)
         msg = self.receiveServer()
         print(msg)
-    '''
-    ############################
 
-    #Functions to communicate with others Clients
-
-    #TCP connection with clients?
-    def connectClient(self):
-        #request to Server for the IP of the receiver
-        sendServer( )
-
-        msg = receiveServer( )
-
-        if(check_msg_is_VALID_IP)
-            #start a new connection with another client with a Thread
-        else
-            #with a new Thread send message to the server crypthed with key of B
-
-    def receiveMessage(self,  ):
-        while True:
-            try:
-                msg = sockerRicezione.recv(self.BUFFER_SIZE).decode("utf8")
-                #insert into a list of the front end (tkinter.Listbox) @Amedeo
-
-            except OSError: #The other client could have left the chat
-                #the Thread that listens can put to do something else or closed
-                break
-
-
-
-
-'''
     def sendClient(self, receiver, text, event=None):  # event is passed by binders of the tkinter GUI automatically
        #Handles sending of messages
         if not receiver is in self.socketClient.keys() :
