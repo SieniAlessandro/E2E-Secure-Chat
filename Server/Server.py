@@ -40,7 +40,6 @@ class Server:
             self.sockets.append(conn)
 
     def handleServer(self):
-        system('cls') 
         choice = 1
         while choice != 0:
             choice = int(input("What you want to do?\n1) Count online user \n2)Count thread active \n3)Ban an user \n4)Close Server\n:"))
