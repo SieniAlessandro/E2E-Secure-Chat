@@ -1,12 +1,2 @@
-2018-10-10 14:37:58	Server Initialized
-2018-10-10 14:37:58	Waiting for connections...
-2018-10-10 14:40:17	Client handled has address: 10.102.6.169 and port 53152
-2018-10-10 14:40:17	Waiting for connections...
-2018-10-10 14:40:20	A client want to login
-2018-10-10 14:40:20	Active users: {'l': '10.102.6.169'}
-2018-10-10 14:40:58	Client handled has address: 10.102.6.169 and port 53154
-2018-10-10 14:40:58	Waiting for connections...
-2018-10-10 14:41:00	A client want to login
-2018-10-10 14:41:00	Active users: {'l': '10.102.6.169'}
-2018-10-10 14:41:06	123145479950336The user has a massage to be stored on the DB
-2018-10-10 14:41:49	Server Closed
+2018-10-10 15:30:16	Server Initialized
+2018-10-10 15:30:16	Waiting for connections...
