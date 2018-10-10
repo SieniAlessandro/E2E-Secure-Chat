@@ -75,7 +75,7 @@ class ClientHandler(Thread):
             elif msgs[0] == '3':
 
                 self.log.log("A client want to find another user")
-                print("Richiesta di utente online")
+                #print("Richiesta di utente online")
                 response = ""
                 #Check if the clients is logged in
                 if self.ip not in self.OnlineClients.values():
