@@ -15,7 +15,6 @@ class InputBar(Frame):
         self.entryBar = Entry(self, background=background, bd=0, fg='white')
         self.entryBar.grid(row=0, column=0, sticky=W+E)
         self.entryBar.bind('<Return>', self.pressEnterEvent )
-        self.entryBar
         self.sendButton = Button(self, text="send", command=self.pressSendButton, bg=background, bd=0, activebackground='#787878')
         self.sendButton.grid(row=0, column=1)
         self.icon = ImageTk.PhotoImage(Image.open("Client/Frontend/sendIcon.png").resize( (30,30), Image.ANTIALIAS ))
@@ -43,29 +42,42 @@ class chatWindow(Frame):
         Frame.__init__(self, master, background=background)
 
         self.chatName = StringVar()
-        self.lastAccessTime = StringVar()
         self.listMessage = []
-        self.columnconfigure(0, weight=30)
-        self.columnconfigure(1, weight=40)
-        self.columnconfigure(2, weight=30)
-
-        self.grid_propagate(FALSE)
+        self.rowconfigure(1, weight=8)
         self.grid(row=0, column=1, sticky=N+S+W+E)
 
-    def createWidgets(self, background, chatName, lastAccessTime ):
+    def updateCanvas(self, event):
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+
+    def createWidgets(self, background, chatName ):
         self.chatName.set(chatName)
-        self.lastAccessTime.set(lastAccessTime)
+        self.canvas = Canvas(self,  highlightbackground="yellow", highlightcolor="yellow", highlightthickness=2)
+        self.canvasFrame = Frame(self.canvas, highlightbackground="red", highlightcolor="red", highlightthickness=2)
+        self.canvasFrame.columnconfigure(0, weight=30)
+        self.canvasFrame.columnconfigure(1, weight=40)
+        self.canvasFrame.columnconfigure(2, weight=30)
+
+        verticalScrollbar = Scrollbar(self.canvasFrame, orient="vertical", command=self.canvas.yview)
+        self.canvas.config(yscrollcommand=verticalScrollbar.set)
+
         chatBar = Frame(self, height=50, bg = background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         chatNameLabel = Label(chatBar, textvariable=self.chatName, font = ( "Default", 10, "bold"), bg = background, fg='white')
-        lastAccessTimeLabel = Label(chatBar, textvariable=self.lastAccessTime, font = ("Helvetica", 7, "italic"), bg = background, fg='white')
-
-        chatBar.grid( row = 0, columnspan=3, sticky=N+W+E)
+        chatBar.pack( side="top", fill=X)
         chatNameLabel.grid(row=0, sticky=W, padx=10, pady=5)
-        lastAccessTimeLabel.grid(row=1, sticky=W, padx=10)
+
+        # verticalScrollbar.pack(side="right", fill="y", expand=True)
+        self.canvas.grid_propagate(False)
+        self.canvas.columnconfigure(0, weight=10)
+        self.canvasFrame.grid(column=0, sticky=N+S+W+E)
+        verticalScrollbar.grid(column = 1, sticky=N+S)
+        self.canvas.pack(side="top", fill="both", expand=True)
+        self.canvas.create_window((0,0), window=self.canvasFrame, anchor='nw')
+        self.canvasFrame.bind("<Configure>", self.updateCanvas)
+        print(self.canvas.grid_size())
 
     def addBoxMessageElement(self, message):
         timeString = str(datetime.datetime.now()).split('.')[0].split(' ')[1][:-3]
-        boxMessage = BoxMessage(self)
+        boxMessage = BoxMessage(self.canvasFrame)
         boxMessage.createWidgets( message, timeString , random.choice([True, False]))
         self.listMessage.append(boxMessage)
 

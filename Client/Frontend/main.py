@@ -18,7 +18,7 @@ root.rowconfigure(0,weight=4)
 # root.rowconfigure(1,weight=1)
 
 chatWindow = chatWindow(root, backgroundWindow)
-chatWindow.createWidgets(backgroundItems, "Federico", "Ultimo accesso alle 17:00")
+chatWindow.createWidgets(backgroundItems, "Federico")
 
 chatList = cl.ChatList(root, backgroundItems)
 chatList.setChatWindow(chatWindow)
