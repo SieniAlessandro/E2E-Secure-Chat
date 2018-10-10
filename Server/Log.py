@@ -7,5 +7,6 @@ class Log:
     def log(self,_log):
         with self.lock:
             time = str(datetime.datetime.now()).split('.')[0]
-            text = time + "\t"+_log
+            text = time + "\t"+_log+"\n"
             self.file.write(text)
+            self.file.flush()

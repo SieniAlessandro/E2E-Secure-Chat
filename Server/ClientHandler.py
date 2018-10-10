@@ -5,7 +5,6 @@ from Log import *
 class ClientHandler(Thread):
     MSG_LEN = 2048
     #Constructor of the class
-    #Parameters:
     def __init__(self,Conn,ip,port,db,clients,Log):
         Thread.__init__(self)   #Instatation of the thread
         self.ip = ip
@@ -19,43 +18,62 @@ class ClientHandler(Thread):
     #Method whose listen the message coming from the handled client,showing its content
     def run(self):
         while True:
+            #Receiving the data from the handled client
             data = self.conn.recv(self.MSG_LEN)
-            msg = data.decode('utf-16')
+            #Check if the connection is closed analyzing the data (0 means that is close)
             if not data:
                 self.log.log("Client disconnected, closing this thread")
                 print("Client disconnesso")
                 if self.ip in self.OnlineClients.values():
                     self.OnlineClients.remove(self.ip)
                 return -1
-            print ("Message received: "+msg)
+            #Decoding the received data to obtain a string
+            msg = data.decode('utf-16')
+
+            #print ("Message received: "+msg)
+
+            #Spliting the whole message to retrieve the type of request and the content of that request
             msgs = msg.split('|')
+            #If the first part is 1, the client want to register as new user
             if msgs[0] == "1":
                 self.log.log("A client want to register")
                 print ("Registrazione")
+                #Splitting the second part of message in order to obtain all the informations needed to register a new user
                 param = msgs[1].split(',')
+                #Use of the class Database with the appropriate method to insert the new user, checking if the insertion
+                #has completed correctly
                 if (self.DB.insert_user(*param) == 0):
                     self.log.log("Registration succeded")
-                    self.conn.sendall(("Ti ho registrato "+param[0]).encode('utf-16'))
+                    #Send to the client that the request has succeded
+                    self.conn.send(("Ti ho registrato "+param[0]).encode('utf-16'))
                 else:
                     self.log.log("Registration failed")
-                    self.conn.sendall("Errore nella registrazione".encode('utf-16'))
+                    #Send to the client that the request has failed
+                    self.conn.send("Errore nella registrazione".encode('utf-16'))
+            #If the first part is 2, the client want login
             elif msgs[0] == '2':
                 self.log.log("A client want to login")
                 print("Login")
-                print("Ip del client: " + self.ip)
+                #Splitting the second part of message in order to obtain all the informations needed to login
                 param = msgs[1].split(',')
                 response = ""
                 #Check if this user is already Logged In
                 if self.ip in self.OnlineClients.values:
                     response = "?|"+str(-1)
+                #Otherwise control if the parameter sended are correct
                 elif self.DB.userIsPresent(*param) == 1:
+                    #Inform the client that from now he is logged in
                     response = "?|"+str(1)
+                    #Adding the client to the list of active users
                     self.OnlineClients[param[0]] = self.ip
                 else:
+                    #Inform the client that the login has failed
                     response = "?|"+str(0)
+                #Sending the result of the login to the client
                 self.conn.send(response.encode('utf-16'))
-                print(self.OnlineClients)
+                self.log.log("Active users: "+str(self.OnlineClients))
             elif msgs[0] == '3':
+
                 self.log.log("A client want to find another user")
                 print("Richiesta di utente online")
                 response = ""

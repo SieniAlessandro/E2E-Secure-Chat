@@ -17,12 +17,17 @@ class Server:
         self.Log = Log()
         print ("Server iniziallizato")
         self.Log.log("Server Initialized")
-    def listen(self):
+    def start(self):
+        #Listen continously 
         while True:
             self.server.listen(50)
             self.Log.log("Waiting for connections...")
             print ("In attesa di richieste...")
+            #Obtaining the parameters like the socket and the address/port of the incoming connection
             (conn, (ip,port)) = self.server.accept()
+            #Creating a new thread able to handle the new connection with the client
             newClient = ClientHandler(conn,ip,port,self.DB,self.Users,self.Log);
+            #Starting the new thread
             newClient.start();
+            #Appending the new thread to the list of active thread in order to manage them if it is necessary
             self.Threads.append(newClient);

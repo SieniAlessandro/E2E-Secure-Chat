@@ -6,13 +6,13 @@ class Client:
     BUFFER_SIZE = 2048
     PORT_P2P = 7000
     PORT_SERVER = 6000
-    HOST_SERVER = '10.102.8.250'
+    HOST_SERVER = '10.102.19.29'
 
     socketClient = {}
 
     def __init__(self, hostServer, portServer):
-        self.hostServer = HOST_SERVER #IPv4 Address of the server
-        self.portServer = PORT_SERVER
+        self.hostServer = self.HOST_SERVER #IPv4 Address of the server
+        self.portServer = self.PORT_SERVER
 
     #Functions to communicate with Server#
     def sendServer(self, text):

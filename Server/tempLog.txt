@@ -1,1 +1,5 @@
-2018-10-09 18:10:40	ciao
+2018-10-10 08:33:26	Server Initialized
+2018-10-10 08:33:26	Waiting for connections...
+2018-10-10 08:34:56	Client handled has address: 10.102.19.29 and port 52632
+2018-10-10 08:34:56	Waiting for connections...
+2018-10-10 08:35:15	Client disconnected, closing this thread
