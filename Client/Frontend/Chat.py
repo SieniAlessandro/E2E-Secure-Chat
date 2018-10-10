@@ -51,13 +51,10 @@ class chatWindow(Frame):
 
     def createWidgets(self, background, chatName ):
         self.chatName.set(chatName)
-        self.canvas = Canvas(self,  highlightbackground="yellow", highlightcolor="yellow", highlightthickness=2)
+        self.canvas = Canvas(self, scrollregion=(0,0,500,500), highlightbackground="yellow", highlightcolor="yellow", highlightthickness=2)
         self.canvasFrame = Frame(self.canvas, highlightbackground="red", highlightcolor="red", highlightthickness=2)
-        self.canvasFrame.columnconfigure(0, weight=30)
-        self.canvasFrame.columnconfigure(1, weight=40)
-        self.canvasFrame.columnconfigure(2, weight=30)
 
-        verticalScrollbar = Scrollbar(self.canvasFrame, orient="vertical", command=self.canvas.yview)
+        verticalScrollbar = Scrollbar(self, orient="vertical", command=self.canvas.yview)
         self.canvas.config(yscrollcommand=verticalScrollbar.set)
 
         chatBar = Frame(self, height=50, bg = background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
@@ -65,15 +62,14 @@ class chatWindow(Frame):
         chatBar.pack( side="top", fill=X)
         chatNameLabel.grid(row=0, sticky=W, padx=10, pady=5)
 
-        # verticalScrollbar.pack(side="right", fill="y", expand=True)
-        self.canvas.grid_propagate(False)
         self.canvas.columnconfigure(0, weight=10)
-        self.canvasFrame.grid(column=0, sticky=N+S+W+E)
-        verticalScrollbar.grid(column = 1, sticky=N+S)
-        self.canvas.pack(side="top", fill="both", expand=True)
         self.canvas.create_window((0,0), window=self.canvasFrame, anchor='nw')
+        self.canvas.pack(side=LEFT,expand=True, fill=BOTH)
+
+        verticalScrollbar.pack(side="right", fill="y")
+        self.canvasFrame.pack( fill="both", expand=True)
         self.canvasFrame.bind("<Configure>", self.updateCanvas)
-        print(self.canvas.grid_size())
+        print(verticalScrollbar.pack_info())
 
     def addBoxMessageElement(self, message):
         timeString = str(datetime.datetime.now()).split('.')[0].split(' ')[1][:-3]
@@ -86,7 +82,7 @@ class chatWindow(Frame):
         print(self.listMessage)
         if len(self.listMessage) > 0:
             for m in self.listMessage:
-                m.grid_forget()
+                m.pack_forget()
             self.listMessage.clear()
 
 class BoxMessage(Frame):
@@ -95,13 +91,12 @@ class BoxMessage(Frame):
         self.message = StringVar()
         self.arrivalTime = StringVar()
         self.isMine = True
-
-        self.columnconfigure(0, weight=20)
-        self.columnconfigure(1, weight=1)
+        self.pack(fill='x')
 
     def createWidgets(self, message, arrivalTime, isMine):
-        messageLabel = Message(self, aspect=350, textvariable=self.message, padx=5, pady=2, fg='white')
-        arrivalTimeLabel = Label(self, textvariable=self.arrivalTime, padx=5, pady=2, fg='white')
+        rowFrame = Frame(self)
+        messageLabel = Message(rowFrame, aspect=350, textvariable=self.message, padx=5, pady=2, fg='white')
+        arrivalTimeLabel = Label(rowFrame, textvariable=self.arrivalTime, padx=5, pady=2, fg='white')
 
         self.message.set(message)
         self.arrivalTime.set(arrivalTime)
@@ -113,12 +108,12 @@ class BoxMessage(Frame):
         backgroundMine = '#7070db'
         backgroundIts = '#24248f'
         if isMine:
-            self.grid(column=2, sticky=E, padx=10, pady=5)
-            self.configure(background=backgroundMine)
+            rowFrame.pack(side='right', fill='x', padx=10, pady=5)
+            rowFrame.configure(background=backgroundMine)
             messageLabel.configure(background=backgroundMine)
             arrivalTimeLabel.configure(background=backgroundMine)
         else:
-            self.grid(column=0, sticky=W, padx=10, pady=5)
-            self.configure(background=backgroundIts)
+            rowFrame.pack(side='left', fill='x', padx=10, pady=5)
+            rowFrame.configure(background=backgroundIts)
             messageLabel.configure(background=backgroundIts)
             arrivalTimeLabel.configure(background=backgroundIts)
