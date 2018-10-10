@@ -1,8 +1,8 @@
 #from socket import AF_INET, socket, SOCK_STREAM
 import socket
 import datetime
-import MessageHandler
 from threading import Thread
+from MessageHandler import *
 
 class Client:
     BUFFER_SIZE = 2048
@@ -80,8 +80,8 @@ class Client:
         if msg == 1 :
             print('Login done succesfully')
             #retrieveMessage()
-#            mh = MessageHandler()
-#            mh.start()
+            mh = MessageHandler()
+            mh.start()
         elif msg == 0 :
             print('Wrong Username or Password')
         elif msg == -1 :
@@ -142,18 +142,22 @@ class Client:
             except OSError: #The other client could have left the chat
                 #the Thread that listens can put to do something else or closed
                 break
+
+
+
+
 '''
     def sendClient(self, receiver, text, event=None):  # event is passed by binders of the tkinter GUI automatically
-        #Handles sending of messages
-        if self.socketClient[receiver] is None :
+       #Handles sending of messages
+        if not receiver is in self.socketClient.keys() :
             msg = startConnection(receiver)
             if msg == '0' : #client offline
                 self.socketClient[receiver] = 'server'
             elif msg == '1' : #client online, connection established correctly
                 print('Connection established with ' + receiver)
-                self.socketClient[receiver].send(text.encode('utf-16'))
-        elif self.socketClient[receiver] == 'server' :
-            sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])
+                #self.socketClient[receiver].send(text.encode('utf-16'))
+        if self.socketClient[receiver] == 'server' :
+            self.sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])
         else :
             self.socketClient[receiver].send(text.encode('utf-16'))
 
