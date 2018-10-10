@@ -1,3 +1,6 @@
 from Server import Server
 s = Server(6000)
-s.start()
+try:
+    s.start()
+except KeyboardInterrupt:
+    s.close()
