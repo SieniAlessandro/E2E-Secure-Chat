@@ -5,6 +5,7 @@ from ClientHandler import *
 from Log import *
 import signal, os
 from os import system, name
+import sys
 
 class Server:
     def __init__(self,port):
@@ -18,6 +19,7 @@ class Server:
         self.server.bind((self.ip,self.port))
         self.DB = Database('localhost',3306,'root','rootroot','messaggistica_mps');
         self.Log = Log()
+        self.state = 1
         print ("Server iniziallizato")
         self.Log.log("Server Initialized")
     def start(self):
@@ -55,7 +57,8 @@ class Server:
                 print("Actually i can't ban any user")
             else:
                 print("Ok i'll close the server")
-                self.close()
+                
+                return
     def close(self):
         self.Log.log("Server Closed")
         for conn in self.sockets:

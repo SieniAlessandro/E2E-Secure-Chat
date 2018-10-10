@@ -25,7 +25,8 @@ class ClientHandler(Thread):
                 self.log.log("Client disconnected, closing this thread")
                 #print("Client disconnesso")
                 if self.ip in self.OnlineClients.values():
-                    del self.OnlineClients[self.ip]
+                    sender = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip)]
+                    del self.OnlineClients[sender]
                 return -1
             #Decoding the received data to obtain a string
             msg = data.decode('utf-16')

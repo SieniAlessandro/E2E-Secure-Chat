@@ -131,5 +131,5 @@ class Database:
 
     #At the end of the execetion the server close the connection with the database invoking this method
 
-    def close_connection():
+    def close_connection(self):
         self.db.close()
