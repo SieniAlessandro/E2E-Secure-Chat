@@ -7,7 +7,7 @@ from MessageHandler import *
 class Client:
     BUFFER_SIZE = 2048
     PORT_SERVER = 6000
-    HOST_SERVER = '10.102.19.29'
+    HOST_SERVER = '127.0.0.1'#'10.102.19.29'
 
     socketClient = {}
 
@@ -91,7 +91,7 @@ class Client:
 
     def startConnection(self, receiver):
         self.sendServer('3|' + receiver)
-        value = self.receiveServer(socket.AF_INET, socket.SOCK_STREAM)
+        value = self.receiveServer()
         msg = ''
         if value.isdigit() :
             if value == '0' :
@@ -119,8 +119,8 @@ class Client:
 
     def sendClient(self, receiver, text, event=None):  # event is passed by binders of the tkinter GUI automatically
        #Handles sending of messages
-        if not receiver is in self.socketClient.keys() :
-            msg = startConnection(receiver)
+        if not receiver in self.socketClient.keys() :
+            msg = self.startConnection(receiver)
             if msg == '0' : #client offline
                 self.socketClient[receiver] = 'server'
             elif msg == '1' : #client online, connection established correctly

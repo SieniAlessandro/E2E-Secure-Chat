@@ -27,7 +27,7 @@ while(continua) :
         text = str(input('inserire il testo da inviare : '))
         a.sendClient(receiver, text)
     elif x == 0 :
-        continua = not continua
+        break
 #while MESSAGE != 'exit':
 
 #a.register('nuovoUser','pwd','pippo','gianfilippo','pippo@mail.com','0')
