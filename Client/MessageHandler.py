@@ -1,5 +1,5 @@
 import socket
-from threading import Thread
+from threading import *
 
 class MessageHandler(Thread) :
     MSG_LEN = 2048
