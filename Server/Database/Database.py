@@ -54,6 +54,7 @@ class Database:
             print ("Error in the message insertion query")
             return -1
     def getMessageByReceiver(self,receiver):
+<<<<<<< HEAD
         query = "SELECT Sender,Receiver,Text,Time FROM message WHERE Receiver = '%s'" %(receiver)
         msg = []
         try:
@@ -74,6 +75,20 @@ class Database:
             self.db.rollback()
             print ("Error in the message insertion query")
             return -1
+=======
+        query = "SELECT * FROM message WHERE Receiver = '%s'" %(receiver)
+        try:
+            #Executing the query
+            self.cursor.execute(query)
+            #Commit the changes to the databes
+            self.db.commit()
+            return 0
+        except:
+            #rollback to the previous operations
+                self.db.rollback()
+                print ("Error in the message insertion query")
+                return -1
+>>>>>>> 1b04eee9844853c783cd3c1c8570bb8799460928
 
     def userIsPresent(self,_user,_password):
         query = "SELECT * from user where UserName = '%s' AND Password = '%s' " % (_user,_password)

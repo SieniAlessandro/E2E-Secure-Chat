@@ -13,7 +13,5 @@ canvas.config(width=300,height=300)
 canvas.config(xscrollcommand=hbar.set, yscrollcommand=vbar.set)
 canvas.pack(side=LEFT,expand=True,fill=BOTH)
 
-for i in range(20):
-    Entry(canvas).pack()
 
 root.mainloop()

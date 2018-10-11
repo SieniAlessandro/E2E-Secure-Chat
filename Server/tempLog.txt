@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2018-10-11 11:14:26	Server Initialized
 2018-10-11 11:14:26	Waiting for connections...
 2018-10-11 11:14:31	Client handled has address: 10.102.6.169 and port 50206
@@ -12,3 +13,13 @@
 2018-10-11 11:14:53	Active users: {'L': '10.102.6.169'}
 2018-10-11 11:14:53	There are several messages to be sended: ^/
 2018-10-11 11:14:53	Client disconnected, closing this thread
+=======
+2018-10-11 10:20:26	Server Initialized
+2018-10-11 10:20:26	Waiting for connections...
+2018-10-11 10:20:55	Client handled has address: 10.102.6.169 and port 50068
+2018-10-11 10:20:55	Waiting for connections...
+2018-10-11 10:21:02	A client want to login
+2018-10-11 10:21:02	Active users: {'user': '10.102.6.169'}
+2018-10-11 10:21:16	A client want to find another user
+2018-10-11 10:21:16	The user has a massage to be stored on the DB :
+>>>>>>> 1b04eee9844853c783cd3c1c8570bb8799460928

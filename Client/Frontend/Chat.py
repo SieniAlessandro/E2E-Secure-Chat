@@ -46,34 +46,17 @@ class chatWindow(Frame):
         self.rowconfigure(1, weight=8)
         self.grid(row=0, column=1, sticky=N+S+W+E)
 
-    def updateCanvas(self, event):
-        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
-
     def createWidgets(self, background, chatName ):
         self.chatName.set(chatName)
-        self.canvas = Canvas(self, scrollregion=(0,0,500,500), highlightbackground="yellow", highlightcolor="yellow", highlightthickness=2)
-        self.canvasFrame = Frame(self.canvas, highlightbackground="red", highlightcolor="red", highlightthickness=2)
-
-        verticalScrollbar = Scrollbar(self, orient="vertical", command=self.canvas.yview)
-        self.canvas.config(yscrollcommand=verticalScrollbar.set)
 
         chatBar = Frame(self, height=50, bg = background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         chatNameLabel = Label(chatBar, textvariable=self.chatName, font = ( "Default", 10, "bold"), bg = background, fg='white')
         chatBar.pack( side="top", fill=X)
         chatNameLabel.grid(row=0, sticky=W, padx=10, pady=5)
 
-        self.canvas.columnconfigure(0, weight=10)
-        self.canvas.create_window((0,0), window=self.canvasFrame, anchor='nw')
-        self.canvas.pack(side=LEFT,expand=True, fill=BOTH)
-
-        verticalScrollbar.pack(side="right", fill="y")
-        self.canvasFrame.pack( fill="both", expand=True)
-        self.canvasFrame.bind("<Configure>", self.updateCanvas)
-        print(verticalScrollbar.pack_info())
-
     def addBoxMessageElement(self, message):
         timeString = str(datetime.datetime.now()).split('.')[0].split(' ')[1][:-3]
-        boxMessage = BoxMessage(self.canvasFrame)
+        boxMessage = BoxMessage(self, self['bg'])
         boxMessage.createWidgets( message, timeString , random.choice([True, False]))
         self.listMessage.append(boxMessage)
 
@@ -86,8 +69,8 @@ class chatWindow(Frame):
             self.listMessage.clear()
 
 class BoxMessage(Frame):
-    def __init__(self, master):
-        Frame.__init__(self, master, padx=3, pady=3)
+    def __init__(self, master, background):
+        Frame.__init__(self, master, padx=3, pady=3, bg=background )
         self.message = StringVar()
         self.arrivalTime = StringVar()
         self.isMine = True
