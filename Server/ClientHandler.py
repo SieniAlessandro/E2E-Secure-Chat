@@ -10,6 +10,7 @@ class ClientHandler(Thread):
         self.ip = ip
         self.port = port
         self.conn = Conn
+        self.ClientPort = 0
         self.DB = db
         self.OnlineClients = clients
         self.log = Log
@@ -27,22 +28,18 @@ class ClientHandler(Thread):
             #Check if the connection is closed analyzing the data (0 means that is close)
             if not data:
                 self.log.log("Client disconnected, closing this thread")
-                #print("Client disconnesso")
-                if self.ip in self.OnlineClients.values():
-                    sender = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip+"|"+str(self.port))]
+                if self.ip+":"+str(self.ClientPort)+"|"+str(self.port) in self.OnlineClients.values():
+                    sender = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip+":"+str(self.ClientPort)+"|"+str(self.port))]
                     del self.OnlineClients[sender]
                 return -1
             #Decoding the received data to obtain a string
             msg = data.decode('utf-16')
-
-            #print ("Message received: "+msg)
 
             #Spliting the whole message to retrieve the type of request and the content of that request
             msgs = msg.split('|')
             #If the first part is 1, the client want to register as new user
             if msgs[0] == "1":
                 self.log.log("A client want to register")
-                #print ("Registrazione")
                 #Splitting the second part of message in order to obtain all the informations needed to register a new user
                 param = msgs[1].split(',')
                 #Use of the class Database with the appropriate method to insert the new user, checking if the insertion
@@ -50,7 +47,6 @@ class ClientHandler(Thread):
                 if (self.DB.insert_user(*param) == 0):
                     self.log.log("Registration succeded")
                     #Send to the client that the request has succeded
-                    #self.conn.send(("Ti ho registrato "+param[0]).encode('utf-16'))
                     self.conn.send(("-|1").encode("utf-16"))
                 else:
                     self.log.log("Registration failed")
@@ -59,26 +55,31 @@ class ClientHandler(Thread):
             #If the first part is 2, the client want login
             elif msgs[0] == '2':
                 self.log.log("A client want to login")
-                #print("Login")
                 #Splitting the second part of message in order to obtain all the informations needed to login
                 param = msgs[1].split(',')
                 response = ""
+                params = param[:2]
+                self.ClientPort = param[2]
+                print(params)
+                print(self.ClientPort)
                 #Check if this user is already Logged In
-                if self.ip+"|"+str(self.port) in self.OnlineClients.values():
+                if self.ip+":"+str(self.ClientPort)+"|"+str(self.port) in self.OnlineClients.values():
                     response = "?|"+str(-1)
                 #Otherwise control if the parameter sended are correct
-                elif self.DB.userIsPresent(*param) == 1:
+
+                elif self.DB.userIsPresent(*params) == 1:
                     #Inform the client that from now he is logged in
                     response = "?|"+str(1)
+                    self.ClientPort = param[-1]
                     #Adding the client to the list of active users
-                    self.OnlineClients[param[0]] = self.ip+"|"+str(self.port)
+                    self.OnlineClients[param[0]] = self.ip+":"+str(self.ClientPort)+"|"+str(self.port)
                 else:
                     #Inform the client that the login has failed
                     response = "?|"+str(0)
                 #Sending the result of the login to the client
                 self.conn.send(response.encode('utf-16'))
                 self.log.log("Active users: "+str(self.OnlineClients))
-                user = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip+"|"+str(self.port))]
+                user = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip+":"+str(self.ClientPort)+"|"+str(self.port))]
                 msg = self.DB.getMessageByReceiver(user)
                 if not msg:
                     self.log.log("There are no message for this server")
