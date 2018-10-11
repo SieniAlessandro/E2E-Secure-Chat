@@ -93,7 +93,8 @@ class ClientHandler(Thread):
                         response = "!|"+str(0)
                 self.conn.send(response.encode('utf-16'))
             elif msgs[0] == '4':
-                self.log.log(str(threading.get_ident())+"The user has a massage to be stored on the DB")
+                self.log.log("The user has a massage to be stored on the DB")
                 param = msgs[1].split(',')
                 sender = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip)]
-                print(sender)
+                info = [sender] + param
+                self.DB.insert_message(*info)
