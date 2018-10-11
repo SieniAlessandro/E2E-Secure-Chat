@@ -14,7 +14,12 @@ class MessageHandler(Thread) :
         self.socketListener.bind((self.ip,self.port))
 
     def receiveMessage(self, conn) :
-        user = conn.recv(self.MSG_LEN)
+        print('Started the thread')
+        try :
+            user = conn.recv(self.MSG_LEN)
+            print('Connection started with ' + user)
+        except :
+            print('An exception is occurred')
         while True:
             msg = conn.recv(self.MSG_LEN)
             msg = msg.decode('utf-16')
@@ -26,4 +31,5 @@ class MessageHandler(Thread) :
         while True :
             self.socketListener.listen(50)
             (conn, (ip,port)) = self.socketListener.accept()
+            print('Accepted a new connecion')
             threading.Thread(target=self.receiveMessage, args={conn})
