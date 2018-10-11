@@ -1,4 +1,5 @@
 from client import Client
+import os
 
 host = '10.102.8.250'
 port = 6000
@@ -27,7 +28,8 @@ while(continua) :
         text = str(input('inserire il testo da inviare : '))
         a.sendClient(receiver, text)
     elif x == 0 :
-        break
+        print('Exiting...')
+        os._exit(0)
 #while MESSAGE != 'exit':
 
 #a.register('nuovoUser','pwd','pippo','gianfilippo','pippo@mail.com','0')

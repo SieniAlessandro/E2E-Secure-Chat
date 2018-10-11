@@ -18,7 +18,7 @@ class MessageHandler(Thread) :
         while True:
             msg = conn.recv(self.MSG_LEN)
             msg = msg.decode('utf-16')
-            print(user + 'send' + msg)
+            print(user + ' send : ' + msg)
             #send to Amedeo
 
     def run(self) :

@@ -7,7 +7,8 @@ from MessageHandler import *
 class Client:
     BUFFER_SIZE = 2048
     PORT_SERVER = 6000
-    HOST_SERVER = '127.0.0.1'#'10.102.19.29'
+    PORT_P2P = 7000
+    HOST_SERVER = '10.102.28.99'#'127.0.0.1'
 
     socketClient = {}
 
@@ -24,13 +25,21 @@ class Client:
         else:
             print('Message sent to server correctly')
 
-    def connectServer(self):
-        try:
+    def connectServer(self) :
+        try :
             self.socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socketServer.connect((self.hostServer, self.portServer))
-        except:
+        except :
             print('connection refused, the server is down!\n We apologize for the inconvenient')
             return
+
+    def retrieveMessage(self, msgs) :
+        msg = msgs.split('^/')
+        for x in msg :
+            block = x.split('/^')
+            print('sender :' + block[0])
+            print('text : ' + block[1])
+            print('time : ' + block[2])
 
     def receiveServer(self):
         ret = self.socketServer.recv(self.BUFFER_SIZE)
@@ -42,18 +51,22 @@ class Client:
             msg = ret.decode('utf-16')
             msgs = msg.split('|')
             identifier = msgs[0]
-            value = msgs[1]
+            if(len(msgs) > 1) :
+                value = msgs[1]
             if identifier.isdigit():
                 if int(identifier) > 0 :
-                    #retrieveMessage(msgs[1]);
-                    print('message pending in the server')
+                    print('There are messages pending in the server')
+                    self.retrieveMessage(msgs[1]);
                 else :
-                    print('no message for you')
+                    print('There are no messages for you')
+                return 'success'
             elif identifier == '!' :
                 return value
             elif identifier == '?' :
                 return value
             elif identifier == '-' :
+                return value
+            elif identifier == '.' :
                 return value
             else :
                 return identifier
@@ -79,7 +92,9 @@ class Client:
         msg = int(self.receiveServer())
         if msg == 1 :
             print('Login done succesfully')
-            #retrieveMessage()
+
+            self.receiveServer()
+
             mh = MessageHandler()
             mh.start()
         elif msg == 0 :
@@ -103,7 +118,7 @@ class Client:
                 msg = 'Error: you can not connect with yourself'
         else :
             ip = value
-            msg = receiver + 'has IP: ' + value
+            msg = receiver + ' has IP: ' + value
         print(msg)
         if not value.isdigit() :
             self.socketClient[receiver] = socket.socket()
@@ -113,12 +128,17 @@ class Client:
         return -1
 
     def sendMessageOffline(self, receiver, text, time):
-        self.sendServer('4|' + receiver + ',' + text + ',' + time)
+        self.sendServer('4|' + receiver + '/^' + text + '/^' + time)
         msg = self.receiveServer()
-        print(msg)
+        if msg == 1:
+            print('Message send correctly')
+        elif msg == 0:
+            print('Error in the database! Try again later!')
+        print('Messaggio inviato al server e salvato sul server')
 
     def sendClient(self, receiver, text, event=None):  # event is passed by binders of the tkinter GUI automatically
        #Handles sending of messages
+        print('Il messaggio da inviare è ' + text)
         if not receiver in self.socketClient.keys() :
             msg = self.startConnection(receiver)
             if msg == 0 : #client offline
