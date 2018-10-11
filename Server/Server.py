@@ -36,7 +36,7 @@ class Server:
             #Creating a new thread able to handle the new connection with the client
             newClient = ClientHandler(conn,ip,port,self.DB,self.Users,self.Log);
             #Starting the new thread
-            newClient.start();
+            newClient.start()
             #Appending the new thread to the list of active thread in order to manage them if it is necessary
             self.Threads.append(newClient);
             self.sockets.append(conn)
@@ -54,7 +54,7 @@ class Server:
                     print ("There are no online users")
                 else:
                     for user,addr in zip(self.Users.values(),self.Users.keys()):
-                        print("User: "+str(user)+" has address: "+str(addr))
+                        print("User: "+str(user)+" has address: "+addr.split("|")[0])
             elif choice == 2:
                 print ("Actually there are "+str(len(self.Threads)) +" working threads")
             elif choice == 3:

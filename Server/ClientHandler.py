@@ -17,9 +17,14 @@ class ClientHandler(Thread):
         self.log.log("Client handled has address: "+ self.ip +" and port "+str(self.port))
     #Method whose listen the message coming from the handled client,showing its content
     def run(self):
+        "Function waiting for the message coming from the associate client"
         while True:
             #Receiving the data from the handled client
-            data = self.conn.recv(self.MSG_LEN)
+            try:
+                data = self.conn.recv(self.MSG_LEN)
+            except ConnectionResetError:
+                self.log.log("Client had a problem, connection closed")
+                return -1
             #Check if the connection is closed analyzing the data (0 means that is close)
             if not data:
                 self.log.log("Client disconnected, closing this thread")
@@ -90,16 +95,20 @@ class ClientHandler(Thread):
                 #print("Richiesta di utente online")
                 response = ""
                 #Check if the clients is logged in
-                if self.ip not in self.OnlineClients.values():
+                if self.ip+"|"+str(self.port) not in self.OnlineClients.values():
+                    self.log.log("Cannot found the associate user")
                     response = "!|"+str(-1)
                 else:
                     if msgs[1] in self.OnlineClients.keys():
                         #Check if the client asks for its own import ip
                         if self.OnlineClients[msgs[1]] == (self.ip+"|"+str(self.port)):
+                            self.log.log("The user want to talk with himself")
                             response = "!|"+str(-2)
                         #Otherwise the server provide the ip of the client
                         else:
-                            response = "!|"+self.OnlineClients[msgs[1]]
+
+                            response = "!|"+self.OnlineClients[msgs[1]].split("|")[0]
+                            self.log.log("Ip found:"+response)
                     else:
                         response = "!|"+str(0)
                 self.conn.send(response.encode('utf-16'))
