@@ -1,2 +1,8 @@
-2018-10-10 15:30:16	Server Initialized
-2018-10-10 15:30:16	Waiting for connections...
+2018-10-11 10:20:26	Server Initialized
+2018-10-11 10:20:26	Waiting for connections...
+2018-10-11 10:20:55	Client handled has address: 10.102.6.169 and port 50068
+2018-10-11 10:20:55	Waiting for connections...
+2018-10-11 10:21:02	A client want to login
+2018-10-11 10:21:02	Active users: {'user': '10.102.6.169'}
+2018-10-11 10:21:16	A client want to find another user
+2018-10-11 10:21:16	The user has a massage to be stored on the DB :
