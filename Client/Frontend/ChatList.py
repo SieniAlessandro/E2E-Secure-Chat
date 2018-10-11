@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
-from Chat import chatWindow as cw
+from ChatWindow import ChatWindow as cw
 
 class ChatList(Frame):
 
