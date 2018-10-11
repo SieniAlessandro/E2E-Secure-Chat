@@ -25,7 +25,7 @@ class ClientHandler(Thread):
                 self.log.log("Client disconnected, closing this thread")
                 #print("Client disconnesso")
                 if self.ip in self.OnlineClients.values():
-                    sender = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip)]
+                    sender = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip+"|"+str(self.port))]
                     del self.OnlineClients[sender]
                 return -1
             #Decoding the received data to obtain a string
@@ -60,20 +60,31 @@ class ClientHandler(Thread):
                 param = msgs[1].split(',')
                 response = ""
                 #Check if this user is already Logged In
-                if self.ip in self.OnlineClients.values():
+                if self.ip+"|"+str(self.port) in self.OnlineClients.values():
                     response = "?|"+str(-1)
                 #Otherwise control if the parameter sended are correct
                 elif self.DB.userIsPresent(*param) == 1:
                     #Inform the client that from now he is logged in
                     response = "?|"+str(1)
                     #Adding the client to the list of active users
-                    self.OnlineClients[param[0]] = self.ip
+                    self.OnlineClients[param[0]] = self.ip+"|"+str(self.port)
                 else:
                     #Inform the client that the login has failed
                     response = "?|"+str(0)
                 #Sending the result of the login to the client
                 self.conn.send(response.encode('utf-16'))
                 self.log.log("Active users: "+str(self.OnlineClients))
+                user = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip+"|"+str(self.port))]
+                msg = self.DB.getMessageByReceiver(user)
+                if not msg:
+                    self.log.log("There are no message for this server")
+                    self.conn.send("0".encode('utf-16'))
+                else:
+                    self.log.log("There are several messages to be sended: "+ str(msg))
+                    lens = len(msg.split("^/"))
+                    self.conn.send((str(lens)+"|"+str(msg)).encode('utf-16'))
+
+                self.conn.send("0".encode('utf-16'))
             elif msgs[0] == '3':
                 self.log.log("A client want to find another user")
                 #print("Richiesta di utente online")
@@ -84,7 +95,7 @@ class ClientHandler(Thread):
                 else:
                     if msgs[1] in self.OnlineClients.keys():
                         #Check if the client asks for its own import ip
-                        if self.OnlineClients[msgs[1]] == self.ip:
+                        if self.OnlineClients[msgs[1]] == (self.ip+"|"+str(self.port)):
                             response = "!|"+str(-2)
                         #Otherwise the server provide the ip of the client
                         else:
@@ -93,8 +104,11 @@ class ClientHandler(Thread):
                         response = "!|"+str(0)
                 self.conn.send(response.encode('utf-16'))
             elif msgs[0] == '4':
-                self.log.log("The user has a massage to be stored on the DB")
-                param = msgs[1].split(',')
-                sender = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip)]
+                self.log.log("The user has a massage to be stored on the DB :")
+                param = msgs[1].split('/^')
+                sender = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip+"|"+str(self.port))]
                 info = [sender] + param
-                self.DB.insert_message(*info)
+                if self.DB.insert_message(*info) == 0:
+                    self.conn.send(".|1".encode('utf-16'))
+                else:
+                    self.conn.send(".|0".encode('utf-16'))

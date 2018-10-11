@@ -14,7 +14,6 @@ class Database:
         self.cursor = self.db.cursor()
 
 
-
     def insert_user(self,user,password,name,surname,email,key):
         """This method allows us to insert a new user a is invoked when a new user has completed the registration form on
         the client application"""
@@ -49,6 +48,27 @@ class Database:
             #Commit the changes to the databes
             self.db.commit()
             return 0
+        except:
+            #rollback to the previous operations
+            self.db.rollback()
+            print ("Error in the message insertion query")
+            return -1
+    def getMessageByReceiver(self,receiver):
+        query = "SELECT Sender,Receiver,Text,Time FROM message WHERE Receiver = '%s'" %(receiver)
+        msg = []
+        try:
+            #Executing the query
+            self.cursor.execute(query)
+            rows = self.cursor.fetchall()
+
+            for row in rows:
+                #print(str(row[-1]))
+                msg_t = [str(i) for i in row]
+                #print(msg_t)
+                msg.append('/^'.join(msg_t))
+            msg = str('^/'.join(msg))
+            print(msg)
+            return msg
         except:
             #rollback to the previous operations
             self.db.rollback()

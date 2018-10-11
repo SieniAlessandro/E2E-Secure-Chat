@@ -1,9 +1,14 @@
-2018-10-10 15:44:39	Server Initialized
-2018-10-10 15:44:39	Waiting for connections...
-2018-10-10 15:45:23	Client handled has address: 10.102.6.169 and port 53582
-2018-10-10 15:45:23	Waiting for connections...
-2018-10-10 15:45:26	A client want to login
-2018-10-10 15:45:26	Active users: {'l': '10.102.6.169'}
-2018-10-10 15:45:30	A client want to find another user
-2018-10-10 15:45:30	The user has a massage to be stored on the DB
-2018-10-10 15:56:19	Server Closed
+2018-10-11 11:14:26	Server Initialized
+2018-10-11 11:14:26	Waiting for connections...
+2018-10-11 11:14:31	Client handled has address: 10.102.6.169 and port 50206
+2018-10-11 11:14:31	Waiting for connections...
+2018-10-11 11:14:33	A client want to login
+2018-10-11 11:14:33	Active users: {'l': '10.102.6.169'}
+2018-10-11 11:14:33	There are several messages to be sended: ^/
+2018-10-11 11:14:33	Client disconnected, closing this thread
+2018-10-11 11:14:47	Client handled has address: 10.102.6.169 and port 50207
+2018-10-11 11:14:47	Waiting for connections...
+2018-10-11 11:14:53	A client want to login
+2018-10-11 11:14:53	Active users: {'L': '10.102.6.169'}
+2018-10-11 11:14:53	There are several messages to be sended: ^/
+2018-10-11 11:14:53	Client disconnected, closing this thread

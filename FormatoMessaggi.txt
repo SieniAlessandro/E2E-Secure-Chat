@@ -22,7 +22,7 @@ userIsPresent
 
 Messaggio
 
-4|Receiver,Text,Time
+4|Receiver/^Text/^Time
 
 
 ----------------------------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ Formato Server->Client
 
 0 = Nessun Messaggio in attesa per te
 
-N|<sender,message,time>;.... = N = numero di messaggi da inviare e tuple di messaggi
+N|sender/^message/^time^/.... = N = numero di messaggi da inviare e tuple di messaggi
 
 
 !|<ip> = Risposta se il client è online o meno (
@@ -46,3 +46,6 @@ N|<sender,message,time>;.... = N = numero di messaggi da inviare e tuple di mess
 
 -|1 Registrazione Ok
 -|0 Registrazione Fallita
+
+.|1 Messaggio salvato correttamente
+.|0 Messaggio non salvato
