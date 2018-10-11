@@ -10,7 +10,7 @@ Registrazione
 
 login
 
-2|username,password
+2|username,password,porta
 
 -----
 
@@ -22,7 +22,7 @@ userIsPresent
 
 Messaggio
 
-4|Receiver/^Text/^Time
+4|Sender/^Text/^Time
 
 
 ----------------------------------------------------------------------------------------------------
