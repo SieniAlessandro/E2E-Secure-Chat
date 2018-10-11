@@ -27,7 +27,6 @@ class ClientHandler(Thread):
             #Check if the connection is closed analyzing the data (0 means that is close)
             if not data:
                 self.log.log("Client disconnected, closing this thread")
-                #print("Client disconnesso")
                 if self.ip in self.OnlineClients.values():
                     sender = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip+"|"+str(self.port))]
                     del self.OnlineClients[sender]
@@ -35,14 +34,11 @@ class ClientHandler(Thread):
             #Decoding the received data to obtain a string
             msg = data.decode('utf-16')
 
-            #print ("Message received: "+msg)
-
             #Spliting the whole message to retrieve the type of request and the content of that request
             msgs = msg.split('|')
             #If the first part is 1, the client want to register as new user
             if msgs[0] == "1":
                 self.log.log("A client want to register")
-                #print ("Registrazione")
                 #Splitting the second part of message in order to obtain all the informations needed to register a new user
                 param = msgs[1].split(',')
                 #Use of the class Database with the appropriate method to insert the new user, checking if the insertion
@@ -50,7 +46,6 @@ class ClientHandler(Thread):
                 if (self.DB.insert_user(*param) == 0):
                     self.log.log("Registration succeded")
                     #Send to the client that the request has succeded
-                    #self.conn.send(("Ti ho registrato "+param[0]).encode('utf-16'))
                     self.conn.send(("-|1").encode("utf-16"))
                 else:
                     self.log.log("Registration failed")
@@ -58,8 +53,7 @@ class ClientHandler(Thread):
                     self.conn.send(("-|0").encode("utf-16"))
             #If the first part is 2, the client want login
             elif msgs[0] == '2':
-                self.log.log("A client want to login")
-                #print("Login")
+                self.log.log("A client want to login")  
                 #Splitting the second part of message in order to obtain all the informations needed to login
                 param = msgs[1].split(',')
                 response = ""
