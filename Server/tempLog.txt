@@ -1,19 +1,17 @@
-2018-10-11 12:45:24	Server Initialized
-2018-10-11 12:45:24	Waiting for connections...
-2018-10-11 12:45:24	Client handled has address: 10.102.6.169 and port 50372
-2018-10-11 12:45:24	Waiting for connections...
-2018-10-11 12:45:25	Client disconnected, closing this thread
-2018-10-11 12:45:27	Client handled has address: 10.102.6.169 and port 50374
-2018-10-11 12:45:27	Waiting for connections...
-2018-10-11 12:45:28	Client handled has address: 10.102.28.99 and port 58416
-2018-10-11 12:45:28	Waiting for connections...
-2018-10-11 12:45:32	A client want to login
-2018-10-11 12:45:32	Active users: {'user': '10.102.6.169|50374'}
-2018-10-11 12:45:32	There are several messages to be sended: l/^ciao/^2018-10-10 15:45:33
-2018-10-11 12:45:36	A client want to login
-2018-10-11 12:45:36	Active users: {'user': '10.102.6.169|50374', 'l': '10.102.28.99|58416'}
-2018-10-11 12:45:36	There are several messages to be sended: user/^ciao,..,.,.,.,.,.,.^ prova spazio/^2018-10-11 10:21:18^/user/^prova 2/^2018-10-11 11:00:08
-2018-10-11 12:45:44	A client want to find another user
-2018-10-11 12:45:44	Ip found:!|10.102.6.169
-2018-10-11 12:46:18	Client disconnected, closing this thread
-2018-10-11 12:46:23	Server Closed
+2018-10-11 12:51:15	Server Initialized
+2018-10-11 12:51:15	Waiting for connections...
+2018-10-11 12:51:15	Client handled has address: 10.102.6.169 and port 50386
+2018-10-11 12:51:15	Waiting for connections...
+2018-10-11 12:51:21	Client handled has address: 10.102.28.99 and port 58457
+2018-10-11 12:51:21	Waiting for connections...
+2018-10-11 12:51:30	A client want to login
+2018-10-11 12:51:30	Active users: {'l': '10.102.28.99|58457'}
+2018-10-11 12:51:30	There are several messages to be sended: user/^ciao,..,.,.,.,.,.,.^ prova spazio/^2018-10-11 10:21:18^/user/^prova 2/^2018-10-11 11:00:08
+2018-10-11 12:51:54	Client handled has address: 10.102.6.169 and port 50387
+2018-10-11 12:51:54	Waiting for connections...
+2018-10-11 12:52:00	A client want to login
+2018-10-11 12:52:00	Active users: {'l': '10.102.28.99|58457', 'user': '10.102.6.169|50387'}
+2018-10-11 12:52:00	There are several messages to be sended: l/^ciao/^2018-10-10 15:45:33
+2018-10-11 12:52:05	A client want to find another user
+2018-10-11 12:52:05	Ip found:!|10.102.28.99
+2018-10-11 12:53:09	Client had a problem, connection closed

@@ -13,7 +13,6 @@ class ClientHandler(Thread):
         self.DB = db
         self.OnlineClients = clients
         self.log = Log
-        #print ("Client gestito all'indirizzo "+ self.ip +" porta "+str(self.port))
         self.log.log("Client handled has address: "+ self.ip +" and port "+str(self.port))
     #Method whose listen the message coming from the handled client,showing its content
     def run(self):
