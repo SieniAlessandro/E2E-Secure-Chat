@@ -1,18 +1,21 @@
 import socket
-from threading import *
+import random
+import threading
+import client
+from threading import Thread
 
 
 class MessageHandler(Thread) :
     MSG_LEN = 2048
-    PORT_P2P = 7000
     #Constructor
     def __init__(self) :
         Thread.__init__(self)
         self.ip = "0.0.0.0"
-        self.port = self.PORT_P2P
+
         self.socketListener = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         self.socketListener.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
-        self.socketListener.bind((self.ip,self.port))
+        self.socketListener.bind((self.ip,self.portp2p))
+
 
     def receiveMessage(self, conn) :
         print('Started the thread')
