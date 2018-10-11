@@ -1,5 +1,6 @@
 import socket
 from threading import *
+import threading
 
 
 class MessageHandler(Thread) :
@@ -33,4 +34,4 @@ class MessageHandler(Thread) :
             self.socketListener.listen(50)
             (conn, (ip,port)) = self.socketListener.accept()
             print('Accepted a new connecion')
-            threading.Thread(target=self.receiveMessage, args={conn})
+            threading.Thread(target=self.receiveMessage, args=(conn))

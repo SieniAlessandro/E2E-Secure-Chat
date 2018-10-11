@@ -10,6 +10,7 @@ class ClientHandler(Thread):
         self.ip = ip
         self.port = port
         self.conn = Conn
+        self.ClientPort = 0
         self.DB = db
         self.OnlineClients = clients
         self.log = Log
@@ -27,8 +28,8 @@ class ClientHandler(Thread):
             #Check if the connection is closed analyzing the data (0 means that is close)
             if not data:
                 self.log.log("Client disconnected, closing this thread")
-                if self.ip in self.OnlineClients.values():
-                    sender = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip+"|"+str(self.port))]
+                if self.ip+":"+str(self.ClientPort)+"|"+str(self.port) in self.OnlineClients.values():
+                    sender = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip+":"+str(self.ClientPort)+"|"+str(self.port))]
                     del self.OnlineClients[sender]
                 return -1
             #Decoding the received data to obtain a string
@@ -53,26 +54,32 @@ class ClientHandler(Thread):
                     self.conn.send(("-|0").encode("utf-16"))
             #If the first part is 2, the client want login
             elif msgs[0] == '2':
-                self.log.log("A client want to login")  
+                self.log.log("A client want to login")
                 #Splitting the second part of message in order to obtain all the informations needed to login
                 param = msgs[1].split(',')
                 response = ""
+                params = param[:2]
+                self.ClientPort = param[2]
+                print(params)
+                print(self.ClientPort)
                 #Check if this user is already Logged In
-                if self.ip+"|"+str(self.port) in self.OnlineClients.values():
+                if self.ip+":"+str(self.ClientPort)+"|"+str(self.port) in self.OnlineClients.values():
                     response = "?|"+str(-1)
                 #Otherwise control if the parameter sended are correct
-                elif self.DB.userIsPresent(*param) == 1:
+
+                elif self.DB.userIsPresent(*params) == 1:
                     #Inform the client that from now he is logged in
                     response = "?|"+str(1)
+                    self.ClientPort = param[-1]
                     #Adding the client to the list of active users
-                    self.OnlineClients[param[0]] = self.ip+"|"+str(self.port)
+                    self.OnlineClients[param[0]] = self.ip+":"+str(self.ClientPort)+"|"+str(self.port)
                 else:
                     #Inform the client that the login has failed
                     response = "?|"+str(0)
                 #Sending the result of the login to the client
                 self.conn.send(response.encode('utf-16'))
                 self.log.log("Active users: "+str(self.OnlineClients))
-                user = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip+"|"+str(self.port))]
+                user = list(self.OnlineClients)[list(self.OnlineClients.values()).index(self.ip+":"+str(self.ClientPort)+"|"+str(self.port))]
                 msg = self.DB.getMessageByReceiver(user)
                 if not msg:
                     self.log.log("There are no message for this server")
