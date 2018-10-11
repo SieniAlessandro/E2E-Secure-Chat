@@ -34,4 +34,6 @@ chatList.addChatListElement("Rihanna","Ciao, domani vengo a trovarti!", "15:20")
 chatList.addChatListElement("Giggetto","Ciao, domani vengo a trovarti!", "15:20")
 chatList.addChatListElement("Giggiabaffa","Ciao, domani vengo a trovarti!", "15:20")
 
+
+
 root.mainloop()
