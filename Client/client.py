@@ -7,7 +7,7 @@ from MessageHandler import *
 class Client:
     BUFFER_SIZE = 2048
     PORT_SERVER = 6000
-    HOST_SERVER = '10.102.28.99'#'127.0.0.1'
+    HOST_SERVER = '127.0.0.1'
 
     socketClient = {}
 
@@ -95,7 +95,7 @@ class Client:
 
             self.receiveServer()
 
-            mh = MessageHandler()
+            mh = MessageHandler(self.portp2p)
             mh.start()
         elif msg == 0 :
             print('Wrong Username or Password')
