@@ -46,10 +46,9 @@ class InputBar(Frame):
         self.entryBar = Entry(self, background=background, bd=0, fg='white')
         self.entryBar.grid(row=0, column=0, sticky=W+E)
         self.entryBar.bind('<Return>', self.pressEnterEvent )
-        self.sendButton = Button(self, text="send", command=self.pressSendButton, bg=background, bd=0, activebackground='#787878')
+        self.icon = ImageTk.PhotoImage(Image.open("Client/sendIcon.png").resize( (30,30), Image.ANTIALIAS ))
+        self.sendButton = Button(self, text="send", command=self.pressSendButton, bg=background, bd=0, activebackground='#787878', image=self.icon)
         self.sendButton.grid(row=0, column=1)
-        self.icon = ImageTk.PhotoImage(Image.open("Client/Frontend/sendIcon.png").resize( (30,30), Image.ANTIALIAS ))
-        self.sendButton.configure(image=self.icon)
 
     def setChatWindow(self, chatWindow ):
         self.chatWindow = chatWindow

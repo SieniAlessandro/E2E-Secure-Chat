@@ -7,6 +7,16 @@ class ChatGUI(Tk):
     backgroundItems = '#29293d'
     def __init__(self):
         Tk.__init__(self)
+        w = 1024 # width for the Tk root
+        h = 720 # height for the Tk root
+
+        ws = self.winfo_screenwidth() # width of the screen
+        hs = self.winfo_screenheight() # height of the screen
+
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+
+        self.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.title("Chat")
         self.geometry('1024x720')
         self.resizable(width=FALSE, height=FALSE)
@@ -14,7 +24,7 @@ class ChatGUI(Tk):
         self.rowconfigure(0,weight=4)
 
         self.chatWindow = ChatWindow(self, self.backgroundWindow)
-        self.chatWindow.createWidgets(self.backgroundItems, "Federico")
+        self.chatWindow.createWidgets(self.backgroundItems, "")
 
         self.chatList = ChatList(self, self.backgroundItems)
         self.chatList.setChatWindow(self.chatWindow)
@@ -27,7 +37,7 @@ class ChatGUI(Tk):
             self.chatList.addChatListElement(i.chatName, i.lastMessage, i.lastMessageTime)
 
 
-chat = ChatGUI()
-
-chat.chatList.addChatListElement("Rododendro", "Oggi piove", "18:12")
-chat.mainloop()
+# chat = ChatGUI()
+#
+# chat.chatList.addChatListElement("Rododendro", "Oggi piove", "18:12")
+# chat.mainloop()
