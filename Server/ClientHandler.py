@@ -6,12 +6,13 @@ from User import User
 class ClientHandler(Thread):
     MSG_LEN = 2048
     #Constructor of the class
-    def __init__(self,Conn,ip,port,db,clients,Log):
+    def __init__(self,Conn,ip,port,db,clients,Log,ActiveThreads):
         Thread.__init__(self)   #Instatation of the thread
         self.HandledUser = User(Conn,ip,0,port,"none")
         self.DB = db
         self.OnlineClients = clients
         self.log = Log
+        self.ActiveThreads = ActiveThreads
         self.log.log("Client handled has address: "+ self.HandledUser.getIp() +" and port "+str(self.HandledUser.getServerPort()))
     #Method whose listen the message coming from the handled client,showing its content
     def run(self):
@@ -22,12 +23,14 @@ class ClientHandler(Thread):
                 data = self.HandledUser.getSocket().recv(self.MSG_LEN)
             except ConnectionResetError:
                 self.log.log("Client had a problem, connection closed")
+                #ActiveThreads = ActiveThreads - 1
                 return -1
             #Check if the connection is closed analyzing the data (0 means that is close)
             if not data:
                 self.log.log("Client disconnected, closing this thread")
                 if self.HandledUser in self.OnlineClients.values():
-                    del self.OnlineClients[HandledUser.getUserName()]
+                    del self.OnlineClients[self.HandledUser.getUserName()]
+                    #ActiveThreads = ActiveThreads - 1
                 return -1
             #Decoding the received data to obtain a string
             msg = data.decode('utf-16')
@@ -58,10 +61,12 @@ class ClientHandler(Thread):
                 #Check if this user is already Logged In
                 if self.HandledUser in self.OnlineClients.values():
                     response = "?|"+str(-1)
+                    self.HandledUser.getSocket().send(response.encode('utf-16'))
                 #Otherwise control if the parameter sended are correct
                 elif self.DB.userIsPresent(*params) == 1:
                     #Inform the client that from now he is logged in
                     response = "?|"+str(1)
+                    self.HandledUser.getSocket().send(response.encode('utf-16'))
                     clientPort = param[-1]
                     UserName = param[0]
                     self.HandledUser.setUserName(UserName)
@@ -81,8 +86,9 @@ class ClientHandler(Thread):
                 else:
                     #Inform the client that the login has failed
                     response = "?|"+str(0)
+                    self.HandledUser.getSocket().send(response.encode('utf-16'))
                 #Sending the result of the login to the client
-                self.HandledUser.getSocket().send(response.encode('utf-16'))
+
             elif msgs[0] == '3':
                 self.log.log("A client want to find another user")
                 #print("Richiesta di utente online")
