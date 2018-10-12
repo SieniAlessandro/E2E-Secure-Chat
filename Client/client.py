@@ -7,10 +7,7 @@ from MessageHandler import *
 class Client:
     BUFFER_SIZE = 2048
     PORT_SERVER = 6000
-<<<<<<< HEAD
     PORT_P2P = 7000
-=======
->>>>>>> 0ed2fbac257f4b828254943bac8903fb2ee93236
     HOST_SERVER = '127.0.0.1'
 
     socketClient = {}

@@ -6,7 +6,7 @@ class User:
         self.Username = _UserName
         self.Socket = _socket
     def getUserName(self):
-        return self.UserName
+        return self.Username
     def getIp(self):
         return self.Ip
     def getServerPort(self):
@@ -18,4 +18,6 @@ class User:
     def setClientPort(self,_clientPort):
         self.ClientPort = _clientPort
     def setUserName(self,_username):
-        self.UserName = _username
+        self.Username = _username
+    def __repr__(self):
+        return  "Username: "+ self.Username+" IP: "+self.Ip+" ServerPort: "+str(self.ServerPort)+" ClientPort: "+str(self.ClientPort)

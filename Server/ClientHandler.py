@@ -55,9 +55,6 @@ class ClientHandler(Thread):
                 param = msgs[1].split(',')
                 response = ""
                 params = param[:2]
-                self.ClientPort = param[2]
-                print(params)
-                print(self.ClientPort)
                 #Check if this user is already Logged In
                 if self.HandledUser in self.OnlineClients.values():
                     response = "?|"+str(-1)
@@ -69,6 +66,7 @@ class ClientHandler(Thread):
                     UserName = param[0]
                     self.HandledUser.setUserName(UserName)
                     self.HandledUser.setClientPort(clientPort)
+                    #print(UserName)
                     #Adding the client to the list of active users
                     self.OnlineClients[UserName] = self.HandledUser
                 else:
