@@ -10,7 +10,7 @@ MESSAGE = 'hi'
 
 
 client = Client(host, port)
-# client.connectServer()
+client.connectServer()
 
 chat = ChatGUI()
 login = LoginGUI()
@@ -19,6 +19,8 @@ signUp = SignUpGUI()
 login.setSignUpWindow(signUp)
 login.setClient(client)
 signUp.setLoginWindow(login)
+signUp.setClient(client)
+
 # login.withdraw()
 signUp.withdraw()
 

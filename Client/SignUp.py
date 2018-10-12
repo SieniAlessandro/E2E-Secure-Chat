@@ -1,13 +1,14 @@
 from tkinter import *
-
+from validate_email import validate_email
+import re
 
 class SignUpGUI(Tk):
 
     backgroundWindow = '#47476b'
     def __init__(self):
         Tk.__init__(self)
-        w = 300 # width for the Tk root
-        h = 450 # height for the Tk root
+        w = 390 # width for the Tk root
+        h = 350 # height for the Tk root
         ws = self.winfo_screenwidth() # width of the screen
         hs = self.winfo_screenheight() # height of the screen
         x = (ws/2) - (w/2)
@@ -17,23 +18,41 @@ class SignUpGUI(Tk):
         self.resizable(width=FALSE, height=FALSE)
         self.title("Sign Up")
         self.mainFrame = Frame(self, bg=self.backgroundWindow)
+        self.rightFrame = Frame(self.mainFrame, bg=self.backgroundWindow)
+        self.leftFrame = Frame(self.mainFrame, bg=self.backgroundWindow)
         self.titleLabel = Label(self.mainFrame, text="Sign Up", bg=self.backgroundWindow, font = ("Default", 18, "bold"), fg='white')
-        self.usernameLabel = Label(self.mainFrame, bg=self.backgroundWindow, fg='white', text="Username")
-        self.usernameEntry = Entry(self.mainFrame, validate="focus", vcmd= lambda: self.validate(self.usernameEntry), invalidcommand = lambda: self.invalidate(self.usernameEntry) )
-        self.nameLabel = Label(self.mainFrame, bg=self.backgroundWindow, fg='white', text="Name")
-        self.nameEntry = Entry(self.mainFrame,  validate="focus", vcmd= lambda: self.validate(self.nameEntry), invalidcommand = lambda: self.invalidate(self.nameEntry) )
-        self.surnameLabel = Label(self.mainFrame, bg=self.backgroundWindow, fg='white', text="Surname")
-        self.surnameEntry = Entry(self.mainFrame,  validate="focus", vcmd= lambda: self.validate(self.surnameEntry), invalidcommand = lambda: self.invalidate(self.surnameEntry) )
-        self.passwordLabel = Label(self.mainFrame, text="Password", bg=self.backgroundWindow, fg='white')
-        self.passwordEntry = Entry(self.mainFrame, show="*")
-        self.buttonsFrame = Frame(self.mainFrame, bg=self.backgroundWindow   )
-        self.cancelButton = Button(self.buttonsFrame, text="Cancel", command=self.cancelEvent)
-        self.confirmButton = Button(self.buttonsFrame, text="Confirm")
+
+        self.usernameLabel = Label(self.leftFrame, bg=self.backgroundWindow, fg='white', text="Username")
+        self.usernameEntry = Entry(self.leftFrame, validate="focusout", vcmd= lambda: self.validateLength(self.usernameEntry, 20), invalidcommand = lambda: self.invalidate(self.usernameEntry) )
+
+        self.emailLabel = Label(self.leftFrame, bg=self.backgroundWindow, fg='white', text="Email")
+        self.emailEntry = Entry(self.leftFrame,  validate="focusout", vcmd= lambda: self.validateEmail(), invalidcommand = lambda: self.invalidate(self.emailEntry) )
+
+        self.nameLabel = Label(self.leftFrame, bg=self.backgroundWindow, fg='white', text="Name")
+        self.nameEntry = Entry(self.leftFrame,  validate="focusout", vcmd= lambda: self.validateLength(self.nameEntry, 45), invalidcommand = lambda: self.invalidate(self.nameEntry) )
+
+        self.surnameLabel = Label(self.rightFrame, bg=self.backgroundWindow, fg='white', text="Surname")
+        self.surnameEntry = Entry(self.rightFrame,  validate="focusout", vcmd= lambda: self.validateLength(self.surnameEntry, 45 ), invalidcommand = lambda: self.invalidate(self.surnameEntry) )
+
+        self.passwordLabel = Label(self.rightFrame, text="Password", bg=self.backgroundWindow, fg='white')
+        self.passwordEntry = Entry(self.rightFrame, show="*", validate="focus", vcmd= lambda: self.validatePassword(), invalidcommand = lambda: self.invalidate(self.passwordEntry) )
+
+        self.confirmPasswordLabel = Label(self.rightFrame, text="Confirm Password", bg=self.backgroundWindow, fg='white')
+        self.confirmPasswordEntry = Entry(self.rightFrame, show="*", validate="focus", vcmd= lambda: self.validateConfirmPassword(), invalidcommand = lambda: self.invalidate(self.confirmPasswordEntry) )
+
+        self.cancelButton = Button(self.mainFrame, text="Cancel", command=self.cancelEvent)
+        self.confirmButton = Button(self.mainFrame, text="Confirm", command=self.signUpEvent)
+
         self.mainFrame.pack(fill=BOTH, expand=True)
-        self.titleLabel.pack(pady=15)
+        self.titleLabel.grid(row=0, columnspan=2)
+        self.leftFrame.grid(row=1, column=0, padx=15, pady=10)
+        self.rightFrame.grid(row=1, column=1,padx=15, pady=10)
 
         self.usernameLabel.pack(pady=5)
         self.usernameEntry.pack(pady=5)
+
+        self.emailLabel.pack(pady=5)
+        self.emailEntry.pack(pady=5)
 
         self.nameLabel.pack(pady=5)
         self.nameEntry.pack(pady=5)
@@ -44,12 +63,36 @@ class SignUpGUI(Tk):
         self.passwordLabel.pack(pady=5)
         self.passwordEntry.pack(pady=5)
 
-        self.buttonsFrame.pack(side = BOTTOM, pady=10)
-        self.cancelButton.pack(side="left", padx=5, pady=5)
-        self.confirmButton.pack(side="right", padx=5, pady=5)
+        self.confirmPasswordLabel.pack(pady=5)
+        self.confirmPasswordEntry.pack(pady=5)
 
-    def validate(self, entry):
-        return len(entry.get()) < 20
+        self.cancelButton.grid(row=2, column=0, sticky=E, padx=15, pady=10)
+        self.confirmButton.grid(row=2, column=1, sticky=W, padx=15, pady=10)
+
+    def validatePassword(self):
+        pattern = "^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$"
+        if re.findall(pattern, self.passwordEntry.get()):
+            self.passwordEntry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
+            return True
+        return False
+
+    def validateConfirmPassword(self):
+        if self.confirmPasswordEntry.get() == self.passwordEntry.get():
+            self.confirmPasswordEntry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
+            return True
+        return False
+
+    def validateEmail(self):
+        if validate_email(self.emailEntry.get()):
+            self.emailEntry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
+            return True
+        return False
+
+    def validateLength(self, entry, length):
+        if len(entry.get()) > 0 and len(entry.get()) < length :
+            entry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
+            return True
+        return False
 
     def invalidate(self, entry):
         entry.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
@@ -64,6 +107,14 @@ class SignUpGUI(Tk):
         self.passwordEntry.delete(0, 'end')
         self.withdraw()
         self.loginWindow.deiconify()
+
+    def setClient(self, client):
+        self.client = client
+
+    def signUpEvent(self):
+        self.client.register(self.usernameEntry.get(), self.passwordEntry.get(), self.emailEntry.get(), self.nameEntry.get(), self.surnameEntry.get(), '0')
+        self.cancelEvent()
+
 
 # signUp = SignUpGUI()
 #
