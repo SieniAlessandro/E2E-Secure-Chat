@@ -69,21 +69,20 @@ class ClientHandler(Thread):
                     #print(UserName)
                     #Adding the client to the list of active users
                     self.OnlineClients[UserName] = self.HandledUser
+                    self.log.log("Active users: "+str(self.OnlineClients))
+                    msg = self.DB.getMessageByReceiver(self.HandledUser.getUserName())
+                    if not msg:
+                        self.log.log("There are no message for this server")
+                        self.HandledUser.getSocket().send("0".encode('utf-16'))
+                    else:
+                        self.log.log("There are several messages to be sended: "+ str(msg))
+                        lens = len(msg.split("^/"))
+                        self.HandledUser.getSocket().send((str(lens)+"|"+str(msg)).encode('utf-16'))
                 else:
                     #Inform the client that the login has failed
                     response = "?|"+str(0)
                 #Sending the result of the login to the client
                 self.HandledUser.getSocket().send(response.encode('utf-16'))
-                self.log.log("Active users: "+str(self.OnlineClients))
-                msg = self.DB.getMessageByReceiver(self.HandledUser.getUserName())
-                if not msg:
-                    self.log.log("There are no message for this server")
-                    self.HandledUser.getSocket().send("0".encode('utf-16'))
-                else:
-                    self.log.log("There are several messages to be sended: "+ str(msg))
-                    lens = len(msg.split("^/"))
-                    self.HandledUser.getSocket().send((str(lens)+"|"+str(msg)).encode('utf-16'))
-                self.HandledUser.getSocket().send("0".encode('utf-16'))
             elif msgs[0] == '3':
                 self.log.log("A client want to find another user")
                 #print("Richiesta di utente online")
