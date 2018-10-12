@@ -3,41 +3,7 @@ from PIL import ImageTk, Image
 import datetime
 import random
 
-class InputBar(Frame):
-
-    def __init__(self, master, background):
-        Frame.__init__(self, master, background=background,  padx=10, pady=10, highlightbackground="black", highlightcolor="black", highlightthickness=1)
-
-        self.grid(row=1, column=1, sticky=S+W+E)
-        self.columnconfigure(0, weight=15)
-        self.columnconfigure(1, weight=1)
-
-        self.entryBar = Entry(self, background=background, bd=0, fg='white')
-        self.entryBar.grid(row=0, column=0, sticky=W+E)
-        self.entryBar.bind('<Return>', self.pressEnterEvent )
-        self.sendButton = Button(self, text="send", command=self.pressSendButton, bg=background, bd=0, activebackground='#787878')
-        self.sendButton.grid(row=0, column=1)
-        self.icon = ImageTk.PhotoImage(Image.open("Client/Frontend/sendIcon.png").resize( (30,30), Image.ANTIALIAS ))
-        self.sendButton.configure(image=self.icon)
-
-    def setChatWindow(self, chatWindow ):
-        self.chatWindow = chatWindow
-
-    def pressSendButton(self):
-        message = self.entryBar.get()
-        if not message:
-            return
-        self.chatWindow.addBoxMessageElement(self.entryBar.get())
-
-        self.entryBar.delete(0, 'end')
-        print("Sending message...")
-        # magherini.sendMessage(self.entryBar.get())
-
-    def pressEnterEvent(self, event):
-        self.pressSendButton()
-
-
-class chatWindow(Frame):
+class ChatWindow(Frame):
     def __init__(self, master, background):
         Frame.__init__(self, master, background=background)
 
@@ -67,6 +33,38 @@ class chatWindow(Frame):
             for m in self.listMessage:
                 m.pack_forget()
             self.listMessage.clear()
+
+class InputBar(Frame):
+
+    def __init__(self, master, background):
+        Frame.__init__(self, master, background=background,  padx=10, pady=10, highlightbackground="black", highlightcolor="black", highlightthickness=1)
+
+        self.grid(row=1, column=1, sticky=S+W+E)
+        self.columnconfigure(0, weight=15)
+        self.columnconfigure(1, weight=1)
+
+        self.entryBar = Entry(self, background=background, bd=0, fg='white')
+        self.entryBar.grid(row=0, column=0, sticky=W+E)
+        self.entryBar.bind('<Return>', self.pressEnterEvent )
+        self.icon = ImageTk.PhotoImage(Image.open("Client/sendIcon.png").resize( (30,30), Image.ANTIALIAS ))
+        self.sendButton = Button(self, text="send", command=self.pressSendButton, bg=background, bd=0, activebackground='#787878', image=self.icon)
+        self.sendButton.grid(row=0, column=1)
+
+    def setChatWindow(self, chatWindow ):
+        self.chatWindow = chatWindow
+
+    def pressSendButton(self):
+        message = self.entryBar.get()
+        if not message:
+            return
+        self.chatWindow.addBoxMessageElement(self.entryBar.get())
+
+        self.entryBar.delete(0, 'end')
+        print("Sending message...")
+        # magherini.sendMessage(self.entryBar.get())
+
+    def pressEnterEvent(self, event):
+        self.pressSendButton()
 
 class BoxMessage(Frame):
     def __init__(self, master, background):

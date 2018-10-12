@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
-from Chat import chatWindow as cw
+from ChatWindow import ChatWindow as cw
 
 class ChatList(Frame):
 
@@ -24,7 +24,7 @@ class ChatListElement(Frame):
         Frame.__init__(self, master)
         self.configure(background=background, padx=10, pady=5)
         self.grid(column=0, sticky=W+E)
-        self.photo = ImageTk.PhotoImage(Image.open("Client/Frontend/images.png").resize( (40,40), Image.ANTIALIAS ))
+        self.photo = ImageTk.PhotoImage(Image.open("Client/images.png").resize( (40,40), Image.ANTIALIAS ))
         self.chatName, self.lastMessage, self.lastMessageTime = StringVar(), StringVar(), StringVar()
 
         self.columnconfigure(0, weight=1)

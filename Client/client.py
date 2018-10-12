@@ -7,7 +7,10 @@ from MessageHandler import *
 class Client:
     BUFFER_SIZE = 2048
     PORT_SERVER = 6000
+<<<<<<< HEAD
     PORT_P2P = 7000
+=======
+>>>>>>> 0ed2fbac257f4b828254943bac8903fb2ee93236
     HOST_SERVER = '127.0.0.1'
 
     socketClient = {}
@@ -15,6 +18,7 @@ class Client:
     def __init__(self, hostServer, portServer):
         self.hostServer = self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.PORT_SERVER
+        self.portp2p = random.randint(6001,60000)
         self.Thread = []
     #Functions to communicate with Server#
     def sendServer(self, text):
@@ -88,14 +92,14 @@ class Client:
 
     def login(self, username, password):
         self.username = username
-        self.sendServer('2|' + username + ',' + password)
+        self.sendServer('2|' + username + ',' + password + ',' + str(self.portp2p))
         msg = int(self.receiveServer())
         if msg == 1 :
             print('Login done succesfully')
 
             self.receiveServer()
 
-            mh = MessageHandler()
+            mh = MessageHandler(self.portp2p)
             mh.start()
         elif msg == 0 :
             print('Wrong Username or Password')
@@ -117,12 +121,14 @@ class Client:
             elif value == '-2' :
                 msg = 'Error: you can not connect with yourself'
         else :
-            ip = value
+            msgs = value.split(':')
+            ip = msgs[0]
+            port = msgs[1]
             msg = receiver + ' has IP: ' + value
         print(msg)
         if not value.isdigit() :
             self.socketClient[receiver] = socket.socket()
-            self.socketClient[receiver].connect((ip, self.PORT_P2P))
+            self.socketClient[receiver].connect((ip, port))
             self.socketClient[receiver].send(self.username.encode('utf-16'))
             return 1
         return -1
