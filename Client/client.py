@@ -24,7 +24,7 @@ class Client:
             #Socket is close
             print('The socket is closed')
         else:
-            print('Message sent to server correctly')
+            print('Message: <' + text + '> sent to server correctly')
 
     def connectServer(self) :
         try :
@@ -48,8 +48,8 @@ class Client:
             print('Socket closed')
             return -1
         else:
-            print('Message received from Server')
             msg = ret.decode('utf-16')
+            print('Message received from Server: ' + msg)
             msgs = msg.split('|')
             identifier = msgs[0]
             if(len(msgs) > 1) :
@@ -60,7 +60,7 @@ class Client:
                     self.retrieveMessage(msgs[1]);
                 else :
                     print('There are no messages for you')
-                return 'success'
+                return 1
             elif identifier == '!' :
                 return value
             elif identifier == '?' :
@@ -108,15 +108,16 @@ class Client:
     def startConnection(self, receiver):
         self.sendServer('3|' + receiver)
         value = self.receiveServer()
+        print('Value RECEIVED : ' + value)
         msg = ''
-        if value.isdigit() :
-            if value == '0' :
-                msg = 'user offline'
-                return 0
-            elif value == '-1' :
-                msg = 'Error: user does not exist'
-            elif value == '-2' :
-                msg = 'Error: you can not connect with yourself'
+
+        if value == '0' :
+            msg = 'user offline'
+            return 0
+        elif value == '-1' :
+            msg = 'Error: user does not exist'
+        elif value == '-2' :
+            msg = 'Error: you can not connect with yourself'
         else :
             msgs = value.split(':')
             ip = msgs[0]
@@ -125,7 +126,7 @@ class Client:
         print(msg)
         if not value.isdigit() :
             self.socketClient[receiver] = socket.socket()
-            self.socketClient[receiver].connect((ip, port))
+            self.socketClient[receiver].connect((ip, int(port)))
             self.socketClient[receiver].send(self.username.encode('utf-16'))
             return 1
         return -1
@@ -144,6 +145,7 @@ class Client:
         print('Il messaggio da inviare è ' + text)
         if not receiver in self.socketClient.keys() :
             msg = self.startConnection(receiver)
+            print('Il client è offline o online? ' + str(msg))
             if msg == 0 : #client offline
                 self.socketClient[receiver] = 'server'
             elif msg == 1 : #client online, connection established correctly
