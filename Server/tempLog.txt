@@ -13,3 +13,7 @@
 2018-10-12 17:02:21	A client want to login
 2018-10-12 17:02:21	Active users: {'Prova': Username: Prova IP: 127.0.0.1 ServerPort: 61924 ClientPort: 49072}
 2018-10-12 17:02:21	There are no message for this server
+2018-10-12 17:28:09	Client handled has address: 127.0.0.1 and port 49342
+2018-10-12 17:28:09	Waiting for connections...
+2018-10-12 18:04:42	Client handled has address: 127.0.0.1 and port 54192
+2018-10-12 18:04:42	Waiting for connections...
