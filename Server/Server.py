@@ -31,7 +31,6 @@ class Server:
         while True:
             self.server.listen(50)
             self.Log.log("Waiting for connections...")
-            #print ("In attesa di richieste...")
             #Obtaining the parameters like the socket and the address/port of the incoming connection
             (conn, (ip,port)) = self.server.accept()
             #Creating a new thread able to handle the new connection with the client

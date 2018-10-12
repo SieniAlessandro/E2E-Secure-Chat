@@ -1,8 +1,6 @@
-2018-10-11 13:19:13	Server Initialized
-2018-10-11 13:19:13	Waiting for connections...
-2018-10-11 13:19:14	Client handled has address: 10.102.6.169 and port 50459
-2018-10-11 13:19:14	Waiting for connections...
-2018-10-11 13:19:17	A client want to login
-2018-10-11 13:19:17	Active users: {'l': '10.102.6.169:8761|50459'}
-2018-10-11 13:19:17	There are several messages to be sended: user/^ciao,..,.,.,.,.,.,.^ prova spazio/^2018-10-11 10:21:18^/user/^prova 2/^2018-10-11 11:00:08
-2018-10-11 13:19:17	Client disconnected, closing this thread
+2018-10-12 09:55:08	Server Initialized
+2018-10-12 09:55:08	Waiting for connections...
+2018-10-12 09:55:13	Client handled has address: 127.0.0.1 and port 50804
+2018-10-12 09:55:13	Waiting for connections...
+2018-10-12 09:55:18	A client want to login
+2018-10-12 09:55:38	Server Closed
