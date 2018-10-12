@@ -127,7 +127,8 @@ class Client:
         if not value.isdigit() :
             self.socketClient[receiver] = socket.socket()
             self.socketClient[receiver].connect((ip, int(port)))
-            self.socketClient[receiver].send(self.username.encode('utf-16'))
+            username = self.username + '\^'
+            self.socketClient[receiver].send(username.encode('utf-16'))
             return 1
         return -1
 
@@ -152,9 +153,15 @@ class Client:
                 print('Connection established with ' + receiver)
                 #self.socketClient[receiver].send(text.encode('utf-16'))
         if self.socketClient[receiver] == 'server' :
+            #Check after x time if receiver is now online
             self.sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])
         else :
-            self.socketClient[receiver].send(text.encode('utf-16'))
+            try:
+                self.socketClient[receiver].send(text.encode('utf-16'))
+            except:
+                print(receiver + 'has disconnected')
+                self.socketClient[receiver] = 'server'
+                self.sendClient(receiver, text)
 
 '''
         if msg == "{quit}":
