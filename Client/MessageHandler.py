@@ -20,16 +20,24 @@ class MessageHandler(Thread) :
     def receiveMessage(self, conn) :
         print('Started the receivingMessage Thread!!!\n')
         #try :
-        user = conn.recv(self.MSG_LEN)
-        user = user.decode('utf-16')
+        msg = conn.recv(self.MSG_LEN)
+        msg = msg.decode('utf-16')
+        msgs = msg.split('\^')
+        user = msgs[0]
         print('Connection started with ' + user)
+        if len(msgs) > 1:
+            print(user + ' send : ' + msgs[1])
         #except :
         #    print('An exception is occurred')
         while True:
-            msg = conn.recv(self.MSG_LEN)
-            msg = msg.decode('utf-16')
-            print(user + ' send : ' + msg)
+            try:
+                msg = conn.recv(self.MSG_LEN)
+                msg = msg.decode('utf-16')
+                print(user + ' send : ' + msg)
             #send to Amedeo
+            except:
+                print('The user has disconnected')
+                return
 
     def run(self) :
         print('MessageHandler is Started!')
