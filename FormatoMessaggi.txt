@@ -39,6 +39,7 @@ N|sender/^message/^time^/.... = N = numero di messaggi da inviare e tuple di mes
 !|0 se il client è offline
 !|-1 se il client fa la richiesta ma non ha fatto il login
 !|-2 se il client chiede il proprio indirizzo IP)
+!|-3 se il client chiede di connettersi ad un utente non esistente
 
 ?|1 Login Ok
 ?|0 Password o Username errati
