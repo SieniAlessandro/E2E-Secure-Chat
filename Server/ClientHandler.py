@@ -134,7 +134,7 @@ class ClientHandler(Thread):
                         self.log.log("Ip found:"+response)
                 else:
                     #Check if the receiver is not registered
-                    if(self.DB.userIsRegistered()) == 0:
+                    if self.DB.userIsRegistered() == 0:
                         response ="!|"+str(-3)
                     else:
                         response = "!|"+str(0)
