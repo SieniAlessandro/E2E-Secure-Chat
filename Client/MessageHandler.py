@@ -11,7 +11,7 @@ class MessageHandler(Thread) :
     def __init__(self, portp2p) :
         Thread.__init__(self)
         self.ip = "0.0.0.0"
-
+        self.users = []
         self.socketListener = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         self.socketListener.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
         self.socketListener.bind((self.ip,portp2p))
@@ -24,6 +24,7 @@ class MessageHandler(Thread) :
         msg = msg.decode('utf-16')
         msgs = msg.split('\^')
         user = msgs[0]
+        self.users.append(user)
         print('Connection started with ' + user)
         if len(msgs) > 1:
             print(user + ' send : ' + msgs[1])
@@ -47,3 +48,6 @@ class MessageHandler(Thread) :
             print('Accepted a new connecion')
             t = Thread(target=self.receiveMessage, args=(conn, ))
             t.start()
+            print('The client is connected with : ')
+            for x in self.users :
+                print('\t- ' + x)

@@ -21,6 +21,7 @@ class SignUpGUI(Tk):
         self.rightFrame = Frame(self.mainFrame, bg=self.backgroundWindow)
         self.leftFrame = Frame(self.mainFrame, bg=self.backgroundWindow)
         self.titleLabel = Label(self.mainFrame, text="Sign Up", bg=self.backgroundWindow, font = ("Default", 18, "bold"), fg='white')
+        self.errorLabel = Label(self.mainFrame, text="Something went wrong!", fg = "#ff1a1a", bg="#8585ad")
 
         self.usernameLabel = Label(self.leftFrame, bg=self.backgroundWindow, fg='white', text="Username")
         self.usernameEntry = Entry(self.leftFrame, validate="focusout", vcmd= lambda: self.validateLength(self.usernameEntry, 20), invalidcommand = lambda: self.invalidate(self.usernameEntry) )
@@ -44,9 +45,10 @@ class SignUpGUI(Tk):
         self.confirmButton = Button(self.mainFrame, text="Confirm", command=self.signUpEvent)
 
         self.mainFrame.pack(fill=BOTH, expand=True)
+        self.mainFrame.columnconfigure(0, weight=100)
         self.titleLabel.grid(row=0, columnspan=2)
-        self.leftFrame.grid(row=1, column=0, padx=15, pady=10)
-        self.rightFrame.grid(row=1, column=1,padx=15, pady=10)
+        self.leftFrame.grid(row=2, column=0, padx=15, pady=10)
+        self.rightFrame.grid(row=2, column=1,padx=15, pady=10)
 
         self.usernameLabel.pack(pady=5)
         self.usernameEntry.pack(pady=5)
@@ -66,36 +68,49 @@ class SignUpGUI(Tk):
         self.confirmPasswordLabel.pack(pady=5)
         self.confirmPasswordEntry.pack(pady=5)
 
-        self.cancelButton.grid(row=2, column=0, sticky=E, padx=15, pady=10)
-        self.confirmButton.grid(row=2, column=1, sticky=W, padx=15, pady=10)
+        self.cancelButton.grid(row=3, column=0, padx=15, pady=10)
+        self.confirmButton.grid(row=3, column=1, padx=15, pady=10)
+
+        self.isFormValid = {}
+        self.isFormValid[self.usernameEntry.winfo_name] = False
+        self.isFormValid[self.emailEntry.winfo_name] = False
+        self.isFormValid[self.nameEntry.winfo_name] = False
+        self.isFormValid[self.surnameEntry.winfo_name] = False
+        self.isFormValid[self.passwordEntry.winfo_name] = False
+        self.isFormValid[self.confirmPasswordEntry.winfo_name] = False
 
     def validatePassword(self):
         pattern = "^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$"
         if re.findall(pattern, self.passwordEntry.get()):
             self.passwordEntry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
+            self.isFormValid[self.passwordEntry.winfo_name] = True
             return True
         return False
 
     def validateConfirmPassword(self):
         if self.confirmPasswordEntry.get() == self.passwordEntry.get():
             self.confirmPasswordEntry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
+            self.isFormValid[self.confirmPasswordEntry.winfo_name] = True
             return True
         return False
 
     def validateEmail(self):
         if validate_email(self.emailEntry.get()):
             self.emailEntry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
+            self.isFormValid[self.emailEntry.winfo_name] = True
             return True
         return False
 
     def validateLength(self, entry, length):
         if len(entry.get()) > 0 and len(entry.get()) < length :
             entry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
+            self.isFormValid[entry.winfo_name] = True
             return True
         return False
 
     def invalidate(self, entry):
         entry.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
+        self.isFormValid[entry.winfo_name] = False
 
     def setLoginWindow(self, loginWindow):
         self.loginWindow = loginWindow
@@ -112,9 +127,18 @@ class SignUpGUI(Tk):
         self.client = client
 
     def signUpEvent(self):
-        self.client.register(self.usernameEntry.get(), self.passwordEntry.get(), self.emailEntry.get(), self.nameEntry.get(), self.surnameEntry.get(), '0')
-        self.cancelEvent()
+        if False in self.isFormValid.values():
+            self.confirmButton.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
+        else:
+            self.confirmButton.config(fg = "black",  highlightthickness=0)
+            self.client.register(self.usernameEntry.get(), self.passwordEntry.get(), self.emailEntry.get(), self.nameEntry.get(), self.surnameEntry.get(), '0')
+            self.cancelEvent()
 
+    def showErrorLabel(self):
+        self.errorLabel.grid(row = 1, columnspan=2)
+
+    def hideErrorLabel(self):
+        self.errorLabel.grid_forget()
 
 # signUp = SignUpGUI()
 #
