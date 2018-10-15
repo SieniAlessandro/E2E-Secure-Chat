@@ -8,7 +8,7 @@ class Client:
     BUFFER_SIZE = 2048
     PORT_SERVER = 6000
     PORT_P2P = 7000
-    HOST_SERVER = '127.0.0.1'
+    HOST_SERVER = '10.102.24.81'
 
     socketClient = {}
 
@@ -81,7 +81,7 @@ class Client:
                 surname + ',' + email + ',' + key)
         msg = self.receiveServer();
         print(msg)
-        if msg == 0 :
+        if msg == '0' :
             print('Error in registration')
         else :
             print('Succesfully registered')
@@ -94,7 +94,7 @@ class Client:
             print('Login done succesfully')
 
             self.receiveServer()
-
+            print('portp2p : ' + str(self.portp2p))
             mh = MessageHandler(self.portp2p)
             mh.start()
         elif msg == 0 :
@@ -118,14 +118,15 @@ class Client:
         elif value == '-2' :
             msg = 'Error: you can not connect with yourself'
         elif value == '-3' :
-            msf = 'Error: the contacted user does not exist'
+            msg = 'Error: the contacted user does not exist'
+            return
         else :
             msgs = value.split(':')
             ip = msgs[0]
             port = msgs[1]
-            msg = receiver + ' has IP: ' + value
-        print(msg)
-        if not value.isdigit() :
+            msg = receiver + ' has IP:Port : ' + value
+            print(msg)
+
             self.socketClient[receiver] = socket.socket()
             self.socketClient[receiver].connect((ip, int(port)))
             username = self.username + '\^'
@@ -154,6 +155,9 @@ class Client:
             elif msg == 1 : #client online, connection established correctly
                 print('Connection established with ' + receiver)
                 #self.socketClient[receiver].send(text.encode('utf-16'))
+            else :
+                print('Client does not exist!!!')
+                return
         if self.socketClient[receiver] == 'server' :
             #Check after x time if receiver is now online
             self.sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])

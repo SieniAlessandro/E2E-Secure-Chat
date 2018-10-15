@@ -18,7 +18,7 @@ class MessageHandler(Thread) :
 
 
     def receiveMessage(self, conn) :
-        print('Started the receivingMessage Thread!!!\n')
+        print('Started the receiving Message Thread!!!\n')
         #try :
         msg = conn.recv(self.MSG_LEN)
         msg = msg.decode('utf-16')
@@ -44,6 +44,7 @@ class MessageHandler(Thread) :
         print('MessageHandler is Started!')
         while True :
             self.socketListener.listen(50)
+            print('Waiting for connection')
             (conn, (ip,port)) = self.socketListener.accept()
             print('Accepted a new connecion')
             t = Thread(target=self.receiveMessage, args=(conn, ))
