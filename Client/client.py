@@ -16,7 +16,6 @@ class Client:
         self.hostServer = self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.PORT_SERVER
         self.portp2p = random.randint(6001,60000)
-        self.Thread = []
     #Functions to communicate with Server#
     def sendServer(self, text):
         ret = self.socketServer.send(text.encode('utf-16'))
@@ -115,9 +114,11 @@ class Client:
             msg = 'user offline'
             return 0
         elif value == '-1' :
-            msg = 'Error: user does not exist'
+            msg = 'Error: user does not have done the login'
         elif value == '-2' :
             msg = 'Error: you can not connect with yourself'
+        elif value == '-3' :
+            msf = 'Error: the contacted user does not exist'
         else :
             msgs = value.split(':')
             ip = msgs[0]
@@ -135,9 +136,10 @@ class Client:
     def sendMessageOffline(self, receiver, text, time):
         self.sendServer('4|' + receiver + '/^' + text + '/^' + time)
         msg = self.receiveServer()
-        if msg == 1:
+        print('sendMessageOffline risposta Server : ' + msg)
+        if msg == '1':
             print('Message send correctly')
-        elif msg == 0:
+        elif msg == '0':
             print('Error in the database! Try again later!')
         print('Messaggio inviato al server e salvato sul server')
 
