@@ -33,7 +33,7 @@ class MessageHandler(Thread) :
         while True:
             try:
                 msg = conn.recv(self.MSG_LEN)
-                if not msg
+                if not msg :
                     raise Exception()
                 msg = msg.decode('utf-16')
                 print(user + ' send : ' + msg)
