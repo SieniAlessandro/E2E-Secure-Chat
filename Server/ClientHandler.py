@@ -23,6 +23,8 @@ class ClientHandler(Thread):
                 data = self.HandledUser.getSocket().recv(self.MSG_LEN)
             except ConnectionResetError:
                 self.log.log("Client had a problem, connection closed")
+                if self.HandledUser in self.OnlineClients.values():
+                    del self.OnlineClients[self.HandledUser.getUserName()]
                 #ActiveThreads = ActiveThreads - 1
                 return -1
             #Check if the connection is closed analyzing the data (0 means that is close)
@@ -50,7 +52,6 @@ class ClientHandler(Thread):
             elif msgs[0] == '4':
                 self.StoreMessage(msgs)
 
-
     def login(self,msgs):
         self.log.log("A client want to login")
         #Splitting the second part of message in order to obtain all the informations needed to login
@@ -76,7 +77,7 @@ class ClientHandler(Thread):
             self.log.log("Active users: "+str(self.OnlineClients))
             msg = self.DB.getMessageByReceiver(self.HandledUser.getUserName())
             if not msg:
-                self.log.log("There are no message for this server")
+                self.log.log("There are no message for this client")
                 self.HandledUser.getSocket().send("0".encode('utf-16'))
             else:
                 self.log.log("There are several messages to be sended: "+ str(msg))
@@ -131,6 +132,7 @@ class ClientHandler(Thread):
                 else:
                     FoundUser = self.OnlineClients[msgs[1]]
                     response = "!|"+FoundUser.getIp()+":"+str(FoundUser.getClientPort())
+                    #response = "!|127.0.0.1"+":"+str(FoundUser.getClientPort())
                     self.log.log("Ip found:"+response)
             else:
                 #Check if the receiver is not registered
