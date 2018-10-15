@@ -9,7 +9,7 @@ port = 6000
 MESSAGE = 'hi'
 
 
-client = Client(host, port)
+client = Client("roberto è uno stronzo", port)
 client.connectServer()
 
 chat = ChatGUI()
@@ -21,7 +21,7 @@ login.setClient(client)
 signUp.setLoginWindow(login)
 signUp.setClient(client)
 
-# login.withdraw()
+chat.withdraw()
 signUp.withdraw()
 
 
