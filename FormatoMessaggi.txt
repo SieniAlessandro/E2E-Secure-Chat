@@ -6,6 +6,22 @@ Registrazione
 
 1|user,password,name,surname,email,key
 
+import json
+
+...
+
+messaggio = {}
+
+messaggio['id'] = 1
+messaggio['user'] = user
+...
+
+stringToSend = json.dumps(messaggio)
+
+DictToReceive = json.load(StringReceivedInJSON)
+
+...
+
 -----
 
 login
@@ -29,11 +45,36 @@ Messaggio
 
 
 Formato Server->Client
+{
+  id = ""
+  #solo se id is digit
+  messaggi = {
+          0 = {
+              sender = ""
+              message = ''
+              time = ''
+          }
+          1 = {
+
+
+          }
+
+  }
+  #else
+  stato = ..
+}
+
+
+
+messaggio["id"]
+messaggio["messaggi"][i][...]
 
 0 = Nessun Messaggio in attesa per te
 
 N|sender/^message/^time^/.... = N = numero di messaggi da inviare e tuple di messaggi
 
+messaggio["id"] = !
+messaggio[stato]
 
 !|<ip> = Risposta se il client è online o meno (
 !|0 se il client è offline
