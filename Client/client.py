@@ -231,9 +231,8 @@ class Client:
         Handles the passage of the receiver from online to offline
     '''
     def sendClient(self, receiver, text):
-       #Handle sending of messages
-
-       if not receiver in self.socketClient.keys() :
+        #Handle sending of messages
+        if not receiver in self.socketClient.keys() :
             value = self.startConnection(receiver)
             if value == 0 : #client offline
                 self.socketClient[receiver] = 'server'
