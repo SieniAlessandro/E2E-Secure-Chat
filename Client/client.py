@@ -12,6 +12,7 @@ class Client:
     HOST_SERVER = '127.0.0.1'
     CODE_TYPE = 'utf-16'
     socketClient = {}
+    JSON = True
 
     def __init__(self, hostServer, portServer):
         self.hostServer = self.HOST_SERVER #IPv4 Address of the server
@@ -197,7 +198,7 @@ class Client:
                 username = self.username + '\^'
                 ret = self.socketClient[receiver].send(username.encode(CODE_TYPE))
                 value = 1
-                if ret == 0
+                if ret == 0:
                     msg = 'Error in sending the message to the client connection redirected to the server'
                     self.socketClient[receiver] = 'server'
             except:
