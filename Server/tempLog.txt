@@ -256,3 +256,12 @@
 2018-10-16 18:56:01	Store the message to Prova
 2018-10-16 18:56:05	A client want to find another user
 2018-10-16 18:56:05	User requested not found:!|-3
+2018-10-16 19:00:53	Client handled has address: 127.0.0.1 and port 55271
+2018-10-16 19:00:53	Waiting for connections...
+2018-10-16 19:02:20	Client handled has address: 127.0.0.1 and port 55295
+2018-10-16 19:02:20	Waiting for connections...
+2018-10-16 19:02:23	A client want to login
+2018-10-16 19:02:23	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 55295 ClientPort: 13931}
+2018-10-16 19:02:23	There are no message for this client
+2018-10-16 19:02:27	Client handled has address: 127.0.0.1 and port 55298
+2018-10-16 19:02:27	Waiting for connections...

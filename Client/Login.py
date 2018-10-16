@@ -23,7 +23,7 @@ class LoginGUI(Tk):
         self.messageLabel = Label(self.mainFrame, bg="#8585ad")
 
         self.usernameLabel = Label(self.mainFrame, bg=self.backgroundWindow, fg='white', text="Username")
-        self.usernameEntry = Entry(self.mainFrame, validate="focus", vcmd= lambda: self.validateLength(self.usernameEntry, 20), invalidcommand = lambda: self.invalidate(self.usernameEntry) )
+        self.usernameEntry = Entry(self.mainFrame )
         self.passwordLabel = Label(self.mainFrame, text="Password", bg=self.backgroundWindow, fg='white')
         self.passwordEntry = Entry(self.mainFrame, show="*")
         self.buttonsFrame = Frame(self.mainFrame, bg=self.backgroundWindow )
@@ -41,24 +41,8 @@ class LoginGUI(Tk):
         self.signUpButton.pack(side="left", padx=5, pady=5)
         self.confirmButton.pack(side="right", padx=5, pady=5)
 
-        self.isFormValid = {}
-        self.isFormValid[self.usernameEntry.winfo_name] = False
-        self.isFormValid[self.passwordEntry.winfo_name] = True
-
         self.bind('<Return>', self.pressEnterEvent)
         self.usernameEntry.focus_force()
-
-    def validateLength(self, entry, length):
-        self.hideMessage()
-        if len(entry.get()) > 0 and len(entry.get()) < length :
-            entry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
-            self.isFormValid[entry.winfo_name] = True
-            return True
-        return False
-
-    def invalidate(self, entry):
-        entry.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
-        self.isFormValid[entry.winfo_name] = False
 
 
     def setSignUpWindow(self, signUpWindow):
@@ -73,7 +57,7 @@ class LoginGUI(Tk):
         self.signUpWindow.deiconify()
 
     def loginEvent(self):
-        if False in self.isFormValid.values():
+        if not self.usernameEntry.get() or not self.passwordEntry.get() :
             self.confirmButton.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
         else:
             ret = self.client.login(self.usernameEntry.get(),self.passwordEntry.get())
