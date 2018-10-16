@@ -8,9 +8,24 @@ class ChatList(Frame):
         Frame.__init__(self, master, background=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         self.list = []
         self.grid(row=0, column=0, rowspan=2, sticky=N+S+W)
+        self.searchBarFrame = Frame(self, bg=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
+        self.searchBar = Entry(self.searchBarFrame, background=background, bd=0, fg='white')
+        self.searchBar.bind('<Return>', self.pressEnterEvent )
+        self.icon = ImageTk.PhotoImage(Image.open("Client/searchIcon.png").resize( (30,30), Image.ANTIALIAS ))
+        self.searchButton = Button(self.searchBarFrame, text="search", command=self.pressSearchButton, bg=background, bd=0, activebackground='#787878', image=self.icon)
+        self.searchBarFrame.grid(column=0, sticky=W+E)
+        self.searchBar.pack(side=LEFT, padx=5,pady=5)
+        self.searchButton.pack(side=RIGHT, padx=5, pady=5)
 
-    def setChatWindow(self, chatWindow ):
+    def pressSearchButton(self):
+        self.client.startConnection(self.entryBar.get())
+
+    def pressEnterEvent(self, event):
+        self.pressSendButton()
+
+    def setItems(self, chatWindow, client ):
         self.chatWindow = chatWindow
+        self.client = client
 
     def addChatListElement(self, chatName, lastMessage, lastMessageTime):
         newChatListElement = ChatListElement(self, self['bg']).setElements(self.chatWindow, chatName, lastMessage, lastMessageTime)

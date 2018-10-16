@@ -23,21 +23,22 @@ class ChatGUI(Tk):
         self.columnconfigure(1, weight=6)
         self.rowconfigure(0,weight=4)
 
-        self.chatWindow = ChatWindow(self, self.backgroundWindow)
-        self.chatWindow.createWidgets(self.backgroundItems, "")
-
-        self.chatList = ChatList(self, self.backgroundItems)
-        self.chatList.setChatWindow(self.chatWindow)
-
-        self.inputBar = InputBar(self, self.backgroundItems)
-        self.inputBar.setChatWindow(self.chatWindow)
-
     def fillChatList(self, chatList):
         for i in chatList:
             self.chatList.addChatListElement(i.chatName, i.lastMessage, i.lastMessageTime)
 
+    def createWidgets(self, client):
+        self.client = client
+        self.chatWindow = ChatWindow(self, self.backgroundWindow)
+        self.chatWindow.createWidgets(self.backgroundItems, "", self.client)
 
-# chat = ChatGUI()
-#
-# chat.chatList.addChatListElement("Rododendro", "Oggi piove", "18:12")
-# chat.mainloop()
+        self.chatList = ChatList(self, self.backgroundItems)
+        self.chatList.setItems(self.chatWindow, self.client)
+
+        self.inputBar = InputBar(self, self.backgroundItems)
+        self.inputBar.setItems(self.chatWindow, self.client)
+
+chat = ChatGUI()
+
+chat.chatList.addChatListElement("Rododendro", "Oggi piove", "18:12")
+chat.mainloop()

@@ -12,12 +12,13 @@ class ChatWindow(Frame):
         self.rowconfigure(1, weight=8)
         self.grid(row=0, column=1, sticky=N+S+W+E)
 
-    def createWidgets(self, background, chatName ):
+    def createWidgets(self, background, chatName, client ):
         self.chatName.set(chatName)
+        self.client = client
 
-        chatBar = Frame(self, height=50, bg = background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
+        chatBar = Frame(self, bg = background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         chatNameLabel = Label(chatBar, textvariable=self.chatName, font = ( "Default", 10, "bold"), bg = background, fg='white')
-        chatBar.pack( side="top", fill=X)
+        chatBar.pack( side="top", fill=X, ipadx=5, ipady=4)
         chatNameLabel.grid(row=0, sticky=W, padx=10, pady=5)
 
     def addBoxMessageElement(self, message):
@@ -50,8 +51,9 @@ class InputBar(Frame):
         self.sendButton = Button(self, text="send", command=self.pressSendButton, bg=background, bd=0, activebackground='#787878', image=self.icon)
         self.sendButton.grid(row=0, column=1)
 
-    def setChatWindow(self, chatWindow ):
+    def setItems(self, chatWindow, client ):
         self.chatWindow = chatWindow
+        self.client = client
 
     def pressSendButton(self):
         message = self.entryBar.get()
@@ -61,7 +63,7 @@ class InputBar(Frame):
 
         self.entryBar.delete(0, 'end')
         print("Sending message...")
-        # magherini.sendMessage(self.entryBar.get())
+        # self.client.sendClient(self, self.chatName, message)
 
     def pressEnterEvent(self, event):
         self.pressSendButton()
