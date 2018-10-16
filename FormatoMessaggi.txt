@@ -63,7 +63,7 @@ Formato Server->Client
 {
   id = ""
   #solo se id is digit
-  messaggi = {
+  messages = {
           0 = {
               sender = ""
               message = ''
@@ -82,7 +82,7 @@ Formato Server->Client
 
 
 messaggio["id"]
-messaggio["messaggi"][i][...]
+messaggio["messages"][i][...]
 
 0 = Nessun Messaggio in attesa per te
 
@@ -108,7 +108,7 @@ messaggio[stato]
 
 {
   'id' = -
-  'status' = str() 
+  'status' = str()
 
 }
 
