@@ -10,11 +10,7 @@ class Client:
     PORT_SERVER = 6000
     PORT_P2P = 7000
     HOST_SERVER = '127.0.0.1'
-<<<<<<< HEAD
-
-=======
     CODE_TYPE = 'utf-16'
->>>>>>> 1e32725f5f4a4a5c0994028d3d252bbecbe9b3cc
     socketClient = {}
 
     def __init__(self, hostServer, portServer):
