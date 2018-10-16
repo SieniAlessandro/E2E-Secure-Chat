@@ -47,13 +47,13 @@ login
 
 userIsPresent
 
-3|UserName
+3|username
 
 -----
 
 Messaggio
 
-4|Sender/^Text/^Time
+4|Receiver/^Text/^Time
 
 
 ----------------------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ Formato Server->Client
 {
   id = ""
   #solo se id is digit
-  messages = {
+  messaggi = {
           0 = {
               sender = ""
               message = ''
@@ -82,7 +82,7 @@ Formato Server->Client
 
 
 messaggio["id"]
-messaggio["messages"][i][...]
+messaggio["messaggi"][i][...]
 
 0 = Nessun Messaggio in attesa per te
 

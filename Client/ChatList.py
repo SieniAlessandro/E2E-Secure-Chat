@@ -18,17 +18,26 @@ class ChatList(Frame):
         self.searchButton.pack(side=RIGHT, padx=5, pady=5)
 
     def pressSearchButton(self):
-        self.client.startConnection(self.entryBar.get())
+        username = self.searchBar.get()
+        if not username:
+            return
+        ret = self.client.startConnection(username)
+        if ret >= 0:
+            self.addChatListElement(username, "", "")
+            self.list[-1].changeChatRoom(event='none')
+        else:
+            pass
 
     def pressEnterEvent(self, event):
-        self.pressSendButton()
+        self.pressSearchButton()
 
     def setItems(self, chatWindow, client ):
         self.chatWindow = chatWindow
         self.client = client
 
     def addChatListElement(self, chatName, lastMessage, lastMessageTime):
-        newChatListElement = ChatListElement(self, self['bg']).setElements(self.chatWindow, chatName, lastMessage, lastMessageTime)
+        newChatListElement = ChatListElement(self, self['bg'])
+        newChatListElement.setElements(self.chatWindow, chatName, lastMessage, lastMessageTime)
         self.list.append(newChatListElement)
 
 class ChatListElement(Frame):
@@ -49,7 +58,6 @@ class ChatListElement(Frame):
         self.createWidgets()
 
     def changeChatRoom(self, event):
-        print("Changing Chat Room...")
         self.chatWindow.changeChatRoom(self.chatName.get())
 
     def createWidgets(self):

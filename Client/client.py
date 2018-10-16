@@ -82,36 +82,62 @@ class Client:
             else:
                 msg = ret.decode(self.CODE_TYPE)
                 self.Log.log('Received a message from the SERVER: ' + msg)
-                msgs = msg.split('|')
-                identifier = msgs[0]
-                #The server can send a simple 0 if there are no messages pending
-                if(len(msgs) > 1) :
-                    value = msgs[1]
-                #If it is a digit then the login is done correctly and we
-                #are waiting to know if there are messages stored in the server
-                if identifier.isdigit():
-                    if int(identifier) > 0 :
-                        self.Log.log('There are messages pending in the server')
-                        self.retrieveMessage(msgs[1]);
+                if self.JSON :
+                    dictMsg = json.load(msg)
+                    if dictMsg['id'].isdigit() :
+                        if dictMsg['id'] > 0 :
+                            self.Log.log('There are messages pending in the server')
+                            self.retrieveMessage(dictMsg['messages'])
+                        else :
+                            self.Log.log('No messages stored in the server')
+                        return 1
+                        #if ! we are waiting to know the IP of the host we want to connect to
+                    elif dictMsg['id'] == '!' :
+                        return dictMsg['status']
+                        #if ? we are waiting to know if the login is gone
+                    elif dictMsg['id'] == '?' :
+                        return dictMsg['status']
+                        #if - we are waiting to know how the registration is gone
+                    elif dictMsg['id'] == '-' :
+                        return dictMsg['status']
+                        #if . we are waiting to know if a message sended to be stored
+                        #in the server has been succesfully received and stored
+                    elif dictMsg['id'] == '.' :
+                        return dictMsg['status']
                     else :
-                        self.Log.log('No messages stored in the server')
-                    return 1
-                    #if ! we are waiting to know the IP of the host we want to connect to
-                elif identifier == '!' :
-                    return value
-                    #if ? we are waiting to know if the login is gone
-                elif identifier == '?' :
-                    return value
-                    #if - we are waiting to know how the registration is gone
-                elif identifier == '-' :
-                    return value
-                    #if . we are waiting to know if a message sended to be stored
-                    #in the server has been succesfully received and stored
-                elif identifier == '.' :
-                    return value
+                        print('The protocol for this kind of message has not been implemented yet')
+                        return dictMsg['id']
                 else :
-                    print('The protocol for this kind of message has not been implemented yet')
-                    return identifier
+                    msgs = msg.split('|')
+                    identifier = msgs[0]
+                    #The server can send a simple 0 if there are no messages pending
+                    if(len(msgs) > 1) :
+                        value = msgs[1]
+                    #If it is a digit then the login is done correctly and we
+                    #are waiting to know if there are messages stored in the server
+                    if identifier.isdigit():
+                        if int(identifier) > 0 :
+                            self.Log.log('There are messages pending in the server')
+                            self.retrieveMessage(msgs[1])
+                        else :
+                            self.Log.log('No messages stored in the server')
+                        return 1
+                        #if ! we are waiting to know the IP of the host we want to connect to
+                    elif identifier == '!' :
+                        return value
+                        #if ? we are waiting to know if the login is gone
+                    elif identifier == '?' :
+                        return value
+                        #if - we are waiting to know how the registration is gone
+                    elif identifier == '-' :
+                        return value
+                        #if . we are waiting to know if a message sended to be stored
+                        #in the server has been succesfully received and stored
+                    elif identifier == '.' :
+                        return value
+                    else :
+                        print('The protocol for this kind of message has not been implemented yet')
+                        return identifier
         except:
             self.Log.log('An Exception has been raised in the receiveServer function')
             return -1
@@ -125,15 +151,26 @@ class Client:
         otherwise return 0 {we can use other codes to know why it is not okay}
     '''
     def register(self, username, password, name, surname, email, key):
-        self.sendServer('1|' + username + ',' + password + ',' + name + ',' +
-                surname + ',' + email + ',' + key)
-        value = int(self.receiveServer());
-        if value == 1 :
-            self.Log.log('Succesfully registered')
-        else :
-            #we can handle better the possible error
-            self.Log.log('Error in registration')
-        return value
+        if self.JSON :
+            msg['id'] = 1
+            msg['user'] = username
+            msg['password'] = password
+            msg['name'] = name
+            msg['surname'] = surname
+            msg['email'] = email
+            msg['key'] = key
+            msgToSend = json.dumps(msg)
+            self.sendServer(msgToSend)
+        else:
+            self.sendServer('1|' + username + ',' + password + ',' + name + ',' +
+                    surname + ',' + email + ',' + key)
+            value = int(self.receiveServer());
+            if value == 1 :
+                self.Log.log('Succesfully registered')
+            else :
+                #we can handle better the possible error
+                self.Log.log('Error in registration')
+            return value
     '''
         Used to do the login -> creates an attribute to know the username [username]
         Send a message to the server with the prefix '2|'
@@ -143,7 +180,15 @@ class Client:
     '''
     def login(self, username, password):
         self.username = username
-        self.sendServer('2|' + username + ',' + password + ',' + str(self.portp2p))
+        if self.JSON :
+            msg['id'] = 2
+            msg['username'] = username
+            msg['password'] = password
+            msg['porta'] = str(self.portp2p)
+            msgToSend = json.dump(msg)
+            self.sendServer(msgToSend)
+        else :
+            self.sendServer('2|' + username + ',' + password + ',' + str(self.portp2p))
         value = int(self.receiveServer())
         if value == 1 :
             self.Log.log('Succesfull logged in as ' + self.username)
@@ -151,7 +196,6 @@ class Client:
             #TO DO TO DO TO DO
             #wating to know if there are waiting messages on the server
             self.receiveServer()
-
             #starting the connectionHandler in order to manage
             #connections received from new clients
             ch = ConnectionHandler(self.portp2p, self.Log)
@@ -175,7 +219,13 @@ class Client:
              if an exception has been raised -4
     '''
     def startConnection(self, receiver):
-        self.sendServer('3|' + receiver)
+        if self.JSON :
+            msg['id'] = 3
+            msg['username'] = receiver
+            msgToSend = json.dump(msg)
+            self.sendServer(msgToSend)
+        else :
+            self.sendServer('3|' + receiver)
         value = self.receiveServer()
         msg = ''
 
@@ -216,7 +266,15 @@ class Client:
         otherwise return -1 for general errors
     '''
     def sendMessageOffline(self, receiver, text, time):
-        self.sendServer('4|' + receiver + '/^' + text + '/^' + time)
+        if JSON :
+            msg['id'] = 4
+            msg['Receiver'] = receiver
+            msg['Text'] = text
+            msg['Time'] = time
+            msgToSend = json.dump(msg)
+            self.sendServer(msgToSend)
+        else :
+            self.sendServer('4|' + receiver + '/^' + text + '/^' + time)
         value = int(self.receiveServer())
         if value == 1:
             self.Log.log('Message send correctly')
