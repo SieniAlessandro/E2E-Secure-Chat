@@ -4,12 +4,12 @@ from Chat import ChatGUI
 from Login import LoginGUI
 from SignUp import SignUpGUI
 
-host = '10.102.8.250'
+host = ''
 port = 6000
 MESSAGE = 'hi'
 
 
-client = Client("roberto è uno stronzo", port)
+client = Client("", port)
 client.connectServer()
 
 chat = ChatGUI()
@@ -20,8 +20,9 @@ login.setSignUpWindow(signUp)
 login.setClient(client)
 signUp.setLoginWindow(login)
 signUp.setClient(client)
+chat.setClient(client)
 
-chat.withdraw()
+# chat.withdraw()
 signUp.withdraw()
 
 
