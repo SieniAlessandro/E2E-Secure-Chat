@@ -6,7 +6,8 @@ class Database:
     #In the init function the class try to establish a connection with the database, in order to allows
     #the programmer to modify the information stored in the database using the methods offered by this class
 
-    def __init__(self,_host,_port,_user,_password,_db):
+    def __init__(self,_host,_port,_user,_password,_db,Json):
+        self.json = Json
         #Establishing the connection with the database
         #self.db = pymysql.connect(host='localhost', port=3306, user='root', passwd='rootroot', db='messaggistica_mps')
         self.db = pymysql.connect(host=_host, port=_port, user=_user, passwd=_password, db=_db)
@@ -60,12 +61,21 @@ class Database:
             #Executing the query
             self.cursor.execute(query)
             rows = self.cursor.fetchall()
-            for row in rows:
-                msg_t = [str(i) for i in row]
-                msg.append('/^'.join(msg_t))
-            msg = str('^/'.join(msg))
-            print(msg)
-            return msg
+            if self.json:
+                request = {}
+                for i in range(0,len(rows)):
+                    request[i] = {}
+                    request[i]['Sender'] = rows[i][0]
+                    request[i]['Text'] = rows[i][1]
+                    request[i]['Time'] = str(rows[i][2])
+                print(request)
+            else:
+                for row in rows:
+                    msg_t = [str(i) for i in row]
+                    msg.append('/^'.join(msg_t))
+                msg = str('^/'.join(msg))
+                print(msg)
+                return msg
         except:
             #rollback to the previous operations
             self.db.rollback()

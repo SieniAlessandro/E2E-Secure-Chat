@@ -4,11 +4,26 @@ Formato Client->Server
 
 Registrazione
 
+{
+  "id": "1"
+  "user" = user
+  ..
+
+
+}
+
+
 1|user,password,name,surname,email,key
 
 -----
 
 login
+{
+  'id' = "2"
+  'username' = username
+  'password' = Password
+  'porta' = str(porta)
+}
 
 2|username,password,porta
 
@@ -41,9 +56,20 @@ N|sender/^message/^time^/.... = N = numero di messaggi da inviare e tuple di mes
 !|-2 se il client chiede il proprio indirizzo IP)
 !|-3 se il client chiede di connettersi ad un utente non esistente
 
+{
+  'id' = ?
+  'status' = str()
+}
+
 ?|1 Login Ok
 ?|0 Password o Username errati
 ?|-1 Sei già online
+
+{
+  'id' = -
+  'status' = str() 
+
+}
 
 -|1 Registrazione Ok
 -|0 Registrazione Fallita
