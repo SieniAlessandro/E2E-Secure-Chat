@@ -60,11 +60,8 @@ class Database:
             #Executing the query
             self.cursor.execute(query)
             rows = self.cursor.fetchall()
-
             for row in rows:
-                #print(str(row[-1]))
                 msg_t = [str(i) for i in row]
-                #print(msg_t)
                 msg.append('/^'.join(msg_t))
             msg = str('^/'.join(msg))
             print(msg)
@@ -107,6 +104,7 @@ class Database:
 
     def remove_user(self,user):
         query = "DELETE from user WHERE UserName = '%s'" % (user)
+        print(query)
         try:
             #Executing the query
             self.cursor.execute(query)
@@ -118,11 +116,23 @@ class Database:
             self.db.rollback()
             print ("Error in the user delete query")
             return -1
-
+    def remove_waiting_messagesOfBannedUser(self,user):
+        query = "DELETE from message WHERE Receiver = '%s' OR sender = '%s'" % (user,user)
+        try:
+            #Executing the query
+            self.cursor.execute(query)
+            #Commit the changes to the databes
+            self.db.commit()
+            return 0
+        except:
+            #rollback the previous operations
+            self.db.rollback()
+            print ("Error in the message delete query")
+            return -1
     #This method is invkoed when a user back online and there are several waiting message with him as receiver.
 
     def remove_waiting_messages_by_receiver(self,receiver):
-        query = "DELETE from message WHERE Receiver = %s" % (receiver)
+        query = "DELETE from message WHERE Receiver = '%s'" % (receiver)
         try:
             #Executing the query
             self.cursor.execute(query)
@@ -136,7 +146,7 @@ class Database:
             return -1
 
     def remove_waiting_messages_by_sender(self,sender):
-        query = "DELETE from message WHERE Sender = %s" % (sender)
+        query = "DELETE from message WHERE Sender = '%s'" % (sender)
         try:
             #Executing the query
             self.cursor.execute(query)
@@ -149,7 +159,7 @@ class Database:
             print ("Error in the message delete query")
             return -1
     def remove_waiting_messages_by_id(self,index):
-        query = "DELETE from message WHERE Index = %s" % (index)
+        query = "DELETE from message WHERE Index = '%s'" % (index)
         try:
             #Executing the query
             self.cursor.execute(query)
