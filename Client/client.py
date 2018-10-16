@@ -1,5 +1,6 @@
 #from socket import AF_INET, socket, SOCK_STREAM
 import socket
+import json
 import datetime
 from threading import Thread
 from ConnectionHandler import *
@@ -12,7 +13,7 @@ class Client:
     HOST_SERVER = '127.0.0.1'
     CODE_TYPE = 'utf-16'
     socketClient = {}
-    JSON = True
+    JSON = False
 
     def __init__(self, hostServer, portServer):
         self.hostServer = self.HOST_SERVER #IPv4 Address of the server
@@ -28,7 +29,7 @@ class Client:
     else return the return of the send function [a number > 0]
     '''
     def sendServer(self, text):
-        ret = self.socketServer.send(text.encode(CODE_TYPE))
+        ret = self.socketServer.send(text.encode(self.CODE_TYPE))
         if ret == 0:
             #Socket is close
             self.Log.log('Problem in the connection with the server')
@@ -79,7 +80,7 @@ class Client:
                 self.Log.log('Connection with the server closed!')
                 return -1
             else:
-                msg = ret.decode(CODE_TYPE)
+                msg = ret.decode(self.CODE_TYPE)
                 self.Log.log('Received a message from the SERVER: ' + msg)
                 msgs = msg.split('|')
                 identifier = msgs[0]
@@ -196,7 +197,7 @@ class Client:
                 self.socketClient[receiver] = socket.socket()
                 self.socketClient[receiver].connect((ip, int(port)))
                 username = self.username + '\^'
-                ret = self.socketClient[receiver].send(username.encode(CODE_TYPE))
+                ret = self.socketClient[receiver].send(username.encode(self.CODE_TYPE))
                 value = 1
                 if ret == 0:
                     msg = 'Error in sending the message to the client connection redirected to the server'
@@ -238,7 +239,7 @@ class Client:
                 self.socketClient[receiver] = 'server'
             elif value == 1 : #client online, connection established correctly
                 self.Log.log('Connection established with ' + receiver)
-                #self.socketClient[receiver].send(text.encode(CODE_TYPE))
+                #self.socketClient[receiver].send(text.encode(self.CODE_TYPE))
             else :
                 print('Client does not exist!!!')
                 return value
@@ -247,7 +248,7 @@ class Client:
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])
         else :
             try:
-                value = self.socketClient[receiver].send(text.encode(CODE_TYPE))
+                value = self.socketClient[receiver].send(text.encode(self.CODE_TYPE))
                 if value > 0:
                     return 1
                 else :
