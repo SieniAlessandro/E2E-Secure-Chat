@@ -21,7 +21,7 @@ class LoginGUI(Tk):
 
         self.titleLabel = Label(self.mainFrame, text="Login", bg=self.backgroundWindow, font = ("Default", 18, "bold"), fg='white')
 
-        self.invalidInputLabel = Label(self.mainFrame, text="Username or Password is incorrect", fg = "#ff1a1a", bg="#8585ad")
+        self.errorLabel = Label(self.mainFrame, text="Username or Password is incorrect", fg = "#ff1a1a", bg="#8585ad")
 
         self.usernameLabel = Label(self.mainFrame, bg=self.backgroundWindow, fg='white', text="Username")
         self.usernameEntry = Entry(self.mainFrame, validate="focus", vcmd= lambda: self.validateLength(self.usernameEntry, 20), invalidcommand = lambda: self.invalidate(self.usernameEntry) )
@@ -47,6 +47,7 @@ class LoginGUI(Tk):
         self.isFormValid[self.passwordEntry.winfo_name] = True
 
     def validateLength(self, entry, length):
+        self.hideError()
         if len(entry.get()) > 0 and len(entry.get()) < length :
             entry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
             self.isFormValid[entry.winfo_name] = True
@@ -73,22 +74,28 @@ class LoginGUI(Tk):
         if False in self.isFormValid.values():
             self.confirmButton.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
         else:
-            # if self.client.login(self.usernameEntry.get(),self.passwordEntry.get()):
-            #     self.withdraw()
-            #     # chiamare funzione di chatGUI dopo il login
-            # else:
-            #     self.invalidInput()
+            ret = self.client.login(self.usernameEntry.get(),self.passwordEntry.get())
+            if  ret == 1:
+                self.withdraw()
+                # chiamare funzione di chatGUI dopo il login
+            elif ret == 0:
+                self.showError()
+            elif ret == -1:
+                self.alreadyConnected()
+            # self.client.login(self.usernameEntry.get(),self.passwordEntry.get())
 
-            self.client.login(self.usernameEntry.get(),self.passwordEntry.get())
-
-    def invalidInput(self):
-        self.invalidInputLabel.grid(row = 1)
+    def showError(self):
+        self.errorLabel.grid(row = 1)
         self.usernameEntry.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
         self.passwordEntry.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
 
-    def hideInvalidInput(self):
-        self.invalidInputLabel.grid_forget()
+    def hideError(self):
+        self.errorLabel.grid_forget()
 
-# login = LoginGUI()
-#
-# login.mainloop()
+    def alreadyConnected(self):
+        self.errorLabel.config(text="You are already logged in other device")
+        self.errorLabel.grid(row = 1)
+
+login = LoginGUI()
+
+login.mainloop()
