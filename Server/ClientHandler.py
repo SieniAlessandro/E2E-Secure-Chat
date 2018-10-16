@@ -2,13 +2,16 @@ import socket
 from threading import Thread
 from Log import *
 from User import User
+import json
 
+JSON = 1
 class ClientHandler(Thread):
     MSG_LEN = 2048
     #Constructor of the class
-    def __init__(self,Conn,ip,port,db,clients,Log,ActiveThreads):
+    def __init__(self,Conn,ip,port,db,clients,Log,ActiveThreads,Json):
         Thread.__init__(self)   #Instatation of the thread
         self.HandledUser = User(Conn,ip,0,port,"none")
+        self.json = Json
         self.DB = db
         self.OnlineClients = clients
         self.log = Log
@@ -34,75 +37,135 @@ class ClientHandler(Thread):
                     del self.OnlineClients[self.HandledUser.getUserName()]
                     #ActiveThreads = ActiveThreads - 1
                 return -1
-
-            #Decoding the received data to obtain a string
             msg = data.decode('utf-16')
-            #Spliting the whole message to retrieve the type of request and the content of that request
-            msgs = msg.split('|')
-            #If the first part is 1, the client want to register as new user
-            if msgs[0] == "1":
-                self.registerUser(msgs)
-            #If the first part is 2, the client want login
-            elif msgs[0] == '2':
-                self.login(msgs)
-            #If the first part is 3, the client want to know if the user is online
-            elif msgs[0] == '3':
-                self.findUser(msgs)
-            #If the first part is 4, the client want to store the message waiting for the back online of the receiver
-            elif msgs[0] == '4':
-                self.StoreMessage(msgs)
+            if self.json:
+                jsonMessage = json.loads(msg)
+                #Registration
+                if jsonMessage['id'] == "1":
+                    self.registerUser(jsonMessage)
+                #Login
+                elif jsonMessage['id'] == "2":
+                    self.login(jsonMessage)
+            else:
+                #Decoding the received data to obtain a string
+
+                #Spliting the whole message to retrieve the type of request and the content of that request
+                msgs = msg.split('|')
+                #If the first part is 1, the client want to register as new user
+
+                if msgs[0] == "1":
+                    self.registerUser(msgs)
+                #If the first part is 2, the client want login
+                elif msgs[0] == '2':
+                    self.login(msgs)
+                #If the first part is 3, the client want to know if the user is online
+                elif msgs[0] == '3':
+                    self.findUser(msgs)
+                #If the first part is 4, the client want to store the message waiting for the back online of the receiver
+                elif msgs[0] == '4':
+                    self.StoreMessage(msgs)
 
     def login(self,msgs):
         self.log.log("A client want to login")
-        #Splitting the second part of message in order to obtain all the informations needed to login
-        param = msgs[1].split(',')
-        response = ""
-        params = param[:2]
-        #Check if this user is already Logged In
-        if self.HandledUser in self.OnlineClients.values():
-            response = "?|"+str(-1)
-            self.HandledUser.getSocket().send(response.encode('utf-16'))
-        #Otherwise control if the parameter sended are correct
-        elif self.DB.userIsPresent(*params) == 1:
-            #Inform the client that from now he is logged in
-            response = "?|"+str(1)
-            self.HandledUser.getSocket().send(response.encode('utf-16'))
-            clientPort = param[-1]
-            UserName = param[0]
-            self.HandledUser.setUserName(UserName)
-            self.HandledUser.setClientPort(clientPort)
-            #print(UserName)
-            #Adding the client to the list of active users
-            self.OnlineClients[UserName] = self.HandledUser
-            self.log.log("Active users: "+str(self.OnlineClients))
-            msg = self.DB.getMessageByReceiver(self.HandledUser.getUserName())
-            if not msg:
-                self.log.log("There are no message for this client")
-                self.HandledUser.getSocket().send("0".encode('utf-16'))
-            else:
-                self.log.log("There are several messages to be sended: "+ str(msg))
-                lens = len(msg.split("^/"))
-                self.HandledUser.getSocket().send((str(lens)+"|"+str(msg)).encode('utf-16'))
+        if self.json:
+            response = {}
+            #Check if this user is already Logged In
+            if self.HandledUser in self.OnlineClients.values():
+                response['id'] = "?"
+                response['status'] = "-1"
+                jsonResponse = json.dumps(response)
+                print(jsonResponse)
+                self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
+            elif self.DB.userIsPresent(msgs['username'],msgs['password']):
+                response['id'] = "?"
+                response['status'] = "1"
+                print(jsonResponse)
+                self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
+                self.HandledUser.setUserName(UserName)
+                self.HandledUser.setClientPort(clientPort)
+                #Adding the client to the list of active users
+                self.OnlineClients[UserName] = self.HandledUser
+                self.log.log("Active users: "+str(self.OnlineClients))
+                msg = self.DB.getMessageByReceiver(self.HandledUser.getUserName())
+                if len(msg) == 0:
+                    self.log.log("There are no message for this client")
+                    self.HandledUser.getSocket().send("0".encode('utf-16'))
+                else:
+                    self.log.log("There are several messages to be sended: "+ str(msg))
+                    lens = len(msg)
+                    response = {}
+                    response['number'] = str(lens)
+                    response['messages'] = {}
+                    response['messages'] = msg
+                    jsonResponse = json.dumps(response)
+                    print(jsonResponse)
+                    self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
         else:
-            #Inform the client that the login has failed
-            response = "?|"+str(0)
-            self.HandledUser.getSocket().send(response.encode('utf-16'))
-            #Sending the result of the login to the client
+            #Splitting the second part of message in order to obtain all the informations needed to login
+            param = msgs[1].split(',')
+            response = ""
+            params = param[:2]
+            #Check if this user is already Logged In
+            if self.HandledUser in self.OnlineClients.values():
+                response = "?|"+str(-1)
+                self.HandledUser.getSocket().send(response.encode('utf-16'))
+            #Otherwise control if the parameter sended are correct
+            elif self.DB.userIsPresent(*params) == 1:
+                #Inform the client that from now he is logged in
+                response = "?|"+str(1)
+                self.HandledUser.getSocket().send(response.encode('utf-16'))
+                clientPort = param[-1]
+                UserName = param[0]
+                self.HandledUser.setUserName(UserName)
+                self.HandledUser.setClientPort(clientPort)
+                #Adding the client to the list of active users
+                self.OnlineClients[UserName] = self.HandledUser
+                self.log.log("Active users: "+str(self.OnlineClients))
+                msg = self.DB.getMessageByReceiver(self.HandledUser.getUserName())
+                if not msg:
+                    self.log.log("There are no message for this client")
+                    self.HandledUser.getSocket().send("0".encode('utf-16'))
+                else:
+                    self.log.log("There are several messages to be sended: "+ str(msg))
+                    lens = len(msg.split("^/"))
+                    self.HandledUser.getSocket().send((str(lens)+"|"+str(msg)).encode('utf-16'))
+            else:
+                #Inform the client that the login has failed
+                response = "?|"+str(0)
+                self.HandledUser.getSocket().send(response.encode('utf-16'))
+                #Sending the result of the login to the client
 
     def registerUser(self,msgs):
         self.log.log("A client want to register")
-        #Splitting the second part of message in order to obtain all the informations needed to register a new user
-        param = msgs[1].split(',')
-        #Use of the class Database with the appropriate method to insert the new user, checking if the insertion
-        #has completed correctly
-        if (self.DB.insert_user(*param) == 0):
-            self.log.log("Registration succeded")
-            #Send to the client that the request has succeded
-            self.HandledUser.getSocket().send(("-|1").encode("utf-16"))
+        if self.json:
+            respone = {}
+            if (self.DB.insert_user(msgs['user'],msgs['password'],msgs['name'],msgs['surname'],msgs['email'],msgs['key']) == 0):
+                self.log.log("Registration succeded")
+                #Send to the client that the request has succeded
+                response['id'] = "-"
+                response['status'] = "1"
+                jsonMessage = json.dumps(response)
+                self.HandledUser.getSocket().send(jsonMessage.encode('utf-16'))
+            else:
+                self.log.log("Registration failed")
+                #Send to the client that the request has failed
+                response['id'] = "-"
+                response['status'] = "0"
+                jsonMessage = json.dumps(response)
+                self.HandledUser.getSocket().send(jsonMessage.encode('utf-16'))
         else:
-            self.log.log("Registration failed")
-            #Send to the client that the request has failed
-            self.HandledUser.getSocket().send(("-|0").encode("utf-16"))
+            #Splitting the second part of message in order to obtain all the informations needed to register a new user
+            param = msgs[1].split(',')
+            #Use of the class Database with the appropriate method to insert the new user, checking if the insertion
+            #has completed correctly
+            if (self.DB.insert_user(*param) == 0):
+                self.log.log("Registration succeded")
+                #Send to the client that the request has succeded
+                self.HandledUser.getSocket().send(("-|1").encode("utf-16"))
+            else:
+                self.log.log("Registration failed")
+                #Send to the client that the request has failed
+                self.HandledUser.getSocket().send(("-|0").encode("utf-16"))
 
     def StoreMessage(self,msgs):
         self.log.log("The user has a massage to be stored on the DB :")

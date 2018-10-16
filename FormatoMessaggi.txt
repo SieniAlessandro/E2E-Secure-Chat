@@ -4,6 +4,15 @@ Formato Client->Server
 
 Registrazione
 
+{
+  "id": "1"
+  "user" = user
+  ..
+
+
+}
+
+
 1|user,password,name,surname,email,key
 
 import json
@@ -25,6 +34,12 @@ DictToReceive = json.load(StringReceivedInJSON)
 -----
 
 login
+{
+  'id' = "2"
+  'username' = username
+  'password' = Password
+  'porta' = str(porta)
+}
 
 2|username,password,porta
 
@@ -32,13 +47,13 @@ login
 
 userIsPresent
 
-3|UserName
+3|username
 
 -----
 
 Messaggio
 
-4|Sender/^Text/^Time
+4|Receiver/^Text/^Time
 
 
 ----------------------------------------------------------------------------------------------------
@@ -82,9 +97,20 @@ messaggio[stato]
 !|-2 se il client chiede il proprio indirizzo IP)
 !|-3 se il client chiede di connettersi ad un utente non esistente
 
+{
+  'id' = ?
+  'status' = str()
+}
+
 ?|1 Login Ok
 ?|0 Password o Username errati
 ?|-1 Sei già online
+
+{
+  'id' = -
+  'status' = str()
+
+}
 
 -|1 Registrazione Ok
 -|0 Registrazione Fallita
