@@ -17,12 +17,12 @@ login = LoginGUI()
 signUp = SignUpGUI()
 
 login.setSignUpWindow(signUp)
-login.setClient(client)
+login.setItems(client, chat)
 signUp.setLoginWindow(login)
 signUp.setClient(client)
-chat.setClient(client)
+chat.createWidgets(client)
 
-# chat.withdraw()
+chat.withdraw()
 signUp.withdraw()
 
 

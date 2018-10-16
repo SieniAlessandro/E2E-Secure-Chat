@@ -1,3 +1,258 @@
-2018-10-16 10:17:55	Server Initialized
-2018-10-16 10:17:55	Waiting for connections...
-2018-10-16 10:17:59	Server Closed
+2018-10-16 17:37:06	Server Initialized
+2018-10-16 17:37:06	Waiting for connections...
+2018-10-16 17:50:32	Client handled has address: 127.0.0.1 and port 58986
+2018-10-16 17:50:32	Waiting for connections...
+2018-10-16 17:50:32	Client disconnected, closing this thread
+2018-10-16 17:50:52	Client handled has address: 127.0.0.1 and port 58987
+2018-10-16 17:50:52	Waiting for connections...
+2018-10-16 17:50:52	Client had a problem, connection closed
+2018-10-16 17:51:53	Client handled has address: 127.0.0.1 and port 59006
+2018-10-16 17:51:53	Waiting for connections...
+2018-10-16 17:59:03	Client handled has address: 127.0.0.1 and port 54345
+2018-10-16 17:59:03	Waiting for connections...
+2018-10-16 17:59:25	A client want to register
+2018-10-16 17:59:25	Registration succeded
+2018-10-16 18:01:01	A client want to login
+2018-10-16 18:01:06	A client want to login
+2018-10-16 18:01:06	A client want to login
+2018-10-16 18:01:06	A client want to login
+2018-10-16 18:01:06	A client want to login
+2018-10-16 18:02:51	Client handled has address: 127.0.0.1 and port 54422
+2018-10-16 18:02:51	Waiting for connections...
+2018-10-16 18:03:08	A client want to register
+2018-10-16 18:03:09	Registration succeded
+2018-10-16 18:04:08	Client handled has address: 127.0.0.1 and port 54464
+2018-10-16 18:04:08	Waiting for connections...
+2018-10-16 18:04:29	A client want to register
+2018-10-16 18:04:29	Registration succeded
+2018-10-16 18:05:26	A client want to login
+2018-10-16 18:05:26	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 54464 ClientPort: 19479}
+2018-10-16 18:05:26	There are no message for this client
+2018-10-16 18:06:59	Client handled has address: 127.0.0.1 and port 54536
+2018-10-16 18:06:59	Waiting for connections...
+2018-10-16 18:07:04	A client want to login
+2018-10-16 18:07:04	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 54536 ClientPort: 51640}
+2018-10-16 18:07:04	There are no message for this client
+2018-10-16 18:08:00	Client handled has address: 127.0.0.1 and port 54568
+2018-10-16 18:08:00	Waiting for connections...
+2018-10-16 18:08:05	A client want to login
+2018-10-16 18:08:05	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 54568 ClientPort: 13979}
+2018-10-16 18:08:05	There are no message for this client
+2018-10-16 18:11:09	Client handled has address: 127.0.0.1 and port 65169
+2018-10-16 18:11:09	Waiting for connections...
+2018-10-16 18:11:22	Client handled has address: 127.0.0.1 and port 65171
+2018-10-16 18:11:22	Waiting for connections...
+2018-10-16 18:11:30	A client want to login
+2018-10-16 18:11:30	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 65171 ClientPort: 14902}
+2018-10-16 18:11:30	There are no message for this client
+2018-10-16 18:11:59	Client handled has address: 127.0.0.1 and port 65189
+2018-10-16 18:11:59	Waiting for connections...
+2018-10-16 18:12:03	A client want to login
+2018-10-16 18:12:03	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 65189 ClientPort: 17536}
+2018-10-16 18:12:03	There are no message for this client
+2018-10-16 18:12:07	A client want to find another user
+2018-10-16 18:12:07	Store the message to Prova
+2018-10-16 18:12:12	A client want to find another user
+2018-10-16 18:12:12	Store the message to Prova
+2018-10-16 18:18:36	Client handled has address: 127.0.0.1 and port 65384
+2018-10-16 18:18:36	Waiting for connections...
+2018-10-16 18:18:42	A client want to login
+2018-10-16 18:18:45	A client want to login
+2018-10-16 18:18:45	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 65384 ClientPort: 15618}
+2018-10-16 18:18:45	There are no message for this client
+2018-10-16 18:18:49	A client want to find another user
+2018-10-16 18:18:49	Store the message to Prova
+2018-10-16 18:18:51	A client want to find another user
+2018-10-16 18:18:51	Store the message to Prova
+2018-10-16 18:18:51	A client want to find another user
+2018-10-16 18:18:51	Store the message to Prova
+2018-10-16 18:18:52	A client want to find another user
+2018-10-16 18:18:52	Store the message to Prova
+2018-10-16 18:18:52	A client want to find another user
+2018-10-16 18:18:52	Store the message to Prova
+2018-10-16 18:18:52	A client want to find another user
+2018-10-16 18:18:52	Store the message to Prova
+2018-10-16 18:18:52	A client want to find another user
+2018-10-16 18:18:52	Store the message to Prova
+2018-10-16 18:18:52	A client want to find another user
+2018-10-16 18:18:52	Store the message to Prova
+2018-10-16 18:18:53	A client want to find another user
+2018-10-16 18:18:53	Store the message to Prova
+2018-10-16 18:18:53	A client want to find another user
+2018-10-16 18:18:53	Store the message to Prova
+2018-10-16 18:18:53	A client want to find another user
+2018-10-16 18:18:53	Store the message to Prova
+2018-10-16 18:20:05	Client handled has address: 127.0.0.1 and port 65412
+2018-10-16 18:20:05	Waiting for connections...
+2018-10-16 18:20:09	A client want to login
+2018-10-16 18:20:11	A client want to login
+2018-10-16 18:20:11	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 65412 ClientPort: 59712}
+2018-10-16 18:20:11	There are no message for this client
+2018-10-16 18:20:16	A client want to find another user
+2018-10-16 18:20:16	Store the message to Prova
+2018-10-16 18:22:39	Client handled has address: 127.0.0.1 and port 65489
+2018-10-16 18:22:39	Waiting for connections...
+2018-10-16 18:22:43	A client want to login
+2018-10-16 18:22:43	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 65489 ClientPort: 29507}
+2018-10-16 18:22:43	There are no message for this client
+2018-10-16 18:22:48	A client want to find another user
+2018-10-16 18:22:48	Store the message to Prova
+2018-10-16 18:24:06	Client handled has address: 127.0.0.1 and port 65512
+2018-10-16 18:24:06	Waiting for connections...
+2018-10-16 18:24:10	A client want to login
+2018-10-16 18:24:10	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 65512 ClientPort: 33420}
+2018-10-16 18:24:10	There are no message for this client
+2018-10-16 18:24:13	A client want to find another user
+2018-10-16 18:24:13	Store the message to Prova
+2018-10-16 18:28:16	Client handled has address: 127.0.0.1 and port 49220
+2018-10-16 18:28:16	Waiting for connections...
+2018-10-16 18:28:19	A client want to login
+2018-10-16 18:28:19	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 49220 ClientPort: 31474}
+2018-10-16 18:28:19	There are no message for this client
+2018-10-16 18:28:22	A client want to find another user
+2018-10-16 18:28:22	Store the message to Prova
+2018-10-16 18:28:55	Client handled has address: 127.0.0.1 and port 49240
+2018-10-16 18:28:55	Waiting for connections...
+2018-10-16 18:28:58	A client want to login
+2018-10-16 18:28:58	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 49240 ClientPort: 7076}
+2018-10-16 18:28:58	There are no message for this client
+2018-10-16 18:29:00	A client want to find another user
+2018-10-16 18:29:00	Store the message to Prova
+2018-10-16 18:29:42	Client handled has address: 127.0.0.1 and port 49262
+2018-10-16 18:29:42	Waiting for connections...
+2018-10-16 18:29:44	A client want to login
+2018-10-16 18:29:47	A client want to login
+2018-10-16 18:29:47	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 49262 ClientPort: 56582}
+2018-10-16 18:29:47	There are no message for this client
+2018-10-16 18:29:49	A client want to find another user
+2018-10-16 18:29:49	Store the message to Prova
+2018-10-16 18:31:03	Client had a problem, connection closed
+2018-10-16 18:35:32	Client handled has address: 127.0.0.1 and port 49380
+2018-10-16 18:35:32	Waiting for connections...
+2018-10-16 18:35:33	Client had a problem, connection closed
+2018-10-16 18:36:06	Client handled has address: 127.0.0.1 and port 49401
+2018-10-16 18:36:06	Waiting for connections...
+2018-10-16 18:36:07	Client had a problem, connection closed
+2018-10-16 18:37:10	Client handled has address: 127.0.0.1 and port 49424
+2018-10-16 18:37:10	Waiting for connections...
+2018-10-16 18:37:10	Client had a problem, connection closed
+2018-10-16 18:39:01	Client handled has address: 127.0.0.1 and port 49493
+2018-10-16 18:39:01	Waiting for connections...
+2018-10-16 18:39:01	Client had a problem, connection closed
+2018-10-16 18:39:11	Client handled has address: 127.0.0.1 and port 49494
+2018-10-16 18:39:11	Waiting for connections...
+2018-10-16 18:39:14	A client want to login
+2018-10-16 18:39:14	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 49494 ClientPort: 56979}
+2018-10-16 18:39:14	There are no message for this client
+2018-10-16 18:39:23	A client want to find another user
+2018-10-16 18:39:23	Store the message to Prova
+2018-10-16 18:39:58	Client handled has address: 127.0.0.1 and port 49519
+2018-10-16 18:39:58	Waiting for connections...
+2018-10-16 18:40:00	A client want to login
+2018-10-16 18:40:00	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 49519 ClientPort: 10988}
+2018-10-16 18:40:00	There are no message for this client
+2018-10-16 18:40:03	A client want to find another user
+2018-10-16 18:40:03	Store the message to prova
+2018-10-16 18:41:09	Client handled has address: 127.0.0.1 and port 49546
+2018-10-16 18:41:09	Waiting for connections...
+2018-10-16 18:41:22	Client handled has address: 127.0.0.1 and port 49547
+2018-10-16 18:41:22	Waiting for connections...
+2018-10-16 18:41:25	A client want to login
+2018-10-16 18:41:25	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 49547 ClientPort: 7330}
+2018-10-16 18:41:25	There are no message for this client
+2018-10-16 18:41:47	Client handled has address: 127.0.0.1 and port 49568
+2018-10-16 18:41:47	Waiting for connections...
+2018-10-16 18:41:50	A client want to login
+2018-10-16 18:41:50	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 49568 ClientPort: 48183}
+2018-10-16 18:41:50	There are no message for this client
+2018-10-16 18:42:17	Client handled has address: 127.0.0.1 and port 49569
+2018-10-16 18:42:17	Waiting for connections...
+2018-10-16 18:42:20	A client want to login
+2018-10-16 18:42:20	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 49569 ClientPort: 43643}
+2018-10-16 18:42:20	There are no message for this client
+2018-10-16 18:42:23	A client want to find another user
+2018-10-16 18:42:23	Store the message to Prova
+2018-10-16 18:45:35	Client handled has address: 127.0.0.1 and port 49641
+2018-10-16 18:45:35	Waiting for connections...
+2018-10-16 18:45:41	A client want to login
+2018-10-16 18:45:41	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 49641 ClientPort: 26420}
+2018-10-16 18:45:41	There are no message for this client
+2018-10-16 18:45:52	A client want to find another user
+2018-10-16 18:45:52	Store the message to Prova
+2018-10-16 18:46:48	Client had a problem, connection closed
+2018-10-16 18:47:03	Client handled has address: 127.0.0.1 and port 54924
+2018-10-16 18:47:03	Waiting for connections...
+2018-10-16 18:47:05	A client want to login
+2018-10-16 18:47:05	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 54924 ClientPort: 58839}
+2018-10-16 18:47:05	There are no message for this client
+2018-10-16 18:47:07	A client want to find another user
+2018-10-16 18:47:07	Store the message to Prova
+2018-10-16 18:48:23	Client handled has address: 127.0.0.1 and port 54951
+2018-10-16 18:48:23	Waiting for connections...
+2018-10-16 18:48:26	A client want to login
+2018-10-16 18:48:26	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 54951 ClientPort: 50871}
+2018-10-16 18:48:26	There are no message for this client
+2018-10-16 18:48:28	A client want to find another user
+2018-10-16 18:48:28	Store the message to Prova
+2018-10-16 18:49:06	Client handled has address: 127.0.0.1 and port 54973
+2018-10-16 18:49:06	Waiting for connections...
+2018-10-16 18:49:11	A client want to login
+2018-10-16 18:49:11	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 54973 ClientPort: 18322}
+2018-10-16 18:49:11	There are no message for this client
+2018-10-16 18:49:15	A client want to find another user
+2018-10-16 18:49:15	Store the message to Prova
+2018-10-16 18:50:00	Client handled has address: 127.0.0.1 and port 54997
+2018-10-16 18:50:00	Waiting for connections...
+2018-10-16 18:50:03	A client want to login
+2018-10-16 18:50:06	A client want to login
+2018-10-16 18:50:06	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 54997 ClientPort: 27403}
+2018-10-16 18:50:06	There are no message for this client
+2018-10-16 18:50:08	A client want to find another user
+2018-10-16 18:50:08	Store the message to prova
+2018-10-16 18:50:10	A client want to find another user
+2018-10-16 18:50:10	User requested not found:!|-3
+2018-10-16 18:50:42	Client had a problem, connection closed
+2018-10-16 18:52:59	Client handled has address: 127.0.0.1 and port 55067
+2018-10-16 18:52:59	Waiting for connections...
+2018-10-16 18:53:02	A client want to login
+2018-10-16 18:53:02	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 55067 ClientPort: 49655}
+2018-10-16 18:53:02	There are no message for this client
+2018-10-16 18:53:04	A client want to find another user
+2018-10-16 18:53:04	Store the message to prova
+2018-10-16 18:53:06	A client want to find another user
+2018-10-16 18:53:06	User requested not found:!|-3
+2018-10-16 18:53:48	Client handled has address: 127.0.0.1 and port 55090
+2018-10-16 18:53:48	Waiting for connections...
+2018-10-16 18:53:52	A client want to login
+2018-10-16 18:53:52	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 55090 ClientPort: 43180}
+2018-10-16 18:53:52	There are no message for this client
+2018-10-16 18:53:55	A client want to find another user
+2018-10-16 18:53:55	Store the message to Prova
+2018-10-16 18:53:58	A client want to find another user
+2018-10-16 18:53:58	User requested not found:!|-3
+2018-10-16 18:54:58	Client handled has address: 127.0.0.1 and port 55118
+2018-10-16 18:54:58	Waiting for connections...
+2018-10-16 18:55:01	A client want to login
+2018-10-16 18:55:01	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 55118 ClientPort: 43172}
+2018-10-16 18:55:01	There are no message for this client
+2018-10-16 18:55:02	A client want to find another user
+2018-10-16 18:55:02	Store the message to prova
+2018-10-16 18:55:54	Client handled has address: 127.0.0.1 and port 55141
+2018-10-16 18:55:54	Waiting for connections...
+2018-10-16 18:55:56	A client want to login
+2018-10-16 18:55:56	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 55141 ClientPort: 18475}
+2018-10-16 18:55:56	There are no message for this client
+2018-10-16 18:55:58	A client want to find another user
+2018-10-16 18:55:58	User requested not found:!|-3
+2018-10-16 18:55:59	A client want to find another user
+2018-10-16 18:55:59	User requested not found:!|-3
+2018-10-16 18:55:59	A client want to find another user
+2018-10-16 18:55:59	User requested not found:!|-3
+2018-10-16 18:55:59	A client want to find another user
+2018-10-16 18:55:59	User requested not found:!|-3
+2018-10-16 18:55:59	A client want to find another user
+2018-10-16 18:55:59	User requested not found:!|-3
+2018-10-16 18:56:01	A client want to find another user
+2018-10-16 18:56:01	Store the message to Prova
+2018-10-16 18:56:05	A client want to find another user
+2018-10-16 18:56:05	User requested not found:!|-3

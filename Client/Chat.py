@@ -35,10 +35,15 @@ class ChatGUI(Tk):
         self.chatList = ChatList(self, self.backgroundItems)
         self.chatList.setItems(self.chatWindow, self.client)
 
-        self.inputBar = InputBar(self, self.backgroundItems)
-        self.inputBar.setItems(self.chatWindow, self.client)
+    def onLoginEvent(self):
+        self.deiconify()
+        self.chatList.searchBar.focus_force()
 
-chat = ChatGUI()
+        # carica chatList
+        # apri la prima chat nell'elenco
+        # carica i messaggi della chat aperta
 
-chat.chatList.addChatListElement("Rododendro", "Oggi piove", "18:12")
-chat.mainloop()
+# chat = ChatGUI()
+#
+# chat.chatList.addChatListElement("Rododendro", "Oggi piove", "18:12")
+# chat.mainloop()
