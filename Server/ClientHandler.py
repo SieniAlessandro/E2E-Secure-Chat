@@ -17,7 +17,7 @@ class ClientHandler(Thread):
     #Method whose listen the message coming from the handled client,showing its content
     def run(self):
         "Function waiting for the message coming from the associate client"
-        while True:
+        while self._is_stopped == False:
             #Receiving the data from the handled client
             try:
                 data = self.HandledUser.getSocket().recv(self.MSG_LEN)
@@ -143,3 +143,6 @@ class ClientHandler(Thread):
                     self.log.log("Store the message to "+msgs[1])
                     response = "!|"+str(0)
         self.HandledUser.getSocket().send(response.encode('utf-16'))
+
+    def getHandledUser(self):
+        return self.HandledUser.getUserName()

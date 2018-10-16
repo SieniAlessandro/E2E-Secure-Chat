@@ -8,7 +8,7 @@ class Client:
     BUFFER_SIZE = 2048
     PORT_SERVER = 6000
     PORT_P2P = 7000
-    HOST_SERVER = '10.102.24.81'
+    HOST_SERVER = '127.0.0.1'
 
     socketClient = {}
 
