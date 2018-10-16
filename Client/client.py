@@ -2,37 +2,65 @@
 import socket
 import datetime
 from threading import Thread
-from MessageHandler import *
+from ConnectionHandler import *
+from Log import *
 
 class Client:
     BUFFER_SIZE = 2048
     PORT_SERVER = 6000
     PORT_P2P = 7000
     HOST_SERVER = '127.0.0.1'
+<<<<<<< HEAD
 
+=======
+    CODE_TYPE = 'utf-16'
+>>>>>>> 1e32725f5f4a4a5c0994028d3d252bbecbe9b3cc
     socketClient = {}
 
     def __init__(self, hostServer, portServer):
         self.hostServer = self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.PORT_SERVER
         self.portp2p = random.randint(6001,60000)
+        self.Log = Log()
+        self.Log.log('Client initialized')
     #Functions to communicate with Server#
+    '''
+    Send a Message, containing the parameter text, to the Server
+    encoded with utf-16
+    If the communication with the server is closed return -1
+    else return the return of the send function [a number > 0]
+    '''
     def sendServer(self, text):
-        ret = self.socketServer.send(text.encode('utf-16'))
+        ret = self.socketServer.send(text.encode(CODE_TYPE))
         if ret == 0:
             #Socket is close
-            print('The socket is closed')
+            self.Log.log('Problem in the connection with the server')
+            return -1
         else:
-            print('Message: <' + text + '> sent to server correctly')
+            self.Log.log('Message: <' + text + '> sended to the server correctly')
+            return ret
 
+    '''
+        Open the connection with the server creating the socket [socketServer]
+        if the connection goes wrong the function return -1 otherwise 1
+    '''
     def connectServer(self) :
         try :
             self.socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socketServer.connect((self.hostServer, self.portServer))
+            return 1
         except :
-            print('connection refused, the server is down!\n We apologize for the inconvenient')
-            return
+            print('Connection refused by the server! Please try again later!')
+            self.Log.log('Error in connection with the server, is it down?')
+            return -1
 
+    '''
+        Used, after the Login is done correctly, to retrieve all the waiting
+        messages in the server sended to me from other users while I was offline
+        All the messages are taken and putted in a structure containing all the
+        messages related to the specific connection with that specific user
+        TO FINISH
+    '''
     def retrieveMessage(self, msgs) :
         msg = msgs.split('^/')
         for x in msg :
@@ -41,131 +69,196 @@ class Client:
             print('text : ' + block[1])
             print('time : ' + block[2])
 
+    '''
+        Receive Messages from the server
+        if the socket is closed or there is an exception return -1
+        otherwise it returns a specific value depending on the message received
+        by the server
+    '''
     def receiveServer(self):
-        ret = self.socketServer.recv(self.BUFFER_SIZE)
-        if not ret:
-            print('Socket closed')
-            return -1
-        else:
-            msg = ret.decode('utf-16')
-            print('Message received from Server: ' + msg)
-            msgs = msg.split('|')
-            identifier = msgs[0]
-            if(len(msgs) > 1) :
-                value = msgs[1]
-            if identifier.isdigit():
-                if int(identifier) > 0 :
-                    print('There are messages pending in the server')
-                    self.retrieveMessage(msgs[1]);
+        try:
+            ret = self.socketServer.recv(self.BUFFER_SIZE)
+            if not ret:
+                self.Log.log('Connection with the server closed!')
+                return -1
+            else:
+                msg = ret.decode(CODE_TYPE)
+                self.Log.log('Received a message from the SERVER: ' + msg)
+                msgs = msg.split('|')
+                identifier = msgs[0]
+                #The server can send a simple 0 if there are no messages pending
+                if(len(msgs) > 1) :
+                    value = msgs[1]
+                #If it is a digit then the login is done correctly and we
+                #are waiting to know if there are messages stored in the server
+                if identifier.isdigit():
+                    if int(identifier) > 0 :
+                        self.Log.log('There are messages pending in the server')
+                        self.retrieveMessage(msgs[1]);
+                    else :
+                        self.Log.log('No messages stored in the server')
+                    return 1
+                    #if ! we are waiting to know the IP of the host we want to connect to
+                elif identifier == '!' :
+                    return value
+                    #if ? we are waiting to know if the login is gone
+                elif identifier == '?' :
+                    return value
+                    #if - we are waiting to know how the registration is gone
+                elif identifier == '-' :
+                    return value
+                    #if . we are waiting to know if a message sended to be stored
+                    #in the server has been succesfully received and stored
+                elif identifier == '.' :
+                    return value
                 else :
-                    print('There are no messages for you')
-                return 1
-            elif identifier == '!' :
-                return value
-            elif identifier == '?' :
-                return value
-            elif identifier == '-' :
-                return value
-            elif identifier == '.' :
-                return value
-            else :
-                return identifier
-
-
+                    print('The protocol for this kind of message has not been implemented yet')
+                    return identifier
+        except:
+            self.Log.log('An Exception has been raised in the receiveServer function')
+            return -1
     ######################################
 
     #Functions for the FrontEnd#
-
+    '''
+        send a message to the server to register
+        The message is sent with the prefix '1|'
+        if succesfull registration return 1
+        otherwise return 0 {we can use other codes to know why it is not okay}
+    '''
     def register(self, username, password, name, surname, email, key):
         self.sendServer('1|' + username + ',' + password + ',' + name + ',' +
                 surname + ',' + email + ',' + key)
-        msg = self.receiveServer();
-        print(msg)
-        if msg == '0' :
-            print('Error in registration')
+        value = int(self.receiveServer());
+        if value == 1 :
+            self.Log.log('Succesfully registered')
         else :
-            print('Succesfully registered')
-
+            #we can handle better the possible error
+            self.Log.log('Error in registration')
+        return value
+    '''
+        Used to do the login -> creates an attribute to know the username [username]
+        Send a message to the server with the prefix '2|'
+        If all it's correct return 1
+        if the username or password are wrong return 0
+        if the host is already connected with another device return -1
+    '''
     def login(self, username, password):
         self.username = username
         self.sendServer('2|' + username + ',' + password + ',' + str(self.portp2p))
-        msg = int(self.receiveServer())
-        if msg == 1 :
-            print('Login done succesfully')
-
+        value = int(self.receiveServer())
+        if value == 1 :
+            self.Log.log('Succesfull logged in as ' + self.username)
+            #restore saved messages
+            #TO DO TO DO TO DO
+            #wating to know if there are waiting messages on the server
             self.receiveServer()
-            print('portp2p : ' + str(self.portp2p))
-            mh = MessageHandler(self.portp2p)
-            mh.start()
-        elif msg == 0 :
-            print('Wrong Username or Password')
-        elif msg == -1 :
-            print('You are already connected with another device')
-        else:
-            print(msg)
 
+            #starting the connectionHandler in order to manage
+            #connections received from new clients
+            ch = ConnectionHandler(self.portp2p, self.Log)
+            ch.start()
+        elif value == 0 :
+            self.Log.log('Login : Wrong Username or Password')
+        elif value == -1 :
+            self.Log.log('Login : You are already connected with another device')
+        else:
+            self.Log.log('Login : an unreachable part of the code has been reached ' + value)
+        return value
+    '''
+    Start a new connection with the user [receiver]:
+        The message is sent with the prefix '3|'
+        if it is online and all goes in the correct way then return 1
+        -> creates the new socket with the receiver [socketClient[receiver]]
+        else if receiver is offline return 0
+             if you do not have done the login return -1
+             if you are trying to talk to yourself return -2
+             if the receiver does not exist -3
+             if an exception has been raised -4
+    '''
     def startConnection(self, receiver):
         self.sendServer('3|' + receiver)
         value = self.receiveServer()
-        print('Value RECEIVED : ' + value)
         msg = ''
 
         if value == '0' :
             msg = 'user offline'
-            return 0
         elif value == '-1' :
             msg = 'Error: user does not have done the login'
         elif value == '-2' :
             msg = 'Error: you can not connect with yourself'
         elif value == '-3' :
             msg = 'Error: the contacted user does not exist'
-            return
         else :
             msgs = value.split(':')
             ip = msgs[0]
             port = msgs[1]
             msg = receiver + ' has IP:Port : ' + value
-            print(msg)
+            self.Log.log('Starting a new connection with ' + receiver)
+            try:
+                self.socketClient[receiver] = socket.socket()
+                self.socketClient[receiver].connect((ip, int(port)))
+                username = self.username + '\^'
+                ret = self.socketClient[receiver].send(username.encode(CODE_TYPE))
+                value = 1
+                if ret == 0
+                    msg = 'Error in sending the message to the client connection redirected to the server'
+                    self.socketClient[receiver] = 'server'
+            except:
+                self.Log.log('An exception has been raised in the startConnection function')
+                return -4
+        self.Log.log(msg)
+        return int(value)
 
-            self.socketClient[receiver] = socket.socket()
-            self.socketClient[receiver].connect((ip, int(port)))
-            username = self.username + '\^'
-            self.socketClient[receiver].send(username.encode('utf-16'))
-            return 1
-        return -1
-
+    '''
+        Used to send and store a message in the server for an offline user
+        The message is sent with the prefix '4|'
+        if the message has been sent correctly return 1
+        if there was an error in the db and the message has not been saved return 0
+        otherwise return -1 for general errors
+    '''
     def sendMessageOffline(self, receiver, text, time):
         self.sendServer('4|' + receiver + '/^' + text + '/^' + time)
-        msg = self.receiveServer()
-        print('sendMessageOffline risposta Server : ' + msg)
-        if msg == '1':
-            print('Message send correctly')
-        elif msg == '0':
-            print('Error in the database! Try again later!')
-        print('Messaggio inviato al server e salvato sul server')
+        value = int(self.receiveServer())
+        if value == 1:
+            self.Log.log('Message send correctly')
+        elif value == 0:
+            self.Log.log('Error in the database! Try again later!')
+        return value
 
-    def sendClient(self, receiver, text, event=None):  # event is passed by binders of the tkinter GUI automatically
-       #Handles sending of messages
-        print('Il messaggio da inviare è ' + text)
-        if not receiver in self.socketClient.keys() :
-            msg = self.startConnection(receiver)
-            print('Il client è offline o online? ' + str(msg))
-            if msg == 0 : #client offline
+    '''
+        Used to send a message [text] to the user [receiver]
+        checks if there is an existing connection with the user [receiver]
+        if not then it tries to create the p2p connection if not possible
+        and the user exists then send the message to the server
+        Handles the passage of the receiver from online to offline
+    '''
+    def sendClient(self, receiver, text):
+       #Handle sending of messages
+
+       if not receiver in self.socketClient.keys() :
+            value = self.startConnection(receiver)
+            if value == 0 : #client offline
                 self.socketClient[receiver] = 'server'
-            elif msg == 1 : #client online, connection established correctly
-                print('Connection established with ' + receiver)
-                #self.socketClient[receiver].send(text.encode('utf-16'))
+            elif value == 1 : #client online, connection established correctly
+                self.Log.log('Connection established with ' + receiver)
+                #self.socketClient[receiver].send(text.encode(CODE_TYPE))
             else :
                 print('Client does not exist!!!')
-                return
+                return value
         if self.socketClient[receiver] == 'server' :
             #Check after x time if receiver is now online
-            self.sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])
+            return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])
         else :
             try:
-                self.socketClient[receiver].send(text.encode('utf-16'))
+                value = self.socketClient[receiver].send(text.encode(CODE_TYPE))
+                if value > 0:
+                    return 1
+                else :
+                    return 0
             except:
-                print(receiver + 'has disconnected')
+                self.Log.log(receiver + 'has disconnected')
+                #possible signal to FrontEnd
                 self.socketClient[receiver] = 'server'
                 self.sendClient(receiver, text)
 

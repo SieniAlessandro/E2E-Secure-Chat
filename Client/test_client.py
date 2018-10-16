@@ -11,7 +11,11 @@ a.connectServer()
 
 continua = 1
 while(continua) :
-    x = int(input('inserire:\n 1-registrarsi\n 2-login\n 3-sendMessage\n 0-logout\n'))
+    try:
+        x = int(input('inserire:\n 1-registrarsi\n 2-login\n 3-startConnection\n 4-sendMessage\n 0-logout\n'))
+    except:
+        print('Wrong values had been inserted, try again')
+        continue
     if x == 1 :
         user = str(input('inserire username : '))
         psw = str(input('inserire psw : '))
@@ -24,6 +28,9 @@ while(continua) :
         psw = str(input('inserire psw : '))
         a.login(user,psw)
     elif x == 3 :
+        receiver = str(input('inserire username dell\'utente con cui ti vuoi connettere'))
+        a.startConnection(receiver)
+    elif x == 4 :
         receiver = str(input('inserire username del ricevitore : '))
         text = str(input('inserire il testo da inviare : '))
         a.sendClient(receiver, text)

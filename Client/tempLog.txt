@@ -1,0 +1,2 @@
+2018-10-16 08:41:09	Client initialized
+2018-10-16 08:41:26	MessageHandler Initialized
