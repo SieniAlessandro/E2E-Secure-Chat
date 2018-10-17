@@ -265,3 +265,38 @@
 2018-10-16 19:02:23	There are no message for this client
 2018-10-16 19:02:27	Client handled has address: 127.0.0.1 and port 55298
 2018-10-16 19:02:27	Waiting for connections...
+2018-10-16 19:07:04	Client handled has address: 127.0.0.1 and port 55439
+2018-10-16 19:07:04	Waiting for connections...
+2018-10-16 19:07:07	A client want to login
+2018-10-16 19:07:07	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 55439 ClientPort: 16710}
+2018-10-16 19:07:07	There are no message for this client
+2018-10-16 19:07:08	A client want to find another user
+2018-10-16 19:07:08	Store the message to prova
+2018-10-16 19:07:10	A client want to find another user
+2018-10-16 19:07:10	User requested not found:!|-3
+2018-10-16 19:07:12	A client want to find another user
+2018-10-16 19:07:12	User requested not found:!|-3
+2018-10-16 19:07:13	A client want to find another user
+2018-10-16 19:07:13	User requested not found:!|-3
+2018-10-16 19:07:15	A client want to find another user
+2018-10-16 19:07:15	User requested not found:!|-3
+2018-10-16 19:07:15	A client want to find another user
+2018-10-16 19:07:15	User requested not found:!|-3
+2018-10-16 19:07:58	Client handled has address: 127.0.0.1 and port 55461
+2018-10-16 19:07:58	Waiting for connections...
+2018-10-16 19:08:01	A client want to login
+2018-10-16 19:08:01	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 55461 ClientPort: 10321}
+2018-10-16 19:08:01	There are no message for this client
+2018-10-16 19:08:03	A client want to find another user
+2018-10-16 19:08:03	Store the message to prova
+2018-10-16 19:08:05	A client want to find another user
+2018-10-16 19:08:05	User requested not found:!|-3
+2018-10-16 19:08:05	A client want to find another user
+2018-10-16 19:08:05	User requested not found:!|-3
+2018-10-16 19:08:06	A client want to find another user
+2018-10-16 19:08:06	User requested not found:!|-3
+2018-10-16 19:08:06	A client want to find another user
+2018-10-16 19:08:06	User requested not found:!|-3
+2018-10-16 19:08:07	A client want to find another user
+2018-10-16 19:08:07	User requested not found:!|-3
+2018-10-16 19:09:25	Client had a problem, connection closed
