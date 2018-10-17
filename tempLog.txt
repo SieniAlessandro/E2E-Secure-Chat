@@ -1,13 +1,1 @@
-2018-10-17 10:52:01	Client initialized
-2018-10-17 10:52:06	Message: <2|a,a,46385> sended to the server correctly
-2018-10-17 10:52:06	Received a message from the SERVER: ?|1
-2018-10-17 10:52:06	Succesfull logged in as a
-2018-10-17 10:52:06	Received a message from the SERVER: 2|z/^prova/^2018-10-15 11:30:11^/z/^ciao come va/^2018-10-16 11:50:12
-2018-10-17 10:52:06	There are messages pending in the server
-2018-10-17 10:52:06	MessageHandler Initialized! Associated port: 46385
-2018-10-17 10:52:39	Message: <3|b> sended to the server correctly
-2018-10-17 10:52:39	Received a message from the SERVER: !|0
-2018-10-17 10:52:39	user offline
-2018-10-17 10:52:47	Message: <3|PY_VAR0> sended to the server correctly
-2018-10-17 10:52:47	Received a message from the SERVER: !|-3
-2018-10-17 10:52:47	Error: the contacted user does not exist
+2018-10-17 11:46:33	Client initialized
