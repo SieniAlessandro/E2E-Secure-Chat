@@ -1,1 +1,2 @@
-2018-10-16 15:04:42	Server Initialized
+2018-10-17 10:35:40	Server Initialized
+2018-10-17 10:35:40	Waiting for connections...
