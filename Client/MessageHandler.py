@@ -12,10 +12,9 @@ class MessageHandler :
     def __init__(self) :
         print('Hi')
 
-    def createMessageJson(receiver, text, time) :
+    def createMessageJson(text, time) :
 
         msg = {}
-        msg['receiver'] = receiver
         msg['text'] = text
         msg['time'] = time
 

@@ -322,7 +322,7 @@ class Client:
                 print('Client does not exist!!!')
                 return value
 
-        msg = MessageHandler.createMessageJson(receiver, text, str(datetime.datetime.now()).split('.')[0])
+        msg = MessageHandler.createMessageJson(text, str(datetime.datetime.now()).split('.')[0])
         if self.socketClient[receiver] == 'server' :
             #Check after x time if receiver is now online
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])
