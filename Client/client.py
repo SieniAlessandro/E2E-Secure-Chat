@@ -10,7 +10,7 @@ class Client:
     BUFFER_SIZE = 2048
     PORT_SERVER = 6000
     PORT_P2P = 7000
-    HOST_SERVER = '127.0.0.1'
+    HOST_SERVER = '10.102.23.156'#'127.0.0.1'
     CODE_TYPE = 'utf-16'
     socketClient = {}
     JSON = False
