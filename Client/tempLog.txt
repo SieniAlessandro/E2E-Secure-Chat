@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 3bda82397435ad01aacd8c7995978435a7ab3968
 2018-10-17 10:50:59	Client initialized
 2018-10-17 10:51:01	Message: <2|a,a,47069> sended to the server correctly
 2018-10-17 10:51:01	Received a message from the SERVER: ?|1
@@ -9,6 +12,8 @@
 2018-10-17 10:51:03	Message: <3|b> sended to the server correctly
 2018-10-17 10:51:03	Received a message from the SERVER: !|0
 2018-10-17 10:51:03	user offline
+<<<<<<< HEAD
+=======
 =======
 2018-10-17 10:56:33	Client initialized
 2018-10-17 10:56:35	Message: <2|a,a,11294> sended to the server correctly
@@ -24,3 +29,4 @@
 2018-10-17 10:56:44	Received a message from the SERVER: .|1
 2018-10-17 10:56:44	Message send correctly
 >>>>>>> 30c1bab69743971ea63ee49cf7a7678233c66146
+>>>>>>> 3bda82397435ad01aacd8c7995978435a7ab3968
