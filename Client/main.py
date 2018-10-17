@@ -26,8 +26,9 @@ signUp.setLoginWindow(login)
 signUp.setClient(client)
 chat.createWidgets(client)
 
+
 chat.withdraw()
 signUp.withdraw()
 
 
-login.mainloop()
+chat.mainloop()
