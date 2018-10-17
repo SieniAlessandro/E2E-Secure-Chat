@@ -7,7 +7,7 @@ class ChatList(Frame):
 
     def __init__(self, master, background):
         Frame.__init__(self, master, background=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
-        self.list = []
+        self.chatListDict = {}
         self.grid(row=0, column=0, rowspan=2, sticky=N+S+W)
         self.searchBarFrame = Frame(self, bg=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         self.searchBar = Entry(self.searchBarFrame, background=background, bd=0, fg='white')
@@ -25,8 +25,9 @@ class ChatList(Frame):
         ret = self.client.startConnection(username)
         if ret >= 0:
             self.addChatListElement(username, "", "")
-            self.list[-1].changeChatRoom(event='none')
+            self.chatListDict[username].changeChatRoom(event='none')
         else:
+            ######################## TODO ########################################
             pass
 
     def pressEnterEvent(self, event):
@@ -39,7 +40,18 @@ class ChatList(Frame):
     def addChatListElement(self, chatName, lastMessage, lastMessageTime):
         newChatListElement = ChatListElement(self, self['bg'])
         newChatListElement.setElements(self.chatWindow, chatName, lastMessage, lastMessageTime)
-        self.list.append(newChatListElement)
+        self.chatListDict[chatName] = newChatListElement
+
+    def notify(self, sender, message, time):
+        if sender not in self.chatListDict:
+            print("chat not found")
+            self.addChatListElement(sender, message, time)
+            if not self.chatWindow.chatName.get():
+                self.chatListDict[sender].changeChatRoom(event='none')
+                # timeString = time.split('.')[0].split(' ')[1][:-3]
+                self.chatWindow.addBoxMessageElement(message, time, False)
+        else:
+            self.chatListDict[sender].increaseNotifies(message, time)
 
 class ChatListElement(Frame):
     MAXMESSAGELEN = 15
@@ -51,6 +63,8 @@ class ChatListElement(Frame):
         self.grid(column=0, sticky=W+E)
         self.photo = ImageTk.PhotoImage(Image.open("Images/profile.jpg").resize( (40,40), Image.ANTIALIAS ))
         self.chatName, self.lastMessage, self.lastMessageTime = StringVar(), StringVar(), StringVar()
+        self.notifies = IntVar()
+        self.notifies.set(0)
 
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=8)
@@ -60,12 +74,14 @@ class ChatListElement(Frame):
 
     def changeChatRoom(self, event):
         self.chatWindow.changeChatRoom(self.chatName.get())
+        self.notifiesLabel.grid_forget()
 
     def createWidgets(self):
         photoLabel = Label(self, image = self.photo, )
         chatNameLabel = Label(self, textvariable = self.chatName, background=self['bg'], fg='white', anchor=NW)
         lastMessageLabel = Label(self, textvariable = self.lastMessage, background=self['bg'], anchor=NW, fg='white')
         lastMessageTimeLabel = Label(self, textvariable = self.lastMessageTime, background=self['bg'],  anchor=NE, fg='white')
+        self.notifiesLabel = Label(self, textvariable = self.notifies, background='#7070db' )
 
         photoLabel.grid(row=0, column=0, rowspan=2, sticky=W, padx=5, pady=5)
         chatNameLabel.grid(row=0, column=1, sticky=W+E, padx=5)
@@ -96,3 +112,9 @@ class ChatListElement(Frame):
         self.chatName.set(self.checkStringLenght(chatName))
         self.lastMessage.set(self.checkStringLenght(lastMessage))
         self.lastMessageTime.set(lastMessageTime)
+
+    def increaseNotifies(self, message, time):
+        self.notifies.set(self.notifies.get()+1)
+        self.notifiesLabel.grid(row=1, column=2, sticky=W+E)
+        self.lastMessage.set(self.checkStringLenght(message))
+        self.lastMessageTime.set(time)

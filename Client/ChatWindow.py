@@ -13,9 +13,10 @@ class ChatWindow(Frame):
         self.grid(row=0, column=1, sticky=N+S+W+E)
 
 
-    def createWidgets(self, background, chatName, client ):
+    def createWidgets(self, background, chatName, client, chatList ):
         self.chatName.set(chatName)
         self.client = client
+        self.chatList = chatList
 
         inputBar = Frame(self, background=background,  padx=10, pady=10, highlightbackground="black", highlightcolor="black", highlightthickness=1)
 
@@ -65,6 +66,13 @@ class ChatWindow(Frame):
 
     def pressEnterEvent(self, event):
         self.pressSendButton()
+
+    def receiveMessage(self, sender, message, time):
+        timeString = time.split('.')[0].split(' ')[1][:-3]
+        if str(self.chatName.get()) == sender:
+            self.addBoxMessageElement(message, timeString, False)
+        else:
+            self.chatList.notify(sender, message, timeString)
 
 
 class BoxMessage(Frame):
