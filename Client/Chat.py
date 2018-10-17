@@ -7,11 +7,12 @@ class ChatGUI(Tk):
     backgroundItems = '#29293d'
     def __init__(self):
         Tk.__init__(self)
-        w = 1024 # width for the Tk root
-        h = 720 # height for the Tk root
 
         ws = self.winfo_screenwidth() # width of the screen
         hs = self.winfo_screenheight() # height of the screen
+
+        w = ws*5/9 # width for the Tk root
+        h = hs*5/16 # height for the Tk root
 
         x = (ws/2) - (w/2)
         y = (hs/2) - (h/2)

@@ -38,7 +38,7 @@ class ChatWindow(Frame):
 
     def addBoxMessageElement(self, message, time, isMine):
         boxMessage = BoxMessage(self, self['bg'])
-        boxMessage.createWidgets( message, time , random.choice([True, False]))
+        boxMessage.createWidgets( message, time , isMine)
         self.listMessage.append(boxMessage)
 
     def changeChatRoom(self, chatName):
