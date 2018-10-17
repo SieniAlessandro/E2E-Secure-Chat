@@ -9,16 +9,15 @@ import sys
 from User import User
 
 class Server:
-    def __init__(self,port,JSON):
+    def __init__(self,port):
         self.Users = {}
         self.ActiveThreads = []
         self.ip = "0.0.0.0"
         self.port = port
-        self.json = JSON
         self.server = socket.socket(socket.AF_INET,socket.SOCK_STREAM);
         self.server.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);
         self.server.bind((self.ip,self.port))
-        self.DB = Database('localhost',3306,'root','rootroot','messaggistica_mps',Json = self.json);
+        self.DB = Database('localhost',3306,'root','rootroot','messaggistica_mps');
         self.Log = Log()
         #self.state = 1
         #print ("Server iniziallizato")
@@ -34,7 +33,7 @@ class Server:
             #Obtaining the parameters like the socket and the address/port of the incoming connection
             (conn, (ip,port)) = self.server.accept()
             #Creating a new thread able to handle the new connection with the client
-            newClient = ClientHandler(conn,ip,port,self.DB,self.Users,self.Log,self.ActiveThreads,json = self.json);
+            newClient = ClientHandler(conn,ip,port,self.DB,self.Users,self.Log,self.ActiveThreads);
             #Starting the new thread
             newClient.start()
             self.ActiveThreads.append(newClient)
