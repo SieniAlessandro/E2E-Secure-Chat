@@ -38,6 +38,7 @@ class ClientHandler(Thread):
                     #ActiveThreads = ActiveThreads - 1
                 return -1
             msg = data.decode('utf-16')
+            print(msg)
             if self.json:
                 jsonMessage = json.loads(msg)
                 #Registration

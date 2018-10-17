@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+2018-10-17 10:35:40	Server Initialized
+2018-10-17 10:35:40	Waiting for connections...
+=======
 2018-10-16 17:37:06	Server Initialized
 2018-10-16 17:37:06	Waiting for connections...
 2018-10-16 17:50:32	Client handled has address: 127.0.0.1 and port 58986
@@ -265,6 +269,7 @@
 2018-10-16 19:02:23	There are no message for this client
 2018-10-16 19:02:27	Client handled has address: 127.0.0.1 and port 55298
 2018-10-16 19:02:27	Waiting for connections...
+<<<<<<< HEAD
 2018-10-16 19:07:04	Client handled has address: 127.0.0.1 and port 55439
 2018-10-16 19:07:04	Waiting for connections...
 2018-10-16 19:07:07	A client want to login
@@ -300,3 +305,6 @@
 2018-10-16 19:08:07	A client want to find another user
 2018-10-16 19:08:07	User requested not found:!|-3
 2018-10-16 19:09:25	Client had a problem, connection closed
+=======
+>>>>>>> de66dd5bd9068d65973928e3e03bf526ebdd4139
+>>>>>>> d19655a97bd3a47c0d119b697f3c27cf3b1b6575
