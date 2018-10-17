@@ -34,7 +34,7 @@ class Server:
             #Obtaining the parameters like the socket and the address/port of the incoming connection
             (conn, (ip,port)) = self.server.accept()
             #Creating a new thread able to handle the new connection with the client
-            newClient = ClientHandler(conn,ip,port,self.DB,self.Users,self.Log,self.ActiveThreads,json = self.json);
+            newClient = ClientHandler(conn,ip,port,self.DB,self.Users,self.Log,self.ActiveThreads,Json = self.json);
             #Starting the new thread
             newClient.start()
             self.ActiveThreads.append(newClient)
