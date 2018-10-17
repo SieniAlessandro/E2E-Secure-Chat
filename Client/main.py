@@ -13,12 +13,12 @@ MESSAGE = 'hi'
 if os.getcwd().find("Client") == -1:
     os.chdir("Client")
 
-client = Client("", port)
-client.connectServer()
 
 chat = ChatGUI()
 login = LoginGUI()
 signUp = SignUpGUI()
+client = Client("", port)
+client.connectServer()
 
 login.setSignUpWindow(signUp)
 login.setItems(client, chat)

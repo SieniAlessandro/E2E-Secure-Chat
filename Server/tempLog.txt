@@ -1,0 +1,9 @@
+2018-10-17 12:18:27	Server Initialized
+2018-10-17 12:18:27	Waiting for connections...
+2018-10-17 12:18:57	Client handled has address: 127.0.0.1 and port 52999
+2018-10-17 12:18:57	Waiting for connections...
+2018-10-17 12:19:00	A client want to login
+2018-10-17 12:19:00	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 52999 ClientPort: 59432}
+2018-10-17 12:19:00	There are no message for this client
+2018-10-17 12:19:07	A client want to find another user
+2018-10-17 12:19:07	Store the message to prova

@@ -315,7 +315,7 @@ class Client:
             else :
                 print('Client does not exist!!!')
                 return value
-        
+
         if self.socketClient[receiver] == 'server' :
             #Check after x time if receiver is now online
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])
