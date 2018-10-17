@@ -117,11 +117,14 @@ class SignUpGUI(Tk):
 
     def cancelEvent(self):
         self.usernameEntry.delete(0, 'end')
+        self.emailEntry.delete(0, 'end')
         self.nameEntry.delete(0, 'end')
         self.surnameEntry.delete(0, 'end')
         self.passwordEntry.delete(0, 'end')
+        self.confirmPasswordEntry.delete(0, 'end')
         self.withdraw()
         self.loginWindow.deiconify()
+        self.loginWindow.showMessage("Succefully Registered", "#4bf442")
 
     def setClient(self, client):
         self.client = client
@@ -131,8 +134,12 @@ class SignUpGUI(Tk):
             self.confirmButton.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
         else:
             self.confirmButton.config(fg = "black",  highlightthickness=0)
-            self.client.register(self.usernameEntry.get(), self.passwordEntry.get(), self.emailEntry.get(), self.nameEntry.get(), self.surnameEntry.get(), '0')
-            self.cancelEvent()
+            ret = self.client.register(self.usernameEntry.get(), self.passwordEntry.get(), self.emailEntry.get(), self.nameEntry.get(), self.surnameEntry.get(), '0')
+            if ret == 1:
+                self.cancelEvent()
+            elif ret == 0:
+                self.showErrorLabel()
+
 
     def showErrorLabel(self):
         self.errorLabel.grid(row = 1, columnspan=2)

@@ -12,61 +12,60 @@ class ChatWindow(Frame):
         self.rowconfigure(1, weight=8)
         self.grid(row=0, column=1, sticky=N+S+W+E)
 
+
     def createWidgets(self, background, chatName, client ):
         self.chatName.set(chatName)
         self.client = client
 
+        inputBar = Frame(self, background=background,  padx=10, pady=10, highlightbackground="black", highlightcolor="black", highlightthickness=1)
+
         chatBar = Frame(self, bg = background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         chatNameLabel = Label(chatBar, textvariable=self.chatName, font = ( "Default", 10, "bold"), bg = background, fg='white')
+
         chatBar.pack( side="top", fill=X, ipadx=5, ipady=4)
         chatNameLabel.grid(row=0, sticky=W, padx=10, pady=5)
 
-    def addBoxMessageElement(self, message):
-        timeString = str(datetime.datetime.now()).split('.')[0].split(' ')[1][:-3]
+        inputBar.pack(side="bottom", fill=X, ipadx=5, ipady=4)
+        inputBar.columnconfigure(0, weight=15)
+        inputBar.columnconfigure(1, weight=1)
+
+        self.entryBar = Entry(inputBar, background=background, bd =0, fg='white')
+        self.entryBar.grid(row=0, column=0, sticky=W+E)
+        self.entryBar.bind('<Return>', self.pressEnterEvent )
+        self.icon = ImageTk.PhotoImage(Image.open("Client/sendIcon.png").resize( (30,30), Image.ANTIALIAS ))
+        sendButton = Button(inputBar, text="send", command=self.pressSendButton, bg=background, bd=0, activebackground='#787878', image=self.icon)
+        sendButton.grid(row=0, column=1)
+
+    def addBoxMessageElement(self, message, time, isMine):
         boxMessage = BoxMessage(self, self['bg'])
-        boxMessage.createWidgets( message, timeString , random.choice([True, False]))
+        boxMessage.createWidgets( message, time , random.choice([True, False]))
         self.listMessage.append(boxMessage)
 
     def changeChatRoom(self, chatName):
+        self.entryBar.focus_force()
         self.chatName.set(chatName)
-        print(self.listMessage)
         if len(self.listMessage) > 0:
             for m in self.listMessage:
                 m.pack_forget()
             self.listMessage.clear()
 
-class InputBar(Frame):
-
-    def __init__(self, master, background):
-        Frame.__init__(self, master, background=background,  padx=10, pady=10, highlightbackground="black", highlightcolor="black", highlightthickness=1)
-
-        self.grid(row=1, column=1, sticky=S+W+E)
-        self.columnconfigure(0, weight=15)
-        self.columnconfigure(1, weight=1)
-
-        self.entryBar = Entry(self, background=background, bd=0, fg='white')
-        self.entryBar.grid(row=0, column=0, sticky=W+E)
-        self.entryBar.bind('<Return>', self.pressEnterEvent )
-        self.icon = ImageTk.PhotoImage(Image.open("Client/sendIcon.png").resize( (30,30), Image.ANTIALIAS ))
-        self.sendButton = Button(self, text="send", command=self.pressSendButton, bg=background, bd=0, activebackground='#787878', image=self.icon)
-        self.sendButton.grid(row=0, column=1)
-
-    def setItems(self, chatWindow, client ):
-        self.chatWindow = chatWindow
+    def setClient(self, client):
         self.client = client
 
     def pressSendButton(self):
-        message = self.entryBar.get()
+        message = str(self.entryBar.get())
         if not message:
             return
-        self.chatWindow.addBoxMessageElement(self.entryBar.get())
+        timeString = str(datetime.datetime.now()).split('.')[0].split(' ')[1][:-3]
+        self.addBoxMessageElement(self.entryBar.get(), timeString, True)
 
         self.entryBar.delete(0, 'end')
-        print("Sending message...")
-        # self.client.sendClient(self, self.chatName, message)
+        ret = self.client.sendClient(str(self.chatName), message)
+        print(ret)
 
     def pressEnterEvent(self, event):
         self.pressSendButton()
+
 
 class BoxMessage(Frame):
     def __init__(self, master, background):
