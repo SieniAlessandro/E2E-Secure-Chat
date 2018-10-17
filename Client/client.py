@@ -267,7 +267,7 @@ class Client:
         otherwise return -1 for general errors
     '''
     def sendMessageOffline(self, receiver, text, time):
-        if JSON :
+        if self.JSON :
             msg['id'] = 4
             msg['Receiver'] = receiver
             msg['Text'] = text
