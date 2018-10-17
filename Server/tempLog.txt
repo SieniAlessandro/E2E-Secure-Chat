@@ -26,3 +26,6 @@
 2018-10-17 12:05:05	A client want to register
 2018-10-17 12:05:05	Client had a problem, connection closed
 2018-10-17 12:05:05	Registration succeded
+2018-10-17 12:05:34	Client handled has address: 10.102.23.62 and port 50262
+2018-10-17 12:05:34	Waiting for connections...
+2018-10-17 12:05:46	Client had a problem, connection closed
