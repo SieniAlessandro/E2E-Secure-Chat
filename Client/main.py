@@ -4,6 +4,8 @@ from Chat import ChatGUI
 from Login import LoginGUI
 from SignUp import SignUpGUI
 import os
+import ctypes
+import sys
 
 host = '127.0.0.1'
 port = 6000
@@ -12,6 +14,9 @@ MESSAGE = 'hi'
 
 if os.getcwd().find("Client") == -1:
     os.chdir("Client")
+
+if 'win' in sys.platform:
+        ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
 
 chat = ChatGUI()

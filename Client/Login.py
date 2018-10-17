@@ -61,10 +61,12 @@ class LoginGUI(Tk):
             self.confirmButton.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
         else:
             ret = self.client.login(self.usernameEntry.get(),self.passwordEntry.get())
+            print(ret)
             if  ret == 1:
                 self.withdraw()
                 self.chatWindow.onLoginEvent()
             elif ret == 0:
+                print("Invalid Username or Password")
                 self.showError()
             elif ret == -1:
                 self.showMessage("You are already logged in other device",  "#ff1a1a" )
