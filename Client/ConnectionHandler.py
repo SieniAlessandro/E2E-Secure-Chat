@@ -13,7 +13,7 @@ class ConnectionHandler(Thread) :
     '''
         Create a new socket and bind it to the port destinated for connectio p2p
     '''
-    def __init__(self, portp2p, Log) :
+    def __init__(self, portp2p, Log, Chat, Code) :
         Thread.__init__(self)
         self.ip = "0.0.0.0"
         self.portp2p = portp2p
@@ -22,7 +22,9 @@ class ConnectionHandler(Thread) :
         self.socketListener.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
         self.socketListener.bind((self.ip,portp2p))
         self.Log = Log
-        self.Log.log('MessageHandler Initialized! Associated port: ' + str(self.portp2p))
+        self.Chat = Chat
+        self.Code = Code
+        print('MessageHandler Initialized! Associated port: ' + str(self.portp2p))
 
     '''
         Handle the connection with a specific user
@@ -32,24 +34,26 @@ class ConnectionHandler(Thread) :
     '''
     def receiveMessage(self, conn) :
         msg = conn.recv(self.MSG_LEN)
-        msg = msg.decode(Client.CODE_TYPE)
+        msg = msg.decode(self.Code)
         msgs = msg.split('\^')
         user = msgs[0]
         self.users.append(user)
-        self.Log.log('Connection started with ' + user)
+        print('Connection started with ' + user)
 
         if len(msgs) > 1:
             print(user + ' send : ' + msgs[1])
         while True:
             try:
                 msg = conn.recv(self.MSG_LEN)
+                print(msg)
                 if not msg :
                     raise Exception()
-                msg = msg.decode(Client.CODE_TYPE)
+                msg = msg.decode()
                 print(user + ' send : ' + msg)
+                self.Chat.addBoxMessageElement(message, time, False)
             #send to Amedeo
             except:
-                self.Log.log('Connection closed with ' + user)
+                print('Connection closed with ' + user)
                 return -1
     '''
         In a loop accept new connection with other clients
@@ -61,11 +65,11 @@ class ConnectionHandler(Thread) :
         while True :
             self.socketListener.listen(50)
             (conn, (ip,port)) = self.socketListener.accept()
-            self.Log.log('Accepted a new connecion')
+            print('Accepted a new connecion')
             t = Thread(target=self.receiveMessage, args=(conn, ))
             t.start()
-            self.Log.log('The client is now connected with : ')
+            print('The client is now connected with : ')
             clientList = ''
             for x in self.users :
                 clientList += '- ' + x
-            self.Log.log(clientList)
+            print(clientList)

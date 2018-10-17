@@ -13,14 +13,15 @@ class Client:
     HOST_SERVER = '10.102.23.156'#'127.0.0.1'
     CODE_TYPE = 'utf-16'
     socketClient = {}
-    JSON = False
+    JSON = True
 
-    def __init__(self, hostServer, portServer):
+    def __init__(self, hostServer, portServer, chat = None):
         self.hostServer = self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.PORT_SERVER
         self.portp2p = random.randint(6001,60000)
         self.Log = Log()
         self.Log.log('Client initialized')
+        self.Chat = chat
     #Functions to communicate with Server#
     '''
     Send a Message, containing the parameter text, to the Server
@@ -60,12 +61,18 @@ class Client:
         TO FINISH
     '''
     def retrieveMessage(self, msgs) :
-        msg = msgs.split('^/')
-        for x in msg :
-            block = x.split('/^')
-            print('sender :' + block[0])
-            print('text : ' + block[1])
-            print('time : ' + block[2])
+        if self.JSON :
+            for x in msgs:
+                print('sender :' + msgs[x]['Sender'])
+                print('text : ' + msgs[x]['Text'])
+                print('time : ' + msgs[x]['Time'])
+        else :
+            msg = msgs.split('^/')
+            for x in msg :
+                block = x.split('/^')
+                print('sender :' + block[0])
+                print('text : ' + block[1])
+                print('time : ' + block[2])
 
     '''
         Receive Messages from the server
@@ -83,9 +90,9 @@ class Client:
                 msg = ret.decode(self.CODE_TYPE)
                 self.Log.log('Received a message from the SERVER: ' + msg)
                 if self.JSON :
-                    dictMsg = json.load(msg)
+                    dictMsg = json.loads(msg)
                     if dictMsg['id'].isdigit() :
-                        if dictMsg['id'] > 0 :
+                        if int(dictMsg['id']) > 0 :
                             self.Log.log('There are messages pending in the server')
                             self.retrieveMessage(dictMsg['messages'])
                         else :
@@ -138,7 +145,7 @@ class Client:
                     else :
                         print('The protocol for this kind of message has not been implemented yet')
                         return identifier
-        except:
+        except AssertionError:
             self.Log.log('An Exception has been raised in the receiveServer function')
             return -1
     ######################################
@@ -152,7 +159,8 @@ class Client:
     '''
     def register(self, username, password, name, surname, email, key):
         if self.JSON :
-            msg['id'] = 1
+            msg = {}
+            msg['id'] = '1'
             msg['user'] = username
             msg['password'] = password
             msg['name'] = name
@@ -164,13 +172,13 @@ class Client:
         else:
             self.sendServer('1|' + username + ',' + password + ',' + name + ',' +
                     surname + ',' + email + ',' + key)
-            value = int(self.receiveServer());
-            if value == 1 :
-                self.Log.log('Succesfully registered')
-            else :
-                #we can handle better the possible error
-                self.Log.log('Error in registration')
-            return value
+        value = int(self.receiveServer());
+        if value == 1 :
+            self.Log.log('Succesfully registered')
+        else :
+            #we can handle better the possible error
+            self.Log.log('Error in registration')
+        return value
     '''
         Used to do the login -> creates an attribute to know the username [username]
         Send a message to the server with the prefix '2|'
@@ -181,11 +189,12 @@ class Client:
     def login(self, username, password):
         self.username = username
         if self.JSON :
-            msg['id'] = 2
+            msg = {}
+            msg['id'] = '2'
             msg['username'] = username
             msg['password'] = password
             msg['porta'] = str(self.portp2p)
-            msgToSend = json.dump(msg)
+            msgToSend = json.dumps(msg)
             self.sendServer(msgToSend)
         else :
             self.sendServer('2|' + username + ',' + password + ',' + str(self.portp2p))
@@ -198,7 +207,7 @@ class Client:
             self.receiveServer()
             #starting the connectionHandler in order to manage
             #connections received from new clients
-            ch = ConnectionHandler(self.portp2p, self.Log)
+            ch = ConnectionHandler(self.portp2p, self.Log, self.Chat, self.CODE_TYPE)
             ch.start()
         elif value == 0 :
             self.Log.log('Login : Wrong Username or Password')
@@ -220,9 +229,10 @@ class Client:
     '''
     def startConnection(self, receiver):
         if self.JSON :
-            msg['id'] = 3
+            msg = {}
+            msg['id'] = '3'
             msg['username'] = receiver
-            msgToSend = json.dump(msg)
+            msgToSend = json.dumps(msg)
             self.sendServer(msgToSend)
         else :
             self.sendServer('3|' + receiver)
@@ -232,6 +242,7 @@ class Client:
         if value == '0' :
             msg = 'user offline'
             self.socketClient[receiver] = 'server'
+            return 0
         elif value == '-1' :
             msg = 'Error: user does not have done the login'
         elif value == '-2' :
@@ -268,11 +279,12 @@ class Client:
     '''
     def sendMessageOffline(self, receiver, text, time):
         if self.JSON :
-            msg['id'] = 4
+            msg = {}
+            msg['id'] = '4'
             msg['Receiver'] = receiver
             msg['Text'] = text
             msg['Time'] = time
-            msgToSend = json.dump(msg)
+            msgToSend = json.dumps(msg)
             self.sendServer(msgToSend)
         else :
             self.sendServer('4|' + receiver + '/^' + text + '/^' + time)
@@ -292,7 +304,7 @@ class Client:
     '''
     def sendClient(self, receiver, text):
         #Handle sending of messages
-        '''
+
         if not receiver in self.socketClient.keys() :
             value = self.startConnection(receiver)
             if value == 0 : #client offline
@@ -303,7 +315,7 @@ class Client:
             else :
                 print('Client does not exist!!!')
                 return value
-        '''
+        
         if self.socketClient[receiver] == 'server' :
             #Check after x time if receiver is now online
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])
