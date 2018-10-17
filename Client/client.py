@@ -16,7 +16,7 @@ class Client:
     JSON = True
 
     def __init__(self, hostServer, portServer, chat = None):
-        self.hostServer = self.HOST_SERVER #IPv4 Address of the server
+        self.hostServer = hostServer#self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.PORT_SERVER
         self.portp2p = random.randint(6001,60000)
         self.Log = Log()

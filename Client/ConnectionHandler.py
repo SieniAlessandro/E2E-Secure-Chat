@@ -46,8 +46,8 @@ class ConnectionHandler(Thread) :
             try:
                 msg = conn.recv(self.MSG_LEN)
                 print(msg)
-                if not msg :
-                    raise Exception()
+                #if not msg :
+                #    raise Exception()
                 msg = msg.decode()
                 print(user + ' send : ' + msg)
                 self.Chat.addBoxMessageElement(message, time, False)
