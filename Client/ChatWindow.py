@@ -32,7 +32,7 @@ class ChatWindow(Frame):
         self.entryBar = Entry(inputBar, background=background, bd =0, fg='white')
         self.entryBar.grid(row=0, column=0, sticky=W+E)
         self.entryBar.bind('<Return>', self.pressEnterEvent )
-        self.icon = ImageTk.PhotoImage(Image.open("Client/sendIcon.png").resize( (30,30), Image.ANTIALIAS ))
+        self.icon = ImageTk.PhotoImage(Image.open("Images/sendIcon.png").resize( (30,30), Image.ANTIALIAS ))
         sendButton = Button(inputBar, text="send", command=self.pressSendButton, bg=background, bd=0, activebackground='#787878', image=self.icon)
         sendButton.grid(row=0, column=1)
 
@@ -60,8 +60,7 @@ class ChatWindow(Frame):
         self.addBoxMessageElement(self.entryBar.get(), timeString, True)
 
         self.entryBar.delete(0, 'end')
-        ret = self.client.sendClient(str(self.chatName), message)
-        print(ret)
+        # ret = self.client.sendClient(str(self.chatName), message)
 
     def pressEnterEvent(self, event):
         self.pressSendButton()

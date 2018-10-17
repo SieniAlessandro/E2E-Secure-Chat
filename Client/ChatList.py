@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import ImageTk, Image
 from ChatWindow import ChatWindow as cw
+import os
 
 class ChatList(Frame):
 
@@ -11,7 +12,7 @@ class ChatList(Frame):
         self.searchBarFrame = Frame(self, bg=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         self.searchBar = Entry(self.searchBarFrame, background=background, bd=0, fg='white')
         self.searchBar.bind('<Return>', self.pressEnterEvent )
-        self.icon = ImageTk.PhotoImage(Image.open("Client/searchIcon.png").resize( (30,30), Image.ANTIALIAS ))
+        self.icon = ImageTk.PhotoImage(Image.open("Images/searchIcon.png").resize( (30,30), Image.ANTIALIAS ))
         self.searchButton = Button(self.searchBarFrame, text="search", command=self.pressSearchButton, bg=background, bd=0, activebackground='#787878', image=self.icon)
         self.searchBarFrame.grid(column=0, sticky=W+E)
         self.searchBar.pack(side=LEFT, padx=5,pady=5)
@@ -48,7 +49,7 @@ class ChatListElement(Frame):
         Frame.__init__(self, master)
         self.configure(background=background, padx=10, pady=5)
         self.grid(column=0, sticky=W+E)
-        self.photo = ImageTk.PhotoImage(Image.open("Client/images.png").resize( (40,40), Image.ANTIALIAS ))
+        self.photo = ImageTk.PhotoImage(Image.open("Images/profile.jpg").resize( (40,40), Image.ANTIALIAS ))
         self.chatName, self.lastMessage, self.lastMessageTime = StringVar(), StringVar(), StringVar()
 
         self.columnconfigure(0, weight=1)
@@ -73,7 +74,6 @@ class ChatListElement(Frame):
 
         self.bind('<Button-1>', self.changeChatRoom)
         chatNameLabel.bind('<Button-1>', self.changeChatRoom)
-        lastMessageLabel.bind('<Button-1>', self.changeChatRoom)
         lastMessageLabel.bind('<Button-1>', self.changeChatRoom)
         photoLabel.bind('<Button-1>', self.changeChatRoom)
 

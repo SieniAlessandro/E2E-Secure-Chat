@@ -147,6 +147,7 @@ class SignUpGUI(Tk):
     def hideErrorLabel(self):
         self.errorLabel.grid_forget()
 
-# signUp = SignUpGUI()
-#
-# signUp.mainloop()
+if __name__ == '__main__':
+    signUp = SignUpGUI()
+
+    signUp.mainloop()

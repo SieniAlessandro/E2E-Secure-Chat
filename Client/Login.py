@@ -86,7 +86,7 @@ class LoginGUI(Tk):
         self.messageLabel.config(text=message, fg = color)
         self.messageLabel.grid(row = 1)
 
+if __name__ == '__main__':
+    login = LoginGUI()
 
-# login = LoginGUI()
-#
-# login.mainloop()
+    login.mainloop()
