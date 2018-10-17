@@ -1,1 +1,10 @@
-2018-10-16 19:02:27	Client initialized
+2018-10-17 10:48:20	Client initialized
+2018-10-17 10:48:27	Message: <2|q1,Prova123,8271> sended to the server correctly
+2018-10-17 10:48:27	Received a message from the SERVER: ?|1
+2018-10-17 10:48:27	Succesfull logged in as q1
+2018-10-17 10:48:27	Received a message from the SERVER: 0
+2018-10-17 10:48:27	No messages stored in the server
+2018-10-17 10:48:27	MessageHandler Initialized! Associated port: 8271
+2018-10-17 10:48:30	Message: <3|b> sended to the server correctly
+2018-10-17 10:48:30	Received a message from the SERVER: !|0
+2018-10-17 10:48:30	user offline

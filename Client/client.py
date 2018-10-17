@@ -231,6 +231,7 @@ class Client:
 
         if value == '0' :
             msg = 'user offline'
+            self.socketClient[receiver] = 'server'
         elif value == '-1' :
             msg = 'Error: user does not have done the login'
         elif value == '-2' :
@@ -291,6 +292,7 @@ class Client:
     '''
     def sendClient(self, receiver, text):
         #Handle sending of messages
+        '''
         if not receiver in self.socketClient.keys() :
             value = self.startConnection(receiver)
             if value == 0 : #client offline
@@ -301,6 +303,7 @@ class Client:
             else :
                 print('Client does not exist!!!')
                 return value
+        '''
         if self.socketClient[receiver] == 'server' :
             #Check after x time if receiver is now online
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])
