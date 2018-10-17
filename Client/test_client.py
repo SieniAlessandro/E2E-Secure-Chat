@@ -1,7 +1,7 @@
 from client import Client
 import os
 
-host = '10.102.23.156'#'127.0.0.1'
+host = '127.0.0.1'
 port = 6000
 MESSAGE = 'hi'
 

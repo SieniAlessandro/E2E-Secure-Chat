@@ -24,6 +24,7 @@ class ChatGUI(Tk):
         self.resizable(width=FALSE, height=FALSE)
         self.columnconfigure(1, weight=6)
         self.rowconfigure(0,weight=4)
+        self.chatWindow = ChatWindow(self, self.backgroundWindow)
 
     def fillChatList(self, chatList):
         for i in chatList:
@@ -31,7 +32,6 @@ class ChatGUI(Tk):
 
     def createWidgets(self, client):
         self.client = client
-        self.chatWindow = ChatWindow(self, self.backgroundWindow)
         self.chatWindow.createWidgets(self.backgroundItems, "", self.client)
 
         self.chatList = ChatList(self, self.backgroundItems)
