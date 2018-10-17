@@ -45,14 +45,16 @@ class ConnectionHandler(Thread) :
         while True:
             try:
                 msg = conn.recv(self.MSG_LEN)
-                print(msg)
                 #if not msg :
                 #    raise Exception()
-                msg = msg.decode()
+                msg = msg.decode(self.Code)
+
+                dict = json.loads(msg)
+                print(msg)
                 print(user + ' send : ' + msg)
-                self.Chat.addBoxMessageElement(message, time, False)
-            #send to Amedeo
-            except:
+                self.Chat.addBoxMessageElement(dict['text'], dict['time'], False)
+                #appendToConversation
+            except ArithmeticError:
                 print('Connection closed with ' + user)
                 return -1
     '''

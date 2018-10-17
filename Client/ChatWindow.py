@@ -37,7 +37,7 @@ class ChatWindow(Frame):
         sendButton.grid(row=0, column=1)
 
     def addBoxMessageElement(self, message, time, isMine):
-        boxMessage = BoxMessage(self, self['bg'])
+        boxMessage = BoxMessage(self, 'red')#self['bg'])
         boxMessage.createWidgets( message, time , isMine)
         self.listMessage.append(boxMessage)
 

@@ -1,8 +1,15 @@
-2018-10-17 12:18:57	Client initialized
-2018-10-17 12:19:00	Message: <{"id": "2", "username": "asd", "password": "asd", "porta": "59432"}> sended to the server correctly
-2018-10-17 12:19:00	Received a message from the SERVER: {"id": "?", "status": "1"}
-2018-10-17 12:19:00	Succesfull logged in as asd
-2018-10-17 12:19:00	Received a message from the SERVER: {"id": "0", "status": "1"}
-2018-10-17 12:19:00	No messages stored in the server
-2018-10-17 12:19:07	Message: <{"id": "3", "username": "prova"}> sended to the server correctly
-2018-10-17 12:19:07	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-17 14:19:34	Client initialized
+2018-10-17 14:19:36	Message: <{"id": "2", "username": "l", "password": "l", "porta": "10585"}> sended to the server correctly
+2018-10-17 14:19:36	Received a message from the SERVER: {"id": "?", "status": "1"}
+2018-10-17 14:19:36	Succesfull logged in as l
+2018-10-17 14:19:36	Received a message from the SERVER: {"id": "2", "messages": {"0": {"Sender": "b", "Text": "prova online", "Time": "2018-10-12 16:29:06"}, "1": {"Sender": "b", "Text": "prova online", "Time": "2018-10-12 16:29:57"}}}
+2018-10-17 14:19:36	There are messages pending in the server
+2018-10-17 14:19:40	Message: <{"id": "3", "username": "a"}> sended to the server correctly
+2018-10-17 14:19:40	Received a message from the SERVER: {"id": "!", "status": "127.0.0.1:41878"}
+2018-10-17 14:19:40	Starting a new connection with a
+2018-10-17 14:19:40	a has IP:Port : 127.0.0.1:41878
+2018-10-17 14:20:34	Message: <{"id": "3", "username": "b"}> sended to the server correctly
+2018-10-17 14:20:34	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-17 14:20:35	Message: <{"id": "4", "Receiver": "b", "Text": "ciao", "Time": "2018-10-17 14:20:35"}> sended to the server correctly
+2018-10-17 14:20:35	Received a message from the SERVER: {"id": ".", "status": "1"}
+2018-10-17 14:20:35	Message send correctly

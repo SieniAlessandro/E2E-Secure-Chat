@@ -4,9 +4,13 @@ import json
 import datetime
 from threading import Thread
 from ConnectionHandler import *
+from MessageHandler import *
 from Log import *
 
 class Client:
+    '''
+    Back end of the client
+    '''
     BUFFER_SIZE = 2048
     PORT_SERVER = 6000
     PORT_P2P = 7000
@@ -23,13 +27,14 @@ class Client:
         self.Log.log('Client initialized')
         self.Chat = chat
     #Functions to communicate with Server#
-    '''
-    Send a Message, containing the parameter text, to the Server
-    encoded with utf-16
-    If the communication with the server is closed return -1
-    else return the return of the send function [a number > 0]
-    '''
     def sendServer(self, text):
+        '''
+        Send a Message, containing the parameter text, to the Server
+        encoded with utf-16
+        If the communication with the server is closed return -1
+        else return the return of the send function [a number > 0]
+        '''
+
         ret = self.socketServer.send(text.encode(self.CODE_TYPE))
         if ret == 0:
             #Socket is close
@@ -39,11 +44,12 @@ class Client:
             self.Log.log('Message: <' + text + '> sended to the server correctly')
             return ret
 
-    '''
-        Open the connection with the server creating the socket [socketServer]
-        if the connection goes wrong the function return -1 otherwise 1
-    '''
     def connectServer(self) :
+        '''
+            Open the connection with the server creating the socket [socketServer]
+            if the connection goes wrong the function return -1 otherwise 1
+        '''
+
         try :
             self.socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socketServer.connect((self.hostServer, self.portServer))
@@ -53,14 +59,14 @@ class Client:
             self.Log.log('Error in connection with the server, is it down?')
             return -1
 
-    '''
-        Used, after the Login is done correctly, to retrieve all the waiting
-        messages in the server sended to me from other users while I was offline
-        All the messages are taken and putted in a structure containing all the
-        messages related to the specific connection with that specific user
-        TO FINISH
-    '''
     def retrieveMessage(self, msgs) :
+        '''
+            Used, after the Login is done correctly, to retrieve all the waiting
+            messages in the server sended to me from other users while I was offline
+            All the messages are taken and putted in a structure containing all the
+            messages related to the specific connection with that specific user
+            TO FINISH
+        '''
         if self.JSON :
             for x in msgs:
                 print('sender :' + msgs[x]['Sender'])
@@ -74,13 +80,13 @@ class Client:
                 print('text : ' + block[1])
                 print('time : ' + block[2])
 
-    '''
-        Receive Messages from the server
-        if the socket is closed or there is an exception return -1
-        otherwise it returns a specific value depending on the message received
-        by the server
-    '''
     def receiveServer(self):
+        '''
+            Receive Messages from the server
+            if the socket is closed or there is an exception return -1
+            otherwise it returns a specific value depending on the message received
+            by the server
+        '''
         try:
             ret = self.socketServer.recv(self.BUFFER_SIZE)
             if not ret:
@@ -151,13 +157,13 @@ class Client:
     ######################################
 
     #Functions for the FrontEnd#
-    '''
-        send a message to the server to register
-        The message is sent with the prefix '1|'
-        if succesfull registration return 1
-        otherwise return 0 {we can use other codes to know why it is not okay}
-    '''
     def register(self, username, password, name, surname, email, key):
+        '''
+            send a message to the server to register
+            The message is sent with the prefix '1|'
+            if succesfull registration return 1
+            otherwise return 0 {we can use other codes to know why it is not okay}
+        '''
         if self.JSON :
             msg = {}
             msg['id'] = '1'
@@ -179,14 +185,15 @@ class Client:
             #we can handle better the possible error
             self.Log.log('Error in registration')
         return value
-    '''
-        Used to do the login -> creates an attribute to know the username [username]
-        Send a message to the server with the prefix '2|'
-        If all it's correct return 1
-        if the username or password are wrong return 0
-        if the host is already connected with another device return -1
-    '''
+
     def login(self, username, password):
+        '''
+            Used to do the login -> creates an attribute to know the username [username]
+            Send a message to the server with the prefix '2|'
+            If all it's correct return 1
+            if the username or password are wrong return 0
+            if the host is already connected with another device return -1
+        '''
         self.username = username
         if self.JSON :
             msg = {}
@@ -216,18 +223,19 @@ class Client:
         else:
             self.Log.log('Login : an unreachable part of the code has been reached ' + value)
         return value
-    '''
-    Start a new connection with the user [receiver]:
-        The message is sent with the prefix '3|'
-        if it is online and all goes in the correct way then return 1
-        -> creates the new socket with the receiver [socketClient[receiver]]
-        else if receiver is offline return 0
-             if you do not have done the login return -1
-             if you are trying to talk to yourself return -2
-             if the receiver does not exist -3
-             if an exception has been raised -4
-    '''
+
     def startConnection(self, receiver):
+        '''
+        Start a new connection with the user [receiver]:
+            The message is sent with the prefix '3|'
+            if it is online and all goes in the correct way then return 1
+            -> creates the new socket with the receiver [socketClient[receiver]]
+            else if receiver is offline return 0
+                 if you do not have done the login return -1
+                 if you are trying to talk to yourself return -2
+                 if the receiver does not exist -3
+                 if an exception has been raised -4
+        '''
         if self.JSON :
             msg = {}
             msg['id'] = '3'
@@ -270,14 +278,14 @@ class Client:
         self.Log.log(msg)
         return int(value)
 
-    '''
-        Used to send and store a message in the server for an offline user
-        The message is sent with the prefix '4|'
-        if the message has been sent correctly return 1
-        if there was an error in the db and the message has not been saved return 0
-        otherwise return -1 for general errors
-    '''
     def sendMessageOffline(self, receiver, text, time):
+        '''
+            Used to send and store a message in the server for an offline user
+            The message is sent with the prefix '4|'
+            if the message has been sent correctly return 1
+            if there was an error in the db and the message has not been saved return 0
+            otherwise return -1 for general errors
+        '''
         if self.JSON :
             msg = {}
             msg['id'] = '4'
@@ -295,16 +303,14 @@ class Client:
             self.Log.log('Error in the database! Try again later!')
         return value
 
-    '''
-        Used to send a message [text] to the user [receiver]
-        checks if there is an existing connection with the user [receiver]
-        if not then it tries to create the p2p connection if not possible
-        and the user exists then send the message to the server
-        Handles the passage of the receiver from online to offline
-    '''
     def sendClient(self, receiver, text):
-        #Handle sending of messages
-
+        '''
+            Used to send a message [text] to the user [receiver]
+            checks if there is an existing connection with the user [receiver]
+            if not then it tries to create the p2p connection if not possible
+            and the user exists then send the message to the server
+            Handles the passage of the receiver from online to offline
+        '''
         if not receiver in self.socketClient.keys() :
             value = self.startConnection(receiver)
             if value == 0 : #client offline
@@ -316,12 +322,13 @@ class Client:
                 print('Client does not exist!!!')
                 return value
 
+        msg = MessageHandler.createMessageJson(receiver, text, str(datetime.datetime.now()).split('.')[0])
         if self.socketClient[receiver] == 'server' :
             #Check after x time if receiver is now online
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])
         else :
             try:
-                value = self.socketClient[receiver].send(text.encode(self.CODE_TYPE))
+                value = self.socketClient[receiver].send(msg.encode(self.CODE_TYPE))
                 if value > 0:
                     return 1
                 else :

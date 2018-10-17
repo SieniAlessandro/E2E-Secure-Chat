@@ -17,14 +17,14 @@ if os.getcwd().find("Client") == -1:
 chat = ChatGUI()
 login = LoginGUI()
 signUp = SignUpGUI()
-client = Client(host, port)
+client = Client(host, port, chat.chatWindow)
+chat.createWidgets(client)
 client.connectServer()
 
 login.setSignUpWindow(signUp)
 login.setItems(client, chat)
 signUp.setLoginWindow(login)
 signUp.setClient(client)
-chat.createWidgets(client)
 
 
 chat.withdraw()
