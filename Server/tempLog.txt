@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 3bda82397435ad01aacd8c7995978435a7ab3968
 2018-10-17 12:01:22	Server Initialized
 2018-10-17 12:01:23	Waiting for connections...
 2018-10-17 12:02:39	Client handled has address: 10.102.23.153 and port 55477
@@ -29,3 +33,10 @@
 2018-10-17 12:05:34	Client handled has address: 10.102.23.62 and port 50262
 2018-10-17 12:05:34	Waiting for connections...
 2018-10-17 12:05:46	Client had a problem, connection closed
+<<<<<<< HEAD
+=======
+=======
+2018-10-17 10:39:27	Server Initialized
+2018-10-17 10:39:27	Waiting for connections...
+>>>>>>> c200623618d2b449d57e9973979171e02f386d61
+>>>>>>> 3bda82397435ad01aacd8c7995978435a7ab3968

@@ -13,8 +13,13 @@ class ChatGUI(Tk):
         ws = self.winfo_screenwidth() # width of the screen
         hs = self.winfo_screenheight() # height of the screen
 
+<<<<<<< HEAD
+        w = ws*5/9 # width for the Tk root
+        h = hs*5/16 # height for the Tk root
+=======
         w = ws*1.5/3 # width for the Tk root
         h = hs*2.5/4 # height for the Tk root
+>>>>>>> fbace26baf2c23691d402bd2ee843b422600230c
 
         x = (ws/2) - (w/2)
         y = (hs/2) - (h/2)
