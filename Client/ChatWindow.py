@@ -60,7 +60,8 @@ class ChatWindow(Frame):
         self.addBoxMessageElement(self.entryBar.get(), timeString, True)
 
         self.entryBar.delete(0, 'end')
-        # ret = self.client.sendClient(str(self.chatName), message)
+        ret = self.client.sendClient(str(self.chatName), message)
+        print(ret)
 
     def pressEnterEvent(self, event):
         self.pressSendButton()

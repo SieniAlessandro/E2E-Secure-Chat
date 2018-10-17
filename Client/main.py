@@ -5,7 +5,7 @@ from Login import LoginGUI
 from SignUp import SignUpGUI
 import os
 
-host = ''
+host = '127.0.0.1'
 port = 6000
 MESSAGE = 'hi'
 
@@ -17,7 +17,7 @@ if os.getcwd().find("Client") == -1:
 chat = ChatGUI()
 login = LoginGUI()
 signUp = SignUpGUI()
-client = Client("", port)
+client = Client(host, port)
 client.connectServer()
 
 login.setSignUpWindow(signUp)
