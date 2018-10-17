@@ -1,0 +1,36 @@
+<<<<<<< HEAD
+2018-10-17 12:01:22	Server Initialized
+2018-10-17 12:01:23	Waiting for connections...
+2018-10-17 12:02:39	Client handled has address: 10.102.23.153 and port 55477
+2018-10-17 12:02:39	Waiting for connections...
+2018-10-17 12:02:42	A client want to login
+2018-10-17 12:02:42	Active users: {'a': Username: a IP: 10.102.23.153 ServerPort: 55477 ClientPort: 53349}
+2018-10-17 12:02:42	There are several messages to be sended: {0: {'Sender': 'z', 'Text': 'prova', 'Time': '2018-10-15 11:30:11'}, 1: {'Sender': 'z', 'Text': 'ciao come va', 'Time': '2018-10-16 11:50:12'}, 2: {'Sender': 'l', 'Text': 'ciao sono l, questo è un json', 'Time': '2018-10-17 11:50:45'}, 3: {'Sender': 'l', 'Text': 'ciao, questo è un json', 'Time': '2018-10-17 11:51:20'}}
+2018-10-17 12:03:15	Client handled has address: 10.102.23.153 and port 55478
+2018-10-17 12:03:15	Waiting for connections...
+2018-10-17 12:03:16	A client want to login
+2018-10-17 12:03:16	Active users: {'a': Username: a IP: 10.102.23.153 ServerPort: 55477 ClientPort: 53349, 'l': Username: l IP: 10.102.23.153 ServerPort: 55478 ClientPort: 17572}
+2018-10-17 12:03:16	There are no message for this client
+2018-10-17 12:03:25	A client want to find another user
+2018-10-17 12:03:25	Ip found:10.102.23.153:17572
+2018-10-17 12:04:14	Client had a problem, connection closed
+2018-10-17 12:04:17	Client handled has address: 10.102.23.153 and port 55484
+2018-10-17 12:04:17	Waiting for connections...
+2018-10-17 12:04:19	A client want to login
+2018-10-17 12:04:19	Active users: {'a': Username: a IP: 10.102.23.153 ServerPort: 55477 ClientPort: 53349, 'l': Username: l IP: 10.102.23.153 ServerPort: 55484 ClientPort: 54208}
+2018-10-17 12:04:19	There are no message for this client
+2018-10-17 12:04:25	A client want to find another user
+2018-10-17 12:04:25	Ip found:10.102.23.153:53349
+2018-10-17 12:04:41	Client had a problem, connection closed
+2018-10-17 12:04:47	Client handled has address: 10.102.23.153 and port 55487
+2018-10-17 12:04:47	Waiting for connections...
+2018-10-17 12:05:05	A client want to register
+2018-10-17 12:05:05	Client had a problem, connection closed
+2018-10-17 12:05:05	Registration succeded
+2018-10-17 12:05:34	Client handled has address: 10.102.23.62 and port 50262
+2018-10-17 12:05:34	Waiting for connections...
+2018-10-17 12:05:46	Client had a problem, connection closed
+=======
+2018-10-17 10:39:27	Server Initialized
+2018-10-17 10:39:27	Waiting for connections...
+>>>>>>> c200623618d2b449d57e9973979171e02f386d61
