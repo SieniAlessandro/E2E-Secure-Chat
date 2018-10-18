@@ -31,9 +31,14 @@ class Message :
         msg['whoSendIt'] = whoSendIt
 
         if user not in self.Conversations.keys() :
-            self.Conversations[user] = []
+            self.Conversations[user] = {}
 
-        self.Conversations[user].append(msg)
+        index = 0
+        if index in self.Conversations[user].keys() :
+            index = list(self.Conversations[user])[-1] + 1
+        self.Conversations[user][index] = {}
+        self.Conversations[user][index] = msg
+        print('Inserted message :' + json.dumps(msg) + ' from : ' + user)
 
     def retrieveAllConversations(self) :
         return self.Conversations

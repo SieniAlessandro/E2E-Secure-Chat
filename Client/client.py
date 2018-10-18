@@ -74,6 +74,7 @@ class Client:
                 print('sender :' + msgs[x]['Sender'])
                 print('text : ' + msgs[x]['Text'])
                 print('time : ' + msgs[x]['Time'])
+                self.Message.addMessagetoConversations(msgs[x]['Sender'], msgs[x]['Text'], msgs[x]['Time'], 1)
         else :
             msg = msgs.split('^/')
             for x in msg :
@@ -81,7 +82,7 @@ class Client:
                 print('sender :' + block[0])
                 print('text : ' + block[1])
                 print('time : ' + block[2])
-        self.Message.addMessagetoConversations(msgs[x]['Sender'], msgs[x]['Text'], msgs[x]['Time'], 1)
+
 
     def receiveServer(self):
         '''
