@@ -24,6 +24,8 @@ class ChatGUI(Tk):
         self.resizable(width=FALSE, height=FALSE)
         self.columnconfigure(1, weight=6)
         self.rowconfigure(0,weight=4)
+        self.chatWindow = ChatWindow(self, self.backgroundWindow)
+        self.chatList = ChatList(self, self.backgroundItems)
 
     def fillChatList(self, chatList):
         for i in chatList:
@@ -31,11 +33,9 @@ class ChatGUI(Tk):
 
     def createWidgets(self, client):
         self.client = client
-        self.chatWindow = ChatWindow(self, self.backgroundWindow)
-        self.chatWindow.createWidgets(self.backgroundItems, "", self.client)
-
-        self.chatList = ChatList(self, self.backgroundItems)
         self.chatList.setItems(self.chatWindow, self.client)
+        self.chatWindow.createWidgets(self.backgroundItems, "", self.client, self.chatList)
+
 
     def onLoginEvent(self):
         self.deiconify()
@@ -54,5 +54,6 @@ if __name__ == '__main__':
     chat.createWidgets(client)
 
     chat.chatList.addChatListElement("Rododendro", "Oggi piove", "18:12")
+    chat.chatWindow.receiveMessage("Rododendro", "Associated", "0:00")
     chat.iconbitmap(os.getcwd() + '/Images/windowIcon.ico')
     chat.mainloop()

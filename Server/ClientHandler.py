@@ -94,6 +94,13 @@ class ClientHandler(Thread):
                 jsonResponse = json.dumps(response)
                 print(jsonResponse)
                 self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
+        else:
+            response = {}
+            response['id'] = "?"
+            response['status'] = "0"
+            jsonResponse = json.dumps(response)
+            print(jsonResponse)
+            self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
 
     def registerUser(self,message):
         """ Insert the information of the user in the database, checking if there is another user with the same Username

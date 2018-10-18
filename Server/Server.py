@@ -59,6 +59,7 @@ class Server:
             else:
                 print("Ok i'll close the server")
                 self.close()
+
     def close(self):
         """Close all the socket and close the connection with the database"""
         self.Log.log("Server Closed")
