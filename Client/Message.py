@@ -41,6 +41,6 @@ class Message :
     def retrieveConversation(self, user) :
 
         if user in self.Conversations.keys():
-            print('This is the conversation with ' + user + ' : ' + self.Conversations[user])
+            print('This is the conversation with ' + user + ' : ' + json.dumps(self.Conversations[user]))
             return self.Conversations[user]
         return 0
