@@ -4,7 +4,6 @@ import json
 import datetime
 from threading import Thread
 from ConnectionHandler import *
-from Message import *
 from Log import *
 
 class Client:
@@ -19,14 +18,14 @@ class Client:
     socketClient = {}
     JSON = True
 
-    def __init__(self, hostServer, portServer, chat = None):
+    def __init__(self, hostServer, portServer, chat = None, Message):
         self.hostServer = hostServer#self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.PORT_SERVER
         self.portp2p = random.randint(6001,60000)
         self.Log = Log()
         self.Log.log('Client initialized')
         self.Chat = chat
-        self.Message = Message()
+        self.Message = Message
     #Functions to communicate with Server#
     def sendServer(self, text):
         '''
@@ -80,6 +79,7 @@ class Client:
                 print('sender :' + block[0])
                 print('text : ' + block[1])
                 print('time : ' + block[2])
+        self.Message.addMessagetoConversations(msgs[x]['Sender'], msgs[x]['Text'], msgs[x]['Time'], 1)
 
     def receiveServer(self):
         '''
@@ -324,6 +324,7 @@ class Client:
                 return value
 
         msg = self.Message.createMessageJson(text, str(datetime.datetime.now()).split('.')[0])
+        self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()).split('.')[0], 0)
         if self.socketClient[receiver] == 'server' :
             #Check after x time if receiver is now online
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])

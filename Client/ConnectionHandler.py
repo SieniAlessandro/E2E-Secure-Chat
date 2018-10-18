@@ -53,6 +53,7 @@ class ConnectionHandler(Thread) :
                 if self.Chat is not None:
                     self.Chat.receiveMessage(user, dict['text'], dict['time'])
                 #appendToConversation
+                self.Message.addMessagetoConversations(user, dict['text'], dict['time'], 1)
             except ArithmeticError:
                 print('Connection closed with ' + user)
                 return -1
