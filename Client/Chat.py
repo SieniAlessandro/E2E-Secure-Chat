@@ -40,6 +40,10 @@ class ChatGUI(Tk):
     def onLoginEvent(self):
         self.deiconify()
         self.chatList.searchBar.focus_force()
+        conversations = self.client.Message.retrieveAllConversation()
+        for c in conversations.keys():
+            for m in conversations[c]:
+            self.chatList.notify(c, m['text'], m['time'] )
 
         # carica chatList
         # apri la prima chat nell'elenco

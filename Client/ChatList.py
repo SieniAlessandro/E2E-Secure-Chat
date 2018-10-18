@@ -10,13 +10,17 @@ class ChatList(Frame):
         self.chatListDict = {}
         self.grid(row=0, column=0, rowspan=2, sticky=N+S+W)
         self.searchBarFrame = Frame(self, bg=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
-        self.searchBar = Entry(self.searchBarFrame, background=background, bd=0, fg='white')
+        self.searchBar = Entry(self.searchBarFrame, validate = 'focusin', validatecommand = self.resetSearchBarStyle, background=background, bd=0, fg='white')
         self.searchBar.bind('<Return>', self.pressEnterEvent )
         self.icon = ImageTk.PhotoImage(Image.open("Images/searchIcon.png").resize( (30,30), Image.ANTIALIAS ))
         self.searchButton = Button(self.searchBarFrame, text="search", command=self.pressSearchButton, bg=background, bd=0, activebackground='#787878', image=self.icon)
         self.searchBarFrame.grid(column=0, sticky=W+E)
         self.searchBar.pack(side=LEFT, padx=5,pady=5)
         self.searchButton.pack(side=RIGHT, padx=5, pady=5)
+
+    def resetSearchBarStyle(self,event):
+        self.searchBarFrame.config(highlightbackground="black", highlightcolor="black", highlightthickness=1)
+        self.searchBarEntry.config(fg='white')
 
     def pressSearchButton(self):
         username = self.searchBar.get()
@@ -27,8 +31,8 @@ class ChatList(Frame):
             self.addChatListElement(username, "", "")
             self.chatListDict[username].changeChatRoom(event='none')
         else:
-            ######################## TODO ########################################
-            pass
+            self.searchBarFrame.config(highlightbackground="red", highlightcolor="red", highlightthickness=1)
+            self.searchBarEntry.config(fg='red')
 
     def pressEnterEvent(self, event):
         self.pressSearchButton()
@@ -43,12 +47,12 @@ class ChatList(Frame):
         self.chatListDict[chatName] = newChatListElement
 
     def notify(self, sender, message, time):
-        if sender not in self.chatListDict:
+        if sender not in self.c6:
             print("chat not found")
             self.addChatListElement(sender, message, time)
+            self.chatListDict[sender].increaseNotifies(message, time)
             if not self.chatWindow.chatName.get():
                 self.chatListDict[sender].changeChatRoom(event='none')
-                # timeString = time.split('.')[0].split(' ')[1][:-3]
                 self.chatWindow.addBoxMessageElement(message, time, False)
         else:
             self.chatListDict[sender].increaseNotifies(message, time)
@@ -92,6 +96,7 @@ class ChatListElement(Frame):
         chatNameLabel.bind('<Button-1>', self.changeChatRoom)
         lastMessageLabel.bind('<Button-1>', self.changeChatRoom)
         photoLabel.bind('<Button-1>', self.changeChatRoom)
+        self.notifiesLabel.bind('<Button-1>', self.changeChatRoom)
 
     def checkStringLenght(self, s):
         if ( len(s) > self.MAXMESSAGELEN ):
@@ -114,6 +119,7 @@ class ChatListElement(Frame):
         self.lastMessageTime.set(lastMessageTime)
 
     def increaseNotifies(self, message, time):
+        self.listMessage.append(message)
         self.notifies.set(self.notifies.get()+1)
         self.notifiesLabel.grid(row=1, column=2, sticky=W+E)
         self.lastMessage.set(self.checkStringLenght(message))

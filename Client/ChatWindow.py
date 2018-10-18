@@ -8,7 +8,7 @@ class ChatWindow(Frame):
         Frame.__init__(self, master, background=background)
 
         self.chatName = StringVar()
-        self.listMessage = []
+        self.listBoxMessage = []
         self.rowconfigure(1, weight=8)
         self.grid(row=0, column=1, sticky=N+S+W+E)
 
@@ -40,15 +40,21 @@ class ChatWindow(Frame):
     def addBoxMessageElement(self, message, time, isMine):
         boxMessage = BoxMessage(self, self['bg'])
         boxMessage.createWidgets( message, time , isMine)
-        self.listMessage.append(boxMessage)
+        self.listBoxMessage.append(boxMessage)
 
     def changeChatRoom(self, chatName):
         self.entryBar.focus_force()
         self.chatName.set(chatName)
-        if len(self.listMessage) > 0:
-            for m in self.listMessage:
+        if len(self.listBoxMessage) > 0:
+            for m in self.listBoxMessage:
                 m.pack_forget()
-            self.listMessage.clear()
+            self.listBoxMessage.clear()
+        newConversation = self.client.Message.retrieveConversation(chatName)
+        for m in newConversation:
+            isMine = True if m['whoSendIt'] == 0 else False
+            self.addBoxMessageElement(m['text'], m['time'], isMine)
+
+
 
     def setClient(self, client):
         self.client = client
