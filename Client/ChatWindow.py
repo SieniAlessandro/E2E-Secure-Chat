@@ -2,6 +2,7 @@ from tkinter import *
 from PIL import ImageTk, Image
 import datetime
 import random
+from ScrollableFrame import *
 
 class ChatWindow(Frame):
     def __init__(self, master, background):
@@ -22,9 +23,13 @@ class ChatWindow(Frame):
 
         chatBar = Frame(self, bg = background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         chatNameLabel = Label(chatBar, textvariable=self.chatName, font = ( "Default", 10, "bold"), bg = background, fg='white')
+        mainFrame = Frame(self)
+        self.scrollableFrame = Scrollable(mainFrame, self['bg'])
 
         chatBar.pack( side="top", fill=X, ipadx=5, ipady=4)
         chatNameLabel.grid(row=0, sticky=W, padx=10, pady=5)
+
+        mainFrame.pack(fill=BOTH, expand=True)
 
         inputBar.pack(side="bottom", fill=X, ipadx=5, ipady=4)
         inputBar.columnconfigure(0, weight=15)
@@ -39,9 +44,11 @@ class ChatWindow(Frame):
 
     def addBoxMessageElement(self, message, time, isMine):
         timeString = str(time).split('.')[0].split(' ')[1][:-3]
-        boxMessage = BoxMessage(self, self['bg'])
+        boxMessage = BoxMessage(self.scrollableFrame, self['bg'])
         boxMessage.createWidgets( message, timeString , isMine)
         self.listBoxMessage.append(boxMessage)
+        self.scrollableFrame.update()
+        self.scrollableFrame.canvas.yview_moveto( 1 )
 
     def changeChatRoom(self, chatName, fill):
         self.entryBar.focus_force()
@@ -79,7 +86,6 @@ class ChatWindow(Frame):
             self.addBoxMessageElement(message, time, False)
         else:
             self.chatList.notify(sender, message, time)
-
 
 class BoxMessage(Frame):
     def __init__(self, master, background):

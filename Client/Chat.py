@@ -21,6 +21,7 @@ class ChatGUI(Tk):
 
         self.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.title("MPS Chat")
+        # self.iconbitmap(os.getcwd() + '/Images/windowIcon.ico')
         self.resizable(width=FALSE, height=FALSE)
         self.columnconfigure(1, weight=6)
         self.rowconfigure(0,weight=4)
@@ -31,7 +32,6 @@ class ChatGUI(Tk):
         self.client = client
         self.chatList.setItems(self.chatWindow, self.client)
         self.chatWindow.createWidgets(self.backgroundItems, "", self.client, self.chatList)
-
 
     def onLoginEvent(self, username):
         self.deiconify()
@@ -51,7 +51,6 @@ if __name__ == '__main__':
     client = Client("", 6555)
     chat.createWidgets(client)
 
-    chat.chatList.addChatListElement("Rododendro", "Oggi piove", "18:12")
-    chat.chatWindow.receiveMessage("Rododendro", "Associated", "0:00")
-    chat.iconbitmap(os.getcwd() + '/Images/windowIcon.ico')
+    # chat.chatList.addChatListElement("Rododendro", "Oggi piove", "18:12")
+    # chat.chatWindow.receiveMessage("Rododendro", "Associated", "0:00")
     chat.mainloop()
