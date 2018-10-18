@@ -91,7 +91,7 @@ class Client:
             by the server
         '''
         try:
-            ret = self.socketServer.recv(self.BUFFER_SIZE)
+            ret = self.socketServer.recv(self.BUFFER_SIZE*100)
             if not ret:
                 self.Log.log('Connection with the server closed!')
                 return -1
