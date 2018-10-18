@@ -42,5 +42,6 @@ class Message :
 
         if user in self.Conversations.keys():
             print('This is the conversation with ' + user + ' : ' + json.dumps(self.Conversations[user]))
+            print("END OF CONVERSATION")
             return self.Conversations[user]
         return 0

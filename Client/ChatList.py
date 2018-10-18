@@ -86,6 +86,8 @@ class ChatListElement(Frame):
         self.createWidgets()
 
     def changeChatRoom(self, event):
+        if self.chatName.get() == self.chatWindow.chatName.get():
+            return
         self.chatWindow.changeChatRoom(self.chatName.get())
         self.notifiesLabel.grid_forget()
 
