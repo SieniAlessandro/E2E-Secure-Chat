@@ -27,23 +27,21 @@ class ChatGUI(Tk):
         self.chatWindow = ChatWindow(self, self.backgroundWindow)
         self.chatList = ChatList(self, self.backgroundItems)
 
-    def fillChatList(self, chatList):
-        for i in chatList:
-            self.chatList.addChatListElement(i.chatName, i.lastMessage, i.lastMessageTime)
-
     def createWidgets(self, client):
         self.client = client
         self.chatList.setItems(self.chatWindow, self.client)
         self.chatWindow.createWidgets(self.backgroundItems, "", self.client, self.chatList)
 
 
-    def onLoginEvent(self):
+    def onLoginEvent(self, username):
         self.deiconify()
+        self.title("MPS Chat - " + username)
         self.chatList.searchBar.focus_force()
         conversations = self.client.Message.retrieveAllConversations()
+        print(conversations)
         for c in conversations.keys():
             for m in conversations[c]:
-                self.chatList.notify(c, m['text'], m['time'] )
+                self.chatList.notify(c, conversations[c][m]['text'], conversations[c][m]['time'] )
 
 if __name__ == '__main__':
     if os.getcwd().find("Client") == -1:

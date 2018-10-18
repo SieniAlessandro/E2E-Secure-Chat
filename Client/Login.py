@@ -64,7 +64,7 @@ class LoginGUI(Tk):
             print(ret)
             if  ret == 1:
                 self.withdraw()
-                self.chat.onLoginEvent()
+                self.chat.onLoginEvent(self.usernameEntry.get())
             elif ret == 0:
                 print("Invalid Username or Password")
                 self.showError()

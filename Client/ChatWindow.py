@@ -43,20 +43,21 @@ class ChatWindow(Frame):
         boxMessage.createWidgets( message, timeString , isMine)
         self.listBoxMessage.append(boxMessage)
 
-    def changeChatRoom(self, chatName):
+    def changeChatRoom(self, chatName, fill):
         self.entryBar.focus_force()
         self.chatName.set(chatName)
         if len(self.listBoxMessage) > 0:
             for m in self.listBoxMessage:
                 m.pack_forget()
             self.listBoxMessage.clear()
-        newConversation = self.client.Message.retrieveConversation(chatName)
-        print(newConversation)
-        if not newConversation == 0 :
-            for m in newConversation:
-                print(m)
-                # isMine = True if m['whoSendIt'] == 0 else False
-            # self.addBoxMessageElement(m['text'], m['time'], isMine)
+        if fill:
+            """ fill is false if the conversation is loaded after login when messages loading
+                is handled by chat.onLoginEvent """
+            newConversation = self.client.Message.retrieveConversation(chatName)
+            if not newConversation == 0 :
+                for m in newConversation:
+                    isMine = True if m['whoSendIt'] == 0 else False
+                    self.addBoxMessageElement(m['text'], m['time'], isMine)
 
     def setClient(self, client):
         self.client = client
@@ -66,7 +67,6 @@ class ChatWindow(Frame):
         if not message:
             return
         self.addBoxMessageElement(message, datetime.datetime.now(), True)
-
         self.entryBar.delete(0, 'end')
         ret = self.client.sendClient(str(self.chatName.get()), message)
         self.chatList.updateMessageTime(self.chatName.get(), message, datetime.datetime.now())

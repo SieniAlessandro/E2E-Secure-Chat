@@ -50,17 +50,19 @@ class ChatList(Frame):
 
     def notify(self, sender, message, time):
         if sender not in self.chatListDict:
-            print("chat not found")
+            #chatList not found in the list
+            print("Adding chat with " + sender)
             self.addChatListElement(sender, message, time)
-            self.chatListDict[sender].increaseNotifies(message, time)
-            if not self.chatWindow.chatName.get():
-                self.chatListDict[sender].changeChatRoom(event='none')
-                self.chatWindow.addBoxMessageElement(message, time, False)
+        if not self.chatWindow.chatName.get():
+            # chatWindow has no active chat
+            self.chatListDict[sender].changeChatRoom(event=None)
+            self.chatWindow.addBoxMessageElement(message, time, False)
+        elif self.chatWindow.chatName.get() == sender:
+            #sender chat is active
+            self.chatWindow.addBoxMessageElement(message, time, False)
         else:
-            if self.chatWindow.chatName.get() == sender:
-                self.chatWindow.addBoxMessageElement(message, time, False)
-            else:
-                self.chatListDict[sender].increaseNotifies(message, time)
+            #there is an active chat but not the sender's one, so notify that
+            self.chatListDict[sender].increaseNotifies(message, time)
 
     def updateMessageTime(self, chatName, message, time):
         self.chatListDict[chatName].setLastMessage(message)
@@ -88,7 +90,8 @@ class ChatListElement(Frame):
     def changeChatRoom(self, event):
         if self.chatName.get() == self.chatWindow.chatName.get():
             return
-        self.chatWindow.changeChatRoom(self.chatName.get())
+        fill = False if event is None else True
+        self.chatWindow.changeChatRoom(self.chatName.get(), fill)
         self.notifiesLabel.grid_forget()
 
     def createWidgets(self):
