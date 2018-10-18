@@ -35,9 +35,12 @@ class Message :
 
         self.Conversations[user].append(msg)
 
+    def retrieveAllConversations(self) :
+        return self.Conversations
+
     def retrieveConversation(self, user) :
 
         if user in self.Conversations.keys():
-            print('This is the conversation with ' + user ' : ' + self.Conversations[user])
+            print('This is the conversation with ' + user + ' : ' + self.Conversations[user])
             return self.Conversations[user]
         return 0
