@@ -91,6 +91,13 @@ class ClientHandler(Thread):
                 jsonResponse = json.dumps(response)
                 print(jsonResponse)
                 self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
+        else:
+            response = {}
+            response['id'] = "?"
+            response['status'] = "0"
+            jsonResponse = json.dumps(response)
+            print(jsonResponse)
+            self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
 
     def registerUser(self,msgs):
         self.log.log("A client want to register")

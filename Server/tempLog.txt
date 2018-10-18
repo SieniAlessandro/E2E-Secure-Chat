@@ -1,15 +1,30 @@
-<<<<<<< HEAD
-2018-10-17 12:20:14	Server Initialized
-2018-10-17 12:20:14	Waiting for connections...
-2018-10-17 12:24:23	Server Closed
-=======
-2018-10-17 12:18:27	Server Initialized
-2018-10-17 12:18:27	Waiting for connections...
-2018-10-17 12:18:57	Client handled has address: 127.0.0.1 and port 52999
-2018-10-17 12:18:57	Waiting for connections...
-2018-10-17 12:19:00	A client want to login
-2018-10-17 12:19:00	Active users: {'asd': Username: asd IP: 127.0.0.1 ServerPort: 52999 ClientPort: 59432}
-2018-10-17 12:19:00	There are no message for this client
-2018-10-17 12:19:07	A client want to find another user
-2018-10-17 12:19:07	Store the message to prova
->>>>>>> 0ff55695ce2a67996335bb74057866d4a6a81e63
+2018-10-18 09:00:04	Server Initialized
+2018-10-18 09:00:04	Waiting for connections...
+2018-10-18 09:00:13	Client handled has address: 127.0.0.1 and port 51058
+2018-10-18 09:00:13	Waiting for connections...
+2018-10-18 09:00:17	A client want to login
+2018-10-18 09:00:35	Client had a problem, connection closed
+2018-10-18 09:00:40	Client handled has address: 127.0.0.1 and port 51060
+2018-10-18 09:00:40	Waiting for connections...
+2018-10-18 09:00:43	A client want to login
+2018-10-18 09:00:53	A client want to login
+2018-10-18 09:00:53	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51060 ClientPort: 36657}
+2018-10-18 09:00:53	There are several messages to be sended: {0: {'Sender': 'l', 'Text': 'ciao', 'Time': '2018-10-18 08:36:31'}}
+2018-10-18 09:01:10	A client want to find another user
+2018-10-18 09:01:10	Store the message to l
+2018-10-18 09:01:20	Client had a problem, connection closed
+2018-10-18 09:01:26	Client handled has address: 127.0.0.1 and port 51061
+2018-10-18 09:01:26	Waiting for connections...
+2018-10-18 09:01:29	A client want to login
+2018-10-18 09:01:29	Active users: {'l': Username: l IP: 127.0.0.1 ServerPort: 51061 ClientPort: 59260}
+2018-10-18 09:01:29	There are several messages to be sended: {0: {'Sender': 'b', 'Text': 'prova online', 'Time': '2018-10-12 16:29:06'}, 1: {'Sender': 'b', 'Text': 'prova online', 'Time': '2018-10-12 16:29:57'}}
+2018-10-18 09:01:33	Client handled has address: 127.0.0.1 and port 51062
+2018-10-18 09:01:33	Waiting for connections...
+2018-10-18 09:01:36	A client want to login
+2018-10-18 09:01:37	A client want to login
+2018-10-18 09:01:37	Active users: {'l': Username: l IP: 127.0.0.1 ServerPort: 51061 ClientPort: 59260, 'a': Username: a IP: 127.0.0.1 ServerPort: 51062 ClientPort: 43059}
+2018-10-18 09:01:37	There are several messages to be sended: {0: {'Sender': 'l', 'Text': 'ciao', 'Time': '2018-10-18 08:36:31'}}
+2018-10-18 09:01:39	A client want to find another user
+2018-10-18 09:01:39	Ip found:127.0.0.1:59260
+2018-10-18 09:03:08	Client had a problem, connection closed
+2018-10-18 09:03:12	Client had a problem, connection closed

@@ -13,7 +13,7 @@ class ConnectionHandler(Thread) :
     '''
         Create a new socket and bind it to the port destinated for connectio p2p
     '''
-    def __init__(self, portp2p, Log, Chat, Code) :
+    def __init__(self, portp2p, Log, Chat, Code, Message) :
         Thread.__init__(self)
         self.ip = "0.0.0.0"
         self.portp2p = portp2p
@@ -40,19 +40,18 @@ class ConnectionHandler(Thread) :
         self.users.append(user)
         print('Connection started with ' + user)
 
-        if len(msgs) > 1:
-            print(user + ' send : ' + msgs[1])
         while True:
             try:
                 msg = conn.recv(self.MSG_LEN)
-                #if not msg :
-                #    raise Exception()
+                if not msg :
+                    raise Exception()
                 msg = msg.decode(self.Code)
 
                 dict = json.loads(msg)
                 print(msg)
                 print(user + ' send : ' + msg)
-                self.Chat.receiveMessage(user, dict['text'], dict['time'])
+                if Chat is not None:
+                    self.Chat.receiveMessage(user, dict['text'], dict['time'])
                 #appendToConversation
             except ArithmeticError:
                 print('Connection closed with ' + user)

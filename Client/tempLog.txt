@@ -1,10 +1,13 @@
-2018-10-17 18:02:30	Client initialized
-2018-10-17 18:02:35	Message: <{"id": "2", "username": "prova", "password": "Prova123123", "porta": "17562"}> sended to the server correctly
-2018-10-17 18:02:35	Received a message from the SERVER: {"id": "?", "status": "1"}
-2018-10-17 18:02:35	Succesfull logged in as prova
-2018-10-17 18:02:35	Received a message from the SERVER: {"id": "5", "messages": {"0": {"Sender": "asd", "Text": "sdakihdasio", "Time": "2018-10-17 12:28:40"}, "1": {"Sender": "asd", "Text": "asd", "Time": "2018-10-17 15:05:27"}, "2": {"Sender": "asd", "Text": "adasda", "Time": "2018-10-17 15:06:11"}, "3": {"Sender": "asd", "Text": "AAAAAAAAAAAAAAAAAAAAAAA", "Time": "2018-10-17 15:06:26"}, "4": {"Sender": "a", "Text": "asdsda", "Time": "2018-10-17 16:45:42"}}}
-2018-10-17 18:02:35	There are messages pending in the server
-2018-10-17 18:02:48	Message: <{"id": "3", "username": "a"}> sended to the server correctly
-2018-10-17 18:02:48	Received a message from the SERVER: {"id": "!", "status": "127.0.0.1:10444"}
-2018-10-17 18:02:48	Starting a new connection with a
-2018-10-17 18:02:48	a has IP:Port : 127.0.0.1:10444
+2018-10-18 09:01:33	Client initialized
+2018-10-18 09:01:36	Message: <{"id": "2", "username": "a", "password": "<", "porta": "43059"}> sended to the server correctly
+2018-10-18 09:01:36	Received a message from the SERVER: {"id": "?", "status": "0"}
+2018-10-18 09:01:36	Login : Wrong Username or Password
+2018-10-18 09:01:37	Message: <{"id": "2", "username": "a", "password": "a", "porta": "43059"}> sended to the server correctly
+2018-10-18 09:01:37	Received a message from the SERVER: {"id": "?", "status": "1"}
+2018-10-18 09:01:37	Succesfull logged in as a
+2018-10-18 09:01:37	Received a message from the SERVER: {"id": "1", "messages": {"0": {"Sender": "l", "Text": "ciao", "Time": "2018-10-18 08:36:31"}}}
+2018-10-18 09:01:37	There are messages pending in the server
+2018-10-18 09:01:39	Message: <{"id": "3", "username": "l"}> sended to the server correctly
+2018-10-18 09:01:39	Received a message from the SERVER: {"id": "!", "status": "127.0.0.1:59260"}
+2018-10-18 09:01:39	Starting a new connection with l
+2018-10-18 09:01:39	l has IP:Port : 127.0.0.1:59260

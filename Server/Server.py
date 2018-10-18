@@ -55,6 +55,7 @@ class Server:
             else:
                 print("Ok i'll close the server")
                 self.close()
+
     def close(self):
         self.Log.log("Server Closed")
         for User in self.Users.values():

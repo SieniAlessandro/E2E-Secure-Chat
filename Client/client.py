@@ -4,7 +4,7 @@ import json
 import datetime
 from threading import Thread
 from ConnectionHandler import *
-from MessageHandler import *
+from Message import *
 from Log import *
 
 class Client:
@@ -26,6 +26,7 @@ class Client:
         self.Log = Log()
         self.Log.log('Client initialized')
         self.Chat = chat
+        self.Message = Message()
     #Functions to communicate with Server#
     def sendServer(self, text):
         '''
@@ -214,7 +215,7 @@ class Client:
             self.receiveServer()
             #starting the connectionHandler in order to manage
             #connections received from new clients
-            ch = ConnectionHandler(self.portp2p, self.Log, self.Chat, self.CODE_TYPE)
+            ch = ConnectionHandler(self.portp2p, self.Log, self.Chat, self.CODE_TYPE, self.Message)
             ch.start()
         elif value == 0 :
             self.Log.log('Login : Wrong Username or Password')
@@ -322,7 +323,7 @@ class Client:
                 print('Client does not exist!!!')
                 return value
 
-        msg = MessageHandler.createMessageJson(text, str(datetime.datetime.now()).split('.')[0])
+        msg = self.Message.createMessageJson(text, str(datetime.datetime.now()).split('.')[0])
         if self.socketClient[receiver] == 'server' :
             #Check after x time if receiver is now online
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])
