@@ -52,7 +52,7 @@ class ConnectionHandler(Thread) :
                 dict = json.loads(msg)
                 print(msg)
                 print(user + ' send : ' + msg)
-                self.Chat.addBoxMessageElement(dict['text'], dict['time'], False)
+                self.Chat.receiveMessage(user, dict['text'], dict['time'])
                 #appendToConversation
             except ArithmeticError:
                 print('Connection closed with ' + user)
