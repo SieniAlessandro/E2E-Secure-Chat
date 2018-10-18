@@ -56,8 +56,8 @@ class ChatWindow(Frame):
             newConversation = self.client.Message.retrieveConversation(chatName)
             if not newConversation == 0 :
                 for m in newConversation:
-                    isMine = True if m['whoSendIt'] == 0 else False
-                    self.addBoxMessageElement(m['text'], m['time'], isMine)
+                    isMine = True if newConversation[m]['whoSendIt'] == 0 else False
+                    self.addBoxMessageElement(newConversation[m]['text'], newConversation[m]['time'], isMine)
 
     def setClient(self, client):
         self.client = client

@@ -92,6 +92,7 @@ class ChatListElement(Frame):
             return
         fill = False if event is None else True
         self.chatWindow.changeChatRoom(self.chatName.get(), fill)
+        self.notifies.set(0)
         self.notifiesLabel.grid_forget()
 
     def createWidgets(self):
