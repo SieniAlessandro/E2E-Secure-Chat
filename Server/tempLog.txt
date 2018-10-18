@@ -1,24 +1,106 @@
-2018-10-18 09:06:04	Server Initialized
-2018-10-18 09:06:04	Waiting for connections...
-2018-10-18 09:06:17	Client handled has address: 127.0.0.1 and port 51078
-2018-10-18 09:06:17	Waiting for connections...
-2018-10-18 09:06:19	A client want to login
-2018-10-18 09:06:19	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51078 ClientPort: 52751}
-2018-10-18 09:06:19	There are several messages to be sended: {0: {'Sender': 'l', 'Text': 'ciao', 'Time': '2018-10-18 08:36:31'}}
-2018-10-18 09:06:24	Client handled has address: 127.0.0.1 and port 51079
-2018-10-18 09:06:24	Waiting for connections...
-2018-10-18 09:06:32	A client want to login
-2018-10-18 09:06:32	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51078 ClientPort: 52751, 'l': Username: l IP: 127.0.0.1 ServerPort: 51079 ClientPort: 46213}
-2018-10-18 09:06:32	There are several messages to be sended: {0: {'Sender': 'b', 'Text': 'prova online', 'Time': '2018-10-12 16:29:06'}, 1: {'Sender': 'b', 'Text': 'prova online', 'Time': '2018-10-12 16:29:57'}}
-2018-10-18 09:06:39	A client want to find another user
-2018-10-18 09:06:39	Ip found:127.0.0.1:52751
-2018-10-18 09:06:53	Client handled has address: 127.0.0.1 and port 51081
-2018-10-18 09:06:53	Waiting for connections...
-2018-10-18 09:06:57	A client want to login
-2018-10-18 09:06:57	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51078 ClientPort: 52751, 'l': Username: l IP: 127.0.0.1 ServerPort: 51079 ClientPort: 46213, 'b': Username: b IP: 127.0.0.1 ServerPort: 51081 ClientPort: 36704}
-2018-10-18 09:06:57	There are several messages to be sended: {0: {'Sender': 'l', 'Text': 'b', 'Time': '2018-10-12 16:24:57'}, 1: {'Sender': 'l', 'Text': 'prova offline', 'Time': '2018-10-12 16:26:12'}, 2: {'Sender': 'l', 'Text': 'sei ancora online?', 'Time': '2018-10-12 17:27:30'}, 3: {'Sender': 'a', 'Text': 'ciao', 'Time': '2018-10-15 09:44:03'}, 4: {'Sender': 'a', 'Text': 'ciao b, esisti, vero?', 'Time': '2018-10-16 08:30:48'}, 5: {'Sender': 'l', 'Text': 'ciao', 'Time': '2018-10-17 14:20:35'}}
-2018-10-18 09:07:12	A client want to find another user
-2018-10-18 09:07:12	Ip found:127.0.0.1:52751
-2018-10-18 09:07:51	Client had a problem, connection closed
-2018-10-18 09:07:56	Client had a problem, connection closed
-2018-10-18 09:08:00	Client had a problem, connection closed
+2018-10-18 17:19:39	Server Initialized
+2018-10-18 17:19:39	Waiting for connections...
+2018-10-18 17:19:46	Client handled has address: 127.0.0.1 and port 59056
+2018-10-18 17:19:46	Waiting for connections...
+2018-10-18 17:19:48	A client want to login
+2018-10-18 17:19:48	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 59056 ClientPort: 43619}
+2018-10-18 17:19:48	There are no message for this client
+2018-10-18 17:19:51	A client want to find another user
+2018-10-18 17:19:51	Store the message to a
+2018-10-18 17:20:05	Client had a problem, connection closed
+2018-10-18 17:20:29	Client handled has address: 127.0.0.1 and port 59291
+2018-10-18 17:20:29	Waiting for connections...
+2018-10-18 17:20:30	A client want to login
+2018-10-18 17:20:30	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 59291 ClientPort: 16083}
+2018-10-18 17:20:30	There are no message for this client
+2018-10-18 17:20:32	A client want to find another user
+2018-10-18 17:20:32	Store the message to a
+2018-10-18 17:20:39	The user has a massage to be stored on the DB :
+2018-10-18 17:23:27	Client had a problem, connection closed
+2018-10-18 17:23:29	Client handled has address: 127.0.0.1 and port 59825
+2018-10-18 17:23:29	Waiting for connections...
+2018-10-18 17:23:31	A client want to login
+2018-10-18 17:23:31	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 59825 ClientPort: 24508}
+2018-10-18 17:23:31	There are no message for this client
+2018-10-18 17:23:34	A client want to find another user
+2018-10-18 17:23:34	Store the message to a
+2018-10-18 17:23:36	The user has a massage to be stored on the DB :
+2018-10-18 17:24:49	Client had a problem, connection closed
+2018-10-18 17:24:51	Client handled has address: 127.0.0.1 and port 60135
+2018-10-18 17:24:51	Waiting for connections...
+2018-10-18 17:24:53	A client want to login
+2018-10-18 17:24:53	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 60135 ClientPort: 51999}
+2018-10-18 17:24:53	There are no message for this client
+2018-10-18 17:24:54	A client want to find another user
+2018-10-18 17:24:54	Store the message to a
+2018-10-18 17:24:55	The user has a massage to be stored on the DB :
+2018-10-18 17:25:42	Client had a problem, connection closed
+2018-10-18 17:25:44	Client handled has address: 127.0.0.1 and port 60267
+2018-10-18 17:25:44	Waiting for connections...
+2018-10-18 17:25:46	A client want to login
+2018-10-18 17:25:46	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 60267 ClientPort: 31734}
+2018-10-18 17:25:46	There are no message for this client
+2018-10-18 17:25:47	A client want to find another user
+2018-10-18 17:25:47	Store the message to a
+2018-10-18 17:25:48	The user has a massage to be stored on the DB :
+2018-10-18 17:25:58	Client had a problem, connection closed
+2018-10-18 17:26:02	Client handled has address: 127.0.0.1 and port 60301
+2018-10-18 17:26:02	Waiting for connections...
+2018-10-18 17:26:04	A client want to login
+2018-10-18 17:26:04	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 60301 ClientPort: 25299}
+2018-10-18 17:26:04	There are no message for this client
+2018-10-18 17:26:05	A client want to find another user
+2018-10-18 17:26:05	Store the message to a
+2018-10-18 17:26:06	The user has a massage to be stored on the DB :
+2018-10-18 17:27:06	Client handled has address: 127.0.0.1 and port 60561
+2018-10-18 17:27:06	Waiting for connections...
+2018-10-18 17:27:07	A client want to login
+2018-10-18 17:27:07	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 60561 ClientPort: 29028}
+2018-10-18 17:27:07	There are no message for this client
+2018-10-18 17:27:07	A client want to find another user
+2018-10-18 17:27:07	Store the message to a
+2018-10-18 17:27:08	The user has a massage to be stored on the DB :
+2018-10-18 17:27:16	Client handled has address: 127.0.0.1 and port 60602
+2018-10-18 17:27:16	Waiting for connections...
+2018-10-18 17:27:18	A client want to login
+2018-10-18 17:27:18	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 60561 ClientPort: 29028, 'a': Username: a IP: 127.0.0.1 ServerPort: 60602 ClientPort: 55864}
+2018-10-18 17:27:18	There are several messages to be sended: {0: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:20:39'}, 1: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:23:37'}, 2: {'Sender': 'b', 'Text': 'asd', 'Time': '2018-10-18 17:24:55'}, 3: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:25:49'}, 4: {'Sender': 'b', 'Text': 'asd', 'Time': '2018-10-18 17:26:06'}, 5: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:27:09'}}
+2018-10-18 17:28:36	The user has a massage to be stored on the DB :
+2018-10-18 17:28:38	The user has a massage to be stored on the DB :
+2018-10-18 17:28:38	The user has a massage to be stored on the DB :
+2018-10-18 17:28:38	The user has a massage to be stored on the DB :
+2018-10-18 17:28:39	The user has a massage to be stored on the DB :
+2018-10-18 17:28:39	The user has a massage to be stored on the DB :
+2018-10-18 17:28:39	The user has a massage to be stored on the DB :
+2018-10-18 17:28:42	A client want to find another user
+2018-10-18 17:28:42	Ip found:127.0.0.1:29028
+2018-10-18 17:29:19	Client had a problem, connection closed
+2018-10-18 17:29:20	Client had a problem, connection closed
+2018-10-18 17:29:21	Client had a problem, connection closed
+2018-10-18 17:29:47	Client handled has address: 127.0.0.1 and port 61070
+2018-10-18 17:29:47	Waiting for connections...
+2018-10-18 17:29:49	A client want to login
+2018-10-18 17:29:49	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 61070 ClientPort: 11509}
+2018-10-18 17:29:49	There are several messages to be sended: {0: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:20:39'}, 1: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:23:37'}, 2: {'Sender': 'b', 'Text': 'asd', 'Time': '2018-10-18 17:24:55'}, 3: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:25:49'}, 4: {'Sender': 'b', 'Text': 'asd', 'Time': '2018-10-18 17:26:06'}, 5: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:27:09'}, 6: {'Sender': 'b', 'Text': 'asd', 'Time': '2018-10-18 17:28:36'}, 7: {'Sender': 'b', 'Text': 'qwe', 'Time': '2018-10-18 17:28:38'}, 8: {'Sender': 'b', 'Text': 'qwwe', 'Time': '2018-10-18 17:28:39'}, 9: {'Sender': 'b', 'Text': 'qwe', 'Time': '2018-10-18 17:28:39'}, 10: {'Sender': 'b', 'Text': 'qw', 'Time': '2018-10-18 17:28:39'}, 11: {'Sender': 'b', 'Text': 'eeqw', 'Time': '2018-10-18 17:28:39'}, 12: {'Sender': 'b', 'Text': 'q', 'Time': '2018-10-18 17:28:40'}}
+2018-10-18 17:30:04	Client handled has address: 127.0.0.1 and port 61096
+2018-10-18 17:30:04	Waiting for connections...
+2018-10-18 17:30:06	A client want to login
+2018-10-18 17:30:06	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 61070 ClientPort: 11509, 'b': Username: b IP: 127.0.0.1 ServerPort: 61096 ClientPort: 19729}
+2018-10-18 17:30:06	There are no message for this client
+2018-10-18 17:30:19	A client want to find another user
+2018-10-18 17:30:19	Ip found:127.0.0.1:19729
+2018-10-18 17:32:44	Client handled has address: 127.0.0.1 and port 49987
+2018-10-18 17:32:44	Waiting for connections...
+2018-10-18 17:32:47	A client want to login
+2018-10-18 17:32:51	A client want to login
+2018-10-18 17:32:51	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 49987 ClientPort: 47941, 'b': Username: b IP: 127.0.0.1 ServerPort: 61096 ClientPort: 19729}
+2018-10-18 17:32:51	There are several messages to be sended: {0: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:20:39'}, 1: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:23:37'}, 2: {'Sender': 'b', 'Text': 'asd', 'Time': '2018-10-18 17:24:55'}, 3: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:25:49'}, 4: {'Sender': 'b', 'Text': 'asd', 'Time': '2018-10-18 17:26:06'}, 5: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:27:09'}, 6: {'Sender': 'b', 'Text': 'asd', 'Time': '2018-10-18 17:28:36'}, 7: {'Sender': 'b', 'Text': 'qwe', 'Time': '2018-10-18 17:28:38'}, 8: {'Sender': 'b', 'Text': 'qwwe', 'Time': '2018-10-18 17:28:39'}, 9: {'Sender': 'b', 'Text': 'qwe', 'Time': '2018-10-18 17:28:39'}, 10: {'Sender': 'b', 'Text': 'qw', 'Time': '2018-10-18 17:28:39'}, 11: {'Sender': 'b', 'Text': 'eeqw', 'Time': '2018-10-18 17:28:39'}, 12: {'Sender': 'b', 'Text': 'q', 'Time': '2018-10-18 17:28:40'}}
+2018-10-18 17:32:57	Client handled has address: 127.0.0.1 and port 50032
+2018-10-18 17:32:57	Waiting for connections...
+2018-10-18 17:32:58	A client want to login
+2018-10-18 17:32:58	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 49987 ClientPort: 47941, 'b': Username: b IP: 127.0.0.1 ServerPort: 50032 ClientPort: 18374}
+2018-10-18 17:32:58	There are no message for this client
+2018-10-18 17:33:03	A client want to find another user
+2018-10-18 17:33:03	Ip found:127.0.0.1:18374
+2018-10-18 17:33:17	A client want to find another user
+2018-10-18 17:33:17	Ip found:127.0.0.1:47941

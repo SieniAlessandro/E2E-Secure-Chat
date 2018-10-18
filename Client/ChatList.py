@@ -24,7 +24,7 @@ class ChatList(Frame):
             return
         ret = self.client.startConnection(username)
         if ret >= 0:
-            self.addChatListElement(username, "", "")
+            self.addChatListElement(username, "", lastMessageTime=None)
             self.chatListDict[username].changeChatRoom(event='none')
             self.searchBarFrame.config(highlightbackground="black", highlightcolor="black", highlightthickness=1)
             self.searchBar.config(fg='white')
@@ -40,8 +40,12 @@ class ChatList(Frame):
         self.client = client
 
     def addChatListElement(self, chatName, lastMessage, lastMessageTime):
+        if lastMessageTime is None:
+            timeString = '-:--'
+        else:
+            timeString = str(lastMessageTime).split('.')[0].split(' ')[1][:-3]
         newChatListElement = ChatListElement(self, self['bg'])
-        newChatListElement.setElements(self.chatWindow, chatName, lastMessage, lastMessageTime)
+        newChatListElement.setElements(self.chatWindow, chatName, lastMessage, timeString)
         self.chatListDict[chatName] = newChatListElement
 
     def notify(self, sender, message, time):
@@ -53,7 +57,14 @@ class ChatList(Frame):
                 self.chatListDict[sender].changeChatRoom(event='none')
                 self.chatWindow.addBoxMessageElement(message, time, False)
         else:
-            self.chatListDict[sender].increaseNotifies(message, time)
+            if self.chatWindow.chatName.get() == sender:
+                self.chatWindow.addBoxMessageElement(message, time, False)
+            else:
+                self.chatListDict[sender].increaseNotifies(message, time)
+
+    def updateMessageTime(self, chatName, message, time):
+        self.chatListDict[chatName].setLastMessage(message)
+        self.chatListDict[chatName].setLastMessageTime(time)
 
 class ChatListElement(Frame):
     MAXMESSAGELEN = 15
@@ -108,7 +119,8 @@ class ChatListElement(Frame):
         self.chatName.set(self.checkStringLenght(chatName))
 
     def setLastMessageTime(self, lastMessageTime):
-        self.lastMessageTime.set(lastMessageTime)
+        timeString = str(lastMessageTime).split('.')[0].split(' ')[1][:-3]
+        self.lastMessageTime.set(timeString)
 
     def setElements(self, chatWindow, chatName, lastMessage, lastMessageTime):
         self.chatWindow = chatWindow
@@ -119,5 +131,5 @@ class ChatListElement(Frame):
     def increaseNotifies(self, message, time):
         self.notifies.set(self.notifies.get()+1)
         self.notifiesLabel.grid(row=1, column=2, sticky=W+E)
-        self.lastMessage.set(self.checkStringLenght(message))
-        self.lastMessageTime.set(time)
+        self.setLastMessage(message)
+        self.setLastMessageTime(time)

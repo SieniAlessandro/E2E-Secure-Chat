@@ -43,11 +43,8 @@ class ChatGUI(Tk):
         conversations = self.client.Message.retrieveAllConversations()
         for c in conversations.keys():
             for m in conversations[c]:
+                print(m)
                 self.chatList.notify(c, m['text'], m['time'] )
-
-        # carica chatList
-        # apri la prima chat nell'elenco
-        # carica i messaggi della chat aperta
 
 if __name__ == '__main__':
     if os.getcwd().find("Client") == -1:

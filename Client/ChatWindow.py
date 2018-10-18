@@ -38,8 +38,9 @@ class ChatWindow(Frame):
         sendButton.grid(row=0, column=1)
 
     def addBoxMessageElement(self, message, time, isMine):
+        timeString = str(time).split('.')[0].split(' ')[1][:-3]
         boxMessage = BoxMessage(self, self['bg'])
-        boxMessage.createWidgets( message, time , isMine)
+        boxMessage.createWidgets( message, timeString , isMine)
         self.listBoxMessage.append(boxMessage)
 
     def changeChatRoom(self, chatName):
@@ -57,8 +58,6 @@ class ChatWindow(Frame):
                 # isMine = True if m['whoSendIt'] == 0 else False
             # self.addBoxMessageElement(m['text'], m['time'], isMine)
 
-
-
     def setClient(self, client):
         self.client = client
 
@@ -66,22 +65,20 @@ class ChatWindow(Frame):
         message = str(self.entryBar.get())
         if not message:
             return
-        timeString = str(datetime.datetime.now()).split('.')[0].split(' ')[1][:-3]
-        self.addBoxMessageElement(self.entryBar.get(), timeString, True)
+        self.addBoxMessageElement(message, datetime.datetime.now(), True)
 
         self.entryBar.delete(0, 'end')
         ret = self.client.sendClient(str(self.chatName.get()), message)
-        print(ret)
+        self.chatList.updateMessageTime(self.chatName.get(), message, datetime.datetime.now())
 
     def pressEnterEvent(self, event):
         self.pressSendButton()
 
     def receiveMessage(self, sender, message, time):
-        timeString = time.split('.')[0].split(' ')[1][:-3]
         if str(self.chatName.get()) == sender:
-            self.addBoxMessageElement(message, timeString, False)
+            self.addBoxMessageElement(message, time, False)
         else:
-            self.chatList.notify(sender, message, timeString)
+            self.chatList.notify(sender, message, time)
 
 
 class BoxMessage(Frame):

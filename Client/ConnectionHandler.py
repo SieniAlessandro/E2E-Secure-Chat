@@ -24,6 +24,7 @@ class ConnectionHandler(Thread) :
         self.Log = Log
         self.Chat = Chat
         self.Code = Code
+        self.Message = Message
         print('MessageHandler Initialized! Associated port: ' + str(self.portp2p))
 
     '''
