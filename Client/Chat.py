@@ -43,7 +43,7 @@ class ChatGUI(Tk):
         conversations = self.client.Message.retrieveAllConversations()
         for c in conversations.keys():
             for m in conversations[c]:
-                self.chatList.notify(c, m['text'], m['time'] )
+                self.chatList.notify(c, conversations[c][m]['text'], conversations[c][m]['time'] )
 
 if __name__ == '__main__':
     if os.getcwd().find("Client") == -1:

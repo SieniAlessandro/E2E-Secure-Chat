@@ -1,6 +1,6 @@
-2018-10-18 17:48:11	Client initialized
-2018-10-18 17:48:13	Message: <{"id": "2", "username": "b", "password": "b", "porta": "21640"}> sended to the server correctly
-2018-10-18 17:48:13	Received a message from the SERVER: {"id": "?", "status": "1"}
-2018-10-18 17:48:13	Succesfull logged in as b
-2018-10-18 17:48:13	Received a message from the SERVER: {"id": "7", "messages": {"0": {"Sender": "a", "Text": "asd", "Time": "2018-10-18 17:39:23"}, "1": {"Sender": "a", "Text": "asd", "Time": "2018-10-18 17:39:24"}, "2": {"Sender": "a", "Text": "asd", "Time": "2018-10-18 17:39:25"}, "3": {"Sender": "a", "Text": "1", "Time": "2018-10-18 17:39:28"}, "4": {"Sender": "a", "Text": "2", "Time": "2018-10-18 17:39:28"}, "5": {"Sender": "a", "Text": "3", "Time": "2018-10-18 17:39:28"}, "6": {"Sender": "a", "Text": "4", "Time": "2018-10-18 17:39:29"}}}
-2018-10-18 17:48:13	There are messages pending in the server
+2018-10-18 19:01:23	Client initialized
+2018-10-18 19:01:25	Message: <{"id": "2", "username": "l", "password": "l", "porta": "56259"}> sended to the server correctly
+2018-10-18 19:01:25	Received a message from the SERVER: {"id": "?", "status": "1"}
+2018-10-18 19:01:25	Succesfull logged in as l
+2018-10-18 19:01:25	Received a message from the SERVER: {"id": "5", "messages": {"0": {"Sender": "b", "Text": "prova online", "Time": "2018-10-12 16:29:06"}, "1": {"Sender": "b", "Text": "prova online", "Time": "2018-10-12 16:29:57"}, "2": {"Sender": "a", "Text": "ciao", "Time": "2018-10-18 18:22:42"}, "3": {"Sender": "a", "Text": "ciao2", "Time": "2018-10-18 18:22:50"}, "4": {"Sender": "a", "Text": "ciao3", "Time": "2018-10-18 18:22:53"}}}
+2018-10-18 19:01:25	There are messages pending in the server
