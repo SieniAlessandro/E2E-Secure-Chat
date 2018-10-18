@@ -50,7 +50,7 @@ class ConnectionHandler(Thread) :
                 dict = json.loads(msg)
                 print(msg)
                 print(user + ' send : ' + msg)
-                if Chat is not None:
+                if self.Chat is not None:
                     self.Chat.receiveMessage(user, dict['text'], dict['time'])
                 #appendToConversation
             except ArithmeticError:

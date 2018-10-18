@@ -1,30 +1,24 @@
-2018-10-18 09:00:04	Server Initialized
-2018-10-18 09:00:04	Waiting for connections...
-2018-10-18 09:00:13	Client handled has address: 127.0.0.1 and port 51058
-2018-10-18 09:00:13	Waiting for connections...
-2018-10-18 09:00:17	A client want to login
-2018-10-18 09:00:35	Client had a problem, connection closed
-2018-10-18 09:00:40	Client handled has address: 127.0.0.1 and port 51060
-2018-10-18 09:00:40	Waiting for connections...
-2018-10-18 09:00:43	A client want to login
-2018-10-18 09:00:53	A client want to login
-2018-10-18 09:00:53	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51060 ClientPort: 36657}
-2018-10-18 09:00:53	There are several messages to be sended: {0: {'Sender': 'l', 'Text': 'ciao', 'Time': '2018-10-18 08:36:31'}}
-2018-10-18 09:01:10	A client want to find another user
-2018-10-18 09:01:10	Store the message to l
-2018-10-18 09:01:20	Client had a problem, connection closed
-2018-10-18 09:01:26	Client handled has address: 127.0.0.1 and port 51061
-2018-10-18 09:01:26	Waiting for connections...
-2018-10-18 09:01:29	A client want to login
-2018-10-18 09:01:29	Active users: {'l': Username: l IP: 127.0.0.1 ServerPort: 51061 ClientPort: 59260}
-2018-10-18 09:01:29	There are several messages to be sended: {0: {'Sender': 'b', 'Text': 'prova online', 'Time': '2018-10-12 16:29:06'}, 1: {'Sender': 'b', 'Text': 'prova online', 'Time': '2018-10-12 16:29:57'}}
-2018-10-18 09:01:33	Client handled has address: 127.0.0.1 and port 51062
-2018-10-18 09:01:33	Waiting for connections...
-2018-10-18 09:01:36	A client want to login
-2018-10-18 09:01:37	A client want to login
-2018-10-18 09:01:37	Active users: {'l': Username: l IP: 127.0.0.1 ServerPort: 51061 ClientPort: 59260, 'a': Username: a IP: 127.0.0.1 ServerPort: 51062 ClientPort: 43059}
-2018-10-18 09:01:37	There are several messages to be sended: {0: {'Sender': 'l', 'Text': 'ciao', 'Time': '2018-10-18 08:36:31'}}
-2018-10-18 09:01:39	A client want to find another user
-2018-10-18 09:01:39	Ip found:127.0.0.1:59260
-2018-10-18 09:03:08	Client had a problem, connection closed
-2018-10-18 09:03:12	Client had a problem, connection closed
+2018-10-18 09:06:04	Server Initialized
+2018-10-18 09:06:04	Waiting for connections...
+2018-10-18 09:06:17	Client handled has address: 127.0.0.1 and port 51078
+2018-10-18 09:06:17	Waiting for connections...
+2018-10-18 09:06:19	A client want to login
+2018-10-18 09:06:19	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51078 ClientPort: 52751}
+2018-10-18 09:06:19	There are several messages to be sended: {0: {'Sender': 'l', 'Text': 'ciao', 'Time': '2018-10-18 08:36:31'}}
+2018-10-18 09:06:24	Client handled has address: 127.0.0.1 and port 51079
+2018-10-18 09:06:24	Waiting for connections...
+2018-10-18 09:06:32	A client want to login
+2018-10-18 09:06:32	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51078 ClientPort: 52751, 'l': Username: l IP: 127.0.0.1 ServerPort: 51079 ClientPort: 46213}
+2018-10-18 09:06:32	There are several messages to be sended: {0: {'Sender': 'b', 'Text': 'prova online', 'Time': '2018-10-12 16:29:06'}, 1: {'Sender': 'b', 'Text': 'prova online', 'Time': '2018-10-12 16:29:57'}}
+2018-10-18 09:06:39	A client want to find another user
+2018-10-18 09:06:39	Ip found:127.0.0.1:52751
+2018-10-18 09:06:53	Client handled has address: 127.0.0.1 and port 51081
+2018-10-18 09:06:53	Waiting for connections...
+2018-10-18 09:06:57	A client want to login
+2018-10-18 09:06:57	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51078 ClientPort: 52751, 'l': Username: l IP: 127.0.0.1 ServerPort: 51079 ClientPort: 46213, 'b': Username: b IP: 127.0.0.1 ServerPort: 51081 ClientPort: 36704}
+2018-10-18 09:06:57	There are several messages to be sended: {0: {'Sender': 'l', 'Text': 'b', 'Time': '2018-10-12 16:24:57'}, 1: {'Sender': 'l', 'Text': 'prova offline', 'Time': '2018-10-12 16:26:12'}, 2: {'Sender': 'l', 'Text': 'sei ancora online?', 'Time': '2018-10-12 17:27:30'}, 3: {'Sender': 'a', 'Text': 'ciao', 'Time': '2018-10-15 09:44:03'}, 4: {'Sender': 'a', 'Text': 'ciao b, esisti, vero?', 'Time': '2018-10-16 08:30:48'}, 5: {'Sender': 'l', 'Text': 'ciao', 'Time': '2018-10-17 14:20:35'}}
+2018-10-18 09:07:12	A client want to find another user
+2018-10-18 09:07:12	Ip found:127.0.0.1:52751
+2018-10-18 09:07:51	Client had a problem, connection closed
+2018-10-18 09:07:56	Client had a problem, connection closed
+2018-10-18 09:08:00	Client had a problem, connection closed
