@@ -50,9 +50,12 @@ class ChatWindow(Frame):
                 m.pack_forget()
             self.listBoxMessage.clear()
         newConversation = self.client.Message.retrieveConversation(chatName)
-        for m in newConversation:
-            isMine = True if m['whoSendIt'] == 0 else False
-            self.addBoxMessageElement(m['text'], m['time'], isMine)
+        print(newConversation)
+        if not newConversation == 0 :
+            for m in newConversation:
+                print(m)
+                # isMine = True if m['whoSendIt'] == 0 else False
+            # self.addBoxMessageElement(m['text'], m['time'], isMine)
 
 
 

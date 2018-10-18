@@ -1,10 +1,6 @@
-2018-10-18 09:06:53	Client initialized
-2018-10-18 09:06:57	Message: <{"id": "2", "username": "b", "password": "b", "porta": "36704"}> sended to the server correctly
-2018-10-18 09:06:57	Received a message from the SERVER: {"id": "?", "status": "1"}
-2018-10-18 09:06:57	Succesfull logged in as b
-2018-10-18 09:06:57	Received a message from the SERVER: {"id": "6", "messages": {"0": {"Sender": "l", "Text": "b", "Time": "2018-10-12 16:24:57"}, "1": {"Sender": "l", "Text": "prova offline", "Time": "2018-10-12 16:26:12"}, "2": {"Sender": "l", "Text": "sei ancora online?", "Time": "2018-10-12 17:27:30"}, "3": {"Sender": "a", "Text": "ciao", "Time": "2018-10-15 09:44:03"}, "4": {"Sender": "a", "Text": "ciao b, esisti, vero?", "Time": "2018-10-16 08:30:48"}, "5": {"Sender": "l", "Text": "ciao", "Time": "2018-10-17 14:20:35"}}}
-2018-10-18 09:06:57	There are messages pending in the server
-2018-10-18 09:07:12	Message: <{"id": "3", "username": "a"}> sended to the server correctly
-2018-10-18 09:07:12	Received a message from the SERVER: {"id": "!", "status": "127.0.0.1:52751"}
-2018-10-18 09:07:12	Starting a new connection with a
-2018-10-18 09:07:12	a has IP:Port : 127.0.0.1:52751
+2018-10-18 13:55:04	Client initialized
+2018-10-18 13:55:08	Message: <{"id": "2", "username": "prova", "password": "Prova123123", "porta": "36505"}> sended to the server correctly
+2018-10-18 13:55:08	Received a message from the SERVER: {"id": "?", "status": "1"}
+2018-10-18 13:55:08	Succesfull logged in as prova
+2018-10-18 13:55:08	Received a message from the SERVER: {"id": "10", "messages": {"0": {"Sender": "asd", "Text": "sdakihdasio", "Time": "2018-10-17 12:28:40"}, "1": {"Sender": "asd", "Text": "asd", "Time": "2018-10-17 15:05:27"}, "2": {"Sender": "asd", "Text": "adasda", "Time": "2018-10-17 15:06:11"}, "3": {"Sender": "asd", "Text": "AAAAAAAAAAAAAAAAAAAAAAA", "Time": "2018-10-17 15:06:26"}, "4": {"Sender": "a", "Text": "asdsda", "Time": "2018-10-17 16:45:42"}, "5": {"Sender": "a", "Text": "asiodh", "Time": "2018-10-18 13:52:59"}, "6": {"Sender": "a", "Text": "asdoij", "Time": "2018-10-18 13:52:59"}, "7": {"Sender": "a", "Text": "asdoij", "Time": "2018-10-18 13:53:00"}, "8": {"Sender": "a", "Text": "asdoij", "Time": "2018-10-18 13:53:01"}, "9": {"Sender": "a", "Text": "asdoij", "Time": "2018-10-18 13:53:02"}}}
+2018-10-18 13:55:08	There are messages pending in the server
