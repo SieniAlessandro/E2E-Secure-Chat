@@ -348,7 +348,8 @@ class Client:
     def onClosing(self): #clean up before close
         #close the socket connection
         for x in self.socketClient :
-            x.close()
+            if not isinstance(x, str) :
+                x.close()
         self.socketServer.close()
 
         self.Message.saveConversations()
