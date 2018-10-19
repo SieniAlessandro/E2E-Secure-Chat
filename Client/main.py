@@ -15,7 +15,7 @@ MESSAGE = 'hi'
 if os.getcwd().find("Client") == -1:
     os.chdir("Client")
 
-if 'win' in sys.platform:
+if sys.platform.startswith('win'):
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
 
