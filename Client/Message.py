@@ -51,3 +51,13 @@ class Message :
             print("END OF CONVERSATION")
             return self.Conversations[user]
         return 0
+
+    def saveConversations(self) :
+        file = open("conversations.txt","w")
+        file.write(json.dumps(self.Conversations))
+        file.close()
+
+    def loadConversations(self) :
+        file = open("conversation.txt","r")
+        self.Conversations = json.loads(file.read())
+        file.close()
