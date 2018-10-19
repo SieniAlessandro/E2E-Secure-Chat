@@ -1,4 +1,4 @@
-2018-10-19 08:50:33	Client initialized
-2018-10-19 08:51:03	Message: <{"id": "2", "username": "l", "password": "l", "porta": "15344"}> sended to the server correctly
-2018-10-19 08:51:03	Received a message from the SERVER: {"id": "?", "status": "1"}
-2018-10-19 08:51:03	Succesfull logged in as l
+2018-10-19 08:54:01	Client initialized
+2018-10-19 08:54:03	Message: <{"id": "2", "username": "a", "password": "a", "porta": "29779"}> sended to the server correctly
+2018-10-19 08:54:03	Received a message from the SERVER: {"id": "?", "status": "1"}
+2018-10-19 08:54:03	Succesfull logged in as a

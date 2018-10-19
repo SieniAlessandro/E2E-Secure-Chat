@@ -62,7 +62,7 @@ class Message :
             file = open("conversations.txt","r")
             self.Conversations = json.loads(file.read())
             file.close()
-        except FileNotFoundError or json.JSONDecodeError:
+        except FileNotFoundError or json.decoder.JSONDecodeError:
             file = open("conversations.txt","w")
             file.close()
             self.Conversations = {}
