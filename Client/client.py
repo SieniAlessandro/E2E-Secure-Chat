@@ -268,18 +268,18 @@ class Client:
             port = msgs[1]
             msg = receiver + ' has IP:Port : ' + value
             self.Log.log('Starting a new connection with ' + receiver)
-            try:
-                self.socketClient[receiver] = socket.socket()
-                self.socketClient[receiver].connect((ip, int(port)))
-                username = self.username + '\^'
-                ret = self.socketClient[receiver].send(username.encode(self.CODE_TYPE))
-                value = 1
-                if ret == 0:
-                    msg = 'Error in sending the message to the client connection redirected to the server'
-                    self.socketClient[receiver] = 'server'
-            except:
-                self.Log.log('An exception has been raised in the startConnection function')
-                return -4
+            #try:
+            self.socketClient[receiver] = socket.socket()
+            self.socketClient[receiver].connect((ip, int(port)))
+            username = self.username + '\^'
+            ret = self.socketClient[receiver].send(username.encode(self.CODE_TYPE))
+            value = 1
+            if ret == 0:
+                msg = 'Error in sending the message to the client connection redirected to the server'
+                self.socketClient[receiver] = 'server'
+            #except:
+            #    self.Log.log('An exception has been raised in the startConnection function')
+            #    return -4
         self.Log.log(msg)
         return int(value)
 

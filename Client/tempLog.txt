@@ -1,1 +1,15 @@
+<<<<<<< HEAD
 2018-10-19 08:57:30	Client initialized
+=======
+2018-10-19 09:09:49	Client initialized
+2018-10-19 09:09:52	Message: <{"id": "2", "username": "a", "password": "a", "porta": "13142"}> sended to the server correctly
+2018-10-19 09:09:52	Received a message from the SERVER: {"id": "?", "status": "1"}
+2018-10-19 09:09:52	Succesfull logged in as a
+2018-10-19 09:09:52	Received a message from the SERVER: {"id": "0", "status": "1"}
+2018-10-19 09:09:52	No messages stored in the server
+2018-10-19 09:09:59	Message: <{"id": "3", "username": "l"}> sended to the server correctly
+2018-10-19 09:09:59	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-19 09:10:01	Message: <{"id": "4", "Receiver": "l", "Text": "ciao ale", "Time": "2018-10-19 09:10:01.742890"}> sended to the server correctly
+2018-10-19 09:10:01	Received a message from the SERVER: {"id": ".", "status": "1"}
+2018-10-19 09:10:01	Message send correctly
+>>>>>>> eecb467e2640fa0c944a17b5a7c45ebc6a3f6925
