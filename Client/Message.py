@@ -11,7 +11,7 @@ class Message :
     #Constructor
     def __init__(self) :
         print('Hi')
-#        self.Conversations = {}
+        self.Conversations = {}
 
     def createMessageJson(self, text, time) :
 
@@ -33,10 +33,12 @@ class Message :
         if user not in self.Conversations.keys() :
             self.Conversations[user] = {}
 
+        print('Actual keys : ' + str(self.Conversations[user].keys()))
         index = 0
         if index in self.Conversations[user].keys() :
             index = list(self.Conversations[user])[-1] + 1
 
+        print('The index is : ' + index)
         self.Conversations[user][index] = {}
         self.Conversations[user][index] = msg
         print('Inserted message :' + json.dumps(msg) + ' from : ' + user)
@@ -53,16 +55,14 @@ class Message :
         return 0
 
     def saveConversations(self) :
-        file = open("conversations.txt","w")
-        file.write(json.dumps(self.Conversations))
-        file.close()
+        with open("conversations.json","w") as outfile:
+            json.dump(self.Conversations, outfile)
 
     def loadConversations(self) :
-        try:
-            file = open("conversations.txt","r")
-            self.Conversations = json.loads(file.read())
-            file.close()
+        try :
+            with open("conversations.json","r") as input :
+                self.Conversations = json.load(input)
         except :
-            file = open("conversations.txt","w")
+            file = open("conversations.json","w")
             file.close()
             self.Conversations = {}

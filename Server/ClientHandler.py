@@ -138,7 +138,7 @@ class ClientHandler(Thread):
             self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
         else:
             response['id'] = "."
-            reponse['status'] = "0"
+            response['status'] = "0"
             jsonResponse = json.dumps(response)
             self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
 
