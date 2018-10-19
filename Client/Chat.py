@@ -21,6 +21,9 @@ class ChatGUI(Tk):
 
         self.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.title("MPS Chat")
+
+        self.protocol("WM_DELETE_WINDOW", self.onCloseEvent )
+
         # self.iconbitmap(os.getcwd() + '/Images/windowIcon.ico')
         self.resizable(width=FALSE, height=FALSE)
         self.columnconfigure(1, weight=6)
@@ -42,6 +45,11 @@ class ChatGUI(Tk):
         for c in conversations.keys():
             for m in conversations[c]:
                 self.chatList.notify(c, conversations[c][m]['text'], conversations[c][m]['time'] )
+
+    def onCloseEvent(self):
+        print("closing event")
+        self.destroy()
+        self.client.onClosing()
 
 if __name__ == '__main__':
     if os.getcwd().find("Client") == -1:

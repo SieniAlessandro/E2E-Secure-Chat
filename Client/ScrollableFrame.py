@@ -39,8 +39,8 @@ class Scrollable(ttk.Frame):
         self.windows_item = self.canvas.create_window(0,0, window=self, anchor=tk.NW)
 
     def _on_mousewheel(self, event):
-        if not self.scrollbar.activate():
-            return
+        # if not self.scrollbar.activate():
+        #     return
         self.canvas.yview_scroll(int(-1*(event.delta/120)), "units")
 
     def __fill_canvas(self, event):

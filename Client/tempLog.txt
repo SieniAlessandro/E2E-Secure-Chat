@@ -1,103 +1,38 @@
-2018-10-19 09:11:34	Client initialized
-2018-10-19 09:11:36	Message: <{"id": "2", "username": "a", "password": "a", "porta": "58894"}> sended to the server correctly
-2018-10-19 09:11:36	Received a message from the SERVER: {"id": "?", "status": "1"}
-2018-10-19 09:11:36	Succesfull logged in as a
-2018-10-19 09:11:36	Received a message from the SERVER: {"id": "0", "status": "1"}
-2018-10-19 09:11:36	No messages stored in the server
-2018-10-19 09:11:39	Message: <{"id": "3", "username": "l"}> sended to the server correctly
-2018-10-19 09:11:39	Received a message from the SERVER: {"id": "!", "status": "0"}
-2018-10-19 09:11:47	Message: <{"id": "4", "Receiver": "l", "Text": "non parte la save conversations", "Time": "2018-10-19 09:11:47.144322"}> sended to the server correctly
-2018-10-19 09:11:47	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:11:47	Message send correctly
-2018-10-19 09:12:16	Message: <{"id": "4", "Receiver": "l", "Text": "prova", "Time": "2018-10-19 09:12:16.811995"}> sended to the server correctly
-2018-10-19 09:12:17	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:17	Message send correctly
-2018-10-19 09:12:19	Message: <{"id": "3", "username": "b"}> sended to the server correctly
-2018-10-19 09:12:19	Received a message from the SERVER: {"id": "!", "status": "0"}
-2018-10-19 09:12:22	Message: <{"id": "4", "Receiver": "b", "Text": "ciao b", "Time": "2018-10-19 09:12:22.591538"}> sended to the server correctly
-2018-10-19 09:12:22	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:22	Message send correctly
-2018-10-19 09:12:36	Message: <{"id": "4", "Receiver": "l", "Text": "bastaaaa", "Time": "2018-10-19 09:12:36.019144"}> sended to the server correctly
-2018-10-19 09:12:36	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:36	Message send correctly
-2018-10-19 09:12:36	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:36.337720"}> sended to the server correctly
-2018-10-19 09:12:36	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:36	Message send correctly
-2018-10-19 09:12:36	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:36.735988"}> sended to the server correctly
-2018-10-19 09:12:36	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:36	Message send correctly
-2018-10-19 09:12:36	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:36.955062"}> sended to the server correctly
-2018-10-19 09:12:37	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:37	Message send correctly
-2018-10-19 09:12:37	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:37.150356"}> sended to the server correctly
-2018-10-19 09:12:37	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:37	Message send correctly
-2018-10-19 09:12:37	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:37.343400"}> sended to the server correctly
-2018-10-19 09:12:37	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:37	Message send correctly
-2018-10-19 09:12:37	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:37.527719"}> sended to the server correctly
-2018-10-19 09:12:37	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:37	Message send correctly
-2018-10-19 09:12:37	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:37.705897"}> sended to the server correctly
-2018-10-19 09:12:37	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:37	Message send correctly
-2018-10-19 09:12:37	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:37.886476"}> sended to the server correctly
-2018-10-19 09:12:37	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:37	Message send correctly
-2018-10-19 09:12:38	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:38.083552"}> sended to the server correctly
-2018-10-19 09:12:38	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:38	Message send correctly
-2018-10-19 09:12:38	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:38.270234"}> sended to the server correctly
-2018-10-19 09:12:38	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:38	Message send correctly
-2018-10-19 09:12:38	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:38.448475"}> sended to the server correctly
-2018-10-19 09:12:38	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:38	Message send correctly
-2018-10-19 09:12:38	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:38.628898"}> sended to the server correctly
-2018-10-19 09:12:38	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:38	Message send correctly
-2018-10-19 09:12:38	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:38.802562"}> sended to the server correctly
-2018-10-19 09:12:38	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:38	Message send correctly
-2018-10-19 09:12:38	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:38.975719"}> sended to the server correctly
-2018-10-19 09:12:38	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:38	Message send correctly
-2018-10-19 09:12:39	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:39.164366"}> sended to the server correctly
-2018-10-19 09:12:39	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:39	Message send correctly
-2018-10-19 09:12:39	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:39.356281"}> sended to the server correctly
-2018-10-19 09:12:39	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:39	Message send correctly
-2018-10-19 09:12:39	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:39.523085"}> sended to the server correctly
-2018-10-19 09:12:39	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:39	Message send correctly
-2018-10-19 09:12:39	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:39.698171"}> sended to the server correctly
-2018-10-19 09:12:39	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:39	Message send correctly
-2018-10-19 09:12:39	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:39.873933"}> sended to the server correctly
-2018-10-19 09:12:39	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:39	Message send correctly
-2018-10-19 09:12:40	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:40.550287"}> sended to the server correctly
-2018-10-19 09:12:40	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:40	Message send correctly
-2018-10-19 09:12:40	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:40.752658"}> sended to the server correctly
-2018-10-19 09:12:40	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:40	Message send correctly
-2018-10-19 09:12:40	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:40.957084"}> sended to the server correctly
-2018-10-19 09:12:41	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:41	Message send correctly
-2018-10-19 09:12:41	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:41.155710"}> sended to the server correctly
-2018-10-19 09:12:41	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:41	Message send correctly
-2018-10-19 09:12:41	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:41.348061"}> sended to the server correctly
-2018-10-19 09:12:41	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:41	Message send correctly
-2018-10-19 09:12:41	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:41.553832"}> sended to the server correctly
-2018-10-19 09:12:41	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:41	Message send correctly
-2018-10-19 09:12:41	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:41.741965"}> sended to the server correctly
-2018-10-19 09:12:41	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:41	Message send correctly
-2018-10-19 09:12:41	Message: <{"id": "4", "Receiver": "l", "Text": "a", "Time": "2018-10-19 09:12:41.929186"}> sended to the server correctly
-2018-10-19 09:12:41	Received a message from the SERVER: {"id": ".", "status": "1"}
-2018-10-19 09:12:41	Message send correctly
+2018-10-19 09:50:56	Client initialized
+2018-10-19 09:50:58	Message: <{"id": "2", "username": "a", "password": "a", "porta": "43421"}> sended to the server correctly
+2018-10-19 09:50:58	Received a message from the SERVER: {"id": "?", "status": "1"}
+2018-10-19 09:50:58	Succesfull logged in as a
+2018-10-19 09:50:58	Received a message from the SERVER: {"id": "0", "status": "1"}
+2018-10-19 09:50:58	No messages stored in the server
+2018-10-19 09:51:01	Message: <{"id": "3", "username": "b"}> sended to the server correctly
+2018-10-19 09:51:01	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-19 09:51:02	Message: <{"id": "3", "username": "b"}> sended to the server correctly
+2018-10-19 09:51:02	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-19 09:51:02	Message: <{"id": "4", "Receiver": "b", "Text": "qw", "Time": "2018-10-19 09:51:02.980831"}> sended to the server correctly
+2018-10-19 09:51:03	Received a message from the SERVER: {"id": ".", "status": "1"}
+2018-10-19 09:51:03	Message send correctly
+2018-10-19 09:51:03	Message: <{"id": "3", "username": "b"}> sended to the server correctly
+2018-10-19 09:51:03	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-19 09:51:03	Message: <{"id": "4", "Receiver": "b", "Text": "eq", "Time": "2018-10-19 09:51:03.994578"}> sended to the server correctly
+2018-10-19 09:51:04	Received a message from the SERVER: {"id": ".", "status": "1"}
+2018-10-19 09:51:04	Message send correctly
+2018-10-19 09:51:04	Message: <{"id": "3", "username": "b"}> sended to the server correctly
+2018-10-19 09:51:04	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-19 09:51:04	Message: <{"id": "4", "Receiver": "b", "Text": "q", "Time": "2018-10-19 09:51:04.500150"}> sended to the server correctly
+2018-10-19 09:51:04	Received a message from the SERVER: {"id": ".", "status": "1"}
+2018-10-19 09:51:04	Message send correctly
+2018-10-19 09:51:04	Message: <{"id": "3", "username": "b"}> sended to the server correctly
+2018-10-19 09:51:04	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-19 09:51:04	Message: <{"id": "4", "Receiver": "b", "Text": "w", "Time": "2018-10-19 09:51:04.899905"}> sended to the server correctly
+2018-10-19 09:51:04	Received a message from the SERVER: {"id": ".", "status": "1"}
+2018-10-19 09:51:04	Message send correctly
+2018-10-19 09:51:05	Message: <{"id": "3", "username": "b"}> sended to the server correctly
+2018-10-19 09:51:05	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-19 09:51:05	Message: <{"id": "4", "Receiver": "b", "Text": "e", "Time": "2018-10-19 09:51:05.241269"}> sended to the server correctly
+2018-10-19 09:51:05	Received a message from the SERVER: {"id": ".", "status": "1"}
+2018-10-19 09:51:05	Message send correctly
+2018-10-19 09:51:05	Message: <{"id": "3", "username": "b"}> sended to the server correctly
+2018-10-19 09:51:05	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-19 09:51:05	Message: <{"id": "4", "Receiver": "b", "Text": "q", "Time": "2018-10-19 09:51:05.585628"}> sended to the server correctly
+2018-10-19 09:51:05	Received a message from the SERVER: {"id": ".", "status": "1"}
+2018-10-19 09:51:05	Message send correctly
