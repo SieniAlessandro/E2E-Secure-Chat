@@ -95,6 +95,8 @@ class ClientHandler(Thread):
                 response['messages'] = {}
                 response['messages'] = msg
                 jsonResponse = json.dumps(response)
+                #Removing the messagess previously obtained
+                self.remove_waiting_messages_by_receiver(self.HandledUser.getUserName())
                 self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
         else:
             response = {}
