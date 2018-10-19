@@ -25,7 +25,7 @@ class ConnectionHandler(Thread) :
         self.Chat = Chat
         self.Code = Code
         self.Message = Message
-        print('MessageHandler Initialized! Associated port: ' + str(self.portp2p))
+        self.Log.log('MessageHandler Initialized! Associated port: ' + str(self.portp2p))
 
     '''
         Handle the connection with a specific user
@@ -39,7 +39,7 @@ class ConnectionHandler(Thread) :
         msgs = msg.split('\^')
         user = msgs[0]
         self.users.append(user)
-        print('Connection started with ' + user)
+        self.Log.log('Connection started with ' + user)
 
         while True:
             try:
@@ -49,14 +49,14 @@ class ConnectionHandler(Thread) :
                 msg = msg.decode(self.Code)
 
                 dict = json.loads(msg)
-                print(msg)
-                print(user + ' send : ' + msg)
+                self.Log.log(msg)
+                self.Log.log(user + ' send : ' + msg)
                 if self.Chat is not None:
                     self.Chat.receiveMessage(user, dict['text'], dict['time'])
                 #appendToConversation
                 self.Message.addMessagetoConversations(user, dict['text'], dict['time'], 1)
             except ArithmeticError:
-                print('Connection closed with ' + user)
+                self.Log.log('Connection closed with ' + user)
                 return -1
     '''
         In a loop accept new connection with other clients
@@ -68,11 +68,11 @@ class ConnectionHandler(Thread) :
         while True :
             self.socketListener.listen(50)
             (conn, (ip,port)) = self.socketListener.accept()
-            print('Accepted a new connecion')
+            self.Log.log('Accepted a new connecion')
             t = Thread(target=self.receiveMessage, args=(conn, ))
             t.start()
-            print('The client is now connected with : ')
+            self.Log.log('The client is now connected with : ')
             clientList = ''
             for x in self.users :
                 clientList += '- ' + x
-            print(clientList)
+            self.Log.log(clientList)

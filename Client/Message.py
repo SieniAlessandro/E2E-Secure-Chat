@@ -40,7 +40,7 @@ class Message :
 
         self.Conversations[user][index] = {}
         self.Conversations[user][index] = msg
-        print('Inserted message :' + json.dumps(msg) + ' from : ' + user)
+        #print('Inserted message :' + json.dumps(msg) + ' from : ' + user)
 
     def retrieveAllConversations(self) :
         return self.Conversations
@@ -48,8 +48,8 @@ class Message :
     def retrieveConversation(self, user) :
 
         if user in self.Conversations.keys():
-            print('This is the conversation with ' + user + ' : ' + json.dumps(self.Conversations[user]))
-            print("END OF CONVERSATION")
+            #print('This is the conversation with ' + user + ' : ' + json.dumps(self.Conversations[user]))
+            #print("END OF CONVERSATION")
             return self.Conversations[user]
         return 0
 
