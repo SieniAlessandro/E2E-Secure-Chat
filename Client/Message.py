@@ -36,6 +36,7 @@ class Message :
         index = 0
         if index in self.Conversations[user].keys() :
             index = list(self.Conversations[user])[-1] + 1
+
         self.Conversations[user][index] = {}
         self.Conversations[user][index] = msg
         print('Inserted message :' + json.dumps(msg) + ' from : ' + user)
