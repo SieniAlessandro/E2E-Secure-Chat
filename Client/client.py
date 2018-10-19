@@ -316,7 +316,7 @@ class Client:
             and the user exists then send the message to the server
             Handles the passage of the receiver from online to offline
         '''
-        if not receiver in self.socketClient.keys() :
+        if not receiver in self.socketClient.keys() or self.socketClient[receiver] == 'server' :
             value = self.startConnection(receiver)
             if value == 0 : #client offline
                 self.socketClient[receiver] = 'server'
