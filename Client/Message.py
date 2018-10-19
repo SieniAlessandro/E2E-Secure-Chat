@@ -33,12 +33,11 @@ class Message :
         if user not in self.Conversations.keys() :
             self.Conversations[user] = {}
 
-        print('Actual keys : ' + str(self.Conversations[user].keys()))
-        index = 0
+        index = '0'
         if index in self.Conversations[user].keys() :
-            index = list(self.Conversations[user])[-1] + 1
+            index = int(list(self.Conversations[user].keys())[-1]) + 1
 
-        print('The index is : ' + index)
+
         self.Conversations[user][index] = {}
         self.Conversations[user][index] = msg
         print('Inserted message :' + json.dumps(msg) + ' from : ' + user)
