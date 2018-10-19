@@ -46,7 +46,6 @@ class ClientHandler(Thread):
             #Login
             elif jsonMessage['id'] == "2":
                 self.login(jsonMessage)
-
             #Find the state and the address of another user
             elif jsonMessage['id'] == "3":
                 self.findUser(jsonMessage);
@@ -55,8 +54,8 @@ class ClientHandler(Thread):
                 self.StoreMessage(jsonMessage)
 
     def login(self,message):
-        """ This method is called when a new user want to legin with his credential and search in the Database
-        if the information sended are correct, in this case if there are several messagges sended to the user when
+        """Login with inserted credential and search in the Database if the information
+        sended are correct, in this case if there are several messagges sended to the user when
         he was offline, the server send them , specifying the sender and also the time (yy-mm-dd hh-mm-ss)"""
 
         self.log.log("A client want to login")
@@ -67,22 +66,26 @@ class ClientHandler(Thread):
             response['status'] = "-1"
             jsonResponse = json.dumps(response)
             self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
+            self.log.log("The request is sended by an user already logged in")
         elif self.DB.userIsPresent(message['username'],message['password']):
             response['id'] = "?"
             response['status'] = "1"
             jsonResponse = json.dumps(response)
+            #Informing the user about the success of the login
             self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
+            #Preparing the internal structure used to handle te connection between different clinet
             self.HandledUser.setUserName(message['username'])
             self.HandledUser.setClientPort(message['porta'])
             #Adding the client to the list of active users
             self.OnlineClients[message['username']] = self.HandledUser
             self.log.log("Active users: "+str(self.OnlineClients))
+            #Obtaining all the messages waiting for that user
             msg = self.DB.getMessageByReceiver(self.HandledUser.getUserName())
             if len(msg.keys()) == 0:
                 self.log.log("There are no message for this client")
                 response['id'] = "0"
                 jsonResponse = json.dumps(response)
-                jsonResponse = json.dumps(response)
+                #Informing the user that there are no message for him
                 self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
             else:
                 self.log.log("There are several messages to be sended: "+ str(msg))
@@ -92,14 +95,13 @@ class ClientHandler(Thread):
                 response['messages'] = {}
                 response['messages'] = msg
                 jsonResponse = json.dumps(response)
-                print(jsonResponse)
                 self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
         else:
             response = {}
             response['id'] = "?"
             response['status'] = "0"
             jsonResponse = json.dumps(response)
-            print(jsonResponse)
+            self.log.log("Login Failed")
             self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
 
     def registerUser(self,message):

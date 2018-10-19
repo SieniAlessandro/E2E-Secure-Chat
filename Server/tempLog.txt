@@ -1,24 +1,2 @@
-2018-10-18 09:06:04	Server Initialized
-2018-10-18 09:06:04	Waiting for connections...
-2018-10-18 09:06:17	Client handled has address: 127.0.0.1 and port 51078
-2018-10-18 09:06:17	Waiting for connections...
-2018-10-18 09:06:19	A client want to login
-2018-10-18 09:06:19	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51078 ClientPort: 52751}
-2018-10-18 09:06:19	There are several messages to be sended: {0: {'Sender': 'l', 'Text': 'ciao', 'Time': '2018-10-18 08:36:31'}}
-2018-10-18 09:06:24	Client handled has address: 127.0.0.1 and port 51079
-2018-10-18 09:06:24	Waiting for connections...
-2018-10-18 09:06:32	A client want to login
-2018-10-18 09:06:32	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51078 ClientPort: 52751, 'l': Username: l IP: 127.0.0.1 ServerPort: 51079 ClientPort: 46213}
-2018-10-18 09:06:32	There are several messages to be sended: {0: {'Sender': 'b', 'Text': 'prova online', 'Time': '2018-10-12 16:29:06'}, 1: {'Sender': 'b', 'Text': 'prova online', 'Time': '2018-10-12 16:29:57'}}
-2018-10-18 09:06:39	A client want to find another user
-2018-10-18 09:06:39	Ip found:127.0.0.1:52751
-2018-10-18 09:06:53	Client handled has address: 127.0.0.1 and port 51081
-2018-10-18 09:06:53	Waiting for connections...
-2018-10-18 09:06:57	A client want to login
-2018-10-18 09:06:57	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51078 ClientPort: 52751, 'l': Username: l IP: 127.0.0.1 ServerPort: 51079 ClientPort: 46213, 'b': Username: b IP: 127.0.0.1 ServerPort: 51081 ClientPort: 36704}
-2018-10-18 09:06:57	There are several messages to be sended: {0: {'Sender': 'l', 'Text': 'b', 'Time': '2018-10-12 16:24:57'}, 1: {'Sender': 'l', 'Text': 'prova offline', 'Time': '2018-10-12 16:26:12'}, 2: {'Sender': 'l', 'Text': 'sei ancora online?', 'Time': '2018-10-12 17:27:30'}, 3: {'Sender': 'a', 'Text': 'ciao', 'Time': '2018-10-15 09:44:03'}, 4: {'Sender': 'a', 'Text': 'ciao b, esisti, vero?', 'Time': '2018-10-16 08:30:48'}, 5: {'Sender': 'l', 'Text': 'ciao', 'Time': '2018-10-17 14:20:35'}}
-2018-10-18 09:07:12	A client want to find another user
-2018-10-18 09:07:12	Ip found:127.0.0.1:52751
-2018-10-18 09:07:51	Client had a problem, connection closed
-2018-10-18 09:07:56	Client had a problem, connection closed
-2018-10-18 09:08:00	Client had a problem, connection closed
+2018-10-18 12:46:46	Server Initialized
+2018-10-18 12:46:46	Waiting for connections...
