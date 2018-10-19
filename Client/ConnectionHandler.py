@@ -24,6 +24,7 @@ class ConnectionHandler(Thread) :
         self.Log = Log
         self.Chat = Chat
         self.Code = Code
+        self.Message = Message
         print('MessageHandler Initialized! Associated port: ' + str(self.portp2p))
 
     '''
@@ -53,6 +54,7 @@ class ConnectionHandler(Thread) :
                 if self.Chat is not None:
                     self.Chat.receiveMessage(user, dict['text'], dict['time'])
                 #appendToConversation
+                self.Message.addMessagetoConversations(user, dict['text'], dict['time'], 1)
             except ArithmeticError:
                 print('Connection closed with ' + user)
                 return -1

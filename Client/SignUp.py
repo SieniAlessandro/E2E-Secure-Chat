@@ -124,7 +124,6 @@ class SignUpGUI(Tk):
         self.confirmPasswordEntry.delete(0, 'end')
         self.withdraw()
         self.loginWindow.deiconify()
-        self.loginWindow.showMessage("Succefully Registered", "#4bf442")
 
     def setClient(self, client):
         self.client = client
@@ -137,6 +136,7 @@ class SignUpGUI(Tk):
             ret = self.client.register(self.usernameEntry.get(), self.passwordEntry.get(), self.emailEntry.get(), self.nameEntry.get(), self.surnameEntry.get(), '0')
             if ret == 1:
                 self.cancelEvent()
+                self.loginWindow.showMessage("Succefully Registered", "#4bf442")    
             elif ret == 0:
                 self.showErrorLabel()
 

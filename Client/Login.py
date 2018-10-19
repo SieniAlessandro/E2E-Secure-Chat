@@ -48,9 +48,9 @@ class LoginGUI(Tk):
     def setSignUpWindow(self, signUpWindow):
         self.signUpWindow = signUpWindow
 
-    def setItems(self, client, chatWindow):
+    def setItems(self, client, chat):
         self.client = client
-        self.chatWindow = chatWindow
+        self.chat = chat
 
     def signUpEvent(self):
         self.withdraw()
@@ -64,7 +64,7 @@ class LoginGUI(Tk):
             print(ret)
             if  ret == 1:
                 self.withdraw()
-                self.chatWindow.onLoginEvent()
+                self.chat.onLoginEvent(self.usernameEntry.get())
             elif ret == 0:
                 print("Invalid Username or Password")
                 self.showError()

@@ -20,8 +20,10 @@ if 'win' in sys.platform:
 
 
 chat = ChatGUI()
+chat.withdraw()
 login = LoginGUI()
 signUp = SignUpGUI()
+signUp.withdraw()
 client = Client(host, port, chat.chatWindow)
 chat.createWidgets(client)
 client.connectServer()
@@ -32,8 +34,8 @@ signUp.setLoginWindow(login)
 signUp.setClient(client)
 
 
-chat.withdraw()
-signUp.withdraw()
+
+
 
 
 chat.mainloop()

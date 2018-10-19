@@ -3,8 +3,8 @@ import socket
 import json
 import datetime
 from threading import Thread
-from ConnectionHandler import *
 from Message import *
+from ConnectionHandler import *
 from Log import *
 
 class Client:
@@ -14,7 +14,7 @@ class Client:
     BUFFER_SIZE = 2048
     PORT_SERVER = 6000
     PORT_P2P = 7000
-    HOST_SERVER = '10.102.23.156'#'127.0.0.1'
+    HOST_SERVER = '10.102.12.15'#'127.0.0.1'
     CODE_TYPE = 'utf-16'
     socketClient = {}
     JSON = True
@@ -27,6 +27,7 @@ class Client:
         self.Log.log('Client initialized')
         self.Chat = chat
         self.Message = Message()
+
     #Functions to communicate with Server#
     def sendServer(self, text):
         '''
@@ -73,6 +74,7 @@ class Client:
                 print('sender :' + msgs[x]['Sender'])
                 print('text : ' + msgs[x]['Text'])
                 print('time : ' + msgs[x]['Time'])
+                self.Message.addMessagetoConversations(msgs[x]['Sender'], msgs[x]['Text'], msgs[x]['Time'], 1)
         else :
             msg = msgs.split('^/')
             for x in msg :
@@ -80,6 +82,7 @@ class Client:
                 print('sender :' + block[0])
                 print('text : ' + block[1])
                 print('time : ' + block[2])
+
 
     def receiveServer(self):
         '''
@@ -89,7 +92,7 @@ class Client:
             by the server
         '''
         try:
-            ret = self.socketServer.recv(self.BUFFER_SIZE)
+            ret = self.socketServer.recv(self.BUFFER_SIZE*128)
             if not ret:
                 self.Log.log('Connection with the server closed!')
                 return -1
@@ -323,10 +326,11 @@ class Client:
                 print('Client does not exist!!!')
                 return value
 
-        msg = self.Message.createMessageJson(text, str(datetime.datetime.now()).split('.')[0])
+        msg = self.Message.createMessageJson(text, str(datetime.datetime.now()))
+        self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
         if self.socketClient[receiver] == 'server' :
             #Check after x time if receiver is now online
-            return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()).split('.')[0])
+            return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()))
         else :
             try:
                 value = self.socketClient[receiver].send(msg.encode(self.CODE_TYPE))

@@ -1,10 +1,6 @@
-2018-10-18 09:06:53	Client initialized
-2018-10-18 09:06:57	Message: <{"id": "2", "username": "b", "password": "b", "porta": "36704"}> sended to the server correctly
-2018-10-18 09:06:57	Received a message from the SERVER: {"id": "?", "status": "1"}
-2018-10-18 09:06:57	Succesfull logged in as b
-2018-10-18 09:06:57	Received a message from the SERVER: {"id": "6", "messages": {"0": {"Sender": "l", "Text": "b", "Time": "2018-10-12 16:24:57"}, "1": {"Sender": "l", "Text": "prova offline", "Time": "2018-10-12 16:26:12"}, "2": {"Sender": "l", "Text": "sei ancora online?", "Time": "2018-10-12 17:27:30"}, "3": {"Sender": "a", "Text": "ciao", "Time": "2018-10-15 09:44:03"}, "4": {"Sender": "a", "Text": "ciao b, esisti, vero?", "Time": "2018-10-16 08:30:48"}, "5": {"Sender": "l", "Text": "ciao", "Time": "2018-10-17 14:20:35"}}}
-2018-10-18 09:06:57	There are messages pending in the server
-2018-10-18 09:07:12	Message: <{"id": "3", "username": "a"}> sended to the server correctly
-2018-10-18 09:07:12	Received a message from the SERVER: {"id": "!", "status": "127.0.0.1:52751"}
-2018-10-18 09:07:12	Starting a new connection with a
-2018-10-18 09:07:12	a has IP:Port : 127.0.0.1:52751
+2018-10-18 22:10:51	Client initialized
+2018-10-18 22:10:53	Message: <{"id": "2", "username": "a", "password": "a", "porta": "42605"}> sended to the server correctly
+2018-10-18 22:10:53	Received a message from the SERVER: {"id": "?", "status": "1"}
+2018-10-18 22:10:53	Succesfull logged in as a
+2018-10-18 22:10:53	Received a message from the SERVER: {"id": "17", "messages": {"0": {"Sender": "b", "Text": "1", "Time": "2018-10-18 17:20:39"}, "1": {"Sender": "b", "Text": "1", "Time": "2018-10-18 17:23:37"}, "2": {"Sender": "b", "Text": "asd", "Time": "2018-10-18 17:24:55"}, "3": {"Sender": "b", "Text": "1", "Time": "2018-10-18 17:25:49"}, "4": {"Sender": "b", "Text": "asd", "Time": "2018-10-18 17:26:06"}, "5": {"Sender": "b", "Text": "1", "Time": "2018-10-18 17:27:09"}, "6": {"Sender": "b", "Text": "asd", "Time": "2018-10-18 17:28:36"}, "7": {"Sender": "b", "Text": "qwe", "Time": "2018-10-18 17:28:38"}, "8": {"Sender": "b", "Text": "qwwe", "Time": "2018-10-18 17:28:39"}, "9": {"Sender": "b", "Text": "qwe", "Time": "2018-10-18 17:28:39"}, "10": {"Sender": "b", "Text": "qw", "Time": "2018-10-18 17:28:39"}, "11": {"Sender": "b", "Text": "eeqw", "Time": "2018-10-18 17:28:39"}, "12": {"Sender": "b", "Text": "q", "Time": "2018-10-18 17:28:40"}, "13": {"Sender": "c", "Text": "1", "Time": "2018-10-18 19:17:42"}, "14": {"Sender": "c", "Text": "2", "Time": "2018-10-18 19:17:43"}, "15": {"Sender": "c", "Text": "3", "Time": "2018-10-18 19:17:43"}, "16": {"Sender": "c", "Text": "4", "Time": "2018-10-18 19:17:44"}}}
+2018-10-18 22:10:53	There are messages pending in the server
