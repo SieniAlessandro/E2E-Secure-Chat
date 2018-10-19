@@ -39,3 +39,5 @@ signUp.setClient(client)
 
 
 chat.mainloop()
+
+client.onClosing()

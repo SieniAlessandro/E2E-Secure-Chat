@@ -11,7 +11,7 @@ class Message :
     #Constructor
     def __init__(self) :
         print('Hi')
-        self.Conversations = {}
+#        self.Conversations = {}
 
     def createMessageJson(self, text, time) :
 
@@ -58,6 +58,11 @@ class Message :
         file.close()
 
     def loadConversations(self) :
-        file = open("conversation.txt","r")
-        self.Conversations = json.loads(file.read())
-        file.close()
+        try:
+            file = open("conversations.txt","r")
+            self.Conversations = json.loads(file.read())
+            file.close()
+        except FileNotFoundError or json.JSONDecodeError:
+            file = open("conversations.txt","w")
+            file.close()
+            self.Conversations = {}

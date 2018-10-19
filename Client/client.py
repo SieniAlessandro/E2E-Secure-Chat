@@ -20,7 +20,7 @@ class Client:
     JSON = True
 
     def __init__(self, hostServer, portServer, chat = None):
-        self.hostServer = hostServer#self.HOST_SERVER #IPv4 Address of the server
+        self.hostServer = '10.102.25.11'#hostServer#self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.PORT_SERVER
         self.portp2p = random.randint(6001,60000)
         self.Log = Log()
@@ -212,8 +212,9 @@ class Client:
         value = int(self.receiveServer())
         if value == 1 :
             self.Log.log('Succesfull logged in as ' + self.username)
-            #restore saved messages
-            #TO DO TO DO TO DO
+
+            self.Message.loadConversations()
+
             #wating to know if there are waiting messages on the server
             self.receiveServer()
             #starting the connectionHandler in order to manage
@@ -344,15 +345,20 @@ class Client:
                 self.socketClient[receiver] = 'server'
                 self.sendClient(receiver, text)
 
+        def onClosing(self): #clean up before close
+            #close the socket connection
+            for x in self.socketClient :
+                x.close()
+            self.socketServer.close()
+
+            self.Message.saveConversations()
+
 '''
         if msg == "{quit}":
             client_socket.close()
             top.quit()
 
-    def onClosing(event=None): #clean up before close
-        #close the socket connection
-        my_msg.set("{quit}")
-        send()
+
 
     #Functions for the Security#
     ##TO DO TO DO  TO DO TO DO##
