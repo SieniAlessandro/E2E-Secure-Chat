@@ -23,8 +23,6 @@ class ChatGUI(Tk):
         self.title("MPS Chat")
 
         self.protocol("WM_DELETE_WINDOW", self.onCloseEvent )
-
-        # self.iconbitmap(os.getcwd() + '/Images/windowIcon.ico')
         self.resizable(width=FALSE, height=FALSE)
         self.rowconfigure(0,weight=100)
         self.chatWindow = ChatWindow(self, self.backgroundWindow)

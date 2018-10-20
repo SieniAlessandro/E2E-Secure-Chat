@@ -1,6 +1,7 @@
 from tkinter import *
 from validate_email import validate_email
 import re
+import os
 
 class SignUpGUI(Tk):
 
@@ -14,7 +15,6 @@ class SignUpGUI(Tk):
         x = (ws/2) - (w/2)
         y = (hs/2) - (h/2)
         self.geometry('%dx%d+%d+%d' % (w, h, x, y))
-
         self.resizable(width=FALSE, height=FALSE)
         self.title("Sign Up")
         self.mainFrame = Frame(self, bg=self.backgroundWindow)
@@ -136,7 +136,7 @@ class SignUpGUI(Tk):
             ret = self.client.register(self.usernameEntry.get(), self.passwordEntry.get(), self.emailEntry.get(), self.nameEntry.get(), self.surnameEntry.get(), '0')
             if ret == 1:
                 self.cancelEvent()
-                self.loginWindow.showMessage("Succefully Registered", "#4bf442")    
+                self.loginWindow.showMessage("Succefully Registered", "#4bf442")
             elif ret == 0:
                 self.showErrorLabel()
 
@@ -148,6 +148,9 @@ class SignUpGUI(Tk):
         self.errorLabel.grid_forget()
 
 if __name__ == '__main__':
+    if os.getcwd().find("Client") == -1:
+        os.chdir("Client")
+
     signUp = SignUpGUI()
 
     signUp.mainloop()

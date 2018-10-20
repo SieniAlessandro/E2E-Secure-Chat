@@ -1,4 +1,6 @@
 from tkinter import *
+import os
+from PIL import ImageTk, Image
 
 class LoginGUI(Tk):
 
@@ -89,6 +91,9 @@ class LoginGUI(Tk):
         self.messageLabel.grid(row = 1)
 
 if __name__ == '__main__':
+    if os.getcwd().find("Client") == -1:
+        os.chdir("Client")
+
     login = LoginGUI()
 
     login.mainloop()

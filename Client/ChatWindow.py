@@ -48,6 +48,7 @@ class ChatWindow(Frame):
         boxMessage = BoxMessage(self.scrollableFrame, self['bg'])
         boxMessage.createWidgets( message, timeString , isMine)
         self.listBoxMessage.append(boxMessage)
+        self.chatList.updateMessageTime(self.chatName.get(), message, datetime.datetime.now())
         self.scrollableFrame.update()
         self.scrollableFrame.canvas.yview_moveto( 1 )
 
@@ -77,7 +78,6 @@ class ChatWindow(Frame):
         self.addBoxMessageElement(message, datetime.datetime.now(), True)
         self.entryBar.delete(0, 'end')
         ret = self.client.sendClient(str(self.chatName.get()), message)
-        self.chatList.updateMessageTime(self.chatName.get(), message, datetime.datetime.now())
 
     def pressEnterEvent(self, event):
         self.pressSendButton()
@@ -86,7 +86,7 @@ class ChatWindow(Frame):
         if str(self.chatName.get()) == sender:
             self.addBoxMessageElement(message, time, False)
         else:
-            self.chatList.notify(sender, message, time)
+            self.chatList.notify(sender, message, time, False)
 
 class BoxMessage(Frame):
     def __init__(self, master, background):

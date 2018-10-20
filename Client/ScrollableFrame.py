@@ -14,8 +14,6 @@ class Scrollable(ttk.Frame):
         style.theme_use('clam')
         # list the options of the style
         # (Argument should be an element of TScrollbar, eg. "thumb", "trough", ...)
-        print(style.element_options("Vertical.TScrollbar.thumb"))
-
         # configure the style
         style.configure("Vertical.TScrollbar", gripcount=0,
                         background="Green", darkcolor="DarkGreen", lightcolor="LightGreen",
