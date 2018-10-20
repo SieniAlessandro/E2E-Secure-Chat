@@ -1,2 +1,0 @@
-2018-10-20 16:36:24	Client initialized
-2018-10-20 16:36:24	Message Handler has been initialized!

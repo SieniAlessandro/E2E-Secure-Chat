@@ -27,17 +27,22 @@ class ChatList(Frame):
 
     def pressSearchButton(self):
         username = self.searchBar.get()
+        searchKey = username.lower()
         if not username:
             return
-        ret = self.client.startConnection(username)
-        if ret >= 0:
-            self.addChatListElement(username, "", lastMessageTime=None)
-            self.chatListDict[username].changeChatRoom(event='none')
-            self.searchBarFrame.config(highlightbackground="black", highlightcolor="black", highlightthickness=1)
-            self.searchBar.config(fg='white')
+        if searchKey not in self.chatListDict:
+            ret = self.client.startConnection(username)
+            if ret >= 0:
+                self.addChatListElement(username, "", lastMessageTime=None)
+                self.chatListDict[searchKey].changeChatRoom(event='none')
+                self.searchBarFrame.config(highlightbackground="black", highlightcolor="black", highlightthickness=1)
+                self.searchBar.config(fg='white')
+                self.searchBar.delete(0, 'end')
+            else:
+                self.searchBarFrame.config(highlightbackground="red", highlightcolor="red", highlightthickness=1)
+                self.searchBar.config(fg='red')
         else:
-            self.searchBarFrame.config(highlightbackground="red", highlightcolor="red", highlightthickness=1)
-            self.searchBar.config(fg='red')
+            self.chatListDict[searchKey].changeChatRoom(event='none')
 
     def pressEnterEvent(self, event):
         self.pressSearchButton()
@@ -53,30 +58,32 @@ class ChatList(Frame):
             timeString = str(lastMessageTime).split('.')[0].split(' ')[1][:-3]
         newChatListElement = ChatListElement(self.scrollableFrame, self['bg'])
         newChatListElement.setElements(self.chatWindow, chatName, lastMessage, timeString)
-        self.chatListDict[chatName] = newChatListElement
+        self.chatListDict[chatName.lower()] = newChatListElement
         self.scrollableFrame.update()
         self.scrollableFrame.canvas.yview_moveto( 1 )
 
     def notify(self, sender, message, time, isMine):
-        if sender not in self.chatListDict:
+        searchKey = sender.lower()
+        if searchKey not in self.chatListDict:
             #chatList not found in the list
             print("Adding chat with " + sender)
             self.addChatListElement(sender, message, time)
             self.client.startConnection(sender)
         if not self.chatWindow.chatName.get():
             # chatWindow has no active chat
-            self.chatListDict[sender].changeChatRoom(event=None)
+            self.chatListDict[searchKey].changeChatRoom(event=None)
             self.chatWindow.addBoxMessageElement(message, time, isMine)
         elif self.chatWindow.chatName.get() == sender:
             #sender chat is active
             self.chatWindow.addBoxMessageElement(message, time, isMine)
         else:
             #there is an active chat but not the sender's one, so notify that
-            self.chatListDict[sender].increaseNotifies(message, time)
+            self.chatListDict[searchKey].increaseNotifies(message, time)
 
     def updateMessageTime(self, chatName, message, time):
-        self.chatListDict[chatName].setLastMessage(message)
-        self.chatListDict[chatName].setLastMessageTime(time)
+        searchKey = chatName.lower()
+        self.chatListDict[searchKey].setLastMessage(message)
+        self.chatListDict[searchKey].setLastMessageTime(time)
 
 class ChatListElement(Frame):
     MAXMESSAGELEN = 15
