@@ -1,9 +1,0 @@
-2018-10-19 10:17:42	Client initialized
-2018-10-19 10:17:43	Message: <{"id": "2", "username": "a", "password": "a", "porta": "25021"}> sended to the server correctly
-2018-10-19 10:17:43	Received a message from the SERVER: {"id": "?", "status": "1"}
-2018-10-19 10:17:43	Succesfull logged in as a
-2018-10-19 10:17:43	Received a message from the SERVER: {"id": "0", "status": "1"}
-2018-10-19 10:17:43	No messages stored in the server
-2018-10-19 10:17:53	Message: <{"id": "3", "username": "l"}> sended to the server correctly
-2018-10-19 10:17:53	Received a message from the SERVER: {"id": "!", "status": "0"}
-2018-10-19 10:17:53	Message: <{"id": "4", "Receiver": "l", "Text": "sovrascrivo l'1", "Time": "2018-10-19 10:17:53.513126"}> sended to the server correctly

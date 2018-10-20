@@ -33,9 +33,4 @@ login.setItems(client, chat)
 signUp.setLoginWindow(login)
 signUp.setClient(client)
 
-
-
-
-
-
 chat.mainloop()

@@ -6,7 +6,7 @@ from ScrollableFrame import *
 
 class ChatWindow(Frame):
     def __init__(self, master, background):
-        Frame.__init__(self, master, background=background)
+        Frame.__init__(self, master, background=background, highlightbackground="yellow", highlightcolor="yellow", highlightthickness=1)
 
         self.chatName = StringVar()
         self.listBoxMessage = []

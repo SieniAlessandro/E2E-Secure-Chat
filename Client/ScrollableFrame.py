@@ -24,7 +24,7 @@ class Scrollable(ttk.Frame):
         self.scrollbar = tk.Scrollbar(frame, width=width)
         self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y, expand=False)
 
-        self.canvas = tk.Canvas(frame, bd = 0, bg=background, yscrollcommand=self.scrollbar.set,  highlightbackground="red", highlightcolor="red", highlightthickness=0)
+        self.canvas = tk.Canvas(frame, bd = 0, bg=background, yscrollcommand=self.scrollbar.set,  highlightbackground="red", highlightcolor="red", highlightthickness=1)
         self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         self.scrollbar.config(command=self.canvas.yview, background=background)

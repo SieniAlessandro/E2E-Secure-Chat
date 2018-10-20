@@ -26,8 +26,7 @@ class ChatGUI(Tk):
 
         # self.iconbitmap(os.getcwd() + '/Images/windowIcon.ico')
         self.resizable(width=FALSE, height=FALSE)
-        self.columnconfigure(1, weight=6)
-        self.rowconfigure(0,weight=4)
+        self.rowconfigure(0,weight=100)
         self.chatWindow = ChatWindow(self, self.backgroundWindow)
         self.chatList = ChatList(self, self.backgroundItems)
 

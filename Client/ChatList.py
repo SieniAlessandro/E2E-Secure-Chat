@@ -1,22 +1,30 @@
 from tkinter import *
 from PIL import ImageTk, Image
 from ChatWindow import ChatWindow as cw
+from ScrollableFrame import *
 import os
+
 
 class ChatList(Frame):
 
     def __init__(self, master, background):
-        Frame.__init__(self, master, background=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
+        Frame.__init__(self, master, background=background, highlightbackground="yellow", highlightcolor="yellow", highlightthickness=1)
         self.chatListDict = {}
-        self.grid(row=0, column=0, rowspan=2, sticky=N+S+W)
+        Grid.columnconfigure(master, 1, weight=1)
+        Grid.columnconfigure(master, 2, weight=9)
+        self.grid(row=0, column=0, sticky=N+S+W+E)
         self.searchBarFrame = Frame(self, bg=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
+        listFrame = Frame(self)
+        self.scrollableFrame = Scrollable(listFrame, background)
         self.searchBar = Entry(self.searchBarFrame, background=background, bd=0, fg='white')
         self.searchBar.bind('<Return>', self.pressEnterEvent )
         self.icon = ImageTk.PhotoImage(Image.open("Images/searchIcon.png").resize( (30,30), Image.ANTIALIAS ))
         self.searchButton = Button(self.searchBarFrame, text="search", command=self.pressSearchButton, bg=background, bd=0, activebackground='#787878', image=self.icon)
-        self.searchBarFrame.grid(column=0, sticky=W+E)
+
+        self.searchBarFrame.pack(side="top", fill=X)
         self.searchBar.pack(side=LEFT, padx=5,pady=5)
         self.searchButton.pack(side=RIGHT, padx=5, pady=5)
+        listFrame.pack(fill=BOTH, expand=True)
 
     def pressSearchButton(self):
         username = self.searchBar.get()
@@ -47,6 +55,8 @@ class ChatList(Frame):
         newChatListElement = ChatListElement(self, self['bg'])
         newChatListElement.setElements(self.chatWindow, chatName, lastMessage, timeString)
         self.chatListDict[chatName] = newChatListElement
+        self.scrollableFrame.update()
+        self.scrollableFrame.canvas.yview_moveto( 1 )
 
     def notify(self, sender, message, time):
         if sender not in self.chatListDict:
