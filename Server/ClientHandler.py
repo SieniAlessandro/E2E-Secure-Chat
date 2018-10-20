@@ -155,7 +155,7 @@ class ClientHandler(Thread):
         else:
             if message['username'].lower() in self.OnlineClients.keys():
                 #Check if the client asks for its own import ip
-                if self.OnlineClients[message['username']] == self.HandledUser:
+                if self.OnlineClients[message['username'].lower()] == self.HandledUser:
                     self.log.log("The user want to talk with himself")
                     response['id'] = "!"
                     response['status'] = "-2"
