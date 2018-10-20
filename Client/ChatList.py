@@ -57,18 +57,19 @@ class ChatList(Frame):
         self.scrollableFrame.update()
         self.scrollableFrame.canvas.yview_moveto( 1 )
 
-    def notify(self, sender, message, time):
+    def notify(self, sender, message, time, isMine):
         if sender not in self.chatListDict:
             #chatList not found in the list
             print("Adding chat with " + sender)
             self.addChatListElement(sender, message, time)
+            self.client.startConnection(sender)
         if not self.chatWindow.chatName.get():
             # chatWindow has no active chat
             self.chatListDict[sender].changeChatRoom(event=None)
-            self.chatWindow.addBoxMessageElement(message, time, False)
+            self.chatWindow.addBoxMessageElement(message, time, isMine)
         elif self.chatWindow.chatName.get() == sender:
             #sender chat is active
-            self.chatWindow.addBoxMessageElement(message, time, False)
+            self.chatWindow.addBoxMessageElement(message, time, isMine)
         else:
             #there is an active chat but not the sender's one, so notify that
             self.chatListDict[sender].increaseNotifies(message, time)

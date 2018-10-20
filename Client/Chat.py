@@ -45,7 +45,8 @@ class ChatGUI(Tk):
         print(conversations)
         for c in conversations.keys():
             for m in conversations[c]:
-                self.chatList.notify(c, conversations[c][m]['text'], conversations[c][m]['time'] )
+                isMine = True if conversations[c][m]['whoSendIt'] == 0 else False
+                self.chatList.notify(c, conversations[c][m]['text'], conversations[c][m]['time'],isMine)
 
     def onCloseEvent(self):
         print("closing event")
