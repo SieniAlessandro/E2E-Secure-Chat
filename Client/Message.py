@@ -9,9 +9,11 @@ from Log import *
 class Message :
     MSG_LEN = 2048
     #Constructor
-    def __init__(self) :
-        print('Hi')
+    def __init__(self, Log) :
         self.Conversations = {}
+        self.Log = Log
+        self.Log.log('Message Handler has been initialized!')
+
 
     def createMessageJson(self, text, time) :
 
@@ -29,6 +31,7 @@ class Message :
         msg['text'] = text
         msg['time'] = time
         msg['whoSendIt'] = whoSendIt
+        self.Log.log('Added message to the conversation : ' + json.dumps(msg))
 
         if user not in self.Conversations.keys() :
             self.Conversations[user] = {}
@@ -43,6 +46,7 @@ class Message :
         #print('Inserted message :' + json.dumps(msg) + ' from : ' + user)
 
     def retrieveAllConversations(self) :
+        self.Log.log('All the conversations has been charged : ' + json.dumps(self.Conversations))
         return self.Conversations
 
     def retrieveConversation(self, user) :
@@ -50,6 +54,7 @@ class Message :
         if user in self.Conversations.keys():
             #print('This is the conversation with ' + user + ' : ' + json.dumps(self.Conversations[user]))
             #print("END OF CONVERSATION")
+            self.Log.log('Conversation with ' + user + ' has been find : ' + json.dumps(self.Conversations))
             return self.Conversations[user]
         return 0
 

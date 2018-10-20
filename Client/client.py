@@ -25,7 +25,7 @@ class Client:
         self.Log = Log()
         self.Log.log('Client initialized')
         self.Chat = chat
-        self.Message = Message()
+        self.Message = Message(self.Log)
 
     #Functions to communicate with Server#
     def sendServer(self, text):
@@ -68,20 +68,11 @@ class Client:
             messages related to the specific connection with that specific user
             TO FINISH
         '''
-        if self.JSON :
-            for x in msgs:
-                print('sender :' + msgs[x]['Sender'])
-                print('text : ' + msgs[x]['Text'])
-                print('time : ' + msgs[x]['Time'])
-                self.Message.addMessagetoConversations(msgs[x]['Sender'], msgs[x]['Text'], msgs[x]['Time'], 1)
-        else :
-            msg = msgs.split('^/')
-            for x in msg :
-                block = x.split('/^')
-                print('sender :' + block[0])
-                print('text : ' + block[1])
-                print('time : ' + block[2])
-
+        for x in msgs:
+            print('sender :' + msgs[x]['Sender'])
+            print('text : ' + msgs[x]['Text'])
+            print('time : ' + msgs[x]['Time'])
+            self.Message.addMessagetoConversations(msgs[x]['Sender'], msgs[x]['Text'], msgs[x]['Time'], 1)
 
     def receiveServer(self):
         '''
@@ -264,7 +255,7 @@ class Client:
 
         value = int(self.receiveServer())
         if value == 1:
-            self.Log.log('Message send correctly')
+            self.Log.log('Message send correctly to be stored in the Server')
         elif value == 0:
             self.Log.log('Error in the database! Try again later!')
         return value
@@ -291,6 +282,7 @@ class Client:
         msg = self.Message.createMessageJson(text, str(datetime.datetime.now()))
         self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
         if self.socketClient[receiver] == 'server' :
+
             #Check after x time if receiver is now online
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()))
         else :

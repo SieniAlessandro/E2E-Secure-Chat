@@ -46,6 +46,7 @@ class ConnectionHandler(Thread) :
                 msg = conn.recv(self.MSG_LEN)
                 if not msg :
                     raise Exception()
+
                 msg = msg.decode(self.Code)
 
                 dict = json.loads(msg)
@@ -71,8 +72,8 @@ class ConnectionHandler(Thread) :
             self.Log.log('Accepted a new connecion')
             t = Thread(target=self.receiveMessage, args=(conn, ))
             t.start()
-            self.Log.log('The client is now connected with : ')
-            clientList = ''
+
+            clientList = 'The client is now connected with : '
             for x in self.users :
                 clientList += '- ' + x
             self.Log.log(clientList)
