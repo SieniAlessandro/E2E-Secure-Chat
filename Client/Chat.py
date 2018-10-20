@@ -13,18 +13,20 @@ class ChatGUI(Tk):
         ws = self.winfo_screenwidth() # width of the screen
         hs = self.winfo_screenheight() # height of the screen
 
-        w = ws*1.5/3 # width for the Tk root
-        h = hs*2.5/4 # height for the Tk root
+        self.w = ws*1.5/3 # width for the Tk root
+        self.h = hs*2.5/4 # height for the Tk root
 
-        x = (ws/2) - (w/2)
-        y = (hs/2) - (h/2)
+        x = (ws/2) - (self.w/2)
+        y = (hs/2) - (self.h/2)
 
-        self.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        self.geometry('%dx%d+%d+%d' % (self.w, self.h, x, y))
         self.title("MPS Chat")
+
+        self.protocol("WM_DELETE_WINDOW", self.onCloseEvent )
+
         # self.iconbitmap(os.getcwd() + '/Images/windowIcon.ico')
         self.resizable(width=FALSE, height=FALSE)
-        self.columnconfigure(1, weight=6)
-        self.rowconfigure(0,weight=4)
+        self.rowconfigure(0,weight=100)
         self.chatWindow = ChatWindow(self, self.backgroundWindow)
         self.chatList = ChatList(self, self.backgroundItems)
 
@@ -32,6 +34,8 @@ class ChatGUI(Tk):
         self.client = client
         self.chatList.setItems(self.chatWindow, self.client)
         self.chatWindow.createWidgets(self.backgroundItems, "", self.client, self.chatList)
+        self.chatWindow.scrollableFrame.setCanvasWidth(self.w*3/4)
+        self.chatList.scrollableFrame.setCanvasWidth(self.w*1/4)
 
     def onLoginEvent(self, username):
         self.deiconify()
@@ -41,7 +45,13 @@ class ChatGUI(Tk):
         print(conversations)
         for c in conversations.keys():
             for m in conversations[c]:
-                self.chatList.notify(c, conversations[c][m]['text'], conversations[c][m]['time'] )
+                isMine = True if conversations[c][m]['whoSendIt'] == 0 else False
+                self.chatList.notify(c, conversations[c][m]['text'], conversations[c][m]['time'],isMine)
+
+    def onCloseEvent(self):
+        print("closing event")
+        self.destroy()
+        self.client.onClosing()
 
 if __name__ == '__main__':
     if os.getcwd().find("Client") == -1:
@@ -51,6 +61,6 @@ if __name__ == '__main__':
     client = Client("", 6555)
     chat.createWidgets(client)
 
-    # chat.chatList.addChatListElement("Rododendro", "Oggi piove", "18:12")
+    chat.chatList.addChatListElement("Rododendro", "Oggi piove", None)
     # chat.chatWindow.receiveMessage("Rododendro", "Associated", "0:00")
     chat.mainloop()

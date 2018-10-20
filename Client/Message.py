@@ -9,9 +9,11 @@ from Log import *
 class Message :
     MSG_LEN = 2048
     #Constructor
-    def __init__(self) :
-        print('Hi')
-#        self.Conversations = {}
+    def __init__(self, Log) :
+        self.Conversations = {}
+        self.Log = Log
+        self.Log.log('Message Handler has been initialized!')
+
 
     def createMessageJson(self, text, time) :
 
@@ -29,40 +31,42 @@ class Message :
         msg['text'] = text
         msg['time'] = time
         msg['whoSendIt'] = whoSendIt
+        self.Log.log('Added message to the conversation : ' + json.dumps(msg))
 
         if user not in self.Conversations.keys() :
             self.Conversations[user] = {}
 
-        index = 0
+        index = '0'
         if index in self.Conversations[user].keys() :
-            index = list(self.Conversations[user])[-1] + 1
+            index = int(list(self.Conversations[user].keys())[-1]) + 1
+
 
         self.Conversations[user][index] = {}
         self.Conversations[user][index] = msg
-        print('Inserted message :' + json.dumps(msg) + ' from : ' + user)
+        #print('Inserted message :' + json.dumps(msg) + ' from : ' + user)
 
     def retrieveAllConversations(self) :
+        self.Log.log('All the conversations has been charged : ' + json.dumps(self.Conversations))
         return self.Conversations
 
     def retrieveConversation(self, user) :
 
         if user in self.Conversations.keys():
-            print('This is the conversation with ' + user + ' : ' + json.dumps(self.Conversations[user]))
-            print("END OF CONVERSATION")
+            #print('This is the conversation with ' + user + ' : ' + json.dumps(self.Conversations[user]))
+            #print("END OF CONVERSATION")
+            self.Log.log('Conversation with ' + user + ' has been find : ' + json.dumps(self.Conversations))
             return self.Conversations[user]
         return 0
 
     def saveConversations(self) :
-        file = open("conversations.txt","w")
-        file.write(json.dumps(self.Conversations))
-        file.close()
+        with open("conversations.json","w") as outfile:
+            json.dump(self.Conversations, outfile)
 
     def loadConversations(self) :
-        try:
-            file = open("conversations.txt","r")
-            self.Conversations = json.loads(file.read())
-            file.close()
+        try :
+            with open("conversations.json","r") as input :
+                self.Conversations = json.load(input)
         except :
-            file = open("conversations.txt","w")
+            file = open("conversations.json","w")
             file.close()
             self.Conversations = {}

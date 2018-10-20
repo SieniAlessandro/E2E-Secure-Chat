@@ -11,8 +11,9 @@ class ChatWindow(Frame):
         self.chatName = StringVar()
         self.listBoxMessage = []
         self.rowconfigure(1, weight=8)
+        Grid.columnconfigure(master, 1, weight=1)
+        Grid.columnconfigure(master, 2, weight=4)
         self.grid(row=0, column=1, sticky=N+S+W+E)
-
 
     def createWidgets(self, background, chatName, client, chatList ):
         self.chatName.set(chatName)

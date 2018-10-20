@@ -1,105 +1,36 @@
-<<<<<<< HEAD
-2018-10-18 12:46:46	Server Initialized
-2018-10-18 12:46:46	Waiting for connections...
-=======
-2018-10-18 17:47:35	Server Initialized
-2018-10-18 17:47:35	Waiting for connections...
-2018-10-18 17:47:38	Client handled has address: 127.0.0.1 and port 53477
-2018-10-18 17:47:38	Waiting for connections...
-2018-10-18 17:47:41	A client want to login
-2018-10-18 17:47:41	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 53477 ClientPort: 26732}
-2018-10-18 17:47:41	There are several messages to be sended: {0: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:23'}, 1: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:24'}, 2: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:25'}, 3: {'Sender': 'a', 'Text': '1', 'Time': '2018-10-18 17:39:28'}, 4: {'Sender': 'a', 'Text': '2', 'Time': '2018-10-18 17:39:28'}, 5: {'Sender': 'a', 'Text': '3', 'Time': '2018-10-18 17:39:28'}, 6: {'Sender': 'a', 'Text': '4', 'Time': '2018-10-18 17:39:29'}}
-2018-10-18 17:48:09	Client had a problem, connection closed
-2018-10-18 17:48:11	Client handled has address: 127.0.0.1 and port 53604
-2018-10-18 17:48:11	Waiting for connections...
-2018-10-18 17:48:13	A client want to login
-2018-10-18 17:48:13	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 53604 ClientPort: 21640}
-2018-10-18 17:48:13	There are several messages to be sended: {0: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:23'}, 1: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:24'}, 2: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:25'}, 3: {'Sender': 'a', 'Text': '1', 'Time': '2018-10-18 17:39:28'}, 4: {'Sender': 'a', 'Text': '2', 'Time': '2018-10-18 17:39:28'}, 5: {'Sender': 'a', 'Text': '3', 'Time': '2018-10-18 17:39:28'}, 6: {'Sender': 'a', 'Text': '4', 'Time': '2018-10-18 17:39:29'}}
-2018-10-18 18:33:18	Client had a problem, connection closed
-2018-10-18 18:33:28	Client handled has address: 127.0.0.1 and port 64956
-2018-10-18 18:33:28	Waiting for connections...
-2018-10-18 18:33:31	A client want to login
-2018-10-18 18:33:31	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 64956 ClientPort: 58991}
-2018-10-18 18:33:31	There are several messages to be sended: {0: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:23'}, 1: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:24'}, 2: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:25'}, 3: {'Sender': 'a', 'Text': '1', 'Time': '2018-10-18 17:39:28'}, 4: {'Sender': 'a', 'Text': '2', 'Time': '2018-10-18 17:39:28'}, 5: {'Sender': 'a', 'Text': '3', 'Time': '2018-10-18 17:39:28'}, 6: {'Sender': 'a', 'Text': '4', 'Time': '2018-10-18 17:39:29'}}
-2018-10-18 18:38:00	Client had a problem, connection closed
-2018-10-18 18:38:02	Client handled has address: 127.0.0.1 and port 49805
-2018-10-18 18:38:02	Waiting for connections...
-2018-10-18 18:38:04	A client want to login
-2018-10-18 18:38:04	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 49805 ClientPort: 24962}
-2018-10-18 18:38:04	There are several messages to be sended: {0: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:23'}, 1: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:24'}, 2: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:25'}, 3: {'Sender': 'a', 'Text': '1', 'Time': '2018-10-18 17:39:28'}, 4: {'Sender': 'a', 'Text': '2', 'Time': '2018-10-18 17:39:28'}, 5: {'Sender': 'a', 'Text': '3', 'Time': '2018-10-18 17:39:28'}, 6: {'Sender': 'a', 'Text': '4', 'Time': '2018-10-18 17:39:29'}}
-2018-10-18 18:47:36	Client handled has address: 127.0.0.1 and port 52649
-2018-10-18 18:47:36	Waiting for connections...
-2018-10-18 18:47:38	A client want to login
-2018-10-18 18:47:38	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 49805 ClientPort: 24962, 'a': Username: a IP: 127.0.0.1 ServerPort: 52649 ClientPort: 47566}
-2018-10-18 18:47:38	There are several messages to be sended: {0: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:20:39'}, 1: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:23:37'}, 2: {'Sender': 'b', 'Text': 'asd', 'Time': '2018-10-18 17:24:55'}, 3: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:25:49'}, 4: {'Sender': 'b', 'Text': 'asd', 'Time': '2018-10-18 17:26:06'}, 5: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:27:09'}, 6: {'Sender': 'b', 'Text': 'asd', 'Time': '2018-10-18 17:28:36'}, 7: {'Sender': 'b', 'Text': 'qwe', 'Time': '2018-10-18 17:28:38'}, 8: {'Sender': 'b', 'Text': 'qwwe', 'Time': '2018-10-18 17:28:39'}, 9: {'Sender': 'b', 'Text': 'qwe', 'Time': '2018-10-18 17:28:39'}, 10: {'Sender': 'b', 'Text': 'qw', 'Time': '2018-10-18 17:28:39'}, 11: {'Sender': 'b', 'Text': 'eeqw', 'Time': '2018-10-18 17:28:39'}, 12: {'Sender': 'b', 'Text': 'q', 'Time': '2018-10-18 17:28:40'}}
-2018-10-18 18:47:43	A client want to find another user
-2018-10-18 18:47:43	Store the message to prova
-2018-10-18 18:47:46	The user has a massage to be stored on the DB :
-2018-10-18 18:47:48	The user has a massage to be stored on the DB :
-2018-10-18 18:47:48	The user has a massage to be stored on the DB :
-2018-10-18 18:47:49	The user has a massage to be stored on the DB :
-2018-10-18 18:47:53	Client handled has address: 127.0.0.1 and port 52689
-2018-10-18 18:47:53	Waiting for connections...
-2018-10-18 18:48:26	A client want to register
-2018-10-18 18:48:26	Registration succeded
-2018-10-18 18:48:31	A client want to login
-2018-10-18 18:48:31	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 49805 ClientPort: 24962, 'a': Username: a IP: 127.0.0.1 ServerPort: 52649 ClientPort: 47566, 'c': Username: c IP: 127.0.0.1 ServerPort: 52689 ClientPort: 45227}
-2018-10-18 18:48:31	There are no message for this client
-2018-10-18 18:48:34	A client want to find another user
-2018-10-18 18:48:34	Store the message to prova
-2018-10-18 18:48:36	The user has a massage to be stored on the DB :
-2018-10-18 18:48:36	The user has a massage to be stored on the DB :
-2018-10-18 18:48:37	The user has a massage to be stored on the DB :
-2018-10-18 18:48:37	The user has a massage to be stored on the DB :
-2018-10-18 18:48:44	Client handled has address: 127.0.0.1 and port 52801
-2018-10-18 18:48:44	Waiting for connections...
-2018-10-18 18:48:48	A client want to login
-2018-10-18 18:48:48	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 49805 ClientPort: 24962, 'a': Username: a IP: 127.0.0.1 ServerPort: 52649 ClientPort: 47566, 'c': Username: c IP: 127.0.0.1 ServerPort: 52689 ClientPort: 45227, 'prova': Username: prova IP: 127.0.0.1 ServerPort: 52801 ClientPort: 32560}
-2018-10-18 18:48:48	There are several messages to be sended: {0: {'Sender': 'asd', 'Text': 'sdakihdasio', 'Time': '2018-10-17 12:28:40'}, 1: {'Sender': 'asd', 'Text': 'asd', 'Time': '2018-10-17 15:05:27'}, 2: {'Sender': 'asd', 'Text': 'adasda', 'Time': '2018-10-17 15:06:11'}, 3: {'Sender': 'asd', 'Text': 'AAAAAAAAAAAAAAAAAAAAAAA', 'Time': '2018-10-17 15:06:26'}, 4: {'Sender': 'a', 'Text': 'asdsda', 'Time': '2018-10-17 16:45:42'}, 5: {'Sender': 'a', 'Text': 'asiodh', 'Time': '2018-10-18 13:52:59'}, 6: {'Sender': 'a', 'Text': 'asdoij', 'Time': '2018-10-18 13:52:59'}, 7: {'Sender': 'a', 'Text': 'asdoij', 'Time': '2018-10-18 13:53:00'}, 8: {'Sender': 'a', 'Text': 'asdoij', 'Time': '2018-10-18 13:53:01'}, 9: {'Sender': 'a', 'Text': 'asdoij', 'Time': '2018-10-18 13:53:02'}, 10: {'Sender': 'a', 'Text': '1', 'Time': '2018-10-18 16:48:05'}, 11: {'Sender': 'a', 'Text': '2', 'Time': '2018-10-18 16:48:06'}, 12: {'Sender': 'a', 'Text': '3', 'Time': '2018-10-18 16:48:07'}, 13: {'Sender': 'a', 'Text': '4', 'Time': '2018-10-18 16:48:07'}, 14: {'Sender': 'a', 'Text': '1', 'Time': '2018-10-18 16:48:46'}, 15: {'Sender': 'a', 'Text': '2', 'Time': '2018-10-18 16:48:47'}, 16: {'Sender': 'a', 'Text': '3', 'Time': '2018-10-18 16:48:47'}, 17: {'Sender': 'a', 'Text': '1', 'Time': '2018-10-18 16:51:59'}, 18: {'Sender': 'a', 'Text': '2', 'Time': '2018-10-18 16:51:59'}, 19: {'Sender': 'a', 'Text': '3', 'Time': '2018-10-18 16:52:00'}, 20: {'Sender': 'a', 'Text': '4', 'Time': '2018-10-18 16:52:01'}, 21: {'Sender': 'a', 'Text': '5', 'Time': '2018-10-18 16:52:01'}, 22: {'Sender': 'a', 'Text': '6', 'Time': '2018-10-18 16:52:02'}, 23: {'Sender': 'a', 'Text': '1', 'Time': '2018-10-18 18:47:46'}, 24: {'Sender': 'a', 'Text': '2', 'Time': '2018-10-18 18:47:48'}, 25: {'Sender': 'a', 'Text': '3', 'Time': '2018-10-18 18:47:49'}, 26: {'Sender': 'a', 'Text': '4', 'Time': '2018-10-18 18:47:49'}, 27: {'Sender': 'c', 'Text': '1', 'Time': '2018-10-18 18:48:36'}, 28: {'Sender': 'c', 'Text': '2', 'Time': '2018-10-18 18:48:37'}, 29: {'Sender': 'c', 'Text': '3', 'Time': '2018-10-18 18:48:37'}, 30: {'Sender': 'c', 'Text': '4', 'Time': '2018-10-18 18:48:38'}}
-2018-10-18 18:49:52	Client had a problem, connection closed
-2018-10-18 18:49:53	Client had a problem, connection closed
-2018-10-18 18:49:54	Client had a problem, connection closed
-2018-10-18 18:57:57	Client handled has address: 127.0.0.1 and port 55688
-2018-10-18 18:57:57	Waiting for connections...
-2018-10-18 18:58:00	A client want to login
-2018-10-18 18:58:00	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 49805 ClientPort: 24962, 'a': Username: a IP: 127.0.0.1 ServerPort: 55688 ClientPort: 32369}
-2018-10-18 18:58:00	There are several messages to be sended: {0: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:20:39'}, 1: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:23:37'}, 2: {'Sender': 'b', 'Text': 'asd', 'Time': '2018-10-18 17:24:55'}, 3: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:25:49'}, 4: {'Sender': 'b', 'Text': 'asd', 'Time': '2018-10-18 17:26:06'}, 5: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 17:27:09'}, 6: {'Sender': 'b', 'Text': 'asd', 'Time': '2018-10-18 17:28:36'}, 7: {'Sender': 'b', 'Text': 'qwe', 'Time': '2018-10-18 17:28:38'}, 8: {'Sender': 'b', 'Text': 'qwwe', 'Time': '2018-10-18 17:28:39'}, 9: {'Sender': 'b', 'Text': 'qwe', 'Time': '2018-10-18 17:28:39'}, 10: {'Sender': 'b', 'Text': 'qw', 'Time': '2018-10-18 17:28:39'}, 11: {'Sender': 'b', 'Text': 'eeqw', 'Time': '2018-10-18 17:28:39'}, 12: {'Sender': 'b', 'Text': 'q', 'Time': '2018-10-18 17:28:40'}}
-2018-10-18 18:58:10	A client want to find another user
-2018-10-18 18:58:10	Store the message to prova
-2018-10-18 18:58:14	The user has a massage to be stored on the DB :
-2018-10-18 18:58:16	The user has a massage to be stored on the DB :
-2018-10-18 18:58:16	The user has a massage to be stored on the DB :
-2018-10-18 18:58:16	The user has a massage to be stored on the DB :
-2018-10-18 18:58:20	Client handled has address: 127.0.0.1 and port 55717
-2018-10-18 18:58:20	Waiting for connections...
-2018-10-18 18:58:23	A client want to login
-2018-10-18 18:58:23	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 55717 ClientPort: 13235, 'a': Username: a IP: 127.0.0.1 ServerPort: 55688 ClientPort: 32369}
-2018-10-18 18:58:23	There are several messages to be sended: {0: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:23'}, 1: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:24'}, 2: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-18 17:39:25'}, 3: {'Sender': 'a', 'Text': '1', 'Time': '2018-10-18 17:39:28'}, 4: {'Sender': 'a', 'Text': '2', 'Time': '2018-10-18 17:39:28'}, 5: {'Sender': 'a', 'Text': '3', 'Time': '2018-10-18 17:39:28'}, 6: {'Sender': 'a', 'Text': '4', 'Time': '2018-10-18 17:39:29'}}
-2018-10-18 18:58:33	A client want to find another user
-2018-10-18 18:58:33	Store the message to prova
-2018-10-18 18:58:35	The user has a massage to be stored on the DB :
-2018-10-18 18:58:35	The user has a massage to be stored on the DB :
-2018-10-18 18:58:36	The user has a massage to be stored on the DB :
-2018-10-18 18:58:36	The user has a massage to be stored on the DB :
-2018-10-18 18:58:39	Client handled has address: 127.0.0.1 and port 55790
-2018-10-18 18:58:39	Waiting for connections...
-2018-10-18 18:58:45	A client want to login
-2018-10-18 18:58:45	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 55717 ClientPort: 13235, 'a': Username: a IP: 127.0.0.1 ServerPort: 55688 ClientPort: 32369, 'c': Username: c IP: 127.0.0.1 ServerPort: 55790 ClientPort: 50614}
-2018-10-18 18:58:45	There are no message for this client
-2018-10-18 18:58:49	A client want to find another user
-2018-10-18 18:58:49	Store the message to prova
-2018-10-18 18:58:51	The user has a massage to be stored on the DB :
-2018-10-18 18:58:51	The user has a massage to be stored on the DB :
-2018-10-18 18:58:51	The user has a massage to be stored on the DB :
-2018-10-18 18:58:52	The user has a massage to be stored on the DB :
-2018-10-18 18:58:59	Client handled has address: 127.0.0.1 and port 55962
-2018-10-18 18:58:59	Waiting for connections...
-2018-10-18 18:59:04	A client want to login
-2018-10-18 18:59:04	Active users: {'b': Username: b IP: 127.0.0.1 ServerPort: 55717 ClientPort: 13235, 'a': Username: a IP: 127.0.0.1 ServerPort: 55688 ClientPort: 32369, 'c': Username: c IP: 127.0.0.1 ServerPort: 55790 ClientPort: 50614, 'prova': Username: prova IP: 127.0.0.1 ServerPort: 55962 ClientPort: 32714}
-2018-10-18 18:59:04	There are several messages to be sended: {0: {'Sender': 'asd', 'Text': 'sdakihdasio', 'Time': '2018-10-17 12:28:40'}, 1: {'Sender': 'asd', 'Text': 'asd', 'Time': '2018-10-17 15:05:27'}, 2: {'Sender': 'asd', 'Text': 'adasda', 'Time': '2018-10-17 15:06:11'}, 3: {'Sender': 'asd', 'Text': 'AAAAAAAAAAAAAAAAAAAAAAA', 'Time': '2018-10-17 15:06:26'}, 4: {'Sender': 'a', 'Text': 'asdsda', 'Time': '2018-10-17 16:45:42'}, 5: {'Sender': 'a', 'Text': 'asiodh', 'Time': '2018-10-18 13:52:59'}, 6: {'Sender': 'a', 'Text': 'asdoij', 'Time': '2018-10-18 13:52:59'}, 7: {'Sender': 'a', 'Text': 'asdoij', 'Time': '2018-10-18 13:53:00'}, 8: {'Sender': 'a', 'Text': 'asdoij', 'Time': '2018-10-18 13:53:01'}, 9: {'Sender': 'a', 'Text': 'asdoij', 'Time': '2018-10-18 13:53:02'}, 10: {'Sender': 'a', 'Text': '1', 'Time': '2018-10-18 16:48:05'}, 11: {'Sender': 'a', 'Text': '2', 'Time': '2018-10-18 16:48:06'}, 12: {'Sender': 'a', 'Text': '3', 'Time': '2018-10-18 16:48:07'}, 13: {'Sender': 'a', 'Text': '4', 'Time': '2018-10-18 16:48:07'}, 14: {'Sender': 'a', 'Text': '1', 'Time': '2018-10-18 16:48:46'}, 15: {'Sender': 'a', 'Text': '2', 'Time': '2018-10-18 16:48:47'}, 16: {'Sender': 'a', 'Text': '3', 'Time': '2018-10-18 16:48:47'}, 17: {'Sender': 'a', 'Text': '1', 'Time': '2018-10-18 16:51:59'}, 18: {'Sender': 'a', 'Text': '2', 'Time': '2018-10-18 16:51:59'}, 19: {'Sender': 'a', 'Text': '3', 'Time': '2018-10-18 16:52:00'}, 20: {'Sender': 'a', 'Text': '4', 'Time': '2018-10-18 16:52:01'}, 21: {'Sender': 'a', 'Text': '5', 'Time': '2018-10-18 16:52:01'}, 22: {'Sender': 'a', 'Text': '6', 'Time': '2018-10-18 16:52:02'}, 23: {'Sender': 'a', 'Text': '1', 'Time': '2018-10-18 18:47:46'}, 24: {'Sender': 'a', 'Text': '2', 'Time': '2018-10-18 18:47:48'}, 25: {'Sender': 'a', 'Text': '3', 'Time': '2018-10-18 18:47:49'}, 26: {'Sender': 'a', 'Text': '4', 'Time': '2018-10-18 18:47:49'}, 27: {'Sender': 'c', 'Text': '1', 'Time': '2018-10-18 18:48:36'}, 28: {'Sender': 'c', 'Text': '2', 'Time': '2018-10-18 18:48:37'}, 29: {'Sender': 'c', 'Text': '3', 'Time': '2018-10-18 18:48:37'}, 30: {'Sender': 'c', 'Text': '4', 'Time': '2018-10-18 18:48:38'}, 31: {'Sender': 'a', 'Text': '1', 'Time': '2018-10-18 18:58:15'}, 32: {'Sender': 'a', 'Text': '2', 'Time': '2018-10-18 18:58:16'}, 33: {'Sender': 'a', 'Text': '3', 'Time': '2018-10-18 18:58:16'}, 34: {'Sender': 'a', 'Text': '4', 'Time': '2018-10-18 18:58:17'}, 35: {'Sender': 'b', 'Text': '1', 'Time': '2018-10-18 18:58:35'}, 36: {'Sender': 'b', 'Text': '2', 'Time': '2018-10-18 18:58:36'}, 37: {'Sender': 'b', 'Text': '3', 'Time': '2018-10-18 18:58:36'}, 38: {'Sender': 'b', 'Text': '4', 'Time': '2018-10-18 18:58:36'}, 39: {'Sender': 'c', 'Text': '1', 'Time': '2018-10-18 18:58:51'}, 40: {'Sender': 'c', 'Text': '2', 'Time': '2018-10-18 18:58:52'}, 41: {'Sender': 'c', 'Text': '3', 'Time': '2018-10-18 18:58:52'}, 42: {'Sender': 'c', 'Text': '3', 'Time': '2018-10-18 18:58:52'}}
-2018-10-18 19:09:13	Client had a problem, connection closed
-2018-10-18 19:09:15	Client had a problem, connection closed
-2018-10-18 19:09:16	Client had a problem, connection closed
-2018-10-18 19:09:17	Client had a problem, connection closed
-2018-10-18 19:09:17	Client had a problem, connection closed
->>>>>>> 14f771ffc4de5c80b0ecd7a23e2a5978915dbc4a
+2018-10-20 11:24:35	Server Initialized
+2018-10-20 11:24:35	Waiting for connections...
+2018-10-20 11:24:47	Client handled has address: 127.0.0.1 and port 62339
+2018-10-20 11:24:47	Waiting for connections...
+2018-10-20 11:24:48	A client want to login
+2018-10-20 11:24:48	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 62339 ClientPort: 53829}
+2018-10-20 11:24:48	There are no message for this client
+2018-10-20 11:25:12	A client want to find another user
+2018-10-20 11:25:12	Store the message to prova
+2018-10-20 11:25:13	A client want to find another user
+2018-10-20 11:25:13	Store the message to prova
+2018-10-20 11:25:14	A client want to find another user
+2018-10-20 11:25:14	Store the message to prova
+2018-10-20 11:25:14	A client want to find another user
+2018-10-20 11:25:14	Store the message to prova
+2018-10-20 11:25:14	A client want to find another user
+2018-10-20 11:25:14	Store the message to prova
+2018-10-20 11:25:14	A client want to find another user
+2018-10-20 11:25:14	Store the message to prova
+2018-10-20 11:25:14	A client want to find another user
+2018-10-20 11:25:14	Store the message to prova
+2018-10-20 11:25:16	Client disconnected, closing this thread
+2018-10-20 11:27:25	Client handled has address: 127.0.0.1 and port 62393
+2018-10-20 11:27:25	Waiting for connections...
+2018-10-20 11:27:27	A client want to login
+2018-10-20 11:27:27	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 62393 ClientPort: 43271}
+2018-10-20 11:27:27	There are no message for this client
+2018-10-20 11:27:33	A client want to find another user
+2018-10-20 11:27:33	Store the message to prova
+2018-10-20 11:27:48	Client disconnected, closing this thread
+2018-10-20 11:45:38	Client handled has address: 127.0.0.1 and port 62776
+2018-10-20 11:45:38	Waiting for connections...
+2018-10-20 11:45:40	A client want to login
+2018-10-20 11:45:40	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 62776 ClientPort: 43218}
+2018-10-20 11:45:40	There are no message for this client
+2018-10-20 11:45:47	Client disconnected, closing this thread

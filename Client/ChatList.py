@@ -1,22 +1,29 @@
 from tkinter import *
 from PIL import ImageTk, Image
 from ChatWindow import ChatWindow as cw
+from ScrollableFrame import *
 import os
+
 
 class ChatList(Frame):
 
     def __init__(self, master, background):
         Frame.__init__(self, master, background=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         self.chatListDict = {}
-        self.grid(row=0, column=0, rowspan=2, sticky=N+S+W)
+
+        self.grid(row=0, column=0, sticky=N+S+W+E)
         self.searchBarFrame = Frame(self, bg=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
+        listFrame = Frame(self)
+        self.scrollableFrame = Scrollable(listFrame, background)
         self.searchBar = Entry(self.searchBarFrame, background=background, bd=0, fg='white')
         self.searchBar.bind('<Return>', self.pressEnterEvent )
         self.icon = ImageTk.PhotoImage(Image.open("Images/searchIcon.png").resize( (30,30), Image.ANTIALIAS ))
         self.searchButton = Button(self.searchBarFrame, text="search", command=self.pressSearchButton, bg=background, bd=0, activebackground='#787878', image=self.icon)
-        self.searchBarFrame.grid(column=0, sticky=W+E)
+
+        self.searchBarFrame.pack(side="top", fill=X)
         self.searchBar.pack(side=LEFT, padx=5,pady=5)
         self.searchButton.pack(side=RIGHT, padx=5, pady=5)
+        listFrame.pack(fill=BOTH, expand=True)
 
     def pressSearchButton(self):
         username = self.searchBar.get()
@@ -44,22 +51,25 @@ class ChatList(Frame):
             timeString = '-:--'
         else:
             timeString = str(lastMessageTime).split('.')[0].split(' ')[1][:-3]
-        newChatListElement = ChatListElement(self, self['bg'])
+        newChatListElement = ChatListElement(self.scrollableFrame, self['bg'])
         newChatListElement.setElements(self.chatWindow, chatName, lastMessage, timeString)
         self.chatListDict[chatName] = newChatListElement
+        self.scrollableFrame.update()
+        self.scrollableFrame.canvas.yview_moveto( 1 )
 
-    def notify(self, sender, message, time):
+    def notify(self, sender, message, time, isMine):
         if sender not in self.chatListDict:
             #chatList not found in the list
             print("Adding chat with " + sender)
             self.addChatListElement(sender, message, time)
+            self.client.startConnection(sender)
         if not self.chatWindow.chatName.get():
             # chatWindow has no active chat
             self.chatListDict[sender].changeChatRoom(event=None)
-            self.chatWindow.addBoxMessageElement(message, time, False)
+            self.chatWindow.addBoxMessageElement(message, time, isMine)
         elif self.chatWindow.chatName.get() == sender:
             #sender chat is active
-            self.chatWindow.addBoxMessageElement(message, time, False)
+            self.chatWindow.addBoxMessageElement(message, time, isMine)
         else:
             #there is an active chat but not the sender's one, so notify that
             self.chatListDict[sender].increaseNotifies(message, time)
@@ -75,7 +85,7 @@ class ChatListElement(Frame):
 
         Frame.__init__(self, master)
         self.configure(background=background, padx=10, pady=5)
-        self.grid(column=0, sticky=W+E)
+        self.pack(fill=X)
         self.photo = ImageTk.PhotoImage(Image.open("Images/profile.jpg").resize( (40,40), Image.ANTIALIAS ))
         self.chatName, self.lastMessage, self.lastMessageTime = StringVar(), StringVar(), StringVar()
         self.notifies = IntVar()
