@@ -8,7 +8,7 @@ import os
 class ChatList(Frame):
 
     def __init__(self, master, background):
-        Frame.__init__(self, master, background=background, highlightbackground="yellow", highlightcolor="yellow", highlightthickness=1)
+        Frame.__init__(self, master, background=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         self.chatListDict = {}
 
         self.grid(row=0, column=0, sticky=N+S+W+E)
@@ -83,8 +83,8 @@ class ChatListElement(Frame):
     def __init__(self, master, background):
 
         Frame.__init__(self, master)
-        self.configure(background=background, padx=10, pady=5, highlightbackground="blue", highlightcolor="blue", highlightthickness=1)
-        self.grid(column=0, sticky=W+E)
+        self.configure(background=background, padx=10, pady=5)
+        self.pack(fill=X)
         self.photo = ImageTk.PhotoImage(Image.open("Images/profile.jpg").resize( (40,40), Image.ANTIALIAS ))
         self.chatName, self.lastMessage, self.lastMessageTime = StringVar(), StringVar(), StringVar()
         self.notifies = IntVar()

@@ -24,7 +24,7 @@ class Scrollable(ttk.Frame):
         self.scrollbar = tk.Scrollbar(frame, width=width)
         self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y, expand=False)
 
-        self.canvas = tk.Canvas(frame, bd = 0, bg=background, yscrollcommand=self.scrollbar.set,  highlightbackground="red", highlightcolor="red", highlightthickness=1)
+        self.canvas = tk.Canvas(frame, bd = 0, bg=background, yscrollcommand=self.scrollbar.set,  highlightbackground="red", highlightcolor="red", highlightthickness=0)
         self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         self.scrollbar.config(command=self.canvas.yview, background=background)
@@ -37,6 +37,9 @@ class Scrollable(ttk.Frame):
 
         # assign this obj (the inner frame) to the windows item of the canvas
         self.windows_item = self.canvas.create_window(0,0, window=self, anchor=tk.NW)
+
+    def setCanvasWidth(self, width):
+        self.canvas.configure(width=width)
 
     def _on_mousewheel(self, event):
         # if not self.scrollbar.activate():

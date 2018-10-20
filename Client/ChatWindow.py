@@ -6,13 +6,13 @@ from ScrollableFrame import *
 
 class ChatWindow(Frame):
     def __init__(self, master, background):
-        Frame.__init__(self, master, background=background, highlightbackground="yellow", highlightcolor="yellow", highlightthickness=1)
+        Frame.__init__(self, master, background=background)
 
         self.chatName = StringVar()
         self.listBoxMessage = []
         self.rowconfigure(1, weight=8)
         Grid.columnconfigure(master, 1, weight=1)
-        Grid.columnconfigure(master, 2, weight=9)
+        Grid.columnconfigure(master, 2, weight=4)
         self.grid(row=0, column=1, sticky=N+S+W+E)
 
     def createWidgets(self, background, chatName, client, chatList ):
