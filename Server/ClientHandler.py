@@ -67,17 +67,17 @@ class ClientHandler(Thread):
             jsonResponse = json.dumps(response)
             self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
             self.log.log("The request is sended by an user already logged in")
-        elif self.DB.userIsPresent(message['username'],message['password']):
+        elif self.DB.userIsPresent(message['username'].lower(),message['password']):
             response['id'] = "?"
             response['status'] = "1"
             jsonResponse = json.dumps(response)
             #Informing the user about the success of the login
             self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
             #Preparing the internal structure used to handle te connection between different clinet
-            self.HandledUser.setUserName(message['username'])
+            self.HandledUser.setUserName(message['username'].lower())
             self.HandledUser.setClientPort(message['porta'])
             #Adding the client to the list of active users
-            self.OnlineClients[message['username']] = self.HandledUser
+            self.OnlineClients[message['username'].lower()] = self.HandledUser
             self.log.log("Active users: "+str(self.OnlineClients))
             #Obtaining all the messages waiting for that user
             msg = self.DB.getMessageByReceiver(self.HandledUser.getUserName())
@@ -111,7 +111,7 @@ class ClientHandler(Thread):
         and sending back the result"""
         self.log.log("A client want to register")
         response = {}
-        if (self.DB.insert_user(message['user'],message['password'],message['name'],message['surname'],message['email'],message['key']) == 0):
+        if (self.DB.insert_user(message['user'].lower(),message['password'],message['name'].lower(),message['surname'].lower(),message['email'].lower(),message['key']) == 0):
             self.log.log("Registration succeded")
             #Send to the client that the request has succeded
             response['id'] = "-"
@@ -129,6 +129,8 @@ class ClientHandler(Thread):
     def StoreMessage(self,message):
         """Store the message in the database waiting that the client come back online"""
         self.log.log("The user has a massage to be stored on the DB :")
+        #Qui non importa il .lower() in quanto tutti gli handledUser hanno già l'username in minuscolo
+        #vedere la login per conferma
         sender = self.HandledUser.getUserName()
         response = {}
         if self.DB.insert_message(sender,message['Receiver'],message['Text'],message['Time']) == 0:
@@ -151,7 +153,7 @@ class ClientHandler(Thread):
             response['id'] = "!"
             response['status'] = "-1"
         else:
-            if message['username'] in self.OnlineClients.keys():
+            if message['username'].lower() in self.OnlineClients.keys():
                 #Check if the client asks for its own import ip
                 if self.OnlineClients[message['username']] == self.HandledUser:
                     self.log.log("The user want to talk with himself")
@@ -159,18 +161,18 @@ class ClientHandler(Thread):
                     response['status'] = "-2"
                  #Otherwise the server provide the ip of the client and the clientPort
                 else:
-                    FoundUser = self.OnlineClients[message['username']]
+                    FoundUser = self.OnlineClients[message['username'].lower()]
                     response['id'] = "!"
                     response['status'] = FoundUser.getIp()+":"+str(FoundUser.getClientPort())
                     self.log.log("Ip found:"+response['status'])
             else:
                 #Check if the receiver is not registered
-                if self.DB.userIsRegistered(message['username']) == 0:
+                if self.DB.userIsRegistered(message['username'].lower()) == 0:
                     response['id'] = "!"
                     response['status'] = "-3"
                     self.log.log("User requested not found")
                 else:
-                    self.log.log("Store the message to "+message['username'])
+                    self.log.log("Store the message to "+message['username'].lower())
                     response['id'] = "!"
                     response['status'] = "0"
         jsonResponse = json.dumps(response)
