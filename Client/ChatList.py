@@ -10,8 +10,7 @@ class ChatList(Frame):
     def __init__(self, master, background):
         Frame.__init__(self, master, background=background, highlightbackground="yellow", highlightcolor="yellow", highlightthickness=1)
         self.chatListDict = {}
-        Grid.columnconfigure(master, 1, weight=1)
-        Grid.columnconfigure(master, 2, weight=9)
+
         self.grid(row=0, column=0, sticky=N+S+W+E)
         self.searchBarFrame = Frame(self, bg=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         listFrame = Frame(self)
@@ -52,7 +51,7 @@ class ChatList(Frame):
             timeString = '-:--'
         else:
             timeString = str(lastMessageTime).split('.')[0].split(' ')[1][:-3]
-        newChatListElement = ChatListElement(self, self['bg'])
+        newChatListElement = ChatListElement(self.scrollableFrame, self['bg'])
         newChatListElement.setElements(self.chatWindow, chatName, lastMessage, timeString)
         self.chatListDict[chatName] = newChatListElement
         self.scrollableFrame.update()
@@ -84,7 +83,7 @@ class ChatListElement(Frame):
     def __init__(self, master, background):
 
         Frame.__init__(self, master)
-        self.configure(background=background, padx=10, pady=5)
+        self.configure(background=background, padx=10, pady=5, highlightbackground="blue", highlightcolor="blue", highlightthickness=1)
         self.grid(column=0, sticky=W+E)
         self.photo = ImageTk.PhotoImage(Image.open("Images/profile.jpg").resize( (40,40), Image.ANTIALIAS ))
         self.chatName, self.lastMessage, self.lastMessageTime = StringVar(), StringVar(), StringVar()

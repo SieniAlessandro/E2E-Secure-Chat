@@ -1,13 +1,30 @@
-2018-10-19 10:09:43	Server Initialized
-2018-10-19 10:09:43	Waiting for connections...
-2018-10-19 10:11:20	Client handled has address: 127.0.0.1 and port 53238
-2018-10-19 10:11:20	Waiting for connections...
-2018-10-19 10:11:22	A client want to login
-2018-10-19 10:11:22	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 53238 ClientPort: 47350}
-2018-10-19 10:11:22	There are no message for this client
-2018-10-19 10:11:29	Client had a problem, connection closed
-2018-10-19 10:11:56	Client handled has address: 127.0.0.1 and port 53240
-2018-10-19 10:11:56	Waiting for connections...
-2018-10-19 10:11:58	A client want to login
-2018-10-19 10:11:58	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 53240 ClientPort: 53052}
-2018-10-19 10:11:58	There are no message for this client
+2018-10-20 11:24:35	Server Initialized
+2018-10-20 11:24:35	Waiting for connections...
+2018-10-20 11:24:47	Client handled has address: 127.0.0.1 and port 62339
+2018-10-20 11:24:47	Waiting for connections...
+2018-10-20 11:24:48	A client want to login
+2018-10-20 11:24:48	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 62339 ClientPort: 53829}
+2018-10-20 11:24:48	There are no message for this client
+2018-10-20 11:25:12	A client want to find another user
+2018-10-20 11:25:12	Store the message to prova
+2018-10-20 11:25:13	A client want to find another user
+2018-10-20 11:25:13	Store the message to prova
+2018-10-20 11:25:14	A client want to find another user
+2018-10-20 11:25:14	Store the message to prova
+2018-10-20 11:25:14	A client want to find another user
+2018-10-20 11:25:14	Store the message to prova
+2018-10-20 11:25:14	A client want to find another user
+2018-10-20 11:25:14	Store the message to prova
+2018-10-20 11:25:14	A client want to find another user
+2018-10-20 11:25:14	Store the message to prova
+2018-10-20 11:25:14	A client want to find another user
+2018-10-20 11:25:14	Store the message to prova
+2018-10-20 11:25:16	Client disconnected, closing this thread
+2018-10-20 11:27:25	Client handled has address: 127.0.0.1 and port 62393
+2018-10-20 11:27:25	Waiting for connections...
+2018-10-20 11:27:27	A client want to login
+2018-10-20 11:27:27	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 62393 ClientPort: 43271}
+2018-10-20 11:27:27	There are no message for this client
+2018-10-20 11:27:33	A client want to find another user
+2018-10-20 11:27:33	Store the message to prova
+2018-10-20 11:27:48	Client disconnected, closing this thread

@@ -27,6 +27,7 @@ class ChatGUI(Tk):
         # self.iconbitmap(os.getcwd() + '/Images/windowIcon.ico')
         self.resizable(width=FALSE, height=FALSE)
         self.rowconfigure(0,weight=100)
+        self.grid_propagate(True)
         self.chatWindow = ChatWindow(self, self.backgroundWindow)
         self.chatList = ChatList(self, self.backgroundItems)
 
@@ -58,6 +59,6 @@ if __name__ == '__main__':
     client = Client("", 6555)
     chat.createWidgets(client)
 
-    # chat.chatList.addChatListElement("Rododendro", "Oggi piove", "18:12")
+    chat.chatList.addChatListElement("Rododendro", "Oggi piove", None)
     # chat.chatWindow.receiveMessage("Rododendro", "Associated", "0:00")
     chat.mainloop()
