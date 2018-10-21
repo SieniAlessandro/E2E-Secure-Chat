@@ -28,8 +28,7 @@ class Scrollable(ttk.Frame):
         self.scrollbar.config(command=self.canvas.yview, background=background)
 
         self.canvas.bind('<Configure>', self.__fill_canvas)
-        self.canvas.bind_all("<MouseWheel>", self._on_mousewheel)
-
+        self.canvas.bind("<MouseWheel>", self._on_mousewheel)
         # base class initialization
         tk.Frame.__init__(self, frame, bg=background)
 
@@ -40,9 +39,13 @@ class Scrollable(ttk.Frame):
         self.canvas.configure(width=width)
 
     def _on_mousewheel(self, event):
-        # if not self.scrollbar.activate():
-        #     return
-        self.canvas.yview_scroll(int(-1*(event.delta/120)), "units")
+        (lo, hi) = self.scrollbar.get()
+        if float(lo) <= 0.0 and float(hi) >= 1.0:
+            return
+        if event.delta < 0:
+            self.canvas.yview_scroll(1, "unit")
+        elif event.delta > 0:
+            self.canvas.yview_scroll(-1, "unit")
 
     def __fill_canvas(self, event):
         "Enlarge the windows item to the canvas width"

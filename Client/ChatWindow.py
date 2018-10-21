@@ -13,7 +13,6 @@ class ChatWindow(Frame):
         self.rowconfigure(1, weight=8)
         Grid.columnconfigure(master, 1, weight=1)
         Grid.columnconfigure(master, 2, weight=4)
-        self.grid(row=0, column=1, sticky=N+S+W+E)
 
     def createWidgets(self, background, chatName, client, chatList ):
         self.chatName.set(chatName)
@@ -46,9 +45,10 @@ class ChatWindow(Frame):
     def addBoxMessageElement(self, message, time, isMine):
         timeString = str(time).split('.')[0].split(' ')[1][:-3]
         boxMessage = BoxMessage(self.scrollableFrame, self['bg'])
+        boxMessage.bind('<MouseWheel>', self.scrollableFrame._on_mousewheel)
         boxMessage.createWidgets( message, timeString , isMine)
         self.listBoxMessage.append(boxMessage)
-        self.chatList.updateMessageTime(self.chatName.get(), message, datetime.datetime.now())
+        self.chatList.updateMessageTime(self.chatName.get(), message, time)
         self.scrollableFrame.update()
         self.scrollableFrame.canvas.yview_moveto( 1 )
 
@@ -71,6 +71,9 @@ class ChatWindow(Frame):
     def setClient(self, client):
         self.client = client
 
+    def getChatName(self):
+        return self.chatName.get()
+
     def pressSendButton(self):
         message = str(self.entryBar.get())
         if not message:
@@ -86,7 +89,7 @@ class ChatWindow(Frame):
         if str(self.chatName.get()) == sender:
             self.addBoxMessageElement(message, time, False)
         else:
-            self.chatList.notify(sender, message, time, False)
+            self.chatList.notify(sender, message, time, False, True)
 
 class BoxMessage(Frame):
     def __init__(self, master, background):

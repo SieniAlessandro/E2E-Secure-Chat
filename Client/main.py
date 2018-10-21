@@ -23,7 +23,7 @@ chat.withdraw()
 login = LoginGUI()
 signUp = SignUpGUI()
 signUp.withdraw()
-client = Client(host, port, chat.chatWindow)
+client = Client(host, port, chat.activeChat)
 chat.createWidgets(client)
 client.connectServer()
 

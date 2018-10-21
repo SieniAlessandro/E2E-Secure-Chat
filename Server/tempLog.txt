@@ -1,302 +1,1173 @@
-2018-10-20 15:52:54	Server Initialized
-2018-10-20 15:52:54	Waiting for connections...
-2018-10-20 15:57:55	Client handled has address: 127.0.0.1 and port 50767
-2018-10-20 15:57:55	Waiting for connections...
-2018-10-20 15:58:02	A client want to login
-2018-10-20 15:58:02	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 50767 ClientPort: 37553}
-2018-10-20 15:58:02	There are no message for this client
-2018-10-20 15:58:02	A client want to find another user
-2018-10-20 15:58:02	The user want to talk with himself
-2018-10-20 15:58:19	Client disconnected, closing this thread
-2018-10-20 15:58:44	Client handled has address: 127.0.0.1 and port 50888
-2018-10-20 15:58:44	Waiting for connections...
-2018-10-20 15:59:06	Client had a problem, connection closed
-2018-10-20 15:59:10	Client handled has address: 127.0.0.1 and port 50913
-2018-10-20 15:59:10	Waiting for connections...
-2018-10-20 15:59:11	A client want to login
-2018-10-20 15:59:11	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 50913 ClientPort: 8385}
-2018-10-20 15:59:11	There are no message for this client
-2018-10-20 15:59:11	A client want to find another user
-2018-10-20 15:59:11	User requested not found
-2018-10-20 15:59:17	Client disconnected, closing this thread
-2018-10-20 15:59:44	Client handled has address: 127.0.0.1 and port 51184
-2018-10-20 15:59:44	Waiting for connections...
-2018-10-20 16:00:25	Client had a problem, connection closed
-2018-10-20 16:03:55	Client handled has address: 127.0.0.1 and port 51965
-2018-10-20 16:03:55	Waiting for connections...
-2018-10-20 16:03:57	A client want to login
-2018-10-20 16:03:57	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51965 ClientPort: 14603}
-2018-10-20 16:03:57	There are no message for this client
-2018-10-20 16:04:05	A client want to find another user
-2018-10-20 16:04:05	Store the message to prova
-2018-10-20 16:04:09	A client want to find another user
-2018-10-20 16:04:09	Store the message to prova
-2018-10-20 16:04:09	The user has a massage to be stored on the DB :
-2018-10-20 16:04:09	A client want to find another user
-2018-10-20 16:04:09	Store the message to prova
-2018-10-20 16:04:09	The user has a massage to be stored on the DB :
-2018-10-20 16:04:10	A client want to find another user
-2018-10-20 16:04:10	Store the message to prova
-2018-10-20 16:04:10	The user has a massage to be stored on the DB :
-2018-10-20 16:04:10	A client want to find another user
-2018-10-20 16:04:10	Store the message to prova
-2018-10-20 16:04:10	The user has a massage to be stored on the DB :
-2018-10-20 16:04:11	A client want to find another user
-2018-10-20 16:04:11	Store the message to prova
-2018-10-20 16:04:11	The user has a massage to be stored on the DB :
-2018-10-20 16:04:11	A client want to find another user
-2018-10-20 16:04:11	Store the message to prova
-2018-10-20 16:04:11	The user has a massage to be stored on the DB :
-2018-10-20 16:04:13	Client disconnected, closing this thread
-2018-10-20 16:07:04	Client handled has address: 127.0.0.1 and port 52595
-2018-10-20 16:07:04	Waiting for connections...
-2018-10-20 16:08:03	Client handled has address: 127.0.0.1 and port 52812
-2018-10-20 16:08:03	Waiting for connections...
-2018-10-20 16:22:12	Client handled has address: 127.0.0.1 and port 55641
-2018-10-20 16:22:12	Waiting for connections...
-2018-10-20 16:22:19	Client had a problem, connection closed
-2018-10-20 16:36:24	Client handled has address: 127.0.0.1 and port 58382
-2018-10-20 16:36:24	Waiting for connections...
-2018-10-20 16:48:24	Client handled has address: 127.0.0.1 and port 60834
-2018-10-20 16:48:24	Waiting for connections...
-2018-10-20 16:48:29	A client want to login
-2018-10-20 16:48:29	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 60834 ClientPort: 37037}
-2018-10-20 16:48:29	There are no message for this client
-2018-10-20 16:48:29	A client want to find another user
-2018-10-20 16:48:29	Store the message to prova
-2018-10-20 16:48:46	Client disconnected, closing this thread
-2018-10-20 16:50:05	Client handled has address: 127.0.0.1 and port 61225
-2018-10-20 16:50:05	Waiting for connections...
-2018-10-20 16:50:18	Client handled has address: 127.0.0.1 and port 61244
-2018-10-20 16:50:18	Waiting for connections...
-2018-10-20 16:51:04	A client want to register
-2018-10-20 16:51:04	Registration succeded
-2018-10-20 16:51:09	A client want to login
-2018-10-20 16:51:09	Active users: {'Test1': Username: Test1 IP: 127.0.0.1 ServerPort: 61225 ClientPort: 41949}
-2018-10-20 16:51:09	There are no message for this client
-2018-10-20 16:51:27	A client want to login
-2018-10-20 16:51:27	Login Failed
-2018-10-20 16:53:05	A client want to register
-2018-10-20 16:53:05	Registration succeded
-2018-10-20 16:53:08	A client want to login
-2018-10-20 16:53:08	Active users: {'Test1': Username: Test1 IP: 127.0.0.1 ServerPort: 61225 ClientPort: 41949, 'Test2': Username: Test2 IP: 127.0.0.1 ServerPort: 61244 ClientPort: 42716}
-2018-10-20 16:53:08	There are no message for this client
-2018-10-20 16:53:22	A client want to find another user
-2018-10-20 16:53:22	Ip found:127.0.0.1:41949
-2018-10-20 16:53:46	A client want to find another user
-2018-10-20 16:53:46	Store the message to test1
-2018-10-20 16:53:48	A client want to find another user
-2018-10-20 16:53:48	Store the message to test1
-2018-10-20 16:53:48	The user has a massage to be stored on the DB :
-2018-10-20 16:53:49	A client want to find another user
-2018-10-20 16:53:49	Store the message to test1
-2018-10-20 16:53:49	The user has a massage to be stored on the DB :
-2018-10-20 16:53:50	A client want to find another user
-2018-10-20 16:53:50	Store the message to test1
-2018-10-20 16:53:50	The user has a massage to be stored on the DB :
-2018-10-20 16:53:51	A client want to find another user
-2018-10-20 16:53:51	Store the message to test1
-2018-10-20 16:53:51	The user has a massage to be stored on the DB :
-2018-10-20 16:55:00	Client had a problem, connection closed
-2018-10-20 16:55:02	Client had a problem, connection closed
-2018-10-20 16:57:48	Client handled has address: 127.0.0.1 and port 62738
-2018-10-20 16:57:48	Waiting for connections...
-2018-10-20 16:57:51	Client had a problem, connection closed
-2018-10-20 16:57:58	Client handled has address: 127.0.0.1 and port 62763
-2018-10-20 16:57:58	Waiting for connections...
-2018-10-20 16:58:35	Client handled has address: 127.0.0.1 and port 62812
-2018-10-20 16:58:35	Waiting for connections...
-2018-10-20 16:58:43	A client want to login
-2018-10-20 16:58:43	Active users: {'Test1': Username: Test1 IP: 127.0.0.1 ServerPort: 62812 ClientPort: 31513}
-2018-10-20 16:58:43	There are several messages to be sended: {0: {'Sender': 'Test2', 'Text': '1', 'Time': '2018-10-20 16:53:49'}, 1: {'Sender': 'Test2', 'Text': '2', 'Time': '2018-10-20 16:53:49'}, 2: {'Sender': 'Test2', 'Text': '3', 'Time': '2018-10-20 16:53:51'}, 3: {'Sender': 'Test2', 'Text': '4', 'Time': '2018-10-20 16:53:51'}}
-2018-10-20 16:58:43	A client want to find another user
-2018-10-20 16:58:43	Store the message to Test2
-2018-10-20 16:59:04	A client want to login
-2018-10-20 16:59:04	Login Failed
-2018-10-20 16:59:09	A client want to login
-2018-10-20 16:59:09	Login Failed
-2018-10-20 16:59:13	A client want to login
-2018-10-20 16:59:13	Active users: {'Test1': Username: Test1 IP: 127.0.0.1 ServerPort: 62812 ClientPort: 31513, 'Test2': Username: Test2 IP: 127.0.0.1 ServerPort: 62763 ClientPort: 20484}
-2018-10-20 16:59:13	There are no message for this client
-2018-10-20 17:00:00	A client want to find another user
-2018-10-20 17:00:00	Store the message to test1
-2018-10-20 17:00:03	A client want to find another user
-2018-10-20 17:00:03	Store the message to test1
-2018-10-20 17:00:03	The user has a massage to be stored on the DB :
-2018-10-20 17:00:04	A client want to find another user
-2018-10-20 17:00:04	Store the message to test1
-2018-10-20 17:00:04	The user has a massage to be stored on the DB :
-2018-10-20 17:00:05	A client want to find another user
-2018-10-20 17:00:05	Store the message to test1
-2018-10-20 17:00:05	The user has a massage to be stored on the DB :
-2018-10-20 17:00:06	A client want to find another user
-2018-10-20 17:00:06	Store the message to test1
-2018-10-20 17:00:06	The user has a massage to be stored on the DB :
-2018-10-20 17:00:27	A client want to find another user
-2018-10-20 17:00:27	Ip found:127.0.0.1:31513
-2018-10-20 17:04:56	Client disconnected, closing this thread
-2018-10-20 17:07:16	Client disconnected, closing this thread
-2018-10-20 17:21:09	Client handled has address: 127.0.0.1 and port 50974
-2018-10-20 17:21:09	Waiting for connections...
-2018-10-20 17:21:18	A client want to login
-2018-10-20 17:21:18	Login Failed
-2018-10-20 17:21:20	A client want to login
-2018-10-20 17:21:20	Active users: {'Test1': Username: Test1 IP: 127.0.0.1 ServerPort: 50974 ClientPort: 22800}
-2018-10-20 17:21:20	There are several messages to be sended: {0: {'Sender': 'Test2', 'Text': '1', 'Time': '2018-10-20 17:00:04'}, 1: {'Sender': 'Test2', 'Text': '2', 'Time': '2018-10-20 17:00:05'}, 2: {'Sender': 'Test2', 'Text': '3', 'Time': '2018-10-20 17:00:05'}, 3: {'Sender': 'Test2', 'Text': '4', 'Time': '2018-10-20 17:00:06'}}
-2018-10-20 17:21:20	A client want to find another user
-2018-10-20 17:21:20	Store the message to Test2
-2018-10-20 17:21:30	A client want to find another user
-2018-10-20 17:21:30	Store the message to test2
-2018-10-20 17:21:34	A client want to find another user
-2018-10-20 17:21:34	Store the message to Test2
-2018-10-20 17:21:55	A client want to find another user
-2018-10-20 17:21:55	Store the message to Test2
-2018-10-20 17:21:55	A client want to find another user
-2018-10-20 17:21:55	Store the message to Test2
-2018-10-20 17:21:56	A client want to find another user
-2018-10-20 17:21:56	Store the message to Test2
-2018-10-20 17:21:56	A client want to find another user
-2018-10-20 17:21:56	Store the message to Test2
-2018-10-20 17:21:56	A client want to find another user
-2018-10-20 17:21:56	Store the message to Test2
-2018-10-20 17:21:56	A client want to find another user
-2018-10-20 17:21:56	Store the message to Test2
-2018-10-20 17:21:56	A client want to find another user
-2018-10-20 17:21:56	Store the message to Test2
-2018-10-20 17:21:56	A client want to find another user
-2018-10-20 17:21:56	Store the message to Test2
-2018-10-20 17:22:16	Client disconnected, closing this thread
-2018-10-20 17:24:26	Client handled has address: 127.0.0.1 and port 51663
-2018-10-20 17:24:26	Waiting for connections...
-2018-10-20 17:24:31	A client want to login
-2018-10-20 17:24:31	Active users: {'Test1': Username: Test1 IP: 127.0.0.1 ServerPort: 51663 ClientPort: 50650}
-2018-10-20 17:24:31	There are no message for this client
-2018-10-20 17:24:52	Client disconnected, closing this thread
-2018-10-20 17:25:53	Client handled has address: 127.0.0.1 and port 52003
-2018-10-20 17:25:53	Waiting for connections...
-2018-10-20 17:25:59	A client want to login
-2018-10-20 17:25:59	Active users: {'Test1': Username: Test1 IP: 127.0.0.1 ServerPort: 52003 ClientPort: 24981}
-2018-10-20 17:25:59	There are no message for this client
-2018-10-20 17:26:02	A client want to find another user
-2018-10-20 17:26:02	Store the message to test1
-2018-10-20 17:26:18	A client want to find another user
-2018-10-20 17:26:19	Store the message to Test2
-2018-10-20 17:26:22	A client want to find another user
-2018-10-20 17:26:22	Store the message to test2
-2018-10-20 17:29:22	Client handled has address: 127.0.0.1 and port 52598
-2018-10-20 17:29:22	Waiting for connections...
-2018-10-20 17:29:29	A client want to login
-2018-10-20 17:29:29	Active users: {'Test1': Username: Test1 IP: 127.0.0.1 ServerPort: 52598 ClientPort: 46176}
-2018-10-20 17:29:29	There are no message for this client
-2018-10-20 17:29:29	A client want to find another user
-2018-10-20 17:29:29	User requested not found
-2018-10-20 17:29:34	A client want to find another user
-2018-10-20 17:29:34	The user want to talk with himself
-2018-10-20 17:29:35	A client want to find another user
-2018-10-20 17:29:35	The user want to talk with himself
-2018-10-20 17:29:35	A client want to find another user
-2018-10-20 17:29:35	The user want to talk with himself
-2018-10-20 17:29:35	A client want to find another user
-2018-10-20 17:29:35	The user want to talk with himself
-2018-10-20 17:29:35	A client want to find another user
-2018-10-20 17:29:35	The user want to talk with himself
-2018-10-20 17:29:53	A client want to find another user
-2018-10-20 17:29:53	Store the message to Test2
-2018-10-20 17:30:04	A client want to find another user
-2018-10-20 17:30:04	Store the message to a
-2018-10-20 17:30:14	Client disconnected, closing this thread
-2018-10-20 17:31:31	Client handled has address: 127.0.0.1 and port 53087
-2018-10-20 17:31:31	Waiting for connections...
-2018-10-20 17:31:37	A client want to login
-2018-10-20 17:31:37	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 53087 ClientPort: 21047}
-2018-10-20 17:31:37	There are no message for this client
-2018-10-20 17:31:37	A client want to find another user
-2018-10-20 17:31:37	User requested not found
-2018-10-20 17:31:42	A client want to find another user
-2018-10-20 17:31:42	Store the message to Test2
-2018-10-20 17:31:46	A client want to find another user
-2018-10-20 17:31:46	User requested not found
-2018-10-20 17:31:51	A client want to find another user
-2018-10-20 17:31:51	Store the message to a
-2018-10-20 17:32:20	A client want to find another user
-2018-10-20 17:32:20	Store the message to Test1
-2018-10-20 17:34:06	Client handled has address: 127.0.0.1 and port 53546
-2018-10-20 17:34:06	Waiting for connections...
-2018-10-20 17:34:11	A client want to login
-2018-10-20 17:34:11	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 53087 ClientPort: 21047, 'Test1': Username: Test1 IP: 127.0.0.1 ServerPort: 53546 ClientPort: 24065}
-2018-10-20 17:34:11	There are no message for this client
-2018-10-20 17:34:11	A client want to find another user
-2018-10-20 17:34:11	User requested not found
-2018-10-20 17:34:27	Client disconnected, closing this thread
-2018-10-20 17:34:27	Client disconnected, closing this thread
-2018-10-20 17:34:28	Client disconnected, closing this thread
-2018-10-20 17:34:31	Client handled has address: 127.0.0.1 and port 53619
-2018-10-20 17:34:31	Waiting for connections...
-2018-10-20 17:34:35	A client want to login
-2018-10-20 17:34:35	Active users: {'Test1': Username: Test1 IP: 127.0.0.1 ServerPort: 53619 ClientPort: 12248}
-2018-10-20 17:34:35	There are no message for this client
-2018-10-20 17:34:36	A client want to find another user
-2018-10-20 17:34:36	User requested not found
-2018-10-20 17:34:40	A client want to find another user
-2018-10-20 17:34:40	Store the message to q
-2018-10-20 17:34:44	A client want to find another user
-2018-10-20 17:34:44	Store the message to A
-2018-10-20 17:34:58	A client want to find another user
-2018-10-20 17:34:58	User requested not found
-2018-10-20 17:35:02	A client want to find another user
-2018-10-20 17:35:02	The user want to talk with himself
-2018-10-20 17:35:02	A client want to find another user
-2018-10-20 17:35:02	The user want to talk with himself
-2018-10-20 17:35:02	A client want to find another user
-2018-10-20 17:35:02	The user want to talk with himself
-2018-10-20 17:35:02	A client want to find another user
-2018-10-20 17:35:02	The user want to talk with himself
-2018-10-20 17:35:02	A client want to find another user
-2018-10-20 17:35:02	The user want to talk with himself
-2018-10-20 17:35:03	A client want to find another user
-2018-10-20 17:35:03	The user want to talk with himself
-2018-10-20 17:35:03	A client want to find another user
-2018-10-20 17:35:03	The user want to talk with himself
-2018-10-20 17:35:03	A client want to find another user
-2018-10-20 17:35:03	The user want to talk with himself
-2018-10-20 17:35:03	A client want to find another user
-2018-10-20 17:35:03	The user want to talk with himself
-2018-10-20 17:35:03	A client want to find another user
-2018-10-20 17:35:03	The user want to talk with himself
-2018-10-20 17:35:03	A client want to find another user
-2018-10-20 17:35:03	The user want to talk with himself
-2018-10-20 17:35:07	A client want to find another user
-2018-10-20 17:35:07	Store the message to Test2
-2018-10-20 17:35:20	A client want to find another user
-2018-10-20 17:35:20	Store the message to q
-2018-10-20 17:35:20	The user has a massage to be stored on the DB :
-2018-10-20 17:35:21	A client want to find another user
-2018-10-20 17:35:21	Store the message to q
-2018-10-20 17:35:21	The user has a massage to be stored on the DB :
-2018-10-20 17:35:22	A client want to find another user
-2018-10-20 17:35:22	Store the message to q
-2018-10-20 17:35:22	The user has a massage to be stored on the DB :
-2018-10-20 17:35:23	A client want to find another user
-2018-10-20 17:35:23	Store the message to q
-2018-10-20 17:35:23	The user has a massage to be stored on the DB :
-2018-10-20 17:35:27	A client want to find another user
-2018-10-20 17:35:27	Store the message to q
-2018-10-20 17:35:27	The user has a massage to be stored on the DB :
-2018-10-20 17:35:30	A client want to find another user
-2018-10-20 17:35:30	Store the message to q
-2018-10-20 17:35:30	The user has a massage to be stored on the DB :
-2018-10-20 17:37:17	A client want to find another user
-2018-10-20 17:37:17	Store the message to q
-2018-10-20 17:37:17	The user has a massage to be stored on the DB :
-2018-10-20 17:39:56	A client want to find another user
-2018-10-20 17:39:56	Store the message to A
-2018-10-20 17:44:15	Client handled has address: 127.0.0.1 and port 55647
-2018-10-20 17:44:15	Waiting for connections...
-2018-10-20 17:44:25	A client want to login
-2018-10-20 17:44:25	Active users: {'Test1': Username: Test1 IP: 127.0.0.1 ServerPort: 53619 ClientPort: 12248, 'a': Username: a IP: 127.0.0.1 ServerPort: 55647 ClientPort: 7528}
-2018-10-20 17:44:25	There are no message for this client
-2018-10-20 17:44:25	A client want to find another user
-2018-10-20 17:44:25	User requested not found
-2018-10-20 17:44:31	Client disconnected, closing this thread
-2018-10-20 17:45:19	Client handled has address: 127.0.0.1 and port 56243
-2018-10-20 17:45:19	Waiting for connections...
+2018-10-21 15:42:59	Server Initialized
+2018-10-21 15:42:59	Waiting for connections...
+2018-10-21 15:43:09	Client handled has address: 127.0.0.1 and port 49794
+2018-10-21 15:43:09	Waiting for connections...
+2018-10-21 15:43:11	A client want to login
+2018-10-21 15:43:11	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 49794 ClientPort: 8545}
+2018-10-21 15:43:11	There are no message for this client
+2018-10-21 15:43:11	A client want to find another user
+2018-10-21 15:43:11	Store the message to test1
+2018-10-21 15:43:11	A client want to find another user
+2018-10-21 15:43:11	Store the message to test2
+2018-10-21 15:43:32	Client disconnected, closing this thread
+2018-10-21 15:47:59	Client handled has address: 127.0.0.1 and port 50913
+2018-10-21 15:47:59	Waiting for connections...
+2018-10-21 15:48:00	A client want to login
+2018-10-21 15:48:00	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 50913 ClientPort: 45494}
+2018-10-21 15:48:00	There are no message for this client
+2018-10-21 15:48:00	A client want to find another user
+2018-10-21 15:48:00	Store the message to test1
+2018-10-21 15:48:00	A client want to find another user
+2018-10-21 15:48:00	Store the message to test2
+2018-10-21 15:48:11	A client want to find another user
+2018-10-21 15:48:11	Store the message to test1
+2018-10-21 15:48:11	The user has a massage to be stored on the DB :
+2018-10-21 15:48:11	A client want to find another user
+2018-10-21 15:48:11	Store the message to test1
+2018-10-21 15:48:11	The user has a massage to be stored on the DB :
+2018-10-21 15:48:12	A client want to find another user
+2018-10-21 15:48:12	Store the message to test1
+2018-10-21 15:48:12	The user has a massage to be stored on the DB :
+2018-10-21 15:48:12	A client want to find another user
+2018-10-21 15:48:12	Store the message to test1
+2018-10-21 15:48:12	The user has a massage to be stored on the DB :
+2018-10-21 15:48:12	A client want to find another user
+2018-10-21 15:48:12	Store the message to test1
+2018-10-21 15:48:12	The user has a massage to be stored on the DB :
+2018-10-21 15:48:12	A client want to find another user
+2018-10-21 15:48:12	Store the message to test1
+2018-10-21 15:48:12	The user has a massage to be stored on the DB :
+2018-10-21 15:48:12	A client want to find another user
+2018-10-21 15:48:12	Store the message to test1
+2018-10-21 15:48:12	The user has a massage to be stored on the DB :
+2018-10-21 15:48:13	A client want to find another user
+2018-10-21 15:48:13	Store the message to test1
+2018-10-21 15:48:13	The user has a massage to be stored on the DB :
+2018-10-21 15:48:13	A client want to find another user
+2018-10-21 15:48:13	Store the message to test1
+2018-10-21 15:48:13	The user has a massage to be stored on the DB :
+2018-10-21 15:48:13	A client want to find another user
+2018-10-21 15:48:13	Store the message to test1
+2018-10-21 15:48:13	The user has a massage to be stored on the DB :
+2018-10-21 15:48:43	A client want to find another user
+2018-10-21 15:48:43	Store the message to test1
+2018-10-21 15:48:43	The user has a massage to be stored on the DB :
+2018-10-21 15:48:43	A client want to find another user
+2018-10-21 15:48:43	Store the message to test1
+2018-10-21 15:48:43	The user has a massage to be stored on the DB :
+2018-10-21 15:48:43	A client want to find another user
+2018-10-21 15:48:43	Store the message to test1
+2018-10-21 15:48:43	The user has a massage to be stored on the DB :
+2018-10-21 15:48:43	A client want to find another user
+2018-10-21 15:48:43	Store the message to test1
+2018-10-21 15:48:43	The user has a massage to be stored on the DB :
+2018-10-21 15:48:44	A client want to find another user
+2018-10-21 15:48:44	Store the message to test1
+2018-10-21 15:48:44	The user has a massage to be stored on the DB :
+2018-10-21 15:48:44	A client want to find another user
+2018-10-21 15:48:44	Store the message to test1
+2018-10-21 15:48:44	The user has a massage to be stored on the DB :
+2018-10-21 15:48:44	A client want to find another user
+2018-10-21 15:48:44	Store the message to test1
+2018-10-21 15:48:44	The user has a massage to be stored on the DB :
+2018-10-21 15:48:44	A client want to find another user
+2018-10-21 15:48:44	Store the message to test1
+2018-10-21 15:48:44	The user has a massage to be stored on the DB :
+2018-10-21 15:48:45	A client want to find another user
+2018-10-21 15:48:45	Store the message to test1
+2018-10-21 15:48:45	The user has a massage to be stored on the DB :
+2018-10-21 15:48:45	A client want to find another user
+2018-10-21 15:48:45	Store the message to test1
+2018-10-21 15:48:45	The user has a massage to be stored on the DB :
+2018-10-21 15:48:45	A client want to find another user
+2018-10-21 15:48:45	Store the message to test1
+2018-10-21 15:48:45	The user has a massage to be stored on the DB :
+2018-10-21 15:48:45	A client want to find another user
+2018-10-21 15:48:45	Store the message to test1
+2018-10-21 15:48:45	The user has a massage to be stored on the DB :
+2018-10-21 15:48:46	A client want to find another user
+2018-10-21 15:48:46	Store the message to test1
+2018-10-21 15:48:46	The user has a massage to be stored on the DB :
+2018-10-21 15:50:00	Client disconnected, closing this thread
+2018-10-21 15:50:02	Client handled has address: 127.0.0.1 and port 51305
+2018-10-21 15:50:02	Waiting for connections...
+2018-10-21 15:50:04	A client want to login
+2018-10-21 15:50:04	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51305 ClientPort: 32854}
+2018-10-21 15:50:04	There are no message for this client
+2018-10-21 15:50:05	A client want to find another user
+2018-10-21 15:50:05	Store the message to test1
+2018-10-21 15:50:05	A client want to find another user
+2018-10-21 15:50:05	Store the message to test2
+2018-10-21 15:50:51	Client disconnected, closing this thread
+2018-10-21 15:50:53	Client handled has address: 127.0.0.1 and port 51876
+2018-10-21 15:50:53	Waiting for connections...
+2018-10-21 15:50:55	A client want to login
+2018-10-21 15:50:55	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51876 ClientPort: 44781}
+2018-10-21 15:50:55	There are no message for this client
+2018-10-21 15:50:55	A client want to find another user
+2018-10-21 15:50:55	Store the message to test1
+2018-10-21 15:50:55	A client want to find another user
+2018-10-21 15:50:55	Store the message to test2
+2018-10-21 15:52:01	Client disconnected, closing this thread
+2018-10-21 15:52:03	Client handled has address: 127.0.0.1 and port 52270
+2018-10-21 15:52:03	Waiting for connections...
+2018-10-21 15:52:05	A client want to login
+2018-10-21 15:52:05	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 52270 ClientPort: 11928}
+2018-10-21 15:52:05	There are no message for this client
+2018-10-21 15:52:05	A client want to find another user
+2018-10-21 15:52:05	Store the message to test1
+2018-10-21 15:52:06	A client want to find another user
+2018-10-21 15:52:06	Store the message to test2
+2018-10-21 15:53:04	Client disconnected, closing this thread
+2018-10-21 15:53:30	Client handled has address: 127.0.0.1 and port 52534
+2018-10-21 15:53:30	Waiting for connections...
+2018-10-21 15:53:32	A client want to login
+2018-10-21 15:53:32	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 52534 ClientPort: 7525}
+2018-10-21 15:53:32	There are no message for this client
+2018-10-21 15:53:32	A client want to find another user
+2018-10-21 15:53:32	Store the message to test1
+2018-10-21 15:53:33	A client want to find another user
+2018-10-21 15:53:33	Store the message to test2
+2018-10-21 15:53:59	Client disconnected, closing this thread
+2018-10-21 15:59:10	Client handled has address: 127.0.0.1 and port 53668
+2018-10-21 15:59:10	Waiting for connections...
+2018-10-21 15:59:12	A client want to login
+2018-10-21 15:59:12	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 53668 ClientPort: 35284}
+2018-10-21 15:59:12	There are no message for this client
+2018-10-21 15:59:12	A client want to find another user
+2018-10-21 15:59:12	Store the message to test1
+2018-10-21 15:59:12	A client want to find another user
+2018-10-21 15:59:12	Store the message to test2
+2018-10-21 15:59:22	Client disconnected, closing this thread
+2018-10-21 16:00:02	Client handled has address: 127.0.0.1 and port 53961
+2018-10-21 16:00:02	Waiting for connections...
+2018-10-21 16:00:03	A client want to login
+2018-10-21 16:00:03	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 53961 ClientPort: 9395}
+2018-10-21 16:00:03	There are no message for this client
+2018-10-21 16:00:04	A client want to find another user
+2018-10-21 16:00:04	Store the message to test1
+2018-10-21 16:00:04	A client want to find another user
+2018-10-21 16:00:04	Store the message to test2
+2018-10-21 16:00:13	Client disconnected, closing this thread
+2018-10-21 16:01:19	Client handled has address: 127.0.0.1 and port 54199
+2018-10-21 16:01:19	Waiting for connections...
+2018-10-21 16:01:20	A client want to login
+2018-10-21 16:01:20	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 54199 ClientPort: 55370}
+2018-10-21 16:01:20	There are no message for this client
+2018-10-21 16:01:20	A client want to find another user
+2018-10-21 16:01:20	Store the message to test1
+2018-10-21 16:01:21	A client want to find another user
+2018-10-21 16:01:21	Store the message to test2
+2018-10-21 16:01:30	Client disconnected, closing this thread
+2018-10-21 16:01:53	Client handled has address: 127.0.0.1 and port 54313
+2018-10-21 16:01:53	Waiting for connections...
+2018-10-21 16:01:55	A client want to login
+2018-10-21 16:01:55	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 54313 ClientPort: 50544}
+2018-10-21 16:01:55	There are no message for this client
+2018-10-21 16:01:55	A client want to find another user
+2018-10-21 16:01:55	Store the message to test1
+2018-10-21 16:01:56	A client want to find another user
+2018-10-21 16:01:56	Store the message to test2
+2018-10-21 16:02:12	A client want to find another user
+2018-10-21 16:02:12	Store the message to test1
+2018-10-21 16:02:12	The user has a massage to be stored on the DB :
+2018-10-21 16:02:12	A client want to find another user
+2018-10-21 16:02:12	Store the message to test1
+2018-10-21 16:02:12	The user has a massage to be stored on the DB :
+2018-10-21 16:02:13	A client want to find another user
+2018-10-21 16:02:13	Store the message to test1
+2018-10-21 16:02:13	The user has a massage to be stored on the DB :
+2018-10-21 16:02:13	A client want to find another user
+2018-10-21 16:02:13	Store the message to test1
+2018-10-21 16:02:13	The user has a massage to be stored on the DB :
+2018-10-21 16:02:13	A client want to find another user
+2018-10-21 16:02:13	Store the message to test1
+2018-10-21 16:02:13	The user has a massage to be stored on the DB :
+2018-10-21 16:02:19	Client disconnected, closing this thread
+2018-10-21 16:04:50	Client handled has address: 127.0.0.1 and port 54837
+2018-10-21 16:04:50	Waiting for connections...
+2018-10-21 16:04:52	A client want to login
+2018-10-21 16:04:52	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 54837 ClientPort: 6867}
+2018-10-21 16:04:52	There are no message for this client
+2018-10-21 16:04:52	A client want to find another user
+2018-10-21 16:04:52	Store the message to test1
+2018-10-21 16:04:53	A client want to find another user
+2018-10-21 16:04:53	Store the message to test2
+2018-10-21 16:04:58	Client disconnected, closing this thread
+2018-10-21 16:05:50	Client handled has address: 127.0.0.1 and port 55099
+2018-10-21 16:05:50	Waiting for connections...
+2018-10-21 16:05:51	A client want to login
+2018-10-21 16:05:51	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 55099 ClientPort: 45476}
+2018-10-21 16:05:51	There are no message for this client
+2018-10-21 16:05:52	A client want to find another user
+2018-10-21 16:05:52	Store the message to test1
+2018-10-21 16:05:52	A client want to find another user
+2018-10-21 16:05:52	Store the message to test2
+2018-10-21 16:06:03	Client disconnected, closing this thread
+2018-10-21 16:06:45	Client handled has address: 127.0.0.1 and port 55216
+2018-10-21 16:06:45	Waiting for connections...
+2018-10-21 16:06:46	A client want to login
+2018-10-21 16:06:46	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 55216 ClientPort: 8963}
+2018-10-21 16:06:46	There are no message for this client
+2018-10-21 16:06:46	A client want to find another user
+2018-10-21 16:06:46	Store the message to test1
+2018-10-21 16:06:47	A client want to find another user
+2018-10-21 16:06:47	Store the message to test2
+2018-10-21 16:07:16	A client want to find another user
+2018-10-21 16:07:16	Store the message to test3
+2018-10-21 16:07:17	A client want to find another user
+2018-10-21 16:07:17	Store the message to q
+2018-10-21 16:07:18	A client want to find another user
+2018-10-21 16:07:18	Store the message to b
+2018-10-21 16:07:19	A client want to find another user
+2018-10-21 16:07:19	Store the message to c
+2018-10-21 16:07:22	A client want to find another user
+2018-10-21 16:07:22	User requested not found
+2018-10-21 16:07:24	A client want to find another user
+2018-10-21 16:07:24	Store the message to prova
+2018-10-21 16:07:26	A client want to find another user
+2018-10-21 16:07:26	Store the message to prova1
+2018-10-21 16:07:32	A client want to find another user
+2018-10-21 16:07:32	User requested not found
+2018-10-21 16:07:32	A client want to find another user
+2018-10-21 16:07:32	Store the message to asd
+2018-10-21 16:08:04	A client want to find another user
+2018-10-21 16:08:04	Store the message to w
+2018-10-21 16:08:18	A client want to find another user
+2018-10-21 16:08:18	Store the message to q
+2018-10-21 16:08:18	The user has a massage to be stored on the DB :
+2018-10-21 16:08:21	A client want to find another user
+2018-10-21 16:08:21	Store the message to b
+2018-10-21 16:08:21	The user has a massage to be stored on the DB :
+2018-10-21 16:08:26	A client want to find another user
+2018-10-21 16:08:26	Store the message to prova
+2018-10-21 16:08:26	The user has a massage to be stored on the DB :
+2018-10-21 16:08:30	A client want to find another user
+2018-10-21 16:08:30	Store the message to asd
+2018-10-21 16:08:30	The user has a massage to be stored on the DB :
+2018-10-21 16:08:36	A client want to find another user
+2018-10-21 16:08:36	Store the message to test3
+2018-10-21 16:08:36	The user has a massage to be stored on the DB :
+2018-10-21 16:08:36	A client want to find another user
+2018-10-21 16:08:36	Store the message to test3
+2018-10-21 16:08:36	The user has a massage to be stored on the DB :
+2018-10-21 16:08:37	A client want to find another user
+2018-10-21 16:08:37	Store the message to test3
+2018-10-21 16:08:37	The user has a massage to be stored on the DB :
+2018-10-21 16:08:37	A client want to find another user
+2018-10-21 16:08:37	Store the message to test3
+2018-10-21 16:08:37	The user has a massage to be stored on the DB :
+2018-10-21 16:08:37	A client want to find another user
+2018-10-21 16:08:37	Store the message to test3
+2018-10-21 16:08:37	The user has a massage to be stored on the DB :
+2018-10-21 16:08:37	A client want to find another user
+2018-10-21 16:08:37	Store the message to test3
+2018-10-21 16:08:37	The user has a massage to be stored on the DB :
+2018-10-21 16:08:37	A client want to find another user
+2018-10-21 16:08:37	Store the message to test3
+2018-10-21 16:08:37	The user has a massage to be stored on the DB :
+2018-10-21 16:08:38	A client want to find another user
+2018-10-21 16:08:38	Store the message to test3
+2018-10-21 16:08:38	The user has a massage to be stored on the DB :
+2018-10-21 16:08:38	A client want to find another user
+2018-10-21 16:08:38	Store the message to test3
+2018-10-21 16:08:38	The user has a massage to be stored on the DB :
+2018-10-21 16:08:38	A client want to find another user
+2018-10-21 16:08:38	Store the message to test3
+2018-10-21 16:08:38	The user has a massage to be stored on the DB :
+2018-10-21 16:08:39	A client want to find another user
+2018-10-21 16:08:39	Store the message to test3
+2018-10-21 16:08:39	The user has a massage to be stored on the DB :
+2018-10-21 16:08:39	A client want to find another user
+2018-10-21 16:08:39	Store the message to test3
+2018-10-21 16:08:39	The user has a massage to be stored on the DB :
+2018-10-21 16:08:40	A client want to find another user
+2018-10-21 16:08:40	Store the message to test3
+2018-10-21 16:08:40	The user has a massage to be stored on the DB :
+2018-10-21 16:08:41	A client want to find another user
+2018-10-21 16:08:41	Store the message to test3
+2018-10-21 16:08:41	The user has a massage to be stored on the DB :
+2018-10-21 16:08:42	A client want to find another user
+2018-10-21 16:08:42	Store the message to test3
+2018-10-21 16:08:42	The user has a massage to be stored on the DB :
+2018-10-21 16:08:43	A client want to find another user
+2018-10-21 16:08:43	Store the message to test3
+2018-10-21 16:08:43	The user has a massage to be stored on the DB :
+2018-10-21 16:08:46	A client want to find another user
+2018-10-21 16:08:46	Store the message to c
+2018-10-21 16:08:46	The user has a massage to be stored on the DB :
+2018-10-21 16:08:47	A client want to find another user
+2018-10-21 16:08:47	Store the message to c
+2018-10-21 16:08:47	The user has a massage to be stored on the DB :
+2018-10-21 16:08:47	A client want to find another user
+2018-10-21 16:08:47	Store the message to c
+2018-10-21 16:08:47	The user has a massage to be stored on the DB :
+2018-10-21 16:08:47	A client want to find another user
+2018-10-21 16:08:47	Store the message to c
+2018-10-21 16:08:47	The user has a massage to be stored on the DB :
+2018-10-21 16:08:48	A client want to find another user
+2018-10-21 16:08:48	Store the message to c
+2018-10-21 16:08:48	The user has a massage to be stored on the DB :
+2018-10-21 16:08:49	A client want to find another user
+2018-10-21 16:08:49	Store the message to c
+2018-10-21 16:08:49	The user has a massage to be stored on the DB :
+2018-10-21 16:08:49	A client want to find another user
+2018-10-21 16:08:49	Store the message to c
+2018-10-21 16:08:49	The user has a massage to be stored on the DB :
+2018-10-21 16:08:50	A client want to find another user
+2018-10-21 16:08:50	Store the message to c
+2018-10-21 16:08:50	The user has a massage to be stored on the DB :
+2018-10-21 16:08:51	A client want to find another user
+2018-10-21 16:08:51	Store the message to c
+2018-10-21 16:08:51	The user has a massage to be stored on the DB :
+2018-10-21 16:08:52	A client want to find another user
+2018-10-21 16:08:52	Store the message to c
+2018-10-21 16:08:52	The user has a massage to be stored on the DB :
+2018-10-21 16:08:54	A client want to find another user
+2018-10-21 16:08:54	Store the message to c
+2018-10-21 16:08:54	The user has a massage to be stored on the DB :
+2018-10-21 16:08:58	A client want to find another user
+2018-10-21 16:08:58	Store the message to w
+2018-10-21 16:08:58	The user has a massage to be stored on the DB :
+2018-10-21 16:08:58	A client want to find another user
+2018-10-21 16:08:58	Store the message to w
+2018-10-21 16:08:58	The user has a massage to be stored on the DB :
+2018-10-21 16:08:58	A client want to find another user
+2018-10-21 16:08:58	Store the message to w
+2018-10-21 16:08:58	The user has a massage to be stored on the DB :
+2018-10-21 16:08:59	A client want to find another user
+2018-10-21 16:08:59	Store the message to w
+2018-10-21 16:08:59	The user has a massage to be stored on the DB :
+2018-10-21 16:08:59	A client want to find another user
+2018-10-21 16:08:59	Store the message to w
+2018-10-21 16:08:59	The user has a massage to be stored on the DB :
+2018-10-21 16:08:59	A client want to find another user
+2018-10-21 16:08:59	Store the message to w
+2018-10-21 16:08:59	The user has a massage to be stored on the DB :
+2018-10-21 16:08:59	A client want to find another user
+2018-10-21 16:08:59	Store the message to w
+2018-10-21 16:08:59	The user has a massage to be stored on the DB :
+2018-10-21 16:08:59	A client want to find another user
+2018-10-21 16:08:59	Store the message to w
+2018-10-21 16:08:59	The user has a massage to be stored on the DB :
+2018-10-21 16:09:00	A client want to find another user
+2018-10-21 16:09:00	Store the message to w
+2018-10-21 16:09:00	The user has a massage to be stored on the DB :
+2018-10-21 16:09:00	A client want to find another user
+2018-10-21 16:09:00	Store the message to w
+2018-10-21 16:09:00	The user has a massage to be stored on the DB :
+2018-10-21 16:09:00	A client want to find another user
+2018-10-21 16:09:00	Store the message to w
+2018-10-21 16:09:00	The user has a massage to be stored on the DB :
+2018-10-21 16:09:00	A client want to find another user
+2018-10-21 16:09:00	Store the message to w
+2018-10-21 16:09:00	The user has a massage to be stored on the DB :
+2018-10-21 16:09:01	A client want to find another user
+2018-10-21 16:09:01	Store the message to w
+2018-10-21 16:09:01	The user has a massage to be stored on the DB :
+2018-10-21 16:09:01	A client want to find another user
+2018-10-21 16:09:01	Store the message to w
+2018-10-21 16:09:01	The user has a massage to be stored on the DB :
+2018-10-21 16:09:01	A client want to find another user
+2018-10-21 16:09:01	Store the message to w
+2018-10-21 16:09:01	The user has a massage to be stored on the DB :
+2018-10-21 16:09:01	A client want to find another user
+2018-10-21 16:09:01	Store the message to w
+2018-10-21 16:09:01	The user has a massage to be stored on the DB :
+2018-10-21 16:09:01	A client want to find another user
+2018-10-21 16:09:01	Store the message to w
+2018-10-21 16:09:01	The user has a massage to be stored on the DB :
+2018-10-21 16:09:02	A client want to find another user
+2018-10-21 16:09:02	Store the message to w
+2018-10-21 16:09:02	The user has a massage to be stored on the DB :
+2018-10-21 16:09:02	A client want to find another user
+2018-10-21 16:09:02	Store the message to w
+2018-10-21 16:09:02	The user has a massage to be stored on the DB :
+2018-10-21 16:09:02	A client want to find another user
+2018-10-21 16:09:02	Store the message to w
+2018-10-21 16:09:02	The user has a massage to be stored on the DB :
+2018-10-21 16:09:58	Client disconnected, closing this thread
+2018-10-21 16:11:02	Client handled has address: 127.0.0.1 and port 56091
+2018-10-21 16:11:02	Waiting for connections...
+2018-10-21 16:11:03	A client want to login
+2018-10-21 16:11:03	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 56091 ClientPort: 6974}
+2018-10-21 16:11:03	There are no message for this client
+2018-10-21 16:11:03	A client want to find another user
+2018-10-21 16:11:03	Store the message to test1
+2018-10-21 16:11:04	A client want to find another user
+2018-10-21 16:11:04	Store the message to test2
+2018-10-21 16:11:04	A client want to find another user
+2018-10-21 16:11:04	Store the message to q
+2018-10-21 16:11:04	A client want to find another user
+2018-10-21 16:11:04	Store the message to b
+2018-10-21 16:11:04	A client want to find another user
+2018-10-21 16:11:04	Store the message to prova
+2018-10-21 16:11:04	A client want to find another user
+2018-10-21 16:11:04	Store the message to asd
+2018-10-21 16:11:04	A client want to find another user
+2018-10-21 16:11:04	Store the message to test3
+2018-10-21 16:11:04	A client want to find another user
+2018-10-21 16:11:04	Store the message to c
+2018-10-21 16:11:04	A client want to find another user
+2018-10-21 16:11:04	Store the message to w
+2018-10-21 16:11:46	A client want to find another user
+2018-10-21 16:11:46	Store the message to qweqwe
+2018-10-21 16:11:54	A client want to find another user
+2018-10-21 16:11:54	Store the message to qweqwe
+2018-10-21 16:11:54	The user has a massage to be stored on the DB :
+2018-10-21 16:11:58	Client disconnected, closing this thread
+2018-10-21 16:12:00	Client handled has address: 127.0.0.1 and port 56255
+2018-10-21 16:12:00	Waiting for connections...
+2018-10-21 16:12:03	A client want to login
+2018-10-21 16:12:03	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 56255 ClientPort: 38149}
+2018-10-21 16:12:03	There are no message for this client
+2018-10-21 16:12:03	A client want to find another user
+2018-10-21 16:12:03	Store the message to test1
+2018-10-21 16:12:04	A client want to find another user
+2018-10-21 16:12:04	Store the message to test2
+2018-10-21 16:12:04	A client want to find another user
+2018-10-21 16:12:04	Store the message to q
+2018-10-21 16:12:04	A client want to find another user
+2018-10-21 16:12:04	Store the message to b
+2018-10-21 16:12:04	A client want to find another user
+2018-10-21 16:12:04	Store the message to prova
+2018-10-21 16:12:04	A client want to find another user
+2018-10-21 16:12:04	Store the message to asd
+2018-10-21 16:12:04	A client want to find another user
+2018-10-21 16:12:04	Store the message to test3
+2018-10-21 16:12:04	A client want to find another user
+2018-10-21 16:12:04	Store the message to c
+2018-10-21 16:12:04	A client want to find another user
+2018-10-21 16:12:04	Store the message to w
+2018-10-21 16:12:04	A client want to find another user
+2018-10-21 16:12:04	Store the message to qweqwe
+2018-10-21 16:13:21	Client handled has address: 127.0.0.1 and port 56513
+2018-10-21 16:13:21	Waiting for connections...
+2018-10-21 16:13:23	A client want to login
+2018-10-21 16:13:23	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 56513 ClientPort: 59180}
+2018-10-21 16:13:23	There are no message for this client
+2018-10-21 16:13:23	A client want to find another user
+2018-10-21 16:13:23	Store the message to test1
+2018-10-21 16:13:24	A client want to find another user
+2018-10-21 16:13:24	Store the message to test2
+2018-10-21 16:13:24	A client want to find another user
+2018-10-21 16:13:24	Store the message to q
+2018-10-21 16:13:24	A client want to find another user
+2018-10-21 16:13:24	Store the message to b
+2018-10-21 16:13:24	A client want to find another user
+2018-10-21 16:13:24	Store the message to prova
+2018-10-21 16:13:24	A client want to find another user
+2018-10-21 16:13:24	Store the message to asd
+2018-10-21 16:13:24	A client want to find another user
+2018-10-21 16:13:24	Store the message to test3
+2018-10-21 16:13:24	A client want to find another user
+2018-10-21 16:13:24	Store the message to c
+2018-10-21 16:13:24	A client want to find another user
+2018-10-21 16:13:24	Store the message to w
+2018-10-21 16:13:24	A client want to find another user
+2018-10-21 16:13:24	Store the message to qweqwe
+2018-10-21 16:14:01	Client disconnected, closing this thread
+2018-10-21 16:14:02	Client disconnected, closing this thread
+2018-10-21 16:14:06	Client handled has address: 127.0.0.1 and port 56629
+2018-10-21 16:14:06	Waiting for connections...
+2018-10-21 16:14:07	A client want to login
+2018-10-21 16:14:07	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 56629 ClientPort: 57247}
+2018-10-21 16:14:07	There are no message for this client
+2018-10-21 16:14:07	A client want to find another user
+2018-10-21 16:14:07	Store the message to test1
+2018-10-21 16:14:08	A client want to find another user
+2018-10-21 16:14:08	Store the message to test2
+2018-10-21 16:14:08	A client want to find another user
+2018-10-21 16:14:08	Store the message to q
+2018-10-21 16:14:08	A client want to find another user
+2018-10-21 16:14:08	Store the message to b
+2018-10-21 16:14:08	A client want to find another user
+2018-10-21 16:14:08	Store the message to prova
+2018-10-21 16:14:08	A client want to find another user
+2018-10-21 16:14:08	Store the message to asd
+2018-10-21 16:14:08	A client want to find another user
+2018-10-21 16:14:08	Store the message to test3
+2018-10-21 16:14:08	A client want to find another user
+2018-10-21 16:14:08	Store the message to c
+2018-10-21 16:14:08	A client want to find another user
+2018-10-21 16:14:08	Store the message to w
+2018-10-21 16:14:08	A client want to find another user
+2018-10-21 16:14:08	Store the message to qweqwe
+2018-10-21 16:14:30	Client disconnected, closing this thread
+2018-10-21 16:14:33	Client handled has address: 127.0.0.1 and port 56829
+2018-10-21 16:14:33	Waiting for connections...
+2018-10-21 16:14:59	A client want to register
+2018-10-21 16:14:59	Registration succeded
+2018-10-21 16:15:25	A client want to register
+2018-10-21 16:15:25	Registration succeded
+2018-10-21 16:15:31	A client want to login
+2018-10-21 16:15:31	Login Failed
+2018-10-21 16:15:38	A client want to login
+2018-10-21 16:15:38	Login Failed
+2018-10-21 16:15:39	A client want to login
+2018-10-21 16:15:39	Login Failed
+2018-10-21 16:15:39	A client want to login
+2018-10-21 16:15:39	Login Failed
+2018-10-21 16:15:39	A client want to login
+2018-10-21 16:15:39	Login Failed
+2018-10-21 16:15:42	A client want to login
+2018-10-21 16:15:42	Active users: {'test4': Username: test4 IP: 127.0.0.1 ServerPort: 56829 ClientPort: 24369}
+2018-10-21 16:15:42	There are no message for this client
+2018-10-21 16:15:42	A client want to find another user
+2018-10-21 16:15:42	Store the message to test1
+2018-10-21 16:15:43	A client want to find another user
+2018-10-21 16:15:43	Store the message to test2
+2018-10-21 16:15:43	A client want to find another user
+2018-10-21 16:15:43	Store the message to q
+2018-10-21 16:15:43	A client want to find another user
+2018-10-21 16:15:43	Store the message to b
+2018-10-21 16:15:43	A client want to find another user
+2018-10-21 16:15:43	Store the message to prova
+2018-10-21 16:15:43	A client want to find another user
+2018-10-21 16:15:43	Store the message to asd
+2018-10-21 16:15:43	A client want to find another user
+2018-10-21 16:15:43	Store the message to test3
+2018-10-21 16:15:43	A client want to find another user
+2018-10-21 16:15:43	Store the message to c
+2018-10-21 16:15:43	A client want to find another user
+2018-10-21 16:15:43	Store the message to w
+2018-10-21 16:15:44	A client want to find another user
+2018-10-21 16:15:44	Store the message to qweqwe
+2018-10-21 16:17:42	Client disconnected, closing this thread
+2018-10-21 16:17:47	Client handled has address: 127.0.0.1 and port 57495
+2018-10-21 16:17:47	Waiting for connections...
+2018-10-21 16:17:48	A client want to login
+2018-10-21 16:17:48	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 57495 ClientPort: 11123}
+2018-10-21 16:17:48	There are no message for this client
+2018-10-21 16:17:48	A client want to find another user
+2018-10-21 16:17:48	Store the message to test1
+2018-10-21 16:17:49	A client want to find another user
+2018-10-21 16:17:49	Store the message to test2
+2018-10-21 16:17:49	A client want to find another user
+2018-10-21 16:17:49	Store the message to q
+2018-10-21 16:17:49	A client want to find another user
+2018-10-21 16:17:49	Store the message to b
+2018-10-21 16:17:49	A client want to find another user
+2018-10-21 16:17:49	Store the message to prova
+2018-10-21 16:17:49	A client want to find another user
+2018-10-21 16:17:49	Store the message to asd
+2018-10-21 16:17:49	A client want to find another user
+2018-10-21 16:17:49	Store the message to test3
+2018-10-21 16:17:49	A client want to find another user
+2018-10-21 16:17:49	Store the message to c
+2018-10-21 16:17:50	A client want to find another user
+2018-10-21 16:17:50	Store the message to w
+2018-10-21 16:17:50	A client want to find another user
+2018-10-21 16:17:50	Store the message to qweqwe
+2018-10-21 16:18:30	A client want to find another user
+2018-10-21 16:18:30	Store the message to w
+2018-10-21 16:18:30	The user has a massage to be stored on the DB :
+2018-10-21 16:18:31	A client want to find another user
+2018-10-21 16:18:31	Store the message to w
+2018-10-21 16:18:31	The user has a massage to be stored on the DB :
+2018-10-21 16:22:38	Client had a problem, connection closed
+2018-10-21 16:28:24	Client handled has address: 127.0.0.1 and port 59467
+2018-10-21 16:28:24	Waiting for connections...
+2018-10-21 16:28:25	A client want to login
+2018-10-21 16:28:25	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 59467 ClientPort: 19744}
+2018-10-21 16:28:25	There are no message for this client
+2018-10-21 16:28:25	A client want to find another user
+2018-10-21 16:28:25	Store the message to test1
+2018-10-21 16:28:26	A client want to find another user
+2018-10-21 16:28:26	Store the message to test2
+2018-10-21 16:28:26	A client want to find another user
+2018-10-21 16:28:26	Store the message to q
+2018-10-21 16:28:26	A client want to find another user
+2018-10-21 16:28:26	Store the message to b
+2018-10-21 16:28:26	A client want to find another user
+2018-10-21 16:28:26	Store the message to prova
+2018-10-21 16:28:26	A client want to find another user
+2018-10-21 16:28:26	Store the message to asd
+2018-10-21 16:28:26	A client want to find another user
+2018-10-21 16:28:26	Store the message to test3
+2018-10-21 16:28:27	A client want to find another user
+2018-10-21 16:28:27	Store the message to c
+2018-10-21 16:28:27	A client want to find another user
+2018-10-21 16:28:27	Store the message to w
+2018-10-21 16:28:27	A client want to find another user
+2018-10-21 16:28:27	Store the message to qweqwe
+2018-10-21 16:28:34	A client want to find another user
+2018-10-21 16:28:34	Store the message to test1
+2018-10-21 16:28:34	The user has a massage to be stored on the DB :
+2018-10-21 16:28:39	A client want to find another user
+2018-10-21 16:28:39	Store the message to c
+2018-10-21 16:28:39	The user has a massage to be stored on the DB :
+2018-10-21 16:29:00	A client want to find another user
+2018-10-21 16:29:00	Store the message to prova
+2018-10-21 16:29:00	The user has a massage to be stored on the DB :
+2018-10-21 16:29:01	A client want to find another user
+2018-10-21 16:29:01	Store the message to prova
+2018-10-21 16:29:01	The user has a massage to be stored on the DB :
+2018-10-21 16:29:01	A client want to find another user
+2018-10-21 16:29:01	Store the message to prova
+2018-10-21 16:29:01	The user has a massage to be stored on the DB :
+2018-10-21 16:29:01	A client want to find another user
+2018-10-21 16:29:01	Store the message to prova
+2018-10-21 16:29:01	The user has a massage to be stored on the DB :
+2018-10-21 16:29:01	A client want to find another user
+2018-10-21 16:29:01	Store the message to prova
+2018-10-21 16:29:01	The user has a massage to be stored on the DB :
+2018-10-21 16:29:01	A client want to find another user
+2018-10-21 16:29:01	Store the message to prova
+2018-10-21 16:29:01	The user has a massage to be stored on the DB :
+2018-10-21 16:29:01	A client want to find another user
+2018-10-21 16:29:01	Store the message to prova
+2018-10-21 16:29:01	The user has a massage to be stored on the DB :
+2018-10-21 16:29:01	A client want to find another user
+2018-10-21 16:29:01	Store the message to prova
+2018-10-21 16:29:01	The user has a massage to be stored on the DB :
+2018-10-21 16:29:02	A client want to find another user
+2018-10-21 16:29:02	Store the message to prova
+2018-10-21 16:29:02	The user has a massage to be stored on the DB :
+2018-10-21 16:29:19	Client disconnected, closing this thread
+2018-10-21 16:29:40	Client handled has address: 127.0.0.1 and port 59916
+2018-10-21 16:29:40	Waiting for connections...
+2018-10-21 16:29:41	A client want to login
+2018-10-21 16:29:41	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 59916 ClientPort: 20624}
+2018-10-21 16:29:41	There are no message for this client
+2018-10-21 16:29:41	A client want to find another user
+2018-10-21 16:29:41	Store the message to test1
+2018-10-21 16:29:42	A client want to find another user
+2018-10-21 16:29:42	Store the message to test2
+2018-10-21 16:29:42	A client want to find another user
+2018-10-21 16:29:42	Store the message to q
+2018-10-21 16:29:42	A client want to find another user
+2018-10-21 16:29:42	Store the message to b
+2018-10-21 16:29:42	A client want to find another user
+2018-10-21 16:29:42	Store the message to prova
+2018-10-21 16:29:42	A client want to find another user
+2018-10-21 16:29:42	Store the message to asd
+2018-10-21 16:29:42	A client want to find another user
+2018-10-21 16:29:42	Store the message to test3
+2018-10-21 16:29:42	A client want to find another user
+2018-10-21 16:29:42	Store the message to c
+2018-10-21 16:29:42	A client want to find another user
+2018-10-21 16:29:42	Store the message to w
+2018-10-21 16:29:42	A client want to find another user
+2018-10-21 16:29:42	Store the message to qweqwe
+2018-10-21 16:30:11	Client handled has address: 127.0.0.1 and port 60009
+2018-10-21 16:30:11	Waiting for connections...
+2018-10-21 16:30:12	A client want to login
+2018-10-21 16:30:12	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 60009 ClientPort: 50247}
+2018-10-21 16:30:12	There are no message for this client
+2018-10-21 16:30:12	A client want to find another user
+2018-10-21 16:30:12	Store the message to test1
+2018-10-21 16:30:13	A client want to find another user
+2018-10-21 16:30:13	Store the message to test2
+2018-10-21 16:30:13	A client want to find another user
+2018-10-21 16:30:13	Store the message to q
+2018-10-21 16:30:13	A client want to find another user
+2018-10-21 16:30:13	Store the message to b
+2018-10-21 16:30:13	A client want to find another user
+2018-10-21 16:30:13	Store the message to prova
+2018-10-21 16:30:13	A client want to find another user
+2018-10-21 16:30:13	Store the message to asd
+2018-10-21 16:30:13	A client want to find another user
+2018-10-21 16:30:13	Store the message to test3
+2018-10-21 16:30:13	A client want to find another user
+2018-10-21 16:30:13	Store the message to c
+2018-10-21 16:30:13	A client want to find another user
+2018-10-21 16:30:13	Store the message to w
+2018-10-21 16:30:14	A client want to find another user
+2018-10-21 16:30:14	Store the message to qweqwe
+2018-10-21 16:30:50	Client disconnected, closing this thread
+2018-10-21 16:31:10	Client disconnected, closing this thread
+2018-10-21 16:33:04	Client handled has address: 127.0.0.1 and port 60635
+2018-10-21 16:33:04	Waiting for connections...
+2018-10-21 16:33:06	A client want to login
+2018-10-21 16:33:06	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 60635 ClientPort: 39736}
+2018-10-21 16:33:06	There are no message for this client
+2018-10-21 16:33:06	A client want to find another user
+2018-10-21 16:33:06	Store the message to test1
+2018-10-21 16:33:10	Client disconnected, closing this thread
+2018-10-21 16:33:22	Client handled has address: 127.0.0.1 and port 60663
+2018-10-21 16:33:22	Waiting for connections...
+2018-10-21 16:33:23	A client want to login
+2018-10-21 16:33:23	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 60663 ClientPort: 57742}
+2018-10-21 16:33:23	There are no message for this client
+2018-10-21 16:33:23	A client want to find another user
+2018-10-21 16:33:23	Store the message to test1
+2018-10-21 16:33:24	A client want to find another user
+2018-10-21 16:33:24	Store the message to test2
+2018-10-21 16:33:24	A client want to find another user
+2018-10-21 16:33:24	Store the message to q
+2018-10-21 16:33:24	A client want to find another user
+2018-10-21 16:33:24	Store the message to b
+2018-10-21 16:33:24	A client want to find another user
+2018-10-21 16:33:24	Store the message to prova
+2018-10-21 16:33:24	A client want to find another user
+2018-10-21 16:33:24	Store the message to asd
+2018-10-21 16:33:25	A client want to find another user
+2018-10-21 16:33:25	Store the message to test3
+2018-10-21 16:33:25	A client want to find another user
+2018-10-21 16:33:25	Store the message to c
+2018-10-21 16:33:25	A client want to find another user
+2018-10-21 16:33:25	Store the message to w
+2018-10-21 16:33:25	A client want to find another user
+2018-10-21 16:33:25	Store the message to qweqwe
+2018-10-21 16:34:10	Client disconnected, closing this thread
+2018-10-21 16:36:08	Client handled has address: 127.0.0.1 and port 62007
+2018-10-21 16:36:08	Waiting for connections...
+2018-10-21 16:36:09	A client want to login
+2018-10-21 16:36:09	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 62007 ClientPort: 21339}
+2018-10-21 16:36:09	There are no message for this client
+2018-10-21 16:36:09	A client want to find another user
+2018-10-21 16:36:09	Store the message to test1
+2018-10-21 16:36:10	A client want to find another user
+2018-10-21 16:36:10	Store the message to test2
+2018-10-21 16:36:10	A client want to find another user
+2018-10-21 16:36:10	Store the message to q
+2018-10-21 16:36:10	A client want to find another user
+2018-10-21 16:36:10	Store the message to b
+2018-10-21 16:36:10	A client want to find another user
+2018-10-21 16:36:10	Store the message to prova
+2018-10-21 16:36:10	A client want to find another user
+2018-10-21 16:36:10	Store the message to asd
+2018-10-21 16:36:10	A client want to find another user
+2018-10-21 16:36:10	Store the message to test3
+2018-10-21 16:36:11	A client want to find another user
+2018-10-21 16:36:11	Store the message to c
+2018-10-21 16:36:11	A client want to find another user
+2018-10-21 16:36:11	Store the message to w
+2018-10-21 16:36:11	A client want to find another user
+2018-10-21 16:36:11	Store the message to qweqwe
+2018-10-21 16:36:53	Client handled has address: 127.0.0.1 and port 62241
+2018-10-21 16:36:53	Waiting for connections...
+2018-10-21 16:36:53	A client want to login
+2018-10-21 16:36:53	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 62241 ClientPort: 28491}
+2018-10-21 16:36:53	There are no message for this client
+2018-10-21 16:36:53	A client want to find another user
+2018-10-21 16:36:53	Store the message to test1
+2018-10-21 16:36:54	A client want to find another user
+2018-10-21 16:36:54	Store the message to test2
+2018-10-21 16:36:54	A client want to find another user
+2018-10-21 16:36:54	Store the message to q
+2018-10-21 16:36:54	A client want to find another user
+2018-10-21 16:36:54	Store the message to b
+2018-10-21 16:36:54	A client want to find another user
+2018-10-21 16:36:54	Store the message to prova
+2018-10-21 16:36:55	A client want to find another user
+2018-10-21 16:36:55	Store the message to asd
+2018-10-21 16:36:55	A client want to find another user
+2018-10-21 16:36:55	Store the message to test3
+2018-10-21 16:36:55	A client want to find another user
+2018-10-21 16:36:55	Store the message to c
+2018-10-21 16:36:55	A client want to find another user
+2018-10-21 16:36:55	Store the message to w
+2018-10-21 16:36:55	A client want to find another user
+2018-10-21 16:36:55	Store the message to qweqwe
+2018-10-21 16:37:08	Client disconnected, closing this thread
+2018-10-21 16:37:35	Client disconnected, closing this thread
+2018-10-21 16:37:37	Client handled has address: 127.0.0.1 and port 62440
+2018-10-21 16:37:37	Waiting for connections...
+2018-10-21 16:37:39	A client want to login
+2018-10-21 16:37:39	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 62440 ClientPort: 8668}
+2018-10-21 16:37:39	There are no message for this client
+2018-10-21 16:37:39	A client want to find another user
+2018-10-21 16:37:39	Store the message to test1
+2018-10-21 16:37:40	A client want to find another user
+2018-10-21 16:37:40	Store the message to test2
+2018-10-21 16:37:40	A client want to find another user
+2018-10-21 16:37:40	Store the message to q
+2018-10-21 16:37:40	A client want to find another user
+2018-10-21 16:37:40	Store the message to b
+2018-10-21 16:37:40	A client want to find another user
+2018-10-21 16:37:40	Store the message to prova
+2018-10-21 16:37:40	A client want to find another user
+2018-10-21 16:37:40	Store the message to asd
+2018-10-21 16:37:40	A client want to find another user
+2018-10-21 16:37:40	Store the message to test3
+2018-10-21 16:37:40	A client want to find another user
+2018-10-21 16:37:40	Store the message to c
+2018-10-21 16:37:41	A client want to find another user
+2018-10-21 16:37:41	Store the message to w
+2018-10-21 16:37:41	A client want to find another user
+2018-10-21 16:37:41	Store the message to qweqwe
+2018-10-21 16:37:55	Client disconnected, closing this thread
+2018-10-21 16:40:22	Client handled has address: 127.0.0.1 and port 63176
+2018-10-21 16:40:22	Waiting for connections...
+2018-10-21 16:40:24	A client want to login
+2018-10-21 16:40:24	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 63176 ClientPort: 9260}
+2018-10-21 16:40:24	There are no message for this client
+2018-10-21 16:40:24	A client want to find another user
+2018-10-21 16:40:24	Store the message to test1
+2018-10-21 16:40:25	A client want to find another user
+2018-10-21 16:40:25	Store the message to test2
+2018-10-21 16:40:25	A client want to find another user
+2018-10-21 16:40:25	Store the message to q
+2018-10-21 16:40:25	A client want to find another user
+2018-10-21 16:40:25	Store the message to b
+2018-10-21 16:40:26	A client want to find another user
+2018-10-21 16:40:26	Store the message to prova
+2018-10-21 16:40:26	A client want to find another user
+2018-10-21 16:40:26	Store the message to asd
+2018-10-21 16:40:26	A client want to find another user
+2018-10-21 16:40:26	Store the message to test3
+2018-10-21 16:40:26	A client want to find another user
+2018-10-21 16:40:26	Store the message to c
+2018-10-21 16:40:26	A client want to find another user
+2018-10-21 16:40:26	Store the message to w
+2018-10-21 16:40:26	A client want to find another user
+2018-10-21 16:40:26	Store the message to qweqwe
+2018-10-21 16:40:37	Client disconnected, closing this thread
+2018-10-21 16:46:20	Client handled has address: 127.0.0.1 and port 64859
+2018-10-21 16:46:20	Waiting for connections...
+2018-10-21 16:46:22	A client want to login
+2018-10-21 16:46:22	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 64859 ClientPort: 6743}
+2018-10-21 16:46:22	There are no message for this client
+2018-10-21 16:46:22	A client want to find another user
+2018-10-21 16:46:23	Store the message to test1
+2018-10-21 16:46:23	A client want to find another user
+2018-10-21 16:46:23	Store the message to test2
+2018-10-21 16:46:24	A client want to find another user
+2018-10-21 16:46:24	Store the message to q
+2018-10-21 16:46:24	A client want to find another user
+2018-10-21 16:46:24	Store the message to b
+2018-10-21 16:46:24	A client want to find another user
+2018-10-21 16:46:24	Store the message to prova
+2018-10-21 16:46:24	A client want to find another user
+2018-10-21 16:46:24	Store the message to asd
+2018-10-21 16:46:24	A client want to find another user
+2018-10-21 16:46:24	Store the message to test3
+2018-10-21 16:46:24	A client want to find another user
+2018-10-21 16:46:24	Store the message to c
+2018-10-21 16:46:24	A client want to find another user
+2018-10-21 16:46:24	Store the message to w
+2018-10-21 16:46:24	A client want to find another user
+2018-10-21 16:46:24	Store the message to qweqwe
+2018-10-21 16:46:35	Client disconnected, closing this thread
+2018-10-21 16:46:55	Client handled has address: 127.0.0.1 and port 65145
+2018-10-21 16:46:55	Waiting for connections...
+2018-10-21 16:46:56	A client want to login
+2018-10-21 16:46:56	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 65145 ClientPort: 18152}
+2018-10-21 16:46:56	There are no message for this client
+2018-10-21 16:46:56	A client want to find another user
+2018-10-21 16:46:56	Store the message to test1
+2018-10-21 16:46:57	A client want to find another user
+2018-10-21 16:46:57	Store the message to test2
+2018-10-21 16:46:57	A client want to find another user
+2018-10-21 16:46:57	Store the message to q
+2018-10-21 16:46:57	A client want to find another user
+2018-10-21 16:46:57	Store the message to b
+2018-10-21 16:46:57	A client want to find another user
+2018-10-21 16:46:57	Store the message to prova
+2018-10-21 16:46:57	A client want to find another user
+2018-10-21 16:46:57	Store the message to asd
+2018-10-21 16:46:57	A client want to find another user
+2018-10-21 16:46:57	Store the message to test3
+2018-10-21 16:46:58	A client want to find another user
+2018-10-21 16:46:58	Store the message to c
+2018-10-21 16:46:58	A client want to find another user
+2018-10-21 16:46:58	Store the message to w
+2018-10-21 16:46:58	A client want to find another user
+2018-10-21 16:46:58	Store the message to qweqwe
+2018-10-21 16:47:27	Client handled has address: 127.0.0.1 and port 65266
+2018-10-21 16:47:27	Waiting for connections...
+2018-10-21 16:47:31	Client disconnected, closing this thread
+2018-10-21 16:47:34	A client want to login
+2018-10-21 16:47:34	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 65266 ClientPort: 57853}
+2018-10-21 16:47:34	There are no message for this client
+2018-10-21 16:47:34	A client want to find another user
+2018-10-21 16:47:34	Store the message to test1
+2018-10-21 16:47:35	A client want to find another user
+2018-10-21 16:47:35	Store the message to test2
+2018-10-21 16:47:35	A client want to find another user
+2018-10-21 16:47:35	Store the message to q
+2018-10-21 16:47:35	A client want to find another user
+2018-10-21 16:47:35	Store the message to b
+2018-10-21 16:47:35	A client want to find another user
+2018-10-21 16:47:35	Store the message to prova
+2018-10-21 16:47:35	A client want to find another user
+2018-10-21 16:47:35	Store the message to asd
+2018-10-21 16:47:35	A client want to find another user
+2018-10-21 16:47:35	Store the message to test3
+2018-10-21 16:47:35	A client want to find another user
+2018-10-21 16:47:35	Store the message to c
+2018-10-21 16:47:35	A client want to find another user
+2018-10-21 16:47:35	Store the message to w
+2018-10-21 16:47:35	A client want to find another user
+2018-10-21 16:47:35	Store the message to qweqwe
+2018-10-21 16:47:47	Client disconnected, closing this thread
+2018-10-21 16:50:27	Client handled has address: 127.0.0.1 and port 49847
+2018-10-21 16:50:27	Waiting for connections...
+2018-10-21 16:50:30	A client want to login
+2018-10-21 16:50:30	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 49847 ClientPort: 10309}
+2018-10-21 16:50:30	There are no message for this client
+2018-10-21 16:50:30	A client want to find another user
+2018-10-21 16:50:30	Store the message to test1
+2018-10-21 16:50:31	A client want to find another user
+2018-10-21 16:50:31	Store the message to test2
+2018-10-21 16:50:31	A client want to find another user
+2018-10-21 16:50:31	Store the message to q
+2018-10-21 16:50:31	A client want to find another user
+2018-10-21 16:50:31	Store the message to b
+2018-10-21 16:50:31	A client want to find another user
+2018-10-21 16:50:31	Store the message to prova
+2018-10-21 16:50:31	A client want to find another user
+2018-10-21 16:50:31	Store the message to asd
+2018-10-21 16:50:31	A client want to find another user
+2018-10-21 16:50:31	Store the message to test3
+2018-10-21 16:50:31	A client want to find another user
+2018-10-21 16:50:31	Store the message to c
+2018-10-21 16:50:31	A client want to find another user
+2018-10-21 16:50:31	Store the message to w
+2018-10-21 16:50:31	A client want to find another user
+2018-10-21 16:50:31	Store the message to qweqwe
+2018-10-21 16:50:35	Client disconnected, closing this thread
+2018-10-21 16:51:26	Client handled has address: 127.0.0.1 and port 50709
+2018-10-21 16:51:26	Waiting for connections...
+2018-10-21 16:51:39	A client want to login
+2018-10-21 16:51:39	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 50709 ClientPort: 9298}
+2018-10-21 16:51:39	There are no message for this client
+2018-10-21 16:51:39	A client want to find another user
+2018-10-21 16:51:39	Store the message to test1
+2018-10-21 16:51:40	A client want to find another user
+2018-10-21 16:51:40	Store the message to test2
+2018-10-21 16:51:40	A client want to find another user
+2018-10-21 16:51:40	Store the message to q
+2018-10-21 16:51:40	A client want to find another user
+2018-10-21 16:51:40	Store the message to b
+2018-10-21 16:51:40	A client want to find another user
+2018-10-21 16:51:40	Store the message to prova
+2018-10-21 16:51:40	A client want to find another user
+2018-10-21 16:51:40	Store the message to asd
+2018-10-21 16:51:40	A client want to find another user
+2018-10-21 16:51:40	Store the message to test3
+2018-10-21 16:51:40	A client want to find another user
+2018-10-21 16:51:40	Store the message to c
+2018-10-21 16:51:40	A client want to find another user
+2018-10-21 16:51:40	Store the message to w
+2018-10-21 16:51:41	A client want to find another user
+2018-10-21 16:51:41	Store the message to qweqwe
+2018-10-21 16:52:28	Client disconnected, closing this thread
+2018-10-21 16:52:35	Client handled has address: 127.0.0.1 and port 51220
+2018-10-21 16:52:35	Waiting for connections...
+2018-10-21 16:52:36	A client want to login
+2018-10-21 16:52:36	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51220 ClientPort: 23504}
+2018-10-21 16:52:36	There are no message for this client
+2018-10-21 16:52:36	A client want to find another user
+2018-10-21 16:52:36	Store the message to test1
+2018-10-21 16:52:37	A client want to find another user
+2018-10-21 16:52:37	Store the message to test2
+2018-10-21 16:52:37	A client want to find another user
+2018-10-21 16:52:37	Store the message to q
+2018-10-21 16:52:37	A client want to find another user
+2018-10-21 16:52:37	Store the message to b
+2018-10-21 16:52:37	A client want to find another user
+2018-10-21 16:52:37	Store the message to prova
+2018-10-21 16:52:37	A client want to find another user
+2018-10-21 16:52:37	Store the message to asd
+2018-10-21 16:52:37	A client want to find another user
+2018-10-21 16:52:37	Store the message to test3
+2018-10-21 16:52:37	A client want to find another user
+2018-10-21 16:52:37	Store the message to c
+2018-10-21 16:52:37	A client want to find another user
+2018-10-21 16:52:37	Store the message to w
+2018-10-21 16:52:37	A client want to find another user
+2018-10-21 16:52:37	Store the message to qweqwe
+2018-10-21 16:52:46	Client disconnected, closing this thread
+2018-10-21 16:54:14	Client handled has address: 127.0.0.1 and port 51536
+2018-10-21 16:54:14	Waiting for connections...
+2018-10-21 16:54:15	A client want to login
+2018-10-21 16:54:15	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51536 ClientPort: 10935}
+2018-10-21 16:54:15	There are no message for this client
+2018-10-21 16:54:15	A client want to find another user
+2018-10-21 16:54:15	Store the message to test1
+2018-10-21 16:54:16	A client want to find another user
+2018-10-21 16:54:16	Store the message to test2
+2018-10-21 16:54:16	A client want to find another user
+2018-10-21 16:54:16	Store the message to q
+2018-10-21 16:54:16	A client want to find another user
+2018-10-21 16:54:16	Store the message to b
+2018-10-21 16:54:16	A client want to find another user
+2018-10-21 16:54:16	Store the message to prova
+2018-10-21 16:54:16	A client want to find another user
+2018-10-21 16:54:16	Store the message to asd
+2018-10-21 16:54:17	A client want to find another user
+2018-10-21 16:54:17	Store the message to test3
+2018-10-21 16:54:17	A client want to find another user
+2018-10-21 16:54:17	Store the message to c
+2018-10-21 16:54:17	A client want to find another user
+2018-10-21 16:54:17	Store the message to w
+2018-10-21 16:54:17	A client want to find another user
+2018-10-21 16:54:17	Store the message to qweqwe
+2018-10-21 16:55:06	Client disconnected, closing this thread
+2018-10-21 16:55:41	Client handled has address: 127.0.0.1 and port 51959
+2018-10-21 16:55:41	Waiting for connections...
+2018-10-21 16:55:42	A client want to login
+2018-10-21 16:55:42	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51959 ClientPort: 37282}
+2018-10-21 16:55:42	There are no message for this client
+2018-10-21 16:55:42	A client want to find another user
+2018-10-21 16:55:42	Store the message to test1
+2018-10-21 16:55:43	A client want to find another user
+2018-10-21 16:55:43	Store the message to test2
+2018-10-21 16:55:43	A client want to find another user
+2018-10-21 16:55:43	Store the message to q
+2018-10-21 16:55:43	A client want to find another user
+2018-10-21 16:55:43	Store the message to b
+2018-10-21 16:55:43	A client want to find another user
+2018-10-21 16:55:43	Store the message to prova
+2018-10-21 16:55:43	A client want to find another user
+2018-10-21 16:55:43	Store the message to asd
+2018-10-21 16:55:43	A client want to find another user
+2018-10-21 16:55:43	Store the message to test3
+2018-10-21 16:55:43	A client want to find another user
+2018-10-21 16:55:43	Store the message to c
+2018-10-21 16:55:43	A client want to find another user
+2018-10-21 16:55:43	Store the message to w
+2018-10-21 16:55:44	A client want to find another user
+2018-10-21 16:55:44	Store the message to qweqwe
+2018-10-21 16:55:55	Client disconnected, closing this thread
+2018-10-21 16:57:57	Client handled has address: 127.0.0.1 and port 52537
+2018-10-21 16:57:57	Waiting for connections...
+2018-10-21 16:57:58	A client want to login
+2018-10-21 16:57:58	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 52537 ClientPort: 29050}
+2018-10-21 16:57:58	There are no message for this client
+2018-10-21 16:57:58	A client want to find another user
+2018-10-21 16:57:58	Store the message to test1
+2018-10-21 16:57:59	A client want to find another user
+2018-10-21 16:57:59	Store the message to test2
+2018-10-21 16:57:59	A client want to find another user
+2018-10-21 16:57:59	Store the message to q
+2018-10-21 16:57:59	A client want to find another user
+2018-10-21 16:57:59	Store the message to b
+2018-10-21 16:57:59	A client want to find another user
+2018-10-21 16:57:59	Store the message to prova
+2018-10-21 16:57:59	A client want to find another user
+2018-10-21 16:57:59	Store the message to asd
+2018-10-21 16:57:59	A client want to find another user
+2018-10-21 16:57:59	Store the message to test3
+2018-10-21 16:57:59	A client want to find another user
+2018-10-21 16:57:59	Store the message to c
+2018-10-21 16:57:59	A client want to find another user
+2018-10-21 16:57:59	Store the message to w
+2018-10-21 16:58:00	A client want to find another user
+2018-10-21 16:58:00	Store the message to qweqwe
+2018-10-21 16:58:25	Client disconnected, closing this thread
+2018-10-21 17:00:11	Client handled has address: 127.0.0.1 and port 53234
+2018-10-21 17:00:11	Waiting for connections...
+2018-10-21 17:00:12	A client want to login
+2018-10-21 17:00:12	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 53234 ClientPort: 13327}
+2018-10-21 17:00:12	There are no message for this client
+2018-10-21 17:00:12	A client want to find another user
+2018-10-21 17:00:12	Store the message to test1
+2018-10-21 17:00:13	A client want to find another user
+2018-10-21 17:00:13	Store the message to test2
+2018-10-21 17:00:13	A client want to find another user
+2018-10-21 17:00:13	Store the message to q
+2018-10-21 17:00:13	A client want to find another user
+2018-10-21 17:00:13	Store the message to b
+2018-10-21 17:00:13	A client want to find another user
+2018-10-21 17:00:13	Store the message to prova
+2018-10-21 17:00:13	A client want to find another user
+2018-10-21 17:00:13	Store the message to asd
+2018-10-21 17:00:13	A client want to find another user
+2018-10-21 17:00:13	Store the message to test3
+2018-10-21 17:00:14	A client want to find another user
+2018-10-21 17:00:14	Store the message to c
+2018-10-21 17:00:14	A client want to find another user
+2018-10-21 17:00:14	Store the message to w
+2018-10-21 17:00:14	A client want to find another user
+2018-10-21 17:00:14	Store the message to qweqwe
+2018-10-21 17:00:31	Client disconnected, closing this thread
+2018-10-21 17:00:38	Client handled has address: 127.0.0.1 and port 53525
+2018-10-21 17:00:38	Waiting for connections...
+2018-10-21 17:01:29	A client want to register
+2018-10-21 17:01:29	Registration failed
+2018-10-21 17:01:34	A client want to register
+2018-10-21 17:01:34	Registration failed
+2018-10-21 17:02:41	A client want to login
+2018-10-21 17:02:41	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 53525 ClientPort: 55580}
+2018-10-21 17:02:41	There are no message for this client
+2018-10-21 17:02:41	A client want to find another user
+2018-10-21 17:02:41	Store the message to test1
+2018-10-21 17:02:42	A client want to find another user
+2018-10-21 17:02:42	Store the message to test2
+2018-10-21 17:02:42	A client want to find another user
+2018-10-21 17:02:42	Store the message to q
+2018-10-21 17:02:42	A client want to find another user
+2018-10-21 17:02:42	Store the message to b
+2018-10-21 17:02:42	A client want to find another user
+2018-10-21 17:02:42	Store the message to prova
+2018-10-21 17:02:42	A client want to find another user
+2018-10-21 17:02:42	Store the message to asd
+2018-10-21 17:02:42	A client want to find another user
+2018-10-21 17:02:42	Store the message to test3
+2018-10-21 17:02:42	A client want to find another user
+2018-10-21 17:02:42	Store the message to c
+2018-10-21 17:02:42	A client want to find another user
+2018-10-21 17:02:42	Store the message to w
+2018-10-21 17:02:42	A client want to find another user
+2018-10-21 17:02:42	Store the message to qweqwe
+2018-10-21 17:02:47	A client want to find another user
+2018-10-21 17:02:47	Store the message to test5
+2018-10-21 17:02:53	Client disconnected, closing this thread
+2018-10-21 17:03:35	Client handled has address: 127.0.0.1 and port 54325
+2018-10-21 17:03:35	Waiting for connections...
+2018-10-21 17:03:36	A client want to login
+2018-10-21 17:03:36	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 54325 ClientPort: 30274}
+2018-10-21 17:03:36	There are no message for this client
+2018-10-21 17:03:37	A client want to find another user
+2018-10-21 17:03:37	Store the message to test1
+2018-10-21 17:03:38	A client want to find another user
+2018-10-21 17:03:38	Store the message to test2
+2018-10-21 17:03:38	A client want to find another user
+2018-10-21 17:03:38	Store the message to q
+2018-10-21 17:03:38	A client want to find another user
+2018-10-21 17:03:38	Store the message to b
+2018-10-21 17:03:38	A client want to find another user
+2018-10-21 17:03:38	Store the message to prova
+2018-10-21 17:03:38	A client want to find another user
+2018-10-21 17:03:38	Store the message to asd
+2018-10-21 17:03:38	A client want to find another user
+2018-10-21 17:03:38	Store the message to test3
+2018-10-21 17:03:38	A client want to find another user
+2018-10-21 17:03:38	Store the message to c
+2018-10-21 17:03:38	A client want to find another user
+2018-10-21 17:03:38	Store the message to w
+2018-10-21 17:03:38	A client want to find another user
+2018-10-21 17:03:38	Store the message to qweqwe
+2018-10-21 17:06:36	Client disconnected, closing this thread
+2018-10-21 17:10:17	Client handled has address: 127.0.0.1 and port 57480
+2018-10-21 17:10:17	Waiting for connections...
+2018-10-21 17:10:18	A client want to login
+2018-10-21 17:10:18	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 57480 ClientPort: 22709}
+2018-10-21 17:10:18	There are no message for this client
+2018-10-21 17:10:23	Client disconnected, closing this thread
+2018-10-21 17:10:48	Client handled has address: 127.0.0.1 and port 57539
+2018-10-21 17:10:48	Waiting for connections...
+2018-10-21 17:10:49	A client want to login
+2018-10-21 17:10:49	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 57539 ClientPort: 56696}
+2018-10-21 17:10:49	There are no message for this client
+2018-10-21 17:10:56	Client disconnected, closing this thread
+2018-10-21 17:11:20	Client handled has address: 127.0.0.1 and port 57709
+2018-10-21 17:11:20	Waiting for connections...
+2018-10-21 17:11:21	A client want to login
+2018-10-21 17:11:21	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 57709 ClientPort: 14094}
+2018-10-21 17:11:21	There are no message for this client
+2018-10-21 17:11:21	A client want to find another user
+2018-10-21 17:11:21	Store the message to test1
+2018-10-21 17:11:22	A client want to find another user
+2018-10-21 17:11:22	Store the message to test2
+2018-10-21 17:11:22	A client want to find another user
+2018-10-21 17:11:22	Store the message to q
+2018-10-21 17:11:22	A client want to find another user
+2018-10-21 17:11:22	Store the message to b
+2018-10-21 17:11:22	A client want to find another user
+2018-10-21 17:11:22	Store the message to prova
+2018-10-21 17:11:23	A client want to find another user
+2018-10-21 17:11:23	Store the message to asd
+2018-10-21 17:11:23	A client want to find another user
+2018-10-21 17:11:23	Store the message to test3
+2018-10-21 17:11:23	A client want to find another user
+2018-10-21 17:11:23	Store the message to c
+2018-10-21 17:11:23	A client want to find another user
+2018-10-21 17:11:23	Store the message to w
+2018-10-21 17:11:23	A client want to find another user
+2018-10-21 17:11:23	Store the message to qweqwe
+2018-10-21 17:11:54	Client had a problem, connection closed
