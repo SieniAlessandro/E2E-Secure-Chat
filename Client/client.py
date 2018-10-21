@@ -115,7 +115,7 @@ class Client:
                     print('The protocol for this kind of message has not been implemented yet')
                     return dictMsg['id']
 
-        except AssertionError:
+        except:
             self.Log.log('An Exception has been raised in the receiveServer function')
             return -1
     ######################################
