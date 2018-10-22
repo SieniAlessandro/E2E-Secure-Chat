@@ -11,7 +11,6 @@ host = '10.102.11.147'
 port = 6000
 MESSAGE = 'hi'
 
-
 if os.getcwd().find("Client") == -1:
     os.chdir("Client")
 

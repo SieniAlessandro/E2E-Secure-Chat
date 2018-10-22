@@ -4,7 +4,9 @@ from PIL import ImageTk, Image
 
 class LoginGUI(Tk):
 
-    backgroundWindow = '#47476b'
+    backgroundWindow = '#1f2327'
+    backgroundItems = '#434d56'
+    activebackground = '#657481'
     def __init__(self):
         Tk.__init__(self)
         w = 300 # width for the Tk root
@@ -25,12 +27,12 @@ class LoginGUI(Tk):
         self.messageLabel = Label(self.mainFrame, bg="#8585ad")
 
         self.usernameLabel = Label(self.mainFrame, bg=self.backgroundWindow, fg='white', text="Username")
-        self.usernameEntry = Entry(self.mainFrame )
+        self.usernameEntry = Entry(self.mainFrame,bg=self.backgroundItems, fg='white', relief='flat' )
         self.passwordLabel = Label(self.mainFrame, text="Password", bg=self.backgroundWindow, fg='white')
-        self.passwordEntry = Entry(self.mainFrame, show="*")
+        self.passwordEntry = Entry(self.mainFrame, show="*", bg=self.backgroundItems, fg='white', relief='flat')
         self.buttonsFrame = Frame(self.mainFrame, bg=self.backgroundWindow )
-        self.signUpButton = Button(self.buttonsFrame, text="Sign Up", command=self.signUpEvent)
-        self.confirmButton = Button(self.buttonsFrame, text="Confirm", command=self.loginEvent)
+        self.signUpButton = Button(self.buttonsFrame, text="Sign Up", command=self.signUpEvent, bg=self.backgroundItems, fg='white', relief='flat', activebackground = self.activebackground, activeforeground='white')
+        self.confirmButton = Button(self.buttonsFrame, text="Confirm", command=self.loginEvent, bg=self.backgroundItems, fg='white', relief='flat', activebackground = self.activebackground, activeforeground='white')
 
         self.mainFrame.pack(fill=BOTH, expand=True)
         self.mainFrame.columnconfigure(0, weight=100)

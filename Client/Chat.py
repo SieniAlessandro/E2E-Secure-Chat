@@ -5,8 +5,8 @@ from client import Client
 import os
 
 class ChatGUI(Tk):
-    backgroundWindow = '#47476b'
-    backgroundItems = '#29293d'
+    backgroundWindow = '#1f2327'
+    backgroundItems = '#282e33'
     def __init__(self):
         Tk.__init__(self)
 

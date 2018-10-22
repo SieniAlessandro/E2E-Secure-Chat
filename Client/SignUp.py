@@ -4,8 +4,9 @@ import re
 import os
 
 class SignUpGUI(Tk):
-
-    backgroundWindow = '#47476b'
+    backgroundWindow = '#1f2327'
+    backgroundItems = '#434d56'
+    activebackground = '#657481'
     def __init__(self):
         Tk.__init__(self)
         w = 390 # width for the Tk root
@@ -24,25 +25,25 @@ class SignUpGUI(Tk):
         self.errorLabel = Label(self.mainFrame, text="Something went wrong!", fg = "#ff1a1a", bg="#8585ad")
 
         self.usernameLabel = Label(self.leftFrame, bg=self.backgroundWindow, fg='white', text="Username")
-        self.usernameEntry = Entry(self.leftFrame, validate="focusout", vcmd= lambda: self.validateLength(self.usernameEntry, 20), invalidcommand = lambda: self.invalidate(self.usernameEntry) )
-
-        self.emailLabel = Label(self.leftFrame, bg=self.backgroundWindow, fg='white', text="Email")
-        self.emailEntry = Entry(self.leftFrame,  validate="focusout", vcmd= lambda: self.validateEmail(), invalidcommand = lambda: self.invalidate(self.emailEntry) )
+        self.usernameEntry = Entry(self.leftFrame, validate="focusout", vcmd= lambda: self.validateLength(self.usernameEntry, 20), invalidcommand = lambda: self.invalidate(self.usernameEntry), bg=self.backgroundItems, fg='white', relief='flat' )
 
         self.nameLabel = Label(self.leftFrame, bg=self.backgroundWindow, fg='white', text="Name")
-        self.nameEntry = Entry(self.leftFrame,  validate="focusout", vcmd= lambda: self.validateLength(self.nameEntry, 45), invalidcommand = lambda: self.invalidate(self.nameEntry) )
+        self.nameEntry = Entry(self.leftFrame,  validate="focusout", vcmd= lambda: self.validateLength(self.nameEntry, 45), invalidcommand = lambda: self.invalidate(self.nameEntry), bg=self.backgroundItems, fg='white', relief='flat')
 
-        self.surnameLabel = Label(self.rightFrame, bg=self.backgroundWindow, fg='white', text="Surname")
-        self.surnameEntry = Entry(self.rightFrame,  validate="focusout", vcmd= lambda: self.validateLength(self.surnameEntry, 45 ), invalidcommand = lambda: self.invalidate(self.surnameEntry) )
+        self.surnameLabel = Label(self.leftFrame, bg=self.backgroundWindow, fg='white', text="Surname")
+        self.surnameEntry = Entry(self.leftFrame,  validate="focusout", vcmd= lambda: self.validateLength(self.surnameEntry, 45 ), invalidcommand = lambda: self.invalidate(self.surnameEntry), bg=self.backgroundItems, fg='white', relief='flat' )
 
         self.passwordLabel = Label(self.rightFrame, text="Password", bg=self.backgroundWindow, fg='white')
-        self.passwordEntry = Entry(self.rightFrame, show="*", validate="focus", vcmd= lambda: self.validatePassword(), invalidcommand = lambda: self.invalidate(self.passwordEntry) )
+        self.passwordEntry = Entry(self.rightFrame, show="*", validate="focus", vcmd= lambda: self.validatePassword(), invalidcommand = lambda: self.invalidate(self.passwordEntry), bg=self.backgroundItems, fg='white', relief='flat' )
 
         self.confirmPasswordLabel = Label(self.rightFrame, text="Confirm Password", bg=self.backgroundWindow, fg='white')
-        self.confirmPasswordEntry = Entry(self.rightFrame, show="*", validate="focus", vcmd= lambda: self.validateConfirmPassword(), invalidcommand = lambda: self.invalidate(self.confirmPasswordEntry) )
+        self.confirmPasswordEntry = Entry(self.rightFrame, show="*", validate="focus", vcmd= lambda: self.validateConfirmPassword(), invalidcommand = lambda: self.invalidate(self.confirmPasswordEntry), bg=self.backgroundItems, fg='white', relief='flat' )
 
-        self.cancelButton = Button(self.mainFrame, text="Cancel", command=self.cancelEvent)
-        self.confirmButton = Button(self.mainFrame, text="Confirm", command=self.signUpEvent)
+        self.emailLabel = Label(self.rightFrame, bg=self.backgroundWindow, fg='white', text="Email")
+        self.emailEntry = Entry(self.rightFrame,  validate="focusout", vcmd= lambda: self.validateEmail(), invalidcommand = lambda: self.invalidate(self.emailEntry), bg=self.backgroundItems, fg='white', relief='flat' )
+
+        self.cancelButton = Button(self.mainFrame, text="Cancel", command=self.cancelEvent, bg=self.backgroundItems, fg='white', relief='flat', activebackground = self.activebackground, activeforeground='white')
+        self.confirmButton = Button(self.mainFrame, text="Confirm", command=self.signUpEvent, bg=self.backgroundItems, fg='white', relief='flat', activebackground = self.activebackground, activeforeground='white')
 
         self.mainFrame.pack(fill=BOTH, expand=True)
         self.mainFrame.columnconfigure(0, weight=100)
@@ -52,9 +53,6 @@ class SignUpGUI(Tk):
 
         self.usernameLabel.pack(pady=5)
         self.usernameEntry.pack(pady=5)
-
-        self.emailLabel.pack(pady=5)
-        self.emailEntry.pack(pady=5)
 
         self.nameLabel.pack(pady=5)
         self.nameEntry.pack(pady=5)
@@ -68,8 +66,13 @@ class SignUpGUI(Tk):
         self.confirmPasswordLabel.pack(pady=5)
         self.confirmPasswordEntry.pack(pady=5)
 
+        self.emailLabel.pack(pady=5)
+        self.emailEntry.pack(pady=5)
+
         self.cancelButton.grid(row=3, column=0, padx=15, pady=10)
         self.confirmButton.grid(row=3, column=1, padx=15, pady=10)
+
+        self.usernameEntry.focus_force()
 
         self.isFormValid = {}
         self.isFormValid[self.usernameEntry.winfo_name] = False

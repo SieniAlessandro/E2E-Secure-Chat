@@ -5,8 +5,9 @@ import random
 from ScrollableFrame import *
 
 class ChatWindow(Frame):
+    backgroundWindow = '#1f2327'
     def __init__(self, master, background):
-        Frame.__init__(self, master, background=background)
+        Frame.__init__(self, master, background=self.backgroundWindow)
 
         self.chatName = StringVar()
         self.listBoxMessage = []
@@ -111,8 +112,8 @@ class BoxMessage(Frame):
         self.messageLabel.grid(row=0, column=0, sticky=N+S+W)
         self.arrivalTimeLabel.grid(row=0, column=1, sticky=NE)
 
-        backgroundMine = '#7070db'
-        backgroundIts = '#24248f'
+        backgroundMine = '#2a8c8c'
+        backgroundIts = '#282e33'
         if isMine:
             rowFrame.pack(side='right', fill='x', padx=10, pady=5)
             rowFrame.configure(background=backgroundMine)
