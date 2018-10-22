@@ -20,11 +20,10 @@ class Database:
 
 
         #Preparing the insertion query
-        query = "INSERT INTO user (UserName,Email,Name,Surname,Password,PublicKey) VALUES ('%s','%s','%s','%s','%s','%s') " \
-        % (user,email,name,surname,password,str(key))
+        query = "INSERT INTO user (UserName,Email,Name,Surname,Password,PublicKey) VALUES (%s,%s,%s,%s,%s,%s) "
         try:
             #Executing the query
-            self.cursor.execute(query)
+            self.cursor.execute(query,(user,email,name,surname,password,str(key)))
             #Commit the changes to the databes
             self.db.commit()
             return 0
@@ -40,11 +39,10 @@ class Database:
 
     def insert_message(self,sender,receiver,message,time):
         #Preparing the insertion query
-        query = "INSERT INTO message(Sender,Receiver,Text,Time) VALUES ('%s','%s','%s','%s') " \
-        % (sender,receiver,message,time)
+        query = "INSERT INTO message(Sender,Receiver,Text,Time) VALUES (%s,%s,%s,%s)"
         try:
             #Executing the query
-            self.cursor.execute(query)
+            self.cursor.execute(query,(sender,receiver,message,time))
             #Commit the changes to the databes
             self.db.commit()
             return 0
@@ -54,11 +52,11 @@ class Database:
             print ("Error in the message insertion query")
             return -1
     def getMessageByReceiver(self,receiver):
-        query = "SELECT Sender,Text,Time FROM message WHERE Receiver = '%s'" %(receiver)
+        query = "SELECT Sender,Text,Time FROM message WHERE Receiver = %s"
         msg = []
         try:
             #Executing the query
-            self.cursor.execute(query)
+            self.cursor.execute(query,(receiver))
             rows = self.cursor.fetchall()
             request = {}
             for i in range(0,len(rows)):
@@ -75,10 +73,10 @@ class Database:
             return -1
 
     def userIsPresent(self,_user,_password):
-        query = "SELECT * from user where UserName = '%s' AND Password = '%s' " % (_user,_password)
+        query = "SELECT * from user where UserName = %s AND Password = %s "
         try:
             #Executing the query
-            self.cursor.execute(query)
+            self.cursor.execute(query,(_user,_password))
             #Obtaining the result as a list
             results = self.cursor.fetchall()
             return len(results) == 1
@@ -88,10 +86,10 @@ class Database:
             print ("Error in the select query")
             return -1
     def userIsRegistered(self,_user):
-        query = "SELECT * from user where UserName = '%s' " % (_user)
+        query = "SELECT * from user where UserName = %s"
         try:
             #Executing the query
-            self.cursor.execute(query)
+            self.cursor.execute(query,(_user))
             #Obtaining the result as a list
             results = self.cursor.fetchall()
             return len(results) == 1
@@ -105,11 +103,11 @@ class Database:
     #the database
 
     def remove_user(self,user):
-        query = "DELETE from user WHERE UserName = '%s'" % (user)
+        query = "DELETE from user WHERE UserName = %s"
         print(query)
         try:
             #Executing the query
-            self.cursor.execute(query)
+            self.cursor.execute(query,(user))
             #Commit the changes to the databes
             self.db.commit()
             return 0
@@ -118,26 +116,14 @@ class Database:
             self.db.rollback()
             print ("Error in the user delete query")
             return -1
-    def remove_waiting_messagesOfBannedUser(self,user):
-        query = "DELETE from message WHERE Receiver = '%s' OR sender = '%s'" % (user,user)
-        try:
-            #Executing the query
-            self.cursor.execute(query)
-            #Commit the changes to the databes
-            self.db.commit()
-            return 0
-        except:
-            #rollback the previous operations
-            self.db.rollback()
-            print ("Error in the message delete query")
-            return -1
+
     #This method is invkoed when a user back online and there are several waiting message with him as receiver.
 
     def remove_waiting_messages_by_receiver(self,receiver):
-        query = "DELETE from message WHERE Receiver = '%s'" % (receiver)
+        query = "DELETE from message WHERE Receiver = %s"
         try:
             #Executing the query
-            self.cursor.execute(query)
+            self.cursor.execute(query,(receiver))
             #Commit the changes to the databes
             self.db.commit()
             return 0
@@ -148,10 +134,10 @@ class Database:
             return -1
 
     def remove_waiting_messages_by_sender(self,sender):
-        query = "DELETE from message WHERE Sender = '%s'" % (sender)
+        query = "DELETE from message WHERE Sender = %s"
         try:
             #Executing the query
-            self.cursor.execute(query)
+            self.cursor.execute(query,(sender))
             #Commit the changes to the databes
             self.db.commit()
             return 0
@@ -161,10 +147,10 @@ class Database:
             print ("Error in the message delete query")
             return -1
     def remove_waiting_messages_by_id(self,index):
-        query = "DELETE from message WHERE Index = '%s'" % (index)
+        query = "DELETE from message WHERE Index = %s"
         try:
             #Executing the query
-            self.cursor.execute(query)
+            self.cursor.execute(query,(index))
             #Commit the changes to the databes
             self.db.commit()
             return 0
