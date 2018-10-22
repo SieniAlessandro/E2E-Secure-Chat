@@ -45,8 +45,8 @@ class ChatWindow(Frame):
     def addBoxMessageElement(self, message, time, isMine):
         timeString = str(time).split('.')[0].split(' ')[1][:-3]
         boxMessage = BoxMessage(self.scrollableFrame, self['bg'])
-        boxMessage.bind('<MouseWheel>', self.scrollableFrame._on_mousewheel)
         boxMessage.createWidgets( message, timeString , isMine)
+        boxMessage.bindMouseWheel(self.scrollableFrame)
         self.listBoxMessage.append(boxMessage)
         self.chatList.updateMessageTime(self.chatName.get(), message, time)
         self.scrollableFrame.update()
@@ -101,25 +101,30 @@ class BoxMessage(Frame):
 
     def createWidgets(self, message, arrivalTime, isMine):
         rowFrame = Frame(self)
-        messageLabel = Message(rowFrame, aspect=350, textvariable=self.message, padx=5, pady=2, fg='white')
-        arrivalTimeLabel = Label(rowFrame, textvariable=self.arrivalTime, padx=5, pady=2, fg='white')
+        self.messageLabel = Message(rowFrame, aspect=350, textvariable=self.message, padx=5, pady=2, fg='white')
+        self.arrivalTimeLabel = Label(rowFrame, textvariable=self.arrivalTime, padx=5, pady=2, fg='white')
 
         self.message.set(message)
         self.arrivalTime.set(arrivalTime)
         self.isMine = isMine
 
-        messageLabel.grid(row=0, column=0, sticky=N+S+W)
-        arrivalTimeLabel.grid(row=0, column=1, sticky=NE)
+        self.messageLabel.grid(row=0, column=0, sticky=N+S+W)
+        self.arrivalTimeLabel.grid(row=0, column=1, sticky=NE)
 
         backgroundMine = '#7070db'
         backgroundIts = '#24248f'
         if isMine:
             rowFrame.pack(side='right', fill='x', padx=10, pady=5)
             rowFrame.configure(background=backgroundMine)
-            messageLabel.configure(background=backgroundMine)
-            arrivalTimeLabel.configure(background=backgroundMine)
+            self.messageLabel.configure(background=backgroundMine)
+            self.arrivalTimeLabel.configure(background=backgroundMine)
         else:
             rowFrame.pack(side='left', fill='x', padx=10, pady=5)
             rowFrame.configure(background=backgroundIts)
-            messageLabel.configure(background=backgroundIts)
-            arrivalTimeLabel.configure(background=backgroundIts)
+            self.messageLabel.configure(background=backgroundIts)
+            self.arrivalTimeLabel.configure(background=backgroundIts)
+
+    def bindMouseWheel(self, scrollableFrame):
+        self.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
+        self.messageLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
+        self.arrivalTimeLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)

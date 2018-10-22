@@ -7,7 +7,7 @@ import os
 import ctypes
 import sys
 
-host = '127.0.0.1'
+host = '127.0.0.1'#'10.102.11.147'
 port = 6000
 MESSAGE = 'hi'
 

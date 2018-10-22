@@ -64,7 +64,7 @@ class ChatList(Frame):
         newChatListElement = ChatListElement(self.scrollableFrame, self['bg'])
         newChatWindow = ChatWindow(self.master, self['bg'])
         newChatWindow.createWidgets(self['bg'], chatName, self.client, self)
-        newChatListElement.bind('<MouseWheel>', self.scrollableFrame._on_mousewheel)
+        newChatListElement.bindMouseWheel( self.scrollableFrame)
         w =  self.master.winfo_screenwidth()*1.5/3
         newChatWindow.scrollableFrame.setCanvasWidth(w*3/4)
         newChatListElement.setElements(newChatWindow, chatName, lastMessage, timeString)
@@ -133,27 +133,36 @@ class ChatListElement(Frame):
             self.notifiesLabel.grid_forget()
 
     def createWidgets(self):
-        photoLabel = Label(self, image = self.photo, )
-        chatNameLabel = Label(self, textvariable = self.chatName, background=self['bg'], fg='white', anchor=NW)
-        lastMessageLabel = Label(self, textvariable = self.lastMessage, background=self['bg'], anchor=NW, fg='white')
-        lastMessageTimeLabel = Label(self, textvariable = self.lastMessageTime, background=self['bg'],  anchor=NE, fg='white')
+        self.photoLabel = Label(self, image = self.photo, )
+        self.chatNameLabel = Label(self, textvariable = self.chatName, background=self['bg'], fg='white', anchor=NW)
+        self.lastMessageLabel = Label(self, textvariable = self.lastMessage, background=self['bg'], anchor=NW, fg='white')
+        self.lastMessageTimeLabel = Label(self, textvariable = self.lastMessageTime, background=self['bg'],  anchor=NE, fg='white')
         self.notifiesLabel = Label(self, textvariable = self.notifies, background='#7070db' )
 
-        photoLabel.grid(row=0, column=0, rowspan=2, sticky=W, padx=5, pady=5)
-        chatNameLabel.grid(row=0, column=1, sticky=W+E, padx=5)
-        lastMessageLabel.grid(row=1,column=1, sticky=W+E, padx=5)
-        lastMessageTimeLabel.grid(row=0,column=2, sticky=W+E)
+        self.photoLabel.grid(row=0, column=0, rowspan=2, sticky=W, padx=5, pady=5)
+        self.chatNameLabel.grid(row=0, column=1, sticky=W+E, padx=5)
+        self.lastMessageLabel.grid(row=1,column=1, sticky=W+E, padx=5)
+        self.lastMessageTimeLabel.grid(row=0,column=2, sticky=W+E)
 
         self.bind('<Button-1>', self.changeChatRoom)
-        chatNameLabel.bind('<Button-1>', self.changeChatRoom)
-        lastMessageLabel.bind('<Button-1>', self.changeChatRoom)
-        photoLabel.bind('<Button-1>', self.changeChatRoom)
+        self.chatNameLabel.bind('<Button-1>', self.changeChatRoom)
+        self.lastMessageLabel.bind('<Button-1>', self.changeChatRoom)
+        self.lastMessageTimeLabel.bind('<Button-1>', self.changeChatRoom)
+        self.photoLabel.bind('<Button-1>', self.changeChatRoom)
         self.notifiesLabel.bind('<Button-1>', self.changeChatRoom)
 
     def checkStringLenght(self, s):
         if ( len(s) > self.MAXMESSAGELEN ):
             return s[0:self.MAXMESSAGELEN] + " ..."
         return s
+
+    def bindMouseWheel(self, scrollableFrame):
+        self.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
+        self.chatNameLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
+        self.lastMessageLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
+        self.lastMessageTimeLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
+        self.photoLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
+        self.notifiesLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
 
     def setLastMessage(self, message):
         self.lastMessage.set(self.checkStringLenght(message))
