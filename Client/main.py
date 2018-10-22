@@ -18,13 +18,12 @@ if os.getcwd().find("Client") == -1:
 if sys.platform.startswith('win'):
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
-
 chat = ChatGUI()
 chat.withdraw()
 login = LoginGUI()
 signUp = SignUpGUI()
 signUp.withdraw()
-client = Client(host, port, chat.chatWindow)
+client = Client(host, port, chat.activeChat)
 chat.createWidgets(client)
 client.connectServer()
 

@@ -23,18 +23,18 @@ class ChatGUI(Tk):
         self.title("MPS Chat")
 
         self.protocol("WM_DELETE_WINDOW", self.onCloseEvent )
-
-        # self.iconbitmap(os.getcwd() + '/Images/windowIcon.ico')
         self.resizable(width=FALSE, height=FALSE)
         self.rowconfigure(0,weight=100)
-        self.chatWindow = ChatWindow(self, self.backgroundWindow)
         self.chatList = ChatList(self, self.backgroundItems)
+        self.activeChat = ChatWindow(self, self.backgroundWindow)
+        self.emptyFrame = Frame(self, background=self.backgroundWindow)
+        self.emptyFrame.grid(row=0, column=1, sticky=N+S+W+E)
+        self.emptyFrame.configure(width=self.w*3/4)
 
     def createWidgets(self, client):
         self.client = client
-        self.chatList.setItems(self.chatWindow, self.client)
-        self.chatWindow.createWidgets(self.backgroundItems, "", self.client, self.chatList)
-        self.chatWindow.scrollableFrame.setCanvasWidth(self.w*3/4)
+        self.activeChat.createWidgets(self.backgroundItems, "", self.client, self.chatList)
+        self.chatList.setItems(self.client, self.activeChat)
         self.chatList.scrollableFrame.setCanvasWidth(self.w*1/4)
 
     def onLoginEvent(self, username):
@@ -42,11 +42,12 @@ class ChatGUI(Tk):
         self.title("MPS Chat - " + username)
         self.chatList.searchBar.focus_force()
         conversations = self.client.Message.retrieveAllConversations()
-        print(conversations)
+        #SORT HERE BY lastMessageTime
+        print(conversations.items())
         for c in conversations.keys():
             for m in conversations[c]:
                 isMine = True if conversations[c][m]['whoSendIt'] == 0 else False
-                self.chatList.notify(c, conversations[c][m]['text'], conversations[c][m]['time'],isMine)
+                self.chatList.notify(c, conversations[c][m]['text'], conversations[c][m]['time'],isMine, False)
 
     def onCloseEvent(self):
         print("closing event")
