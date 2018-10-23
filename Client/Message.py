@@ -62,11 +62,11 @@ class Message :
         with open("conversations.json","w") as outfile:
             json.dump(self.Conversations, outfile)
 
-    def loadConversations(self) :
+    def loadConversations(self, username) :
         try :
-            with open("conversations.json","r") as input :
+            with open("conversations" + username + ".json","r") as input :
                 self.Conversations = json.load(input)
         except :
-            file = open("conversations.json","w")
+            file = open("conversations" + username + ".json","w")
             file.close()
             self.Conversations = {}

@@ -305,7 +305,7 @@ class Client:
                 x.close()
         self.socketServer.close()
 
-        self.Message.saveConversations()
+        self.Message.saveConversations(self.username)
 
 '''
         if msg == "{quit}":
