@@ -169,7 +169,7 @@ class Client:
         if value == 1 :
             self.Log.log('Succesfull logged in as ' + self.username)
 
-            self.Message.loadConversations()
+            self.Message.loadConversations(self.username)
 
             #wating to know if there are waiting messages on the server
             self.receiveServer()

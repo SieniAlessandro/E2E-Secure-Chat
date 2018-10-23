@@ -94,6 +94,7 @@ class ChatList(Frame):
         self.chatListDict[searchKey][0].setLastMessage(message)
         self.chatListDict[searchKey][0].setLastMessageTime(time)
 
+
 class ChatListElement(Frame):
     MAXMESSAGELEN = 15
 

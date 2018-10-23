@@ -58,8 +58,8 @@ class Message :
             return self.Conversations[user]
         return 0
 
-    def saveConversations(self) :
-        with open("conversations.json","w") as outfile:
+    def saveConversations(self, username) :
+        with open("conversations" + username + ".json","w") as outfile:
             json.dump(self.Conversations, outfile)
 
     def loadConversations(self, username) :
