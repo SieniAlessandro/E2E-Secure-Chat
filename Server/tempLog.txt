@@ -220,3 +220,504 @@
 2018-10-24 15:57:26	Store the message to test1
 2018-10-24 15:57:26	The user has a massage to be stored on the DB :
 2018-10-24 15:57:35	Client disconnected, closing this thread
+2018-10-24 16:10:11	Client handled has address: 127.0.0.1 and port 47914
+2018-10-24 16:10:11	Waiting for connections...
+2018-10-24 16:10:14	A client want to login
+2018-10-24 16:10:14	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 47914 ClientPort: 41152}
+2018-10-24 16:10:14	There are no message for this client
+2018-10-24 16:10:14	A client want to find another user
+2018-10-24 16:10:14	Store the message to test1
+2018-10-24 16:10:14	A client want to find another user
+2018-10-24 16:10:14	Store the message to test2
+2018-10-24 16:10:14	A client want to find another user
+2018-10-24 16:10:14	Store the message to test5
+2018-10-24 16:10:14	A client want to find another user
+2018-10-24 16:10:14	Store the message to test3
+2018-10-24 16:10:14	A client want to find another user
+2018-10-24 16:10:14	Store the message to b
+2018-10-24 16:10:15	A client want to find another user
+2018-10-24 16:10:15	Store the message to c
+2018-10-24 16:10:15	A client want to find another user
+2018-10-24 16:10:15	Store the message to q
+2018-10-24 16:10:15	A client want to find another user
+2018-10-24 16:10:15	Store the message to w
+2018-10-24 16:10:21	A client want to find another user
+2018-10-24 16:10:21	Store the message to test3
+2018-10-24 16:10:21	The user has a massage to be stored on the DB :
+2018-10-24 16:10:21	A client want to find another user
+2018-10-24 16:10:21	Store the message to test3
+2018-10-24 16:10:21	The user has a massage to be stored on the DB :
+2018-10-24 16:10:21	A client want to find another user
+2018-10-24 16:10:21	Store the message to test3
+2018-10-24 16:10:21	The user has a massage to be stored on the DB :
+2018-10-24 16:10:22	A client want to find another user
+2018-10-24 16:10:22	Store the message to test3
+2018-10-24 16:10:22	The user has a massage to be stored on the DB :
+2018-10-24 16:10:22	A client want to find another user
+2018-10-24 16:10:22	Store the message to test3
+2018-10-24 16:10:22	The user has a massage to be stored on the DB :
+2018-10-24 16:10:22	A client want to find another user
+2018-10-24 16:10:22	Store the message to test3
+2018-10-24 16:10:22	The user has a massage to be stored on the DB :
+2018-10-24 16:10:27	A client want to find another user
+2018-10-24 16:10:27	Store the message to test3
+2018-10-24 16:10:27	The user has a massage to be stored on the DB :
+2018-10-24 16:10:29	Client disconnected, closing this thread
+2018-10-24 16:10:39	Client handled has address: 127.0.0.1 and port 48050
+2018-10-24 16:10:39	Waiting for connections...
+2018-10-24 16:10:40	A client want to login
+2018-10-24 16:10:40	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 48050 ClientPort: 19565}
+2018-10-24 16:10:40	There are no message for this client
+2018-10-24 16:10:45	Client disconnected, closing this thread
+2018-10-24 16:11:28	Client handled has address: 127.0.0.1 and port 48348
+2018-10-24 16:11:28	Waiting for connections...
+2018-10-24 16:11:30	A client want to login
+2018-10-24 16:11:30	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 48348 ClientPort: 11935}
+2018-10-24 16:11:30	There are no message for this client
+2018-10-24 16:11:33	A client want to find another user
+2018-10-24 16:11:33	Store the message to test1
+2018-10-24 16:11:34	A client want to find another user
+2018-10-24 16:11:34	Store the message to test1
+2018-10-24 16:11:34	The user has a massage to be stored on the DB :
+2018-10-24 16:11:35	A client want to find another user
+2018-10-24 16:11:35	Store the message to test1
+2018-10-24 16:11:35	The user has a massage to be stored on the DB :
+2018-10-24 16:11:35	A client want to find another user
+2018-10-24 16:11:35	Store the message to test1
+2018-10-24 16:11:35	The user has a massage to be stored on the DB :
+2018-10-24 16:11:35	A client want to find another user
+2018-10-24 16:11:35	Store the message to test1
+2018-10-24 16:11:35	The user has a massage to be stored on the DB :
+2018-10-24 16:11:35	A client want to find another user
+2018-10-24 16:11:35	Store the message to test1
+2018-10-24 16:11:35	The user has a massage to be stored on the DB :
+2018-10-24 16:11:35	A client want to find another user
+2018-10-24 16:11:35	Store the message to test1
+2018-10-24 16:11:35	The user has a massage to be stored on the DB :
+2018-10-24 16:11:35	A client want to find another user
+2018-10-24 16:11:35	Store the message to test1
+2018-10-24 16:11:35	The user has a massage to be stored on the DB :
+2018-10-24 16:11:35	A client want to find another user
+2018-10-24 16:11:35	Store the message to test1
+2018-10-24 16:11:35	The user has a massage to be stored on the DB :
+2018-10-24 16:11:36	A client want to find another user
+2018-10-24 16:11:36	Store the message to test1
+2018-10-24 16:11:36	The user has a massage to be stored on the DB :
+2018-10-24 16:11:39	A client want to find another user
+2018-10-24 16:11:39	Store the message to test2
+2018-10-24 16:11:41	A client want to find another user
+2018-10-24 16:11:41	Store the message to test2
+2018-10-24 16:11:41	The user has a massage to be stored on the DB :
+2018-10-24 16:11:41	A client want to find another user
+2018-10-24 16:11:41	Store the message to test2
+2018-10-24 16:11:41	The user has a massage to be stored on the DB :
+2018-10-24 16:11:42	A client want to find another user
+2018-10-24 16:11:42	Store the message to test2
+2018-10-24 16:11:42	The user has a massage to be stored on the DB :
+2018-10-24 16:11:42	A client want to find another user
+2018-10-24 16:11:42	Store the message to test2
+2018-10-24 16:11:42	The user has a massage to be stored on the DB :
+2018-10-24 16:11:42	A client want to find another user
+2018-10-24 16:11:42	Store the message to test2
+2018-10-24 16:11:42	The user has a massage to be stored on the DB :
+2018-10-24 16:11:43	Client disconnected, closing this thread
+2018-10-24 16:11:50	Client handled has address: 127.0.0.1 and port 48494
+2018-10-24 16:11:50	Waiting for connections...
+2018-10-24 16:11:52	A client want to login
+2018-10-24 16:11:52	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 48494 ClientPort: 33506}
+2018-10-24 16:11:52	There are no message for this client
+2018-10-24 16:15:21	Client had a problem, connection closed
+2018-10-24 16:15:27	Client handled has address: 127.0.0.1 and port 49938
+2018-10-24 16:15:27	Waiting for connections...
+2018-10-24 16:15:30	A client want to login
+2018-10-24 16:15:30	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 49938 ClientPort: 28195}
+2018-10-24 16:15:30	There are no message for this client
+2018-10-24 16:15:31	A client want to find another user
+2018-10-24 16:15:31	Store the message to test1
+2018-10-24 16:15:33	A client want to find another user
+2018-10-24 16:15:33	Store the message to test1
+2018-10-24 16:15:33	The user has a massage to be stored on the DB :
+2018-10-24 16:15:33	A client want to find another user
+2018-10-24 16:15:33	Store the message to test1
+2018-10-24 16:15:33	The user has a massage to be stored on the DB :
+2018-10-24 16:15:33	A client want to find another user
+2018-10-24 16:15:33	Store the message to test1
+2018-10-24 16:15:33	The user has a massage to be stored on the DB :
+2018-10-24 16:15:33	A client want to find another user
+2018-10-24 16:15:33	Store the message to test1
+2018-10-24 16:15:33	The user has a massage to be stored on the DB :
+2018-10-24 16:15:34	A client want to find another user
+2018-10-24 16:15:34	Store the message to test1
+2018-10-24 16:15:34	The user has a massage to be stored on the DB :
+2018-10-24 16:15:34	A client want to find another user
+2018-10-24 16:15:34	Store the message to test1
+2018-10-24 16:15:34	The user has a massage to be stored on the DB :
+2018-10-24 16:15:34	A client want to find another user
+2018-10-24 16:15:34	Store the message to test1
+2018-10-24 16:15:34	The user has a massage to be stored on the DB :
+2018-10-24 16:15:34	A client want to find another user
+2018-10-24 16:15:34	Store the message to test1
+2018-10-24 16:15:34	The user has a massage to be stored on the DB :
+2018-10-24 16:15:35	A client want to find another user
+2018-10-24 16:15:35	Store the message to test1
+2018-10-24 16:15:35	The user has a massage to be stored on the DB :
+2018-10-24 16:15:35	A client want to find another user
+2018-10-24 16:15:35	Store the message to test1
+2018-10-24 16:15:35	The user has a massage to be stored on the DB :
+2018-10-24 16:15:35	A client want to find another user
+2018-10-24 16:15:35	Store the message to test1
+2018-10-24 16:15:35	The user has a massage to be stored on the DB :
+2018-10-24 16:15:36	A client want to find another user
+2018-10-24 16:15:36	Store the message to test1
+2018-10-24 16:15:36	The user has a massage to be stored on the DB :
+2018-10-24 16:15:39	A client want to find another user
+2018-10-24 16:15:39	Store the message to test2
+2018-10-24 16:15:42	A client want to find another user
+2018-10-24 16:15:42	Store the message to test2
+2018-10-24 16:15:42	The user has a massage to be stored on the DB :
+2018-10-24 16:15:43	A client want to find another user
+2018-10-24 16:15:43	Store the message to test2
+2018-10-24 16:15:43	The user has a massage to be stored on the DB :
+2018-10-24 16:15:43	A client want to find another user
+2018-10-24 16:15:43	Store the message to test2
+2018-10-24 16:15:43	The user has a massage to be stored on the DB :
+2018-10-24 16:15:43	A client want to find another user
+2018-10-24 16:15:43	Store the message to test2
+2018-10-24 16:15:43	The user has a massage to be stored on the DB :
+2018-10-24 16:15:43	A client want to find another user
+2018-10-24 16:15:43	Store the message to test2
+2018-10-24 16:15:43	The user has a massage to be stored on the DB :
+2018-10-24 16:15:43	A client want to find another user
+2018-10-24 16:15:43	Store the message to test2
+2018-10-24 16:15:43	The user has a massage to be stored on the DB :
+2018-10-24 16:15:43	A client want to find another user
+2018-10-24 16:15:43	Store the message to test2
+2018-10-24 16:15:43	The user has a massage to be stored on the DB :
+2018-10-24 16:15:43	A client want to find another user
+2018-10-24 16:15:43	Store the message to test2
+2018-10-24 16:15:43	The user has a massage to be stored on the DB :
+2018-10-24 16:15:43	A client want to find another user
+2018-10-24 16:15:43	Store the message to test2
+2018-10-24 16:15:43	The user has a massage to be stored on the DB :
+2018-10-24 16:15:43	A client want to find another user
+2018-10-24 16:15:43	Store the message to test2
+2018-10-24 16:15:43	The user has a massage to be stored on the DB :
+2018-10-24 16:15:43	A client want to find another user
+2018-10-24 16:15:43	Store the message to test2
+2018-10-24 16:15:43	The user has a massage to be stored on the DB :
+2018-10-24 16:15:45	Client disconnected, closing this thread
+2018-10-24 16:16:18	Client handled has address: 127.0.0.1 and port 50329
+2018-10-24 16:16:18	Waiting for connections...
+2018-10-24 16:16:19	A client want to login
+2018-10-24 16:16:19	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 50329 ClientPort: 13018}
+2018-10-24 16:16:19	There are no message for this client
+2018-10-24 16:16:21	A client want to find another user
+2018-10-24 16:16:21	Store the message to test1
+2018-10-24 16:16:22	A client want to find another user
+2018-10-24 16:16:22	Store the message to test1
+2018-10-24 16:16:22	The user has a massage to be stored on the DB :
+2018-10-24 16:16:22	A client want to find another user
+2018-10-24 16:16:22	Store the message to test1
+2018-10-24 16:16:22	The user has a massage to be stored on the DB :
+2018-10-24 16:16:22	A client want to find another user
+2018-10-24 16:16:22	Store the message to test1
+2018-10-24 16:16:22	The user has a massage to be stored on the DB :
+2018-10-24 16:16:23	A client want to find another user
+2018-10-24 16:16:23	Store the message to test1
+2018-10-24 16:16:23	The user has a massage to be stored on the DB :
+2018-10-24 16:16:23	A client want to find another user
+2018-10-24 16:16:23	Store the message to test1
+2018-10-24 16:16:23	The user has a massage to be stored on the DB :
+2018-10-24 16:16:23	A client want to find another user
+2018-10-24 16:16:23	Store the message to test1
+2018-10-24 16:16:23	The user has a massage to be stored on the DB :
+2018-10-24 16:16:23	A client want to find another user
+2018-10-24 16:16:23	Store the message to test1
+2018-10-24 16:16:23	The user has a massage to be stored on the DB :
+2018-10-24 16:16:23	A client want to find another user
+2018-10-24 16:16:23	Store the message to test1
+2018-10-24 16:16:23	The user has a massage to be stored on the DB :
+2018-10-24 16:16:23	A client want to find another user
+2018-10-24 16:16:23	Store the message to test1
+2018-10-24 16:16:23	The user has a massage to be stored on the DB :
+2018-10-24 16:16:23	A client want to find another user
+2018-10-24 16:16:23	Store the message to test1
+2018-10-24 16:16:23	The user has a massage to be stored on the DB :
+2018-10-24 16:16:23	A client want to find another user
+2018-10-24 16:16:23	Store the message to test1
+2018-10-24 16:16:23	The user has a massage to be stored on the DB :
+2018-10-24 16:16:23	A client want to find another user
+2018-10-24 16:16:23	Store the message to test1
+2018-10-24 16:16:23	The user has a massage to be stored on the DB :
+2018-10-24 16:16:23	A client want to find another user
+2018-10-24 16:16:23	Store the message to test1
+2018-10-24 16:16:23	The user has a massage to be stored on the DB :
+2018-10-24 16:16:24	A client want to find another user
+2018-10-24 16:16:24	Store the message to test1
+2018-10-24 16:16:24	The user has a massage to be stored on the DB :
+2018-10-24 16:16:24	A client want to find another user
+2018-10-24 16:16:24	Store the message to test1
+2018-10-24 16:16:24	The user has a massage to be stored on the DB :
+2018-10-24 16:16:24	A client want to find another user
+2018-10-24 16:16:24	Store the message to test1
+2018-10-24 16:16:24	The user has a massage to be stored on the DB :
+2018-10-24 16:16:24	A client want to find another user
+2018-10-24 16:16:24	Store the message to test1
+2018-10-24 16:16:24	The user has a massage to be stored on the DB :
+2018-10-24 16:16:24	A client want to find another user
+2018-10-24 16:16:24	Store the message to test1
+2018-10-24 16:16:24	The user has a massage to be stored on the DB :
+2018-10-24 16:16:24	A client want to find another user
+2018-10-24 16:16:24	Store the message to test1
+2018-10-24 16:16:24	The user has a massage to be stored on the DB :
+2018-10-24 16:16:24	A client want to find another user
+2018-10-24 16:16:24	Store the message to test1
+2018-10-24 16:16:24	The user has a massage to be stored on the DB :
+2018-10-24 16:16:24	A client want to find another user
+2018-10-24 16:16:24	Store the message to test1
+2018-10-24 16:16:24	The user has a massage to be stored on the DB :
+2018-10-24 16:16:24	A client want to find another user
+2018-10-24 16:16:24	Store the message to test1
+2018-10-24 16:16:24	The user has a massage to be stored on the DB :
+2018-10-24 16:16:24	A client want to find another user
+2018-10-24 16:16:24	Store the message to test1
+2018-10-24 16:16:24	The user has a massage to be stored on the DB :
+2018-10-24 16:16:25	A client want to find another user
+2018-10-24 16:16:25	Store the message to test1
+2018-10-24 16:16:25	The user has a massage to be stored on the DB :
+2018-10-24 16:16:25	A client want to find another user
+2018-10-24 16:16:25	Store the message to test1
+2018-10-24 16:16:25	The user has a massage to be stored on the DB :
+2018-10-24 16:16:25	A client want to find another user
+2018-10-24 16:16:25	Store the message to test1
+2018-10-24 16:16:25	The user has a massage to be stored on the DB :
+2018-10-24 16:16:25	A client want to find another user
+2018-10-24 16:16:25	Store the message to test1
+2018-10-24 16:16:25	The user has a massage to be stored on the DB :
+2018-10-24 16:16:25	A client want to find another user
+2018-10-24 16:16:25	Store the message to test1
+2018-10-24 16:16:25	The user has a massage to be stored on the DB :
+2018-10-24 16:16:25	A client want to find another user
+2018-10-24 16:16:25	Store the message to test1
+2018-10-24 16:16:25	The user has a massage to be stored on the DB :
+2018-10-24 16:16:25	A client want to find another user
+2018-10-24 16:16:25	Store the message to test1
+2018-10-24 16:16:25	The user has a massage to be stored on the DB :
+2018-10-24 16:16:25	A client want to find another user
+2018-10-24 16:16:25	Store the message to test1
+2018-10-24 16:16:25	The user has a massage to be stored on the DB :
+2018-10-24 16:16:31	A client want to find another user
+2018-10-24 16:16:31	Store the message to test2
+2018-10-24 16:16:33	A client want to find another user
+2018-10-24 16:16:33	Store the message to test2
+2018-10-24 16:16:33	The user has a massage to be stored on the DB :
+2018-10-24 16:16:34	A client want to find another user
+2018-10-24 16:16:34	Store the message to test2
+2018-10-24 16:16:34	The user has a massage to be stored on the DB :
+2018-10-24 16:16:34	A client want to find another user
+2018-10-24 16:16:34	Store the message to test2
+2018-10-24 16:16:34	The user has a massage to be stored on the DB :
+2018-10-24 16:16:34	A client want to find another user
+2018-10-24 16:16:34	Store the message to test2
+2018-10-24 16:16:34	The user has a massage to be stored on the DB :
+2018-10-24 16:16:37	Client disconnected, closing this thread
+2018-10-24 16:17:06	Client handled has address: 127.0.0.1 and port 50593
+2018-10-24 16:17:06	Waiting for connections...
+2018-10-24 16:17:08	A client want to login
+2018-10-24 16:17:08	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 50593 ClientPort: 44408}
+2018-10-24 16:17:08	There are no message for this client
+2018-10-24 16:20:02	Client handled has address: 127.0.0.1 and port 51715
+2018-10-24 16:20:02	Waiting for connections...
+2018-10-24 16:20:03	Client disconnected, closing this thread
+2018-10-24 16:20:06	Client handled has address: 127.0.0.1 and port 51732
+2018-10-24 16:20:06	Waiting for connections...
+2018-10-24 16:20:06	A client want to login
+2018-10-24 16:20:06	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51732 ClientPort: 24623}
+2018-10-24 16:20:06	There are no message for this client
+2018-10-24 16:20:09	A client want to find another user
+2018-10-24 16:20:09	Store the message to test1
+2018-10-24 16:20:10	A client want to find another user
+2018-10-24 16:20:10	Store the message to test1
+2018-10-24 16:20:10	The user has a massage to be stored on the DB :
+2018-10-24 16:20:10	A client want to find another user
+2018-10-24 16:20:10	Store the message to test1
+2018-10-24 16:20:10	The user has a massage to be stored on the DB :
+2018-10-24 16:20:10	A client want to find another user
+2018-10-24 16:20:10	Store the message to test1
+2018-10-24 16:20:10	The user has a massage to be stored on the DB :
+2018-10-24 16:20:10	A client want to find another user
+2018-10-24 16:20:10	Store the message to test1
+2018-10-24 16:20:10	The user has a massage to be stored on the DB :
+2018-10-24 16:20:11	A client want to find another user
+2018-10-24 16:20:11	Store the message to test1
+2018-10-24 16:20:11	The user has a massage to be stored on the DB :
+2018-10-24 16:20:25	A client want to find another user
+2018-10-24 16:20:25	Store the message to test2
+2018-10-24 16:20:27	A client want to find another user
+2018-10-24 16:20:27	Store the message to test2
+2018-10-24 16:20:27	The user has a massage to be stored on the DB :
+2018-10-24 16:20:28	A client want to find another user
+2018-10-24 16:20:28	Store the message to test2
+2018-10-24 16:20:28	The user has a massage to be stored on the DB :
+2018-10-24 16:20:28	A client want to find another user
+2018-10-24 16:20:28	Store the message to test2
+2018-10-24 16:20:28	The user has a massage to be stored on the DB :
+2018-10-24 16:20:29	A client want to find another user
+2018-10-24 16:20:29	Store the message to test2
+2018-10-24 16:20:29	The user has a massage to be stored on the DB :
+2018-10-24 16:20:30	Client disconnected, closing this thread
+2018-10-24 16:20:43	Client handled has address: 127.0.0.1 and port 51979
+2018-10-24 16:20:43	Waiting for connections...
+2018-10-24 16:20:44	A client want to login
+2018-10-24 16:20:44	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 51979 ClientPort: 11292}
+2018-10-24 16:20:44	There are no message for this client
+2018-10-24 16:20:50	Client disconnected, closing this thread
+2018-10-24 16:23:21	Client handled has address: 127.0.0.1 and port 52943
+2018-10-24 16:23:21	Waiting for connections...
+2018-10-24 16:23:21	A client want to login
+2018-10-24 16:23:21	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 52943 ClientPort: 10924}
+2018-10-24 16:23:21	There are no message for this client
+2018-10-24 16:23:23	A client want to find another user
+2018-10-24 16:23:23	Store the message to test1
+2018-10-24 16:23:24	A client want to find another user
+2018-10-24 16:23:24	Store the message to test1
+2018-10-24 16:23:24	The user has a massage to be stored on the DB :
+2018-10-24 16:23:25	A client want to find another user
+2018-10-24 16:23:25	Store the message to test1
+2018-10-24 16:23:25	The user has a massage to be stored on the DB :
+2018-10-24 16:23:25	A client want to find another user
+2018-10-24 16:23:25	Store the message to test1
+2018-10-24 16:23:25	The user has a massage to be stored on the DB :
+2018-10-24 16:23:25	A client want to find another user
+2018-10-24 16:23:25	Store the message to test1
+2018-10-24 16:23:25	The user has a massage to be stored on the DB :
+2018-10-24 16:23:26	A client want to find another user
+2018-10-24 16:23:26	Store the message to test1
+2018-10-24 16:23:26	The user has a massage to be stored on the DB :
+2018-10-24 16:23:30	A client want to find another user
+2018-10-24 16:23:30	Store the message to test2
+2018-10-24 16:23:31	A client want to find another user
+2018-10-24 16:23:31	Store the message to test2
+2018-10-24 16:23:31	The user has a massage to be stored on the DB :
+2018-10-24 16:23:31	A client want to find another user
+2018-10-24 16:23:31	Store the message to test2
+2018-10-24 16:23:31	The user has a massage to be stored on the DB :
+2018-10-24 16:23:31	A client want to find another user
+2018-10-24 16:23:31	Store the message to test2
+2018-10-24 16:23:31	The user has a massage to be stored on the DB :
+2018-10-24 16:23:31	A client want to find another user
+2018-10-24 16:23:31	Store the message to test2
+2018-10-24 16:23:31	The user has a massage to be stored on the DB :
+2018-10-24 16:23:32	Client disconnected, closing this thread
+2018-10-24 16:24:07	Client handled has address: 127.0.0.1 and port 53193
+2018-10-24 16:24:07	Waiting for connections...
+2018-10-24 16:24:09	A client want to login
+2018-10-24 16:24:09	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 53193 ClientPort: 14395}
+2018-10-24 16:24:09	There are no message for this client
+2018-10-24 16:29:54	Client handled has address: 127.0.0.1 and port 55124
+2018-10-24 16:29:54	Waiting for connections...
+2018-10-24 16:29:55	A client want to login
+2018-10-24 16:29:55	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 55124 ClientPort: 59655}
+2018-10-24 16:29:55	There are no message for this client
+2018-10-24 16:29:57	A client want to find another user
+2018-10-24 16:29:57	Store the message to test1
+2018-10-24 16:29:58	A client want to find another user
+2018-10-24 16:29:58	Store the message to test1
+2018-10-24 16:29:58	The user has a massage to be stored on the DB :
+2018-10-24 16:29:58	A client want to find another user
+2018-10-24 16:29:58	Store the message to test1
+2018-10-24 16:29:58	The user has a massage to be stored on the DB :
+2018-10-24 16:29:58	A client want to find another user
+2018-10-24 16:29:58	Store the message to test1
+2018-10-24 16:29:58	The user has a massage to be stored on the DB :
+2018-10-24 16:29:58	A client want to find another user
+2018-10-24 16:29:58	Store the message to test1
+2018-10-24 16:29:58	The user has a massage to be stored on the DB :
+2018-10-24 16:29:59	A client want to find another user
+2018-10-24 16:29:59	Store the message to test1
+2018-10-24 16:29:59	The user has a massage to be stored on the DB :
+2018-10-24 16:29:59	A client want to find another user
+2018-10-24 16:29:59	Store the message to test1
+2018-10-24 16:29:59	The user has a massage to be stored on the DB :
+2018-10-24 16:29:59	A client want to find another user
+2018-10-24 16:29:59	Store the message to test1
+2018-10-24 16:29:59	The user has a massage to be stored on the DB :
+2018-10-24 16:29:59	A client want to find another user
+2018-10-24 16:29:59	Store the message to test1
+2018-10-24 16:29:59	The user has a massage to be stored on the DB :
+2018-10-24 16:30:04	A client want to find another user
+2018-10-24 16:30:04	Store the message to test2
+2018-10-24 16:30:05	A client want to find another user
+2018-10-24 16:30:05	Store the message to test2
+2018-10-24 16:30:05	The user has a massage to be stored on the DB :
+2018-10-24 16:30:05	A client want to find another user
+2018-10-24 16:30:05	Store the message to test2
+2018-10-24 16:30:05	The user has a massage to be stored on the DB :
+2018-10-24 16:30:05	A client want to find another user
+2018-10-24 16:30:05	Store the message to test2
+2018-10-24 16:30:05	The user has a massage to be stored on the DB :
+2018-10-24 16:30:05	A client want to find another user
+2018-10-24 16:30:05	Store the message to test2
+2018-10-24 16:30:05	The user has a massage to be stored on the DB :
+2018-10-24 16:30:06	A client want to find another user
+2018-10-24 16:30:06	Store the message to test2
+2018-10-24 16:30:06	The user has a massage to be stored on the DB :
+2018-10-24 16:30:06	A client want to find another user
+2018-10-24 16:30:06	Store the message to test2
+2018-10-24 16:30:06	The user has a massage to be stored on the DB :
+2018-10-24 16:30:06	A client want to find another user
+2018-10-24 16:30:06	Store the message to test2
+2018-10-24 16:30:06	The user has a massage to be stored on the DB :
+2018-10-24 16:30:07	A client want to find another user
+2018-10-24 16:30:07	Store the message to test2
+2018-10-24 16:30:07	The user has a massage to be stored on the DB :
+2018-10-24 16:30:09	Client disconnected, closing this thread
+2018-10-24 16:31:27	Client handled has address: 127.0.0.1 and port 55590
+2018-10-24 16:31:27	Waiting for connections...
+2018-10-24 16:31:28	A client want to login
+2018-10-24 16:31:28	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 55590 ClientPort: 23004}
+2018-10-24 16:31:28	There are no message for this client
+2018-10-24 16:31:30	A client want to find another user
+2018-10-24 16:31:30	Store the message to test2
+2018-10-24 16:31:31	A client want to find another user
+2018-10-24 16:31:31	Store the message to test2
+2018-10-24 16:31:31	The user has a massage to be stored on the DB :
+2018-10-24 16:31:31	A client want to find another user
+2018-10-24 16:31:31	Store the message to test2
+2018-10-24 16:31:31	The user has a massage to be stored on the DB :
+2018-10-24 16:31:31	A client want to find another user
+2018-10-24 16:31:31	Store the message to test2
+2018-10-24 16:31:31	The user has a massage to be stored on the DB :
+2018-10-24 16:31:31	A client want to find another user
+2018-10-24 16:31:31	Store the message to test2
+2018-10-24 16:31:31	The user has a massage to be stored on the DB :
+2018-10-24 16:31:31	A client want to find another user
+2018-10-24 16:31:31	Store the message to test2
+2018-10-24 16:31:31	The user has a massage to be stored on the DB :
+2018-10-24 16:31:31	A client want to find another user
+2018-10-24 16:31:31	Store the message to test2
+2018-10-24 16:31:31	The user has a massage to be stored on the DB :
+2018-10-24 16:31:31	A client want to find another user
+2018-10-24 16:31:31	Store the message to test2
+2018-10-24 16:31:31	The user has a massage to be stored on the DB :
+2018-10-24 16:31:33	A client want to find another user
+2018-10-24 16:31:33	Store the message to test2
+2018-10-24 16:31:33	The user has a massage to be stored on the DB :
+2018-10-24 16:31:47	A client want to find another user
+2018-10-24 16:31:47	Store the message to test1
+2018-10-24 16:31:47	A client want to find another user
+2018-10-24 16:31:47	Store the message to test1
+2018-10-24 16:31:47	The user has a massage to be stored on the DB :
+2018-10-24 16:31:48	A client want to find another user
+2018-10-24 16:31:48	Store the message to test1
+2018-10-24 16:31:48	The user has a massage to be stored on the DB :
+2018-10-24 16:31:48	A client want to find another user
+2018-10-24 16:31:48	Store the message to test1
+2018-10-24 16:31:48	The user has a massage to be stored on the DB :
+2018-10-24 16:31:48	A client want to find another user
+2018-10-24 16:31:48	Store the message to test1
+2018-10-24 16:31:48	The user has a massage to be stored on the DB :
+2018-10-24 16:31:48	A client want to find another user
+2018-10-24 16:31:48	Store the message to test1
+2018-10-24 16:31:48	The user has a massage to be stored on the DB :
+2018-10-24 16:31:50	Client disconnected, closing this thread

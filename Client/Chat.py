@@ -53,7 +53,7 @@ class ChatGUI(Tk):
     def onCloseEvent(self):
         print("closing event")
         self.destroy()
-        self.client.onClosing(self.chatList.chatListDict.keys())
+        self.client.onClosing(list(self.chatList.chatListDict.keys()))
 
 if __name__ == '__main__':
     if os.getcwd().find("Client") == -1:

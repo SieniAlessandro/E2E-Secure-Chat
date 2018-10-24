@@ -59,19 +59,19 @@ class Message :
         return 0
 
     def saveConversations(self, username, ordinatedUserList) :
-        file = open("conversations" + username + ".json","w")
-        file.close()
-        for user in ordinatedUserList:
-            with open("conversations" + username + ".json","a") as outfile:
-                print('{\"' + user +'\": ', file=outfile)
-                json.dump(self.Conversations[user], outfile)
-                print('}', file=outfile)
+        tempConversations = self.Conversations
+        self.Conversations = {}
+        for cle in ordinatedUserList:
+            self.Conversations[cle] = tempConversations[cle]
+
+        with open("conversations-" + username + ".json","w") as outfile:
+            json.dump(self.Conversations, outfile)
 
     def loadConversations(self, username) :
         try :
-            with open("conversations" + username + ".json","r") as input :
+            with open("conversations-" + username + ".json","r") as input :
                 self.Conversations = json.load(input)
         except :
-            file = open("conversations" + username + ".json","w")
+            file = open("conversations-" + username + ".json","w")
             file.close()
             self.Conversations = {}
