@@ -280,7 +280,7 @@ class Client:
                 return value
 
         msg = self.Message.createMessageJson(text, str(datetime.datetime.now()))
-        self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
+        self.Message.addMessagetoConversations(receiver.lower(), text, str(datetime.datetime.now()), 0)
         if self.socketClient[receiver] == 'server' :
 
             #Check after x time if receiver is now online

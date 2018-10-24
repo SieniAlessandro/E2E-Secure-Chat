@@ -113,7 +113,6 @@ class ChatList(Frame):
         for cle in sortedByIndex:
             self.chatListDict[cle[0]] = [cle[1][0], cle[1][1], cle[1][2]]
 
-        print(self.chatListDict)
         for cle in self.scrollableFrame.winfo_children():
             cle.pack_forget()
 

@@ -62,16 +62,20 @@ class Message :
         tempConversations = self.Conversations
         self.Conversations = {}
         for cle in ordinatedUserList:
-            self.Conversations[cle] = tempConversations[cle]
-
-        with open("conversations-" + username + ".json","w") as outfile:
+            searchKey = cle.lower()
+            print(searchKey)
+            self.Conversations[searchKey] = tempConversations[searchKey]
+        username = username.lower()
+        with open("Local/conversations-" + username + ".json","w") as outfile:
             json.dump(self.Conversations, outfile)
 
     def loadConversations(self, username) :
         try :
-            with open("conversations-" + username + ".json","r") as input :
+            username = username.lower()
+            with open("Local/conversations-" + username + ".json","r") as input :
                 self.Conversations = json.load(input)
-        except :
-            file = open("conversations-" + username + ".json","w")
+        except Exception as e :
+            print(e)
+            file = open("Local/conversations-" + username + ".json","w")
             file.close()
             self.Conversations = {}
