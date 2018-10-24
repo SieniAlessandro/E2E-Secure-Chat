@@ -298,14 +298,14 @@ class Client:
                 self.socketClient[receiver] = 'server'
                 self.sendClient(receiver, text)
 
-    def onClosing(self): #clean up before close
+    def onClosing(self, ordinatedUserList): #clean up before close
         #close the socket connection
         for x in self.socketClient :
             if not isinstance(x, str) :
                 x.close()
         self.socketServer.close()
 
-        self.Message.saveConversations(self.username)
+        self.Message.saveConversations(self.username, ordinatedUserList)
 
 '''
         if msg == "{quit}":
