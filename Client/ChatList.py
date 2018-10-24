@@ -69,11 +69,12 @@ class ChatList(Frame):
         newChatWindow.scrollableFrame.setCanvasWidth(w*3/4)
         newChatListElement.setElements(newChatWindow, chatName, lastMessage, timeString)
 
-        self.chatListDict[chatName.lower()] = [newChatListElement, newChatWindow]
+        index = len(self.chatListDict)
+        self.chatListDict[chatName.lower()] = [newChatListElement, newChatWindow, index]
         self.scrollableFrame.update()
         self.scrollableFrame.canvas.yview_moveto( 1 )
 
-    def notify(self, sender, message, time, isMine, notify):
+    def notify(self, sender, message, time, isMine, notify, onLogin):
         searchKey = sender.lower()
         global activeChat
         if searchKey not in self.chatListDict:
@@ -83,9 +84,13 @@ class ChatList(Frame):
             if activeChat.getChatName() == "":
                 # there is no active chat
                 self.chatListDict[searchKey][0].changeChatRoom(event=None)
+            if not onLogin:
+                self.sortChatList(searchKey)
         elif not activeChat.chatName.get() == sender and notify == True:
             #there is an active chat but not the sender's one, so notify that
             self.chatListDict[searchKey][0].increaseNotifies(message, time)
+            if not onLogin:
+                self.sortChatList(searchKey)
         # add the new message to that chatWindow anyway
         self.chatListDict[searchKey][1].addBoxMessageElement(message, time, isMine)
 
@@ -94,9 +99,34 @@ class ChatList(Frame):
         self.chatListDict[searchKey][0].setLastMessage(message)
         self.chatListDict[searchKey][0].setLastMessageTime(time)
 
+    def sortChatList(self, searchKey):
+        oldIndex = self.chatListDict[searchKey][2]
+        for key, val in self.chatListDict.items():
+            if key == searchKey:
+                val[2] = 0
+            elif val[2] < oldIndex:
+                val[2] += 1
+
+        sortedByIndex = sorted(self.chatListDict.items(), key=lambda kv: kv[1][2])
+
+        self.chatListDict = {}
+        for cle in sortedByIndex:
+            self.chatListDict[cle[0]] = [cle[1][0], cle[1][1], cle[1][2]]
+
+        print(self.chatListDict)
+        for cle in self.scrollableFrame.winfo_children():
+            cle.pack_forget()
+
+        for cle in sortedByIndex:
+            self.scrollableFrame.winfo_children().append(cle[1][0])
+            cle[1][0].pack(fill=X)
+
+        # print(self.scrollableFrame.winfo_children())
+        self.scrollableFrame.update()
+
 
 class ChatListElement(Frame):
-    MAXMESSAGELEN = 15
+    MAXMESSAGELEN = 10
 
     def __init__(self, master, background):
 

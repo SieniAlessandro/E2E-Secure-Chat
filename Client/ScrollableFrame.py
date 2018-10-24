@@ -9,16 +9,6 @@ class Scrollable(ttk.Frame):
     """
 
     def __init__(self, frame, background, width=16):
-
-        style = ttk.Style()
-        style.theme_use('clam')
-        # list the options of the style
-        # (Argument should be an element of TScrollbar, eg. "thumb", "trough", ...)
-        # configure the style
-        style.configure("Vertical.TScrollbar", gripcount=0,
-                        background="Green", darkcolor="DarkGreen", lightcolor="LightGreen",
-                        troughcolor="gray", bordercolor="blue", arrowcolor="white")
-
         self.scrollbar = tk.Scrollbar(frame, width=width)
         # self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y, expand=False)
 

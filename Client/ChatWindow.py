@@ -82,6 +82,7 @@ class ChatWindow(Frame):
         self.addBoxMessageElement(message, datetime.datetime.now(), True)
         self.entryBar.delete(0, 'end')
         ret = self.client.sendClient(str(self.chatName.get()), message)
+        self.chatList.sortChatList(self.chatName.get().lower())
 
     def pressEnterEvent(self, event):
         self.pressSendButton()
@@ -90,7 +91,7 @@ class ChatWindow(Frame):
         if str(self.chatName.get()) == sender:
             self.addBoxMessageElement(message, time, False)
         else:
-            self.chatList.notify(sender, message, time, False, True)
+            self.chatList.notify(sender, message, time, False, True, False)
 
 class BoxMessage(Frame):
     def __init__(self, master, background):

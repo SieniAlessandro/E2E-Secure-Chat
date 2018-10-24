@@ -1,3 +1,31 @@
-2018-10-22 11:36:41	Client initialized
-2018-10-22 11:36:41	Message Handler has been initialized!
-2018-10-22 11:36:42	Error in connection with the server, is it down?
+2018-10-24 12:21:44	Client initialized
+2018-10-24 12:21:44	Message Handler has been initialized!
+2018-10-24 12:21:45	Message: <{"id": "2", "username": "a", "password": "a", "porta": "37815"}> sended to the server correctly
+2018-10-24 12:21:45	Received a message from the SERVER: {"id": "?", "status": "1"}
+2018-10-24 12:21:45	Succesfull logged in as a
+2018-10-24 12:21:45	Received a message from the SERVER: {"id": "0", "status": "1"}
+2018-10-24 12:21:45	No messages stored in the server
+2018-10-24 12:21:45	MessageHandler Initialized! Associated port: 37815
+2018-10-24 12:21:46	All the conversations has been charged : {"test1": {"0": {"text": "oijeqwoieh", "time": "2018-10-24 12:12:28.392341", "whoSendIt": 0}}, "test2": {"0": {"text": "asdasd", "time": "2018-10-24 12:12:41.265725", "whoSendIt": 0}}, "test5": {"0": {"text": "qwepqoe", "time": "2018-10-24 12:12:50.008176", "whoSendIt": 0}}, "test3": {"0": {"text": "qweqweoij", "time": "2018-10-24 12:12:56.426147", "whoSendIt": 0}, "1": {"text": "QUESTA CHAT DEVE ESSERE LA PRIMA DOPO IL RIAVVIO", "time": "2018-10-24 12:13:40.566480", "whoSendIt": 0}}, "b": {"0": {"text": "sad", "time": "2018-10-24 12:13:11.579230", "whoSendIt": 0}, "1": {"text": "asdsad", "time": "2018-10-24 12:21:23.071006", "whoSendIt": 0}}, "c": {"0": {"text": "qwe", "time": "2018-10-24 12:13:13.381903", "whoSendIt": 0}}, "q": {"0": {"text": "qwe", "time": "2018-10-24 12:13:15.052514", "whoSendIt": 0}}, "w": {"0": {"text": "qwe", "time": "2018-10-24 12:13:16.703073", "whoSendIt": 0}}}
+2018-10-24 12:21:46	Message: <{"id": "3", "username": "test1"}> sended to the server correctly
+2018-10-24 12:21:46	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-24 12:21:46	Message: <{"id": "3", "username": "test2"}> sended to the server correctly
+2018-10-24 12:21:46	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-24 12:21:46	Message: <{"id": "3", "username": "test5"}> sended to the server correctly
+2018-10-24 12:21:46	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-24 12:21:46	Message: <{"id": "3", "username": "test3"}> sended to the server correctly
+2018-10-24 12:21:46	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-24 12:21:46	Message: <{"id": "3", "username": "b"}> sended to the server correctly
+2018-10-24 12:21:46	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-24 12:21:46	Message: <{"id": "3", "username": "c"}> sended to the server correctly
+2018-10-24 12:21:46	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-24 12:21:46	Message: <{"id": "3", "username": "q"}> sended to the server correctly
+2018-10-24 12:21:46	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-24 12:21:46	Message: <{"id": "3", "username": "w"}> sended to the server correctly
+2018-10-24 12:21:46	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-24 12:21:51	Message: <{"id": "3", "username": "c"}> sended to the server correctly
+2018-10-24 12:21:51	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-24 12:21:51	Added message to the conversation : {"text": "aaaaaaa", "time": "2018-10-24 12:21:51.882717", "whoSendIt": 0}
+2018-10-24 12:21:51	Message: <{"id": "4", "Receiver": "c", "Text": "aaaaaaa", "Time": "2018-10-24 12:21:51.882717"}> sended to the server correctly
+2018-10-24 12:21:51	Received a message from the SERVER: {"id": ".", "status": "1"}
+2018-10-24 12:21:51	Message send correctly to be stored in the Server

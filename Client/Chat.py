@@ -47,12 +47,12 @@ class ChatGUI(Tk):
         for c in conversations.keys():
             for m in conversations[c]:
                 isMine = True if conversations[c][m]['whoSendIt'] == 0 else False
-                self.chatList.notify(c, conversations[c][m]['text'], conversations[c][m]['time'],isMine, False)
+                self.chatList.notify(c, conversations[c][m]['text'], conversations[c][m]['time'],isMine, False, True)
 
     def onCloseEvent(self):
         print("closing event")
         self.destroy()
-        self.client.onClosing()
+        self.client.onClosing(self.chatList.chatListDict.keys())
 
 if __name__ == '__main__':
     if os.getcwd().find("Client") == -1:
