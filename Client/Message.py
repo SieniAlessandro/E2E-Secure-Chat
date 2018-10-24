@@ -63,7 +63,7 @@ class Message :
         file.close()
         for user in ordinatedUserList:
             with open("conversations" + username + ".json","a") as outfile:
-                print('{\"' + User +'\": ', file=outfile)
+                print('{\"' + user +'\": ', file=outfile)
                 json.dump(self.Conversations[user], outfile)
                 print('}', file=outfile)
 

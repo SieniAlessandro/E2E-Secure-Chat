@@ -28,6 +28,7 @@ class ChatGUI(Tk):
         self.chatList = ChatList(self, self.backgroundItems)
         self.activeChat = ChatWindow(self, self.backgroundWindow)
         self.emptyFrame = Frame(self, background=self.backgroundWindow)
+        # self.emptyMessage = Label(self.emptyFrame)
         self.emptyFrame.grid(row=0, column=1, sticky=N+S+W+E)
         self.emptyFrame.configure(width=self.w*3/4)
 
