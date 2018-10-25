@@ -37,7 +37,7 @@ class ConnectionHandler(Thread) :
         msg = conn.recv(self.MSG_LEN)
         msg = msg.decode(self.Code)
         msgs = msg.split('\^')
-        user = msgs[0]
+        user = msgs[0].lower()
         self.users.append(user)
         self.Log.log('Connection started with ' + user)
 
