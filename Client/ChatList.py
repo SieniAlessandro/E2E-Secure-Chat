@@ -77,6 +77,7 @@ class ChatList(Frame):
     def notify(self, sender, message, time, isMine, notify, onLogin):
         searchKey = sender.lower()
         global activeChat
+        print(activeChat)
         if searchKey not in self.chatListDict:
             #chatList not found in the list
             self.addChatListElement(sender, message, time)

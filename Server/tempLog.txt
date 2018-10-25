@@ -1,250 +1,106 @@
-2018-10-24 18:07:14	Server Initialized
-2018-10-24 18:07:14	Waiting for connections...
-2018-10-24 18:07:25	Client handled has address: 127.0.0.1 and port 7474
-2018-10-24 18:07:25	Waiting for connections...
-2018-10-24 18:07:31	A client want to login
-2018-10-24 18:07:31	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 7474 ClientPort: 37428}
-2018-10-24 18:07:31	There are several messages to be sended: {0: {'Sender': 'a', 'Text': 'asdsa', 'Time': '2018-10-24 11:05:42'}, 1: {'Sender': 'a', 'Text': 'a', 'Time': '2018-10-24 11:16:19'}, 2: {'Sender': 'a', 'Text': 'q', 'Time': '2018-10-24 11:35:30'}, 3: {'Sender': 'a', 'Text': 'a', 'Time': '2018-10-24 11:36:19'}, 4: {'Sender': 'a', 'Text': 'a', 'Time': '2018-10-24 11:39:04'}, 5: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 11:45:46'}, 6: {'Sender': 'a', 'Text': 'qqwe', 'Time': '2018-10-24 11:46:02'}, 7: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 11:59:31'}, 8: {'Sender': 'a', 'Text': 'asdsad', 'Time': '2018-10-24 11:59:56'}, 9: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 12:00:12'}, 10: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 12:04:35'}, 11: {'Sender': 'a', 'Text': 'qqwe', 'Time': '2018-10-24 12:05:44'}, 12: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 12:06:17'}, 13: {'Sender': 'a', 'Text': 'qweqwe', 'Time': '2018-10-24 12:06:29'}, 14: {'Sender': 'a', 'Text': 'asd.', 'Time': '2018-10-24 12:07:45'}, 15: {'Sender': 'a', 'Text': 'oijeqwoieh', 'Time': '2018-10-24 12:12:28'}, 16: {'Sender': 'a', 'Text': 'sadsad', 'Time': '2018-10-24 15:51:21'}, 17: {'Sender': 'a', 'Text': 'asdd', 'Time': '2018-10-24 15:51:21'}, 18: {'Sender': 'a', 'Text': 'weqweqwe', 'Time': '2018-10-24 15:53:30'}, 19: {'Sender': 'a', 'Text': 'sda', 'Time': '2018-10-24 15:54:34'}, 20: {'Sender': 'a', 'Text': 'asdqdas', 'Time': '2018-10-24 15:55:22'}, 21: {'Sender': 'a', 'Text': 'qweqeqeqwe', 'Time': '2018-10-24 15:56:21'}, 22: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 15:56:21'}, 23: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 15:56:21'}, 24: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 15:56:21'}, 25: {'Sender': 'a', 'Text': 'we', 'Time': '2018-10-24 15:56:22'}, 26: {'Sender': 'a', 'Text': 'qe', 'Time': '2018-10-24 15:56:22'}, 27: {'Sender': 'a', 'Text': 'e', 'Time': '2018-10-24 15:56:22'}, 28: {'Sender': 'a', 'Text': 'qwwe', 'Time': '2018-10-24 15:56:22'}, 29: {'Sender': 'a', 'Text': 'qw', 'Time': '2018-10-24 15:56:22'}, 30: {'Sender': 'a', 'Text': 'e', 'Time': '2018-10-24 15:56:23'}, 31: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 15:56:23'}, 32: {'Sender': 'a', 'Text': 'qwwe', 'Time': '2018-10-24 15:56:23'}, 33: {'Sender': 'a', 'Text': 'eqwe', 'Time': '2018-10-24 15:56:24'}, 34: {'Sender': 'a', 'Text': 'we', 'Time': '2018-10-24 15:56:24'}, 35: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 15:56:24'}, 36: {'Sender': 'a', 'Text': 'sdqwdq', 'Time': '2018-10-24 15:57:25'}, 37: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 15:57:26'}, 38: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 15:57:26'}, 39: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 15:57:26'}, 40: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 15:57:26'}, 41: {'Sender': 'a', 'Text': 'qe', 'Time': '2018-10-24 15:57:27'}, 42: {'Sender': 'a', 'Text': 'asdd', 'Time': '2018-10-24 16:11:35'}, 43: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:11:35'}, 44: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:11:35'}, 45: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:11:36'}, 46: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:11:36'}, 47: {'Sender': 'a', 'Text': 'ad', 'Time': '2018-10-24 16:11:36'}, 48: {'Sender': 'a', 'Text': 'a', 'Time': '2018-10-24 16:11:36'}, 49: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:11:36'}, 50: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:11:36'}, 51: {'Sender': 'a', 'Text': 'aeqe', 'Time': '2018-10-24 16:15:33'}, 52: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 16:15:33'}, 53: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 16:15:34'}, 54: {'Sender': 'a', 'Text': 'qee', 'Time': '2018-10-24 16:15:34'}, 55: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 16:15:34'}, 56: {'Sender': 'a', 'Text': 'qw', 'Time': '2018-10-24 16:15:34'}, 57: {'Sender': 'a', 'Text': 'eqw', 'Time': '2018-10-24 16:15:35'}, 58: {'Sender': 'a', 'Text': 'eqww', 'Time': '2018-10-24 16:15:35'}, 59: {'Sender': 'a', 'Text': 'eqw', 'Time': '2018-10-24 16:15:35'}, 60: {'Sender': 'a', 'Text': 'eqww', 'Time': '2018-10-24 16:15:36'}, 61: {'Sender': 'a', 'Text': 'eqw', 'Time': '2018-10-24 16:15:36'}, 62: {'Sender': 'a', 'Text': 'qww', 'Time': '2018-10-24 16:15:36'}, 63: {'Sender': 'a', 'Text': 'asdss', 'Time': '2018-10-24 16:16:23'}, 64: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:16:23'}, 65: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:16:23'}, 66: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:16:23'}, 67: {'Sender': 'a', 'Text': 'da', 'Time': '2018-10-24 16:16:23'}, 68: {'Sender': 'a', 'Text': 'sd', 'Time': '2018-10-24 16:16:23'}, 69: {'Sender': 'a', 'Text': 'a', 'Time': '2018-10-24 16:16:23'}, 70: {'Sender': 'a', 'Text': 'das', 'Time': '2018-10-24 16:16:24'}, 71: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:16:24'}, 72: {'Sender': 'a', 'Text': 'ad', 'Time': '2018-10-24 16:16:24'}, 73: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:16:24'}, 74: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:16:24'}, 75: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:16:24'}, 76: {'Sender': 'a', 'Text': 'das', 'Time': '2018-10-24 16:16:24'}, 77: {'Sender': 'a', 'Text': 'da', 'Time': '2018-10-24 16:16:24'}, 78: {'Sender': 'a', 'Text': 'sd', 'Time': '2018-10-24 16:16:24'}, 79: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:16:24'}, 80: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:16:25'}, 81: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:16:25'}, 82: {'Sender': 'a', 'Text': 'da', 'Time': '2018-10-24 16:16:25'}, 83: {'Sender': 'a', 'Text': 's', 'Time': '2018-10-24 16:16:25'}, 84: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:16:25'}, 85: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:16:25'}, 86: {'Sender': 'a', 'Text': 'da', 'Time': '2018-10-24 16:16:25'}, 87: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:16:25'}, 88: {'Sender': 'a', 'Text': 'a', 'Time': '2018-10-24 16:16:25'}, 89: {'Sender': 'a', 'Text': 'sd', 'Time': '2018-10-24 16:16:25'}, 90: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:16:25'}, 91: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:16:25'}, 92: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:16:26'}, 93: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:16:26'}, 94: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:20:10'}, 95: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:20:11'}, 96: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:20:11'}, 97: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:20:11'}, 98: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:20:12'}, 99: {'Sender': 'a', 'Text': 'asdas', 'Time': '2018-10-24 16:23:25'}, 100: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:23:25'}, 101: {'Sender': 'a', 'Text': 'assd', 'Time': '2018-10-24 16:23:26'}, 102: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:23:26'}, 103: {'Sender': 'a', 'Text': 'ad', 'Time': '2018-10-24 16:23:26'}, 104: {'Sender': 'a', 'Text': 'asdopkasd', 'Time': '2018-10-24 16:29:59'}, 105: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:29:59'}, 106: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:29:59'}, 107: {'Sender': 'a', 'Text': 'das', 'Time': '2018-10-24 16:29:59'}, 108: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:29:59'}, 109: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:29:59'}, 110: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:29:59'}, 111: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:29:59'}, 112: {'Sender': 'a', 'Text': 'ad', 'Time': '2018-10-24 16:31:48'}, 113: {'Sender': 'a', 'Text': 'sad', 'Time': '2018-10-24 16:31:48'}, 114: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:31:48'}, 115: {'Sender': 'a', 'Text': 'a', 'Time': '2018-10-24 16:31:48'}, 116: {'Sender': 'a', 'Text': 'sd', 'Time': '2018-10-24 16:31:48'}, 117: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:32:13'}, 118: {'Sender': 'a', 'Text': 'das', 'Time': '2018-10-24 16:32:13'}, 119: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:32:13'}, 120: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:32:13'}, 121: {'Sender': 'a', 'Text': 'das', 'Time': '2018-10-24 16:32:13'}, 122: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:32:13'}}
-2018-10-24 18:07:32	A client want to find another user
-2018-10-24 18:07:32	Store the message to a
-2018-10-24 18:09:08	A client want to find another user
-2018-10-24 18:09:08	Store the message to test2
-2018-10-24 18:09:13	A client want to find another user
-2018-10-24 18:09:13	Store the message to test2
-2018-10-24 18:09:13	The user has a massage to be stored on the DB :
-2018-10-24 18:09:13	A client want to find another user
-2018-10-24 18:09:13	Store the message to test2
-2018-10-24 18:09:13	The user has a massage to be stored on the DB :
-2018-10-24 18:09:13	A client want to find another user
-2018-10-24 18:09:13	Store the message to test2
-2018-10-24 18:09:13	The user has a massage to be stored on the DB :
-2018-10-24 18:09:14	A client want to find another user
-2018-10-24 18:09:14	Store the message to test2
-2018-10-24 18:09:14	The user has a massage to be stored on the DB :
-2018-10-24 18:09:14	A client want to find another user
-2018-10-24 18:09:14	Store the message to test2
-2018-10-24 18:09:14	The user has a massage to be stored on the DB :
-2018-10-24 18:09:15	A client want to find another user
-2018-10-24 18:09:15	Store the message to test2
-2018-10-24 18:09:15	The user has a massage to be stored on the DB :
-2018-10-24 18:09:15	A client want to find another user
-2018-10-24 18:09:15	Store the message to test2
-2018-10-24 18:09:15	The user has a massage to be stored on the DB :
-2018-10-24 18:09:15	A client want to find another user
-2018-10-24 18:09:15	Store the message to test2
-2018-10-24 18:09:15	The user has a massage to be stored on the DB :
-2018-10-24 18:09:16	A client want to find another user
-2018-10-24 18:09:16	Store the message to test2
-2018-10-24 18:09:16	The user has a massage to be stored on the DB :
-2018-10-24 18:09:44	Client handled has address: 127.0.0.1 and port 7891
-2018-10-24 18:09:44	Waiting for connections...
-2018-10-24 18:09:52	A client want to login
-2018-10-24 18:09:52	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 7474 ClientPort: 37428, 'test2': Username: test2 IP: 127.0.0.1 ServerPort: 7891 ClientPort: 19229}
-2018-10-24 18:09:52	There are several messages to be sended: {0: {'Sender': 'a', 'Text': '123', 'Time': '2018-10-24 10:54:56'}, 1: {'Sender': 'a', 'Text': 'a', 'Time': '2018-10-24 11:00:51'}, 2: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 12:00:05'}, 3: {'Sender': 'a', 'Text': 'qweqwe', 'Time': '2018-10-24 12:06:24'}, 4: {'Sender': 'a', 'Text': 'asdasd', 'Time': '2018-10-24 12:12:41'}, 5: {'Sender': 'a', 'Text': 'qweqwe', 'Time': '2018-10-24 15:52:58'}, 6: {'Sender': 'a', 'Text': 'qweqwe', 'Time': '2018-10-24 15:53:40'}, 7: {'Sender': 'a', 'Text': 'qweqwe', 'Time': '2018-10-24 15:54:39'}, 8: {'Sender': 'a', 'Text': 'qweqwe', 'Time': '2018-10-24 15:55:27'}, 9: {'Sender': 'a', 'Text': 'qewqeqwe', 'Time': '2018-10-24 15:56:54'}, 10: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 15:56:54'}, 11: {'Sender': 'a', 'Text': 'qe', 'Time': '2018-10-24 15:56:54'}, 12: {'Sender': 'a', 'Text': 'qe', 'Time': '2018-10-24 15:56:54'}, 13: {'Sender': 'a', 'Text': 'e', 'Time': '2018-10-24 15:56:55'}, 14: {'Sender': 'a', 'Text': 'qe', 'Time': '2018-10-24 15:56:55'}, 15: {'Sender': 'a', 'Text': 'q', 'Time': '2018-10-24 15:56:55'}, 16: {'Sender': 'a', 'Text': 'e', 'Time': '2018-10-24 15:56:55'}, 17: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 15:56:55'}, 18: {'Sender': 'a', 'Text': 'wew', 'Time': '2018-10-24 15:56:56'}, 19: {'Sender': 'a', 'Text': 'qweqeqwe', 'Time': '2018-10-24 16:11:42'}, 20: {'Sender': 'a', 'Text': 'eqw', 'Time': '2018-10-24 16:11:42'}, 21: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 16:11:42'}, 22: {'Sender': 'a', 'Text': 'qw', 'Time': '2018-10-24 16:11:42'}, 23: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 16:11:42'}, 24: {'Sender': 'a', 'Text': 'qweqe', 'Time': '2018-10-24 16:15:43'}, 25: {'Sender': 'a', 'Text': 'qw', 'Time': '2018-10-24 16:15:43'}, 26: {'Sender': 'a', 'Text': 'e', 'Time': '2018-10-24 16:15:43'}, 27: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 16:15:43'}, 28: {'Sender': 'a', 'Text': 'qw', 'Time': '2018-10-24 16:15:43'}, 29: {'Sender': 'a', 'Text': 'e', 'Time': '2018-10-24 16:15:44'}, 30: {'Sender': 'a', 'Text': 'q', 'Time': '2018-10-24 16:15:44'}, 31: {'Sender': 'a', 'Text': 'eq', 'Time': '2018-10-24 16:15:44'}, 32: {'Sender': 'a', 'Text': 'we', 'Time': '2018-10-24 16:15:44'}, 33: {'Sender': 'a', 'Text': 'q', 'Time': '2018-10-24 16:15:44'}, 34: {'Sender': 'a', 'Text': 'we', 'Time': '2018-10-24 16:15:44'}, 35: {'Sender': 'a', 'Text': 'qweqwe', 'Time': '2018-10-24 16:16:34'}, 36: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 16:16:34'}, 37: {'Sender': 'a', 'Text': 'qw', 'Time': '2018-10-24 16:16:34'}, 38: {'Sender': 'a', 'Text': 'qq', 'Time': '2018-10-24 16:16:35'}, 39: {'Sender': 'a', 'Text': 'sdasd', 'Time': '2018-10-24 16:20:27'}, 40: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:20:28'}, 41: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:20:28'}, 42: {'Sender': 'a', 'Text': 'a', 'Time': '2018-10-24 16:20:29'}, 43: {'Sender': 'a', 'Text': 'sd', 'Time': '2018-10-24 16:23:31'}, 44: {'Sender': 'a', 'Text': 'a', 'Time': '2018-10-24 16:23:31'}, 45: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:23:32'}, 46: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:23:32'}, 47: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:30:06'}, 48: {'Sender': 'a', 'Text': 'das', 'Time': '2018-10-24 16:30:06'}, 49: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:30:06'}, 50: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:30:06'}, 51: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:30:06'}, 52: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:30:06'}, 53: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:30:06'}, 54: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:30:07'}, 55: {'Sender': 'a', 'Text': 'qw', 'Time': '2018-10-24 16:31:31'}, 56: {'Sender': 'a', 'Text': 'e', 'Time': '2018-10-24 16:31:31'}, 57: {'Sender': 'a', 'Text': 'qe', 'Time': '2018-10-24 16:31:31'}, 58: {'Sender': 'a', 'Text': 'qw', 'Time': '2018-10-24 16:31:31'}, 59: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 16:31:32'}, 60: {'Sender': 'a', 'Text': 'qw', 'Time': '2018-10-24 16:31:32'}, 61: {'Sender': 'a', 'Text': 'e', 'Time': '2018-10-24 16:31:32'}, 62: {'Sender': 'a', 'Text': 'q', 'Time': '2018-10-24 16:31:33'}, 63: {'Sender': 'a', 'Text': 'as', 'Time': '2018-10-24 16:32:17'}, 64: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:32:17'}, 65: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:32:17'}, 66: {'Sender': 'a', 'Text': 'sa', 'Time': '2018-10-24 16:32:17'}, 67: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-24 16:32:18'}, 68: {'Sender': 'a', 'Text': 'ad', 'Time': '2018-10-24 16:32:18'}, 69: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 16:32:18'}, 70: {'Sender': 'a', 'Text': 'a', 'Time': '2018-10-24 16:32:18'}, 71: {'Sender': 'test1', 'Text': '123123', 'Time': '2018-10-24 18:09:13'}, 72: {'Sender': 'test1', 'Text': 'we', 'Time': '2018-10-24 18:09:14'}, 73: {'Sender': 'test1', 'Text': 'q', 'Time': '2018-10-24 18:09:14'}, 74: {'Sender': 'test1', 'Text': 'ee', 'Time': '2018-10-24 18:09:15'}, 75: {'Sender': 'test1', 'Text': 'w', 'Time': '2018-10-24 18:09:15'}, 76: {'Sender': 'test1', 'Text': 'qw', 'Time': '2018-10-24 18:09:15'}, 77: {'Sender': 'test1', 'Text': 'a', 'Time': '2018-10-24 18:09:15'}, 78: {'Sender': 'test1', 'Text': 'sd', 'Time': '2018-10-24 18:09:16'}, 79: {'Sender': 'test1', 'Text': 'as', 'Time': '2018-10-24 18:09:17'}}
-2018-10-24 18:09:52	A client want to find another user
-2018-10-24 18:09:52	Store the message to a
-2018-10-24 18:09:54	A client want to find another user
-2018-10-24 18:09:54	Ip found:127.0.0.1:37428
-2018-10-24 18:10:51	A client want to find another user
-2018-10-24 18:10:51	Store the message to a
-2018-10-24 18:10:51	The user has a massage to be stored on the DB :
-2018-10-24 18:11:14	A client want to find another user
-2018-10-24 18:11:14	Ip found:127.0.0.1:19229
-2018-10-24 18:12:39	Client had a problem, connection closed
-2018-10-24 18:12:43	Client had a problem, connection closed
-2018-10-24 18:13:05	Client handled has address: 127.0.0.1 and port 8529
-2018-10-24 18:13:05	Waiting for connections...
-2018-10-24 18:13:10	A client want to login
-2018-10-24 18:13:10	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 8529 ClientPort: 28268}
-2018-10-24 18:13:10	There are no message for this client
-2018-10-24 18:14:50	Client disconnected, closing this thread
-2018-10-24 18:16:41	Client handled has address: 127.0.0.1 and port 9258
-2018-10-24 18:16:41	Waiting for connections...
-2018-10-24 18:16:50	A client want to login
-2018-10-24 18:16:50	Active users: {'test2': Username: test2 IP: 127.0.0.1 ServerPort: 9258 ClientPort: 59903}
-2018-10-24 18:16:50	There are no message for this client
-2018-10-24 18:17:50	Client disconnected, closing this thread
-2018-10-24 18:17:58	Client handled has address: 127.0.0.1 and port 9606
-2018-10-24 18:17:58	Waiting for connections...
-2018-10-24 18:18:04	Client handled has address: 127.0.0.1 and port 9634
-2018-10-24 18:18:04	Waiting for connections...
-2018-10-24 18:18:14	A client want to login
-2018-10-24 18:18:14	Active users: {'test2': Username: test2 IP: 127.0.0.1 ServerPort: 9606 ClientPort: 47524}
-2018-10-24 18:18:14	There are no message for this client
-2018-10-24 18:18:25	A client want to login
-2018-10-24 18:18:25	Active users: {'test2': Username: test2 IP: 127.0.0.1 ServerPort: 9606 ClientPort: 47524, 'test1': Username: test1 IP: 127.0.0.1 ServerPort: 9634 ClientPort: 45027}
-2018-10-24 18:18:25	There are no message for this client
-2018-10-24 18:18:36	A client want to find another user
-2018-10-24 18:18:36	Ip found:127.0.0.1:47524
-2018-10-24 18:18:39	A client want to find another user
-2018-10-24 18:18:39	Ip found:127.0.0.1:45027
-2018-10-24 18:18:49	A client want to find another user
-2018-10-24 18:18:49	Store the message to test4
-2018-10-24 18:18:50	A client want to find another user
-2018-10-24 18:18:50	Store the message to test4
-2018-10-24 18:18:50	The user has a massage to be stored on the DB :
-2018-10-24 18:18:50	A client want to find another user
-2018-10-24 18:18:50	Store the message to test4
-2018-10-24 18:18:50	The user has a massage to be stored on the DB :
-2018-10-24 18:18:51	A client want to find another user
-2018-10-24 18:18:51	Store the message to test4
-2018-10-24 18:18:51	The user has a massage to be stored on the DB :
-2018-10-24 18:18:51	A client want to find another user
-2018-10-24 18:18:51	Store the message to test4
-2018-10-24 18:18:51	The user has a massage to be stored on the DB :
-2018-10-24 18:18:52	A client want to find another user
-2018-10-24 18:18:52	Store the message to test4
-2018-10-24 18:18:52	The user has a massage to be stored on the DB :
-2018-10-24 18:18:53	A client want to find another user
-2018-10-24 18:18:53	Store the message to test4
-2018-10-24 18:18:53	The user has a massage to be stored on the DB :
-2018-10-24 18:18:53	A client want to find another user
-2018-10-24 18:18:53	Store the message to test4
-2018-10-24 18:18:53	The user has a massage to be stored on the DB :
-2018-10-24 18:18:54	A client want to find another user
-2018-10-24 18:18:54	Store the message to test4
-2018-10-24 18:18:54	The user has a massage to be stored on the DB :
-2018-10-24 18:19:08	A client want to find another user
-2018-10-24 18:19:08	Store the message to test4
-2018-10-24 18:19:23	A client want to find another user
-2018-10-24 18:19:23	Store the message to test4
-2018-10-24 18:19:23	The user has a massage to be stored on the DB :
-2018-10-24 18:19:58	Client handled has address: 127.0.0.1 and port 9979
-2018-10-24 18:19:58	Waiting for connections...
-2018-10-24 18:20:05	A client want to login
-2018-10-24 18:20:05	Active users: {'test2': Username: test2 IP: 127.0.0.1 ServerPort: 9606 ClientPort: 47524, 'test1': Username: test1 IP: 127.0.0.1 ServerPort: 9634 ClientPort: 45027, 'test4': Username: test4 IP: 127.0.0.1 ServerPort: 9979 ClientPort: 50068}
-2018-10-24 18:20:05	There are several messages to be sended: {0: {'Sender': 'test1', 'Text': 'asd', 'Time': '2018-10-24 18:18:50'}, 1: {'Sender': 'test1', 'Text': 'd', 'Time': '2018-10-24 18:18:51'}, 2: {'Sender': 'test1', 'Text': 'q', 'Time': '2018-10-24 18:18:51'}, 3: {'Sender': 'test1', 'Text': 'eq', 'Time': '2018-10-24 18:18:52'}, 4: {'Sender': 'test1', 'Text': 'qr', 'Time': '2018-10-24 18:18:52'}, 5: {'Sender': 'test1', 'Text': 'd', 'Time': '2018-10-24 18:18:54'}, 6: {'Sender': 'test1', 'Text': 'a', 'Time': '2018-10-24 18:18:54'}, 7: {'Sender': 'test1', 'Text': 'aa', 'Time': '2018-10-24 18:18:54'}, 8: {'Sender': 'test2', 'Text': 'qwe', 'Time': '2018-10-24 18:19:24'}}
-2018-10-24 18:20:05	A client want to find another user
-2018-10-24 18:20:05	Ip found:127.0.0.1:45027
-2018-10-24 18:20:05	A client want to find another user
-2018-10-24 18:20:05	Ip found:127.0.0.1:47524
-2018-10-24 18:21:09	Client disconnected, closing this thread
-2018-10-24 18:21:21	Client handled has address: 127.0.0.1 and port 10292
-2018-10-24 18:21:21	Waiting for connections...
-2018-10-24 18:21:27	A client want to login
-2018-10-24 18:21:27	Active users: {'test2': Username: test2 IP: 127.0.0.1 ServerPort: 9606 ClientPort: 47524, 'test1': Username: test1 IP: 127.0.0.1 ServerPort: 9634 ClientPort: 45027, 'test4': Username: test4 IP: 127.0.0.1 ServerPort: 10292 ClientPort: 47509}
-2018-10-24 18:21:27	There are no message for this client
-2018-10-24 18:21:27	A client want to find another user
-2018-10-24 18:21:27	Ip found:127.0.0.1:47524
-2018-10-24 18:21:27	A client want to find another user
-2018-10-24 18:21:27	Ip found:127.0.0.1:45027
-2018-10-24 18:21:31	Client disconnected, closing this thread
-2018-10-24 18:21:35	Client disconnected, closing this thread
-2018-10-24 18:21:46	Client disconnected, closing this thread
-2018-10-24 18:21:57	Client handled has address: 127.0.0.1 and port 10346
-2018-10-24 18:21:57	Waiting for connections...
-2018-10-24 18:22:03	A client want to login
-2018-10-24 18:22:03	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 10346 ClientPort: 48674}
-2018-10-24 18:22:03	There are no message for this client
-2018-10-24 18:22:18	Client disconnected, closing this thread
-2018-10-24 18:28:28	Client handled has address: 127.0.0.1 and port 11697
-2018-10-24 18:28:28	Waiting for connections...
-2018-10-24 18:28:57	A client want to login
-2018-10-24 18:28:57	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 11697 ClientPort: 13902}
-2018-10-24 18:28:57	There are no message for this client
-2018-10-24 18:29:20	Client handled has address: 127.0.0.1 and port 11826
-2018-10-24 18:29:20	Waiting for connections...
-2018-10-24 18:29:25	A client want to login
-2018-10-24 18:29:25	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 11697 ClientPort: 13902, 'test2': Username: test2 IP: 127.0.0.1 ServerPort: 11826 ClientPort: 40988}
-2018-10-24 18:29:25	There are no message for this client
-2018-10-24 18:29:40	Client handled has address: 127.0.0.1 and port 11862
-2018-10-24 18:29:40	Waiting for connections...
-2018-10-24 18:29:48	A client want to login
-2018-10-24 18:29:48	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 11697 ClientPort: 13902, 'test2': Username: test2 IP: 127.0.0.1 ServerPort: 11826 ClientPort: 40988, 'test3': Username: test3 IP: 127.0.0.1 ServerPort: 11862 ClientPort: 42764}
-2018-10-24 18:29:48	There are several messages to be sended: {0: {'Sender': 'a', 'Text': 'Coaipoqas', 'Time': '2018-10-21 16:08:37'}, 1: {'Sender': 'a', 'Text': 'das', 'Time': '2018-10-21 16:08:37'}, 2: {'Sender': 'a', 'Text': 'dasdas', 'Time': '2018-10-21 16:08:37'}, 3: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-21 16:08:37'}, 4: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-21 16:08:38'}, 5: {'Sender': 'a', 'Text': 'q', 'Time': '2018-10-21 16:08:38'}, 6: {'Sender': 'a', 'Text': 'e122', 'Time': '2018-10-21 16:08:38'}, 7: {'Sender': 'a', 'Text': '12', 'Time': '2018-10-21 16:08:38'}, 8: {'Sender': 'a', 'Text': 'r', 'Time': '2018-10-21 16:08:39'}, 9: {'Sender': 'a', 'Text': '21', 'Time': '2018-10-21 16:08:39'}, 10: {'Sender': 'a', 'Text': 'd', 'Time': '2018-10-21 16:08:39'}, 11: {'Sender': 'a', 'Text': 'r', 'Time': '2018-10-21 16:08:39'}, 12: {'Sender': 'a', 'Text': 'sdfuihhad', 'Time': '2018-10-21 16:08:40'}, 13: {'Sender': 'a', 'Text': 'ih89yff', 'Time': '2018-10-21 16:08:42'}, 14: {'Sender': 'a', 'Text': 'wi98uw', 'Time': '2018-10-21 16:08:43'}, 15: {'Sender': 'a', 'Text': 'wwfijsdf89', 'Time': '2018-10-21 16:08:44'}, 16: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 10:51:58'}, 17: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 11:01:52'}, 18: {'Sender': 'a', 'Text': 'asd', 'Time': '2018-10-24 12:00:07'}, 19: {'Sender': 'a', 'Text': 'qeqwe', 'Time': '2018-10-24 12:06:25'}, 20: {'Sender': 'a', 'Text': 'wqewqeeq', 'Time': '2018-10-24 12:06:34'}, 21: {'Sender': 'a', 'Text': 'qweqweoij', 'Time': '2018-10-24 12:12:56'}, 22: {'Sender': 'a', 'Text': 'QUESTA CHAT DEVE ESSERE LA PRIMA DOPO IL RIAVVIO', 'Time': '2018-10-24 12:13:41'}, 23: {'Sender': 'a', 'Text': 'PRIMA', 'Time': '2018-10-24 12:30:17'}, 24: {'Sender': 'a', 'Text': 'asdasd', 'Time': '2018-10-24 15:53:42'}, 25: {'Sender': 'a', 'Text': 'aasdasdad', 'Time': '2018-10-24 15:54:46'}, 26: {'Sender': 'a', 'Text': 'qweqweqwe', 'Time': '2018-10-24 16:10:21'}, 27: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 16:10:21'}, 28: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 16:10:22'}, 29: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 16:10:22'}, 30: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 16:10:22'}, 31: {'Sender': 'a', 'Text': 'qwe', 'Time': '2018-10-24 16:10:23'}, 32: {'Sender': 'a', 'Text': 'PRIMO', 'Time': '2018-10-24 16:10:27'}}
-2018-10-24 18:29:49	A client want to find another user
-2018-10-24 18:29:49	Store the message to a
-2018-10-24 18:30:32	A client want to find another user
-2018-10-24 18:30:32	Ip found:127.0.0.1:13902
-2018-10-24 18:30:33	A client want to find another user
-2018-10-24 18:30:33	Ip found:127.0.0.1:42764
-2018-10-24 18:30:38	A client want to find another user
-2018-10-24 18:30:38	Ip found:127.0.0.1:40988
-2018-10-24 18:30:40	A client want to find another user
-2018-10-24 18:30:40	Ip found:127.0.0.1:42764
-2018-10-24 18:30:53	A client want to find another user
-2018-10-24 18:30:53	The user want to talk with himself
-2018-10-24 18:30:54	A client want to find another user
-2018-10-24 18:30:54	Ip found:127.0.0.1:40988
-2018-10-24 18:30:57	A client want to find another user
-2018-10-24 18:30:57	Ip found:127.0.0.1:13902
-2018-10-24 18:31:54	Client disconnected, closing this thread
-2018-10-24 18:35:07	Client had a problem, connection closed
-2018-10-24 18:35:09	Client had a problem, connection closed
-2018-10-24 18:38:40	Client handled has address: 127.0.0.1 and port 13935
-2018-10-24 18:38:40	Waiting for connections...
-2018-10-24 18:38:47	A client want to login
-2018-10-24 18:38:47	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 13935 ClientPort: 10320}
-2018-10-24 18:38:47	There are no message for this client
-2018-10-24 18:39:01	Client handled has address: 127.0.0.1 and port 13988
-2018-10-24 18:39:01	Waiting for connections...
-2018-10-24 18:39:08	A client want to login
-2018-10-24 18:39:08	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 13935 ClientPort: 10320, 'test2': Username: test2 IP: 127.0.0.1 ServerPort: 13988 ClientPort: 25172}
-2018-10-24 18:39:08	There are no message for this client
-2018-10-24 18:39:18	Client handled has address: 127.0.0.1 and port 14053
-2018-10-24 18:39:18	Waiting for connections...
-2018-10-24 18:39:25	A client want to login
-2018-10-24 18:39:25	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 13935 ClientPort: 10320, 'test2': Username: test2 IP: 127.0.0.1 ServerPort: 13988 ClientPort: 25172, 'test3': Username: test3 IP: 127.0.0.1 ServerPort: 14053 ClientPort: 59264}
-2018-10-24 18:39:25	There are no message for this client
-2018-10-24 18:39:34	A client want to find another user
-2018-10-24 18:39:34	Ip found:127.0.0.1:25172
-2018-10-24 18:39:35	A client want to find another user
-2018-10-24 18:39:35	Ip found:127.0.0.1:25172
-2018-10-24 18:39:35	A client want to find another user
-2018-10-24 18:39:35	Ip found:127.0.0.1:10320
-2018-10-24 18:39:45	A client want to find another user
-2018-10-24 18:39:45	Ip found:127.0.0.1:59264
-2018-10-24 18:39:55	A client want to find another user
-2018-10-24 18:39:55	Ip found:127.0.0.1:10320
-2018-10-24 18:40:02	A client want to find another user
-2018-10-24 18:40:02	Ip found:127.0.0.1:59264
-2018-10-24 18:40:04	A client want to find another user
-2018-10-24 18:40:04	Ip found:127.0.0.1:59264
-2018-10-24 18:40:04	A client want to find another user
-2018-10-24 18:40:04	Ip found:127.0.0.1:25172
-2018-10-24 18:40:28	Client disconnected, closing this thread
-2018-10-24 18:41:20	Client handled has address: 127.0.0.1 and port 14429
-2018-10-24 18:41:20	Waiting for connections...
-2018-10-24 18:41:27	A client want to login
-2018-10-24 18:41:27	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 13935 ClientPort: 10320, 'test2': Username: test2 IP: 127.0.0.1 ServerPort: 13988 ClientPort: 25172, 'test4': Username: test4 IP: 127.0.0.1 ServerPort: 14429 ClientPort: 29051}
-2018-10-24 18:41:27	There are no message for this client
-2018-10-24 18:41:32	A client want to find another user
-2018-10-24 18:41:32	Store the message to test3
-2018-10-24 18:41:33	A client want to find another user
-2018-10-24 18:41:33	Store the message to test3
-2018-10-24 18:41:33	The user has a massage to be stored on the DB :
-2018-10-24 18:41:33	A client want to find another user
-2018-10-24 18:41:33	Store the message to test3
-2018-10-24 18:41:33	The user has a massage to be stored on the DB :
-2018-10-24 18:41:33	A client want to find another user
-2018-10-24 18:41:33	Store the message to test3
-2018-10-24 18:41:33	The user has a massage to be stored on the DB :
-2018-10-24 18:41:33	A client want to find another user
-2018-10-24 18:41:33	Store the message to test3
-2018-10-24 18:41:33	The user has a massage to be stored on the DB :
-2018-10-24 18:41:33	A client want to find another user
-2018-10-24 18:41:33	Store the message to test3
-2018-10-24 18:41:33	The user has a massage to be stored on the DB :
-2018-10-24 18:41:33	A client want to find another user
-2018-10-24 18:41:33	Store the message to test3
-2018-10-24 18:41:33	The user has a massage to be stored on the DB :
-2018-10-24 18:41:33	A client want to find another user
-2018-10-24 18:41:33	Store the message to test3
-2018-10-24 18:41:33	The user has a massage to be stored on the DB :
-2018-10-24 18:41:35	A client want to find another user
-2018-10-24 18:41:35	Store the message to test3
-2018-10-24 18:41:35	The user has a massage to be stored on the DB :
-2018-10-24 18:41:46	A client want to find another user
-2018-10-24 18:41:46	Store the message to test3
-2018-10-24 18:41:46	The user has a massage to be stored on the DB :
-2018-10-24 18:41:54	A client want to find another user
-2018-10-24 18:41:54	Ip found:127.0.0.1:10320
-2018-10-24 18:41:55	A client want to find another user
-2018-10-24 18:41:55	Ip found:127.0.0.1:10320
-2018-10-24 18:41:55	A client want to find another user
-2018-10-24 18:41:55	Ip found:127.0.0.1:29051
-2018-10-24 18:42:23	A client want to find another user
-2018-10-24 18:42:23	Ip found:127.0.0.1:25172
-2018-10-24 18:42:26	A client want to find another user
-2018-10-24 18:42:26	Ip found:127.0.0.1:29051
-2018-10-24 18:42:38	Client disconnected, closing this thread
+2018-10-25 12:35:03	Server Initialized
+2018-10-25 12:35:03	Waiting for connections...
+2018-10-25 12:35:12	Client handled has address: 127.0.0.1 and port 30070
+2018-10-25 12:35:12	Waiting for connections...
+2018-10-25 12:35:16	A client want to login
+2018-10-25 12:35:16	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 30070 ClientPort: 53538}
+2018-10-25 12:35:16	There are no message for this client
+2018-10-25 12:35:19	A client want to find another user
+2018-10-25 12:35:19	User requested not found
+2018-10-25 12:35:22	A client want to find another user
+2018-10-25 12:35:22	Store the message to test3
+2018-10-25 12:35:23	A client want to find another user
+2018-10-25 12:35:23	Store the message to test3
+2018-10-25 12:35:23	The user has a massage to be stored on the DB :
+2018-10-25 12:35:24	A client want to find another user
+2018-10-25 12:35:24	Store the message to test3
+2018-10-25 12:35:24	The user has a massage to be stored on the DB :
+2018-10-25 12:35:24	A client want to find another user
+2018-10-25 12:35:24	Store the message to test3
+2018-10-25 12:35:24	The user has a massage to be stored on the DB :
+2018-10-25 12:35:25	A client want to find another user
+2018-10-25 12:35:25	Store the message to test3
+2018-10-25 12:35:25	The user has a massage to be stored on the DB :
+2018-10-25 12:35:25	A client want to find another user
+2018-10-25 12:35:25	Store the message to test3
+2018-10-25 12:35:25	The user has a massage to be stored on the DB :
+2018-10-25 12:35:26	A client want to find another user
+2018-10-25 12:35:26	Store the message to test3
+2018-10-25 12:35:26	The user has a massage to be stored on the DB :
+2018-10-25 12:35:26	A client want to find another user
+2018-10-25 12:35:26	Store the message to test3
+2018-10-25 12:35:26	The user has a massage to be stored on the DB :
+2018-10-25 12:35:43	Client handled has address: 127.0.0.1 and port 30178
+2018-10-25 12:35:43	Waiting for connections...
+2018-10-25 12:35:48	A client want to login
+2018-10-25 12:35:48	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 30070 ClientPort: 53538, 'test3': Username: test3 IP: 127.0.0.1 ServerPort: 30178 ClientPort: 14990}
+2018-10-25 12:35:48	There are several messages to be sended: {0: {'Sender': 'test1', 'Text': 'qwe', 'Time': '2018-10-25 12:35:24'}, 1: {'Sender': 'test1', 'Text': 'qwe', 'Time': '2018-10-25 12:35:24'}, 2: {'Sender': 'test1', 'Text': 'qwwe', 'Time': '2018-10-25 12:35:25'}, 3: {'Sender': 'test1', 'Text': 'asd', 'Time': '2018-10-25 12:35:25'}, 4: {'Sender': 'test1', 'Text': 'asd', 'Time': '2018-10-25 12:35:26'}, 5: {'Sender': 'test1', 'Text': 'a', 'Time': '2018-10-25 12:35:26'}, 6: {'Sender': 'test1', 'Text': 'd', 'Time': '2018-10-25 12:35:26'}}
+2018-10-25 12:35:48	A client want to find another user
+2018-10-25 12:35:48	Ip found:127.0.0.1:53538
+2018-10-25 12:36:11	A client want to find another user
+2018-10-25 12:36:11	Ip found:127.0.0.1:14990
+2018-10-25 12:39:27	Client had a problem, connection closed
+2018-10-25 12:39:29	Client had a problem, connection closed
+2018-10-25 12:41:15	Client handled has address: 127.0.0.1 and port 30920
+2018-10-25 12:41:15	Waiting for connections...
+2018-10-25 12:41:23	A client want to login
+2018-10-25 12:41:23	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 30920 ClientPort: 48853}
+2018-10-25 12:41:23	There are no message for this client
+2018-10-25 12:41:28	Client disconnected, closing this thread
+2018-10-25 12:41:41	Client handled has address: 127.0.0.1 and port 31002
+2018-10-25 12:41:41	Waiting for connections...
+2018-10-25 12:41:47	A client want to login
+2018-10-25 12:41:47	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 31002 ClientPort: 50721}
+2018-10-25 12:41:47	There are no message for this client
+2018-10-25 12:41:51	A client want to find another user
+2018-10-25 12:41:51	Store the message to test3
+2018-10-25 12:41:55	A client want to find another user
+2018-10-25 12:41:55	Store the message to test3
+2018-10-25 12:41:55	The user has a massage to be stored on the DB :
+2018-10-25 12:41:55	A client want to find another user
+2018-10-25 12:41:55	Store the message to test3
+2018-10-25 12:41:55	The user has a massage to be stored on the DB :
+2018-10-25 12:41:56	A client want to find another user
+2018-10-25 12:41:56	Store the message to test3
+2018-10-25 12:41:56	The user has a massage to be stored on the DB :
+2018-10-25 12:41:56	A client want to find another user
+2018-10-25 12:41:56	Store the message to test3
+2018-10-25 12:41:56	The user has a massage to be stored on the DB :
+2018-10-25 12:41:56	A client want to find another user
+2018-10-25 12:41:56	Store the message to test3
+2018-10-25 12:41:56	The user has a massage to be stored on the DB :
+2018-10-25 12:41:56	A client want to find another user
+2018-10-25 12:41:56	Store the message to test3
+2018-10-25 12:41:56	The user has a massage to be stored on the DB :
+2018-10-25 12:41:57	A client want to find another user
+2018-10-25 12:41:57	Store the message to test3
+2018-10-25 12:41:57	The user has a massage to be stored on the DB :
+2018-10-25 12:42:16	Client handled has address: 127.0.0.1 and port 31053
+2018-10-25 12:42:16	Waiting for connections...
+2018-10-25 12:42:23	A client want to login
+2018-10-25 12:42:23	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 31002 ClientPort: 50721, 'test3': Username: test3 IP: 127.0.0.1 ServerPort: 31053 ClientPort: 26359}
+2018-10-25 12:42:23	There are several messages to be sended: {0: {'Sender': 'test1', 'Text': 'asd', 'Time': '2018-10-25 12:41:56'}, 1: {'Sender': 'test1', 'Text': 'asd', 'Time': '2018-10-25 12:41:56'}, 2: {'Sender': 'test1', 'Text': 'asda', 'Time': '2018-10-25 12:41:56'}, 3: {'Sender': 'test1', 'Text': 'as', 'Time': '2018-10-25 12:41:56'}, 4: {'Sender': 'test1', 'Text': 'da', 'Time': '2018-10-25 12:41:57'}, 5: {'Sender': 'test1', 'Text': 's', 'Time': '2018-10-25 12:41:57'}, 6: {'Sender': 'test1', 'Text': 'da', 'Time': '2018-10-25 12:41:58'}}
+2018-10-25 12:42:24	A client want to find another user
+2018-10-25 12:42:24	Ip found:127.0.0.1:50721
+2018-10-25 12:42:35	A client want to find another user
+2018-10-25 12:42:35	Ip found:127.0.0.1:26359
+2018-10-25 12:43:58	Client had a problem, connection closed
+2018-10-25 12:44:02	Client had a problem, connection closed
+2018-10-25 12:44:18	Client handled has address: 127.0.0.1 and port 31516
+2018-10-25 12:44:18	Waiting for connections...
+2018-10-25 12:44:24	A client want to login
+2018-10-25 12:44:24	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 31516 ClientPort: 30467}
+2018-10-25 12:44:24	There are no message for this client
+2018-10-25 12:44:27	Client handled has address: 127.0.0.1 and port 31616
+2018-10-25 12:44:27	Waiting for connections...
+2018-10-25 12:44:32	A client want to login
+2018-10-25 12:44:32	Active users: {'test1': Username: test1 IP: 127.0.0.1 ServerPort: 31516 ClientPort: 30467, 'test3': Username: test3 IP: 127.0.0.1 ServerPort: 31616 ClientPort: 18831}
+2018-10-25 12:44:32	There are no message for this client
+2018-10-25 12:44:43	A client want to find another user
+2018-10-25 12:44:43	Ip found:127.0.0.1:30467
+2018-10-25 12:44:44	A client want to find another user
+2018-10-25 12:44:44	Ip found:127.0.0.1:30467
+2018-10-25 12:44:52	A client want to find another user
+2018-10-25 12:44:52	Ip found:127.0.0.1:18831
+2018-10-25 12:46:19	Client disconnected, closing this thread
+2018-10-25 12:46:19	Client disconnected, closing this thread
