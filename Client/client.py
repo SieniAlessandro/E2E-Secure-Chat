@@ -280,13 +280,18 @@ class Client:
                 return value
 
         msg = self.Message.createMessageJson(text, str(datetime.datetime.now()))
-        self.Message.addMessagetoConversations(receiver.lower(), text, str(datetime.datetime.now()), 0)
+        self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
         if self.socketClient[receiver] == 'server' :
 
             #Check after x time if receiver is now online
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()))
         else :
             try:
+                value = self.socketClient[receiver].send(str(len(msg)).encode(self.CODE_TYPE))
+                if value > 0:
+                    return 1
+                else :
+                    return 0
                 value = self.socketClient[receiver].send(msg.encode(self.CODE_TYPE))
                 if value > 0:
                     return 1
