@@ -288,9 +288,7 @@ class Client:
         else :
             try:
                 value = self.socketClient[receiver].send(str(len(msg)).encode(self.CODE_TYPE))
-                if value > 0:
-                    return 1
-                else :
+                if value < 0:
                     return 0
                 value = self.socketClient[receiver].send(msg.encode(self.CODE_TYPE))
                 if value > 0:
