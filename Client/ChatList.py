@@ -77,11 +77,11 @@ class ChatList(Frame):
     def notify(self, sender, message, time, isMine, notify, onLogin):
         searchKey = sender.lower()
         global activeChat
-        print(activeChat)
         if searchKey not in self.chatListDict:
             #chatList not found in the list
             self.addChatListElement(sender, message, time)
             self.client.startConnection(searchKey)
+            print("Active chat: " + activeChat.getChatName())
             if activeChat.getChatName() == "":
                 # there is no active chat
                 self.chatListDict[searchKey][0].changeChatRoom(event=None)
@@ -120,10 +120,14 @@ class ChatList(Frame):
         for cle in sortedByIndex:
             self.scrollableFrame.winfo_children().append(cle[1][0])
             cle[1][0].pack(fill=X)
-
-        # print(self.scrollableFrame.winfo_children())
         self.scrollableFrame.update()
 
+    def getNotEmptyUsers(self):
+        list = []
+        for cle in self.chatListDict.items():
+            if not cle[1][0].lastMessageTime.get() == '-:--':
+                list.append(cle[0])
+        return list
 
 class ChatListElement(Frame):
     MAXMESSAGELEN = 10
@@ -146,15 +150,16 @@ class ChatListElement(Frame):
 
     def changeChatRoom(self, event):
         global activeChat
-        if activeChat == None:
+        if activeChat.getChatName() == "":
             activeChat = self.chatWindow
+            print("Active chat (changeRoom): " + activeChat.getChatName())
             self.chatWindow.grid(row=0, column=1, sticky=N+S+W+E)
             self.notifies.set(0)
             self.notifiesLabel.grid_forget()
         elif self.chatName.get() == activeChat.chatName.get():
             activeChat.grid_forget()
             activeChat.entryBar.focus_force()
-            activeChat = None
+            activeChat.chatName.set("")
         else:
             activeChat.grid_forget()
             activeChat = self.chatWindow
