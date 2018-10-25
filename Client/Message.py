@@ -16,12 +16,12 @@ class Message :
         self.Log.log('Message Handler has been initialized!')
 
 
-    def createMessageJson(self, text, time) :
+    def createMessageJson(self, text, time, sender = 'None') :
 
         msg = {}
         msg['text'] = text
         msg['time'] = time
-
+        msg['sender'] = sender
         return json.dumps(msg)
 
     def addMessagetoConversations(self, user, text, time, whoSendIt) :
@@ -64,7 +64,6 @@ class Message :
         self.Conversations = {}
         for cle in ordinatedUserList:
             searchKey = cle.lower()
-            print(searchKey)
             self.Conversations[searchKey] = tempConversations[searchKey]
         username = username.lower()
         with open("Local/conversations-" + username + ".json","w") as outfile:

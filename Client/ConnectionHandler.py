@@ -34,13 +34,7 @@ class ConnectionHandler(Thread) :
         to the front end
     '''
     def receiveMessage(self, conn) :
-        msg = conn.recv(self.MSG_LEN)
-        msg = msg.decode(self.Code)
-        msgs = msg.split('\^')
-        user = msgs[0].lower()
-        self.users.append(user)
-        self.Log.log('Connection started with ' + user)
-
+        #self.Log.log('Connection started with ' + str(user))
         while True:
             try:
                 #length = conn.recv(self.MSG_LEN)
@@ -52,14 +46,14 @@ class ConnectionHandler(Thread) :
 
                 #print('Message received: ' + msg + ' length : ' + length)
                 dict = json.loads(msg)
-                self.Log.log(msg)
-                self.Log.log(user + ' send : ' + msg)
+
+                self.Log.log(dict['sender'] + ' send : ' + msg)
                 if self.Chat is not None:
-                    self.Chat.receiveMessage(user, dict['text'], dict['time'])
+                    self.Chat.receiveMessage(dict['sender'], dict['text'], dict['time'])
                 #appendToConversation
-                self.Message.addMessagetoConversations(user, dict['text'], dict['time'], 1)
+                self.Message.addMessagetoConversations(dict['sender'], dict['text'], dict['time'], 1)
             except :
-                self.Log.log('Connection closed with ' + user)
+                self.Log.log('Connection closed')
                 return -1
     '''
         In a loop accept new connection with other clients
@@ -74,8 +68,3 @@ class ConnectionHandler(Thread) :
             self.Log.log('Accepted a new connecion')
             t = Thread(target=self.receiveMessage, args=(conn, ))
             t.start()
-
-            clientList = 'The client is now connected with : '
-            for x in self.users :
-                clientList += '- ' + x
-            self.Log.log(clientList)

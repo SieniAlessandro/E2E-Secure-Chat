@@ -69,9 +69,9 @@ class Client:
             TO FINISH
         '''
         for x in msgs:
-            print('sender :' + msgs[x]['Sender'])
-            print('text : ' + msgs[x]['Text'])
-            print('time : ' + msgs[x]['Time'])
+            self.Log.log('sender :' + msgs[x]['Sender'])
+            self.Log.log('text : ' + msgs[x]['Text'])
+            self.Log.log('time : ' + msgs[x]['Time'])
             self.Message.addMessagetoConversations(msgs[x]['Sender'], msgs[x]['Text'], msgs[x]['Time'], 1)
 
     def receiveServer(self):
@@ -155,7 +155,7 @@ class Client:
             if the username or password are wrong return 0
             if the host is already connected with another device return -1
         '''
-        self.username = username
+        self.username = username.lower()
 
         msg = {}
         msg['id'] = '2'
@@ -199,7 +199,7 @@ class Client:
         '''
         msg = {}
         msg['id'] = '3'
-        msg['username'] = receiver
+        msg['username'] = receiver.lower()
         msgToSend = json.dumps(msg)
         self.sendServer(msgToSend)
 
@@ -220,13 +220,12 @@ class Client:
             msgs = value.split(':')
             ip = msgs[0]
             port = msgs[1]
-            msg = receiver + ' has IP:Port : ' + value
-            self.Log.log('Starting a new connection with ' + receiver)
+            msg = receiver.lower() + ' has IP:Port : ' + value
+            self.Log.log('Starting a new connection with ' + receiver.lower())
             #try:
             self.socketClient[receiver] = socket.socket()
-            self.socketClient[receiver].connect((ip, int(port)))
-            username = self.username + '\^'
-            ret = self.socketClient[receiver].send(username.encode(self.CODE_TYPE))
+            ret = self.socketClient[receiver].connect((ip, int(port)))
+
             value = 1
             if ret == 0:
                 msg = 'Error in sending the message to the client connection redirected to the server'
@@ -279,10 +278,9 @@ class Client:
                 print('Client does not exist!!!')
                 return value
 
-        msg = self.Message.createMessageJson(text, str(datetime.datetime.now()))
+        msg = self.Message.createMessageJson(text, str(datetime.datetime.now()), self.username)
         self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
         if self.socketClient[receiver] == 'server' :
-
             #Check after x time if receiver is now online
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()))
         else :
@@ -290,12 +288,12 @@ class Client:
                 #value = self.socketClient[receiver].send(str(len(msg)).encode(self.CODE_TYPE))
                 #print('sended ' + str(len(msg)))
                 value = self.socketClient[receiver].send(msg.encode(self.CODE_TYPE))
+                return
                 if value > 0:
-                    print('Sended ' + msg)
                     return 1
                 else :
-                    return 0
-            except:
+                    raise ConnectionResetError()
+            except ConnectionResetError:
                 self.Log.log(receiver + 'has disconnected')
                 #possible signal to FrontEnd
                 self.socketClient[receiver] = 'server'
@@ -305,11 +303,14 @@ class Client:
         #close the socket connection
         for x in self.socketClient :
             if not isinstance(x, str) :
+                x.shutdown(socket.SHUT_RDWR)
                 x.close()
+        self.socketServer.shutdown(socket.SHUT_RDWR)
         self.socketServer.close()
 
         self.Message.saveConversations(self.username, ordinatedUserList)
-
+        print('Exiting....')
+        os._exit(0)
 '''
         if msg == "{quit}":
             client_socket.close()
