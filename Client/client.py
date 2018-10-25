@@ -290,8 +290,10 @@ class Client:
                 value = self.socketClient[receiver].send(str(len(msg)).encode(self.CODE_TYPE))
                 if value < 0:
                     return 0
+                print('sended ' + str(len(msg)))
                 value = self.socketClient[receiver].send(msg.encode(self.CODE_TYPE))
                 if value > 0:
+                    print('Sended ' + msg)
                     return 1
                 else :
                     return 0
