@@ -28,9 +28,12 @@ class ChatGUI(Tk):
         self.chatList = ChatList(self, self.backgroundItems)
         self.activeChat = ChatWindow(self, self.backgroundWindow)
         self.emptyFrame = Frame(self, background=self.backgroundWindow)
-        # self.emptyMessage = Label(self.emptyFrame)
+        self.emptyMessage = Label(self.emptyFrame, text="Select a chat to start a conversation", fg = 'white', bg='#4f5a63', padx=3, pady=3)
         self.emptyFrame.grid(row=0, column=1, sticky=N+S+W+E)
+        self.emptyFrame.grid_propagate(FALSE)
         self.emptyFrame.configure(width=self.w*3/4)
+        self.emptyFrame.update()
+        self.emptyMessage.place( x = self.emptyFrame.winfo_width()/2, y = self.emptyFrame.winfo_height()/2-20)
 
     def createWidgets(self, client):
         self.client = client
@@ -43,8 +46,6 @@ class ChatGUI(Tk):
         self.title("MPS Chat - " + username)
         self.chatList.searchBar.focus_force()
         conversations = self.client.Message.retrieveAllConversations()
-        #SORT HERE BY lastMessageTime
-        print(conversations.items())
         for c in conversations.keys():
             for m in conversations[c]:
                 isMine = True if conversations[c][m]['whoSendIt'] == 0 else False

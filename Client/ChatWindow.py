@@ -39,6 +39,7 @@ class ChatWindow(Frame):
         self.entryBar = Entry(inputBar, background=background, bd =0, fg='white')
         self.entryBar.grid(row=0, column=0, sticky=W+E)
         self.entryBar.bind('<Return>', self.pressEnterEvent )
+        self.entryBar.bind('<Escape>', self.pressEscEvent)
         self.icon = ImageTk.PhotoImage(Image.open("Images/sendIcon.png").resize( (30,30), Image.ANTIALIAS ))
         sendButton = Button(inputBar, text="send", command=self.pressSendButton, bg=background, bd=0, activebackground='#787878', image=self.icon)
         sendButton.grid(row=0, column=1)
@@ -81,11 +82,15 @@ class ChatWindow(Frame):
             return
         self.addBoxMessageElement(message, datetime.datetime.now(), True)
         self.entryBar.delete(0, 'end')
-        ret = self.client.sendClient(str(self.chatName.get()), message)
+        ret = self.client.sendClient(str(self.chatName.get().lower()), message)
         self.chatList.sortChatList(self.chatName.get().lower())
 
     def pressEnterEvent(self, event):
         self.pressSendButton()
+
+    def pressEscEvent(self, event):
+        self.chatList.searchBar.focus_force()
+        self.chatList.chatListDict[self.chatName.get().lower()][0].changeChatRoom(event=None)
 
     def receiveMessage(self, sender, message, time):
         if str(self.chatName.get()) == sender:
