@@ -1,6 +1,7 @@
 import socket
 import random
 import threading
+import os
 from client import *
 from threading import Thread
 import json
@@ -70,12 +71,13 @@ class Message :
             json.dump(self.Conversations, outfile)
 
     def loadConversations(self, username) :
+        username = username.lower()
         try :
-            username = username.lower()
             with open("Local/conversations-" + username + ".json","r") as input :
                 self.Conversations = json.load(input)
         except Exception as e :
-            print(e)
+            os.makedirs("Local")
+            print("created file for the backup of the conversations of " + username)
             file = open("Local/conversations-" + username + ".json","w")
             file.close()
             self.Conversations = {}
