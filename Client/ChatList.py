@@ -33,7 +33,7 @@ class ChatList(Frame):
         if not username:
             return
         if searchKey not in self.chatListDict:
-            ret = self.client.startConnection(username)
+            ret = self.client.startConnection(searchKey)
             if ret >= 0:
                 self.addChatListElement(username, "", lastMessageTime=None)
                 activeChat = self.chatListDict[searchKey][1]
@@ -81,7 +81,7 @@ class ChatList(Frame):
         if searchKey not in self.chatListDict:
             #chatList not found in the list
             self.addChatListElement(sender, message, time)
-            self.client.startConnection(sender)
+            self.client.startConnection(searchKey)
             if activeChat.getChatName() == "":
                 # there is no active chat
                 self.chatListDict[searchKey][0].changeChatRoom(event=None)
