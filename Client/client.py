@@ -287,10 +287,8 @@ class Client:
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()))
         else :
             try:
-                value = self.socketClient[receiver].send(str(len(msg)).encode(self.CODE_TYPE))
-                if value < 0:
-                    return 0
-                print('sended ' + str(len(msg)))
+                #value = self.socketClient[receiver].send(str(len(msg)).encode(self.CODE_TYPE))
+                #print('sended ' + str(len(msg)))
                 value = self.socketClient[receiver].send(msg.encode(self.CODE_TYPE))
                 if value > 0:
                     print('Sended ' + msg)

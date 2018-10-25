@@ -43,16 +43,14 @@ class ConnectionHandler(Thread) :
 
         while True:
             try:
-                length = conn.recv(self.MSG_LEN)
-                if length == 0:
-                    return -1
-                msg = conn.recv(int(length.decode(self.Code)))
+                #length = conn.recv(self.MSG_LEN)
+                msg = conn.recv(self.MSG_LEN)
                 if not msg :
                     raise Exception()
 
                 msg = msg.decode(self.Code)
 
-                print('Message received: ' + msg + ' length : ' + length)
+                #print('Message received: ' + msg + ' length : ' + length)
                 dict = json.loads(msg)
                 self.Log.log(msg)
                 self.Log.log(user + ' send : ' + msg)
