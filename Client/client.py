@@ -300,16 +300,19 @@ class Client:
                 self.socketClient[receiver] = 'server'
                 self.sendClient(receiver, text)
 
-    def onClosing(self, ordinatedUserList): #clean up before close
+    def onClosing(self, ordinatedUserList = None): #clean up before close
         #close the socket connection
-        for x in self.socketClient :
-            if not isinstance(x, str) :
-                x.shutdown(socket.SHUT_RDWR)
-                x.close()
-        self.socketServer.shutdown(socket.SHUT_RDWR)
-        self.socketServer.close()
-
-        self.Message.saveConversations(self.username, ordinatedUserList)
+        if ordinatedUserList is not None :
+            for x in self.socketClient :
+                if not isinstance(x, str) :
+                    x.shutdown(socket.SHUT_RDWR)
+                    x.close()
+            self.Message.saveConversations(self.username, ordinatedUserList)
+        try:
+            self.socketServer.shutdown(socket.SHUT_RDWR)
+            self.socketServer.close()
+        except:
+            os._exit(0)
         print('Exiting....')
         os._exit(0)
 '''

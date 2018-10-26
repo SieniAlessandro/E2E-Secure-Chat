@@ -130,6 +130,8 @@ class SignUpGUI(Tk):
 
     def setClient(self, client):
         self.client = client
+        self.protocol("WM_DELETE_WINDOW", self.client.onClosing )
+
 
     def signUpEvent(self):
         if False in self.isFormValid.values():

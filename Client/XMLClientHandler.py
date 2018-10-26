@@ -28,7 +28,7 @@ class XMLClientHandler:
 
         # User
         user = etree.SubElement(root,"User")
-        user_remember = etree.SubElement(user, "Remember")
+        user_remember = etree.SubElement(user, "AutoLogin")
         user_remember.text = "0"
         user_name = etree.SubElement(user,"UserName")
         user_name.text = '-'

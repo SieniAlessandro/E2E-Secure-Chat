@@ -18,8 +18,8 @@ if sys.platform.startswith('win'):
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
 chat = ChatGUI()
-chat.withdraw()
 login = LoginGUI()
+chat.withdraw()
 signUp = SignUpGUI()
 signUp.withdraw()
 client = Client(host, port, chat.activeChat)

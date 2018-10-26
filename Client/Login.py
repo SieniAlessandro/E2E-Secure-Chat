@@ -20,6 +20,7 @@ class LoginGUI(Tk):
         self.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.resizable(width=FALSE, height=FALSE)
         self.title("Login")
+
         self.mainFrame = Frame(self, bg=self.backgroundWindow)
 
         self.titleLabel = Label(self.mainFrame, text="Login", bg=self.backgroundWindow, font = ("Default", 18, "bold"), fg='white')
@@ -55,6 +56,7 @@ class LoginGUI(Tk):
     def setItems(self, client, chat):
         self.client = client
         self.chat = chat
+        self.protocol("WM_DELETE_WINDOW", self.client.onClosing )
 
     def signUpEvent(self):
         self.withdraw()

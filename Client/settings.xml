@@ -5,7 +5,7 @@
     <ServerAddress>127.0.0.1</ServerAddress>
   </Server>
   <User>
-    <Remember>0</Remember>
+    <AutoLogin>0</AutoLogin>
     <UserName>-</UserName>
     <Password>-</Password>
   </User>
