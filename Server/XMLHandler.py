@@ -8,6 +8,7 @@ class XMLHandler:
         except FileNotFoundError:
             print("Creo un nuovo file")
             self.initilizeXML()
+            self.root = etree.fromstring(open(self.PATH,"r").read())
 
 
     def initilizeXML(self):
@@ -29,18 +30,22 @@ class XMLHandler:
         db_user.text = "root"
         db_pwd = etree.SubElement(db,"Password")
         db_pwd.text = "rootroot"
+        db_name = etree.SubElement(db,"name")
+        db_name.text = "messaggistica_mps"
 
         #Writing in the file
         tree = etree.ElementTree(root)
         tree.write(self.PATH,pretty_print=True)
 
     def getDatabasePort(self):
-        return int(self.root[2][1].text))
+        return int(self.root[2][1].text)
     def getDatabaseAddress(self):
         return self.root[2][0].text
     def getDatabaseUser(self):
-        return self.root[2][2]
-    def.getDatabasePwd(self):
-        return self.root[2][3]
-    def.getServerPort(self):
-        return int(self.root[0])
+        return self.root[2][2].text
+    def getDatabasePwd(self):
+        return self.root[2][3].text
+    def getServerPort(self):
+        return int(self.root[0].text)
+    def getDatabaseName(self):
+        return self.root[2][4].text
