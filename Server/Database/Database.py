@@ -15,7 +15,7 @@ class Database:
 
 
     def insert_user(self,user,password,name,surname,email,key):
-        """This method allows us to insert a new user a is invoked when a new user has completed the registration form on
+        """Insert a new user a is invoked when a new user has completed the registration form on
         the client application"""
 
 

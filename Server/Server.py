@@ -7,14 +7,16 @@ import signal, os
 from os import system, name
 import sys
 from User import User
+from XMLHandler import XMLHandler
 
 class Server:
     """Handle the global information, and the connection with the database"""
-    def __init__(self,port):
+    def __init__(self):
+        self.XML = XMLHandler()
         self.Users = {}
         self.ActiveThreads = []
         self.ip = "0.0.0.0"
-        self.port = port
+        self.port = self.XML.getServerPort()
         self.server = socket.socket(socket.AF_INET,socket.SOCK_STREAM);
         self.server.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);
         self.server.bind((self.ip,self.port))
