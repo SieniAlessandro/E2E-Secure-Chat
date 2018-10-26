@@ -1,70 +1,10 @@
-2018-10-26 17:06:02	Client initialized
-2018-10-26 17:06:02	Message Handler has been initialized!
-2018-10-26 17:06:07	Message: <{"id": "2", "username": "a", "password": "a", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:07	Received a message from the SERVER: {"id": "?", "status": "1"}
-2018-10-26 17:06:07	Succesfull logged in as a
-2018-10-26 17:06:07	Received a message from the SERVER: {"id": "0", "status": "1"}
-2018-10-26 17:06:07	No messages stored in the server
-2018-10-26 17:06:07	MessageHandler Initialized! Associated port: 49702
-2018-10-26 17:06:07	All the conversations has been charged : {"b": {"0": {"text": "asdasd", "time": "2018-10-26 16:31:22.705755", "whoSendIt": 0}, "1": {"text": "ad", "time": "2018-10-26 16:31:22.863984", "whoSendIt": 0}, "2": {"text": "a", "time": "2018-10-26 16:31:22.981265", "whoSendIt": 0}, "3": {"text": "sd", "time": "2018-10-26 16:31:23.096550", "whoSendIt": 0}, "4": {"text": "ad", "time": "2018-10-26 16:31:23.220838", "whoSendIt": 0}, "5": {"text": "asd", "time": "2018-10-26 16:31:23.341206", "whoSendIt": 0}, "6": {"text": "d", "time": "2018-10-26 16:31:24.168167", "whoSendIt": 0}}, "asd": {"0": {"text": "aasd", "time": "2018-10-26 16:31:15.524964", "whoSendIt": 0}, "1": {"text": "asd", "time": "2018-10-26 16:31:16.290070", "whoSendIt": 0}, "2": {"text": "asd", "time": "2018-10-26 16:31:17.519281", "whoSendIt": 0}, "3": {"text": "asd", "time": "2018-10-26 16:31:17.691970", "whoSendIt": 0}, "4": {"text": "as", "time": "2018-10-26 16:31:17.825710", "whoSendIt": 0}, "5": {"text": "d", "time": "2018-10-26 16:31:17.932512", "whoSendIt": 0}, "6": {"text": "asd", "time": "2018-10-26 16:31:18.041309", "whoSendIt": 0}, "7": {"text": "asd", "time": "2018-10-26 16:31:18.258838", "whoSendIt": 0}, "8": {"text": "as", "time": "2018-10-26 16:31:18.354160", "whoSendIt": 0}, "9": {"text": "d", "time": "2018-10-26 16:31:18.449502", "whoSendIt": 0}, "10": {"text": "as", "time": "2018-10-26 16:31:18.565268", "whoSendIt": 0}, "11": {"text": "as", "time": "2018-10-26 16:31:18.669075", "whoSendIt": 0}, "12": {"text": "asd", "time": "2018-10-26 16:31:18.883177", "whoSendIt": 0}}}
-2018-10-26 17:06:07	Message: <{"id": "3", "username": "b"}> sended to the server correctly
-2018-10-26 17:06:07	Received a message from the SERVER: {"id": "!", "status": "0"}
-2018-10-26 17:06:08	Message: <{"id": "3", "username": "asd"}> sended to the server correctly
-2018-10-26 17:06:08	Received a message from the SERVER: {"id": "!", "status": "0"}
-2018-10-26 17:06:16	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:16	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:16	Login : You are already connected with another device
-2018-10-26 17:06:17	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:17	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:17	Login : You are already connected with another device
-2018-10-26 17:06:18	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:18	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:18	Login : You are already connected with another device
-2018-10-26 17:06:18	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:18	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:18	Login : You are already connected with another device
-2018-10-26 17:06:18	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:18	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:18	Login : You are already connected with another device
-2018-10-26 17:06:18	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:18	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:18	Login : You are already connected with another device
-2018-10-26 17:06:19	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:19	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:19	Login : You are already connected with another device
-2018-10-26 17:06:19	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:19	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:19	Login : You are already connected with another device
-2018-10-26 17:06:19	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:19	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:19	Login : You are already connected with another device
-2018-10-26 17:06:19	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:19	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:19	Login : You are already connected with another device
-2018-10-26 17:06:19	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:19	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:19	Login : You are already connected with another device
-2018-10-26 17:06:20	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:20	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:20	Login : You are already connected with another device
-2018-10-26 17:06:20	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:20	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:20	Login : You are already connected with another device
-2018-10-26 17:06:20	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:20	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:20	Login : You are already connected with another device
-2018-10-26 17:06:20	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:20	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:20	Login : You are already connected with another device
-2018-10-26 17:06:21	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:21	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:21	Login : You are already connected with another device
-2018-10-26 17:06:21	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:21	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:21	Login : You are already connected with another device
-2018-10-26 17:06:21	Message: <{"id": "2", "username": "b", "password": "b", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:21	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:21	Login : You are already connected with another device
-2018-10-26 17:06:28	Message: <{"id": "2", "username": "Test1", "password": "Test0000", "porta": "49702"}> sended to the server correctly
-2018-10-26 17:06:28	Received a message from the SERVER: {"id": "?", "status": "-1"}
-2018-10-26 17:06:28	Login : You are already connected with another device
+2018-10-26 17:34:04	Client initialized
+2018-10-26 17:34:04	Message Handler has been initialized!
+2018-10-26 17:34:04	Message: <{"id": "2", "username": "a", "password": "a", "porta": "47464"}> sended to the server correctly
+2018-10-26 17:34:04	Received a message from the SERVER: {"id": "?", "status": "1"}
+2018-10-26 17:34:04	Succesfull logged in as a
+2018-10-26 17:34:04	Received a message from the SERVER: {"id": "0", "status": "1"}
+2018-10-26 17:34:04	No messages stored in the server
+2018-10-26 17:34:04	MessageHandler Initialized! Associated port: 47464
+2018-10-26 17:34:04	All the conversations has been charged : {}
+2018-10-26 17:34:07	Message: <{"id": "0"}> sended to the server correctly

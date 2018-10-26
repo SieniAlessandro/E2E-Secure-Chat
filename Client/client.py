@@ -318,7 +318,7 @@ class Client:
         self.Message.saveConversations(self.username, ordinatedUserList)
         msg = {}
         msg['id'] = '0'
-        #self.sendServer(msg)
+        self.sendServer(json.dumps(msg))
 
 
     def onClosing(self, ordinatedUserList = None): #clean up before close

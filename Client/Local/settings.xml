@@ -6,7 +6,7 @@
   </Server>
   <AutoLogin>
     <remember>1</remember>
-    <UserName>Test1</UserName>
-    <Password>Test0000</Password>
+    <UserName>a</UserName>
+    <Password>a</Password>
   </AutoLogin>
 </Client>

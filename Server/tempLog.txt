@@ -1,4 +1,15 @@
-2018-10-26 13:03:53	Server Initialized
-2018-10-26 13:03:53	Waiting for connections...
-2018-10-26 13:04:07	Client handled has address: 127.0.0.1 and port 59509
-2018-10-26 13:04:07	Waiting for connections...
+2018-10-26 17:32:10	Server Initialized
+2018-10-26 17:32:10	Waiting for connections...
+2018-10-26 17:33:46	Client handled has address: 127.0.0.1 and port 60008
+2018-10-26 17:33:46	Waiting for connections...
+2018-10-26 17:33:52	A client want to login
+2018-10-26 17:33:52	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 60008 ClientPort: 19560}
+2018-10-26 17:33:52	There are no message for this client
+2018-10-26 17:34:00	Client disconnected, closing this thread
+2018-10-26 17:34:04	Client handled has address: 127.0.0.1 and port 60009
+2018-10-26 17:34:04	Waiting for connections...
+2018-10-26 17:34:04	A client want to login
+2018-10-26 17:34:04	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 60009 ClientPort: 47464}
+2018-10-26 17:34:04	There are no message for this client
+2018-10-26 17:34:08	Client disconnected, closing this thread
+2018-10-26 17:34:12	Server Closed

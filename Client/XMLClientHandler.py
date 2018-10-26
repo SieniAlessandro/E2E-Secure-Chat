@@ -1,14 +1,19 @@
 from lxml import etree
 import lxml.builder
+import os
 
 class XMLClientHandler:
 
-    PATH = "settings.xml"
+    PATH = "Local/settings.xml"
     def __init__(self):
         try:
             self.root = etree.fromstring(open(self.PATH,"r").read())
         except FileNotFoundError:
-            print("Creo un nuovo file")
+            try:
+                os.stat("Local")
+            except:
+                os.mkdir("Local")
+            #print("Creo un nuovo file")
             self.initilizeXML()
 
 
