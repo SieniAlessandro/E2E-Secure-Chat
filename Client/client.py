@@ -306,7 +306,7 @@ class Client:
     def checkAutoLogin(self):
         if not self.XML.getRemember():
             return -2
-        else
+        else :
             return self.login(self.XML.getUserName(), self.XML.getUserPwd())
 
     def logout(self, ordinatedUserList):

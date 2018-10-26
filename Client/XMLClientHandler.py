@@ -40,7 +40,7 @@ class XMLClientHandler:
         tree.write(self.PATH,pretty_print=True)
 
     def getServerPort(self):
-        return int(self.root[1][0].text))
+        return int(self.root[1][0].text)
     def getServerAddress(self):
         return self.root[1][1].text
     def getRemember(self):
