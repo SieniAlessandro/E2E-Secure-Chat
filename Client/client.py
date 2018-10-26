@@ -315,6 +315,8 @@ class Client:
                 x.shutdown(socket.SHUT_RDWR)
                 x.close()
         self.Message.saveConversations(self.username, ordinatedUserList)
+        msg['id'] = '0'
+        sendServer(msg)
 
 
     def onClosing(self, ordinatedUserList = None): #clean up before close
