@@ -31,8 +31,8 @@ class XMLHandler:
         db_pwd.text = "rootroot"
         db_name = etree.SubElement(db,"name")
         db_name.text = "messaggistica_mps"
-        #Security
 
+        #Security
         PemPath = etree.SubElement(root,"PemPath")
         PemPath.text = "Default"
         #Writing in the file
