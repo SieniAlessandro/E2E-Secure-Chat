@@ -19,8 +19,8 @@ class ChatList(Frame):
         self.scrollableFrame = Scrollable(listFrame, background)
         self.searchBar = Entry(self.searchBarFrame, background=background, bd=0, fg='white')
         self.searchBar.bind('<Return>', self.pressEnterEvent )
-        self.icon = ImageTk.PhotoImage(Image.open("Images/searchIcon.png").resize( (30,30), Image.ANTIALIAS ))
-        self.searchButton = Button(self.searchBarFrame, text="search", command=self.pressSearchButton, bg=background, bd=0, activebackground='#787878', image=self.icon)
+        self.searchIcon = ImageTk.PhotoImage(Image.open("Images/searchIcon.png").resize( (30,30), Image.ANTIALIAS ))
+        self.searchButton = Button(self.searchBarFrame, text="search", command=self.pressSearchButton, bg=background, bd=0, activebackground='#787878', image=self.searchIcon)
 
         self.searchBarFrame.pack(side="top", fill=X)
         self.searchBar.pack(side=LEFT, padx=5,pady=5)
@@ -50,10 +50,8 @@ class ChatList(Frame):
     def pressEnterEvent(self, event):
         self.pressSearchButton()
 
-    def setItems(self, client, dummyActiveChat ):
+    def setItems(self, client ):
         self.client = client
-        global activeChat
-        activeChat = dummyActiveChat
 
     def addChatListElement(self, chatName, lastMessage, lastMessageTime):
         if lastMessageTime is None:
@@ -74,6 +72,12 @@ class ChatList(Frame):
         self.scrollableFrame.update()
         self.scrollableFrame.canvas.yview_moveto( 1 )
 
+    def receiveMessage(self, sender, message, time):
+        if activeChat is not None and activeChat.chatName.get() == sender:
+            self.chatListDict[activeChat.chatName.get().lower()][1].addBoxMessageElement(message, time, False)
+        else:
+            self.notify(sender, message, time, False, True, False)
+
     def notify(self, sender, message, time, isMine, notify, onLogin):
         searchKey = sender.lower()
         global activeChat
@@ -81,8 +85,7 @@ class ChatList(Frame):
             #chatList not found in the list
             self.addChatListElement(sender, message, time)
             self.client.startConnection(searchKey)
-            print("Active chat: " + activeChat.getChatName())
-            if activeChat.getChatName() == "":
+            if activeChat is None:
                 # there is no active chat
                 self.chatListDict[searchKey][0].changeChatRoom(event=None)
             if not onLogin:
@@ -150,7 +153,7 @@ class ChatListElement(Frame):
 
     def changeChatRoom(self, event):
         global activeChat
-        if activeChat.getChatName() == "":
+        if  activeChat is None:
             activeChat = self.chatWindow
             print("Active chat (changeRoom): " + activeChat.getChatName())
             self.chatWindow.grid(row=0, column=1, sticky=N+S+W+E)
@@ -159,7 +162,7 @@ class ChatListElement(Frame):
         elif self.chatName.get() == activeChat.chatName.get():
             activeChat.grid_forget()
             activeChat.entryBar.focus_force()
-            activeChat.chatName.set("")
+            activeChat = None
         else:
             activeChat.grid_forget()
             activeChat = self.chatWindow
@@ -169,7 +172,7 @@ class ChatListElement(Frame):
             self.notifiesLabel.grid_forget()
 
     def createWidgets(self):
-        self.photoLabel = Label(self, image = self.photo, )
+        self.photoLabel = Label(self, image = self.photo )
         self.chatNameLabel = Label(self, textvariable = self.chatName, background=self['bg'], fg='white', anchor=NW)
         self.lastMessageLabel = Label(self, textvariable = self.lastMessage, background=self['bg'], anchor=NW, fg='white')
         self.lastMessageTimeLabel = Label(self, textvariable = self.lastMessageTime, background=self['bg'],  anchor=NE, fg='white')

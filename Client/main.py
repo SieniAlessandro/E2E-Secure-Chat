@@ -19,11 +19,15 @@ if sys.platform.startswith('win'):
 
 chat = ChatGUI()
 login = LoginGUI()
-chat.withdraw()
 signUp = SignUpGUI()
+client = Client(chat.chatList)
+
+
+chat.withdraw()
+login.withdraw()
 signUp.withdraw()
-client = Client(chat.activeChat)
-chat.createWidgets(client)
+
+chat.createWidgets(client, login)
 client.connectServer()
 
 login.setSignUpWindow(signUp)
@@ -31,4 +35,14 @@ login.setItems(client, chat)
 signUp.setLoginWindow(login)
 signUp.setClient(client)
 
-chat.mainloop()
+ret = client.checkAutoLogin()
+if ret == 1:
+    chat.onLoginEvent(client.username)
+else:
+    if ret == 0 :
+        login.showError()
+    elif ret == -1:
+        login.showMessage("You are already logged in other device",  "#ff1a1a" )
+    login.deiconify()
+
+login.mainloop()

@@ -92,12 +92,6 @@ class ChatWindow(Frame):
         self.chatList.searchBar.focus_force()
         self.chatList.chatListDict[self.chatName.get().lower()][0].changeChatRoom(event=None)
 
-    def receiveMessage(self, sender, message, time):
-        if str(self.chatName.get()) == sender:
-            self.addBoxMessageElement(message, time, False)
-        else:
-            self.chatList.notify(sender, message, time, False, True, False)
-
 class BoxMessage(Frame):
     def __init__(self, master, background):
         Frame.__init__(self, master, padx=3, pady=3, bg=background )

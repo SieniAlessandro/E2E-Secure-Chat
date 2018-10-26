@@ -7,6 +7,8 @@ import os
 class ChatGUI(Tk):
     backgroundWindow = '#1f2327'
     backgroundItems = '#282e33'
+    activebackground = '#657481'
+
     def __init__(self):
         Tk.__init__(self)
 
@@ -26,20 +28,29 @@ class ChatGUI(Tk):
         self.resizable(width=FALSE, height=FALSE)
         self.rowconfigure(0,weight=100)
         self.chatList = ChatList(self, self.backgroundItems)
-        self.activeChat = ChatWindow(self, self.backgroundWindow)
+        self.activeChat = None
         self.emptyFrame = Frame(self, background=self.backgroundWindow)
         self.emptyMessage = Label(self.emptyFrame, text="Select a chat to start a conversation", fg = 'white', bg='#4f5a63', padx=3, pady=3)
+        self.orLabel = Label(self.emptyFrame, text="or",  fg = 'white', bg=self.backgroundWindow, padx=3, pady=3 )
+        self.logoutButton = Button(self.emptyFrame, command=self.logout, text="Logout", bg='#4f5a63', fg='white', relief='flat', activebackground = self.activebackground, activeforeground='white')
         self.emptyFrame.grid(row=0, column=1, sticky=N+S+W+E)
         self.emptyFrame.grid_propagate(FALSE)
         self.emptyFrame.configure(width=self.w*3/4)
         self.emptyFrame.update()
-        self.emptyMessage.place( x = self.emptyFrame.winfo_width()/2, y = self.emptyFrame.winfo_height()/2-20)
+        self.emptyMessage.place( x = self.emptyFrame.winfo_width()/2, y = self.emptyFrame.winfo_height()/2-30, anchor=CENTER)
+        self.orLabel.place( x = self.emptyFrame.winfo_width()/2, y = self.emptyFrame.winfo_height()/2-0, anchor=CENTER)
+        self.logoutButton.place( x = self.emptyFrame.winfo_width()/2, y = self.emptyFrame.winfo_height()/2+30, anchor=CENTER)
 
-    def createWidgets(self, client):
+    def createWidgets(self, client, login):
         self.client = client
-        self.activeChat.createWidgets(self.backgroundItems, "", self.client, self.chatList)
-        self.chatList.setItems(self.client, self.activeChat)
+        self.login = login
+        self.chatList.setItems(self.client)
         self.chatList.scrollableFrame.setCanvasWidth(self.w*1/4)
+
+    def logout(self):
+        self.login.deiconify()
+        self.withdraw()
+        self.client.logout(self.chatList.getNotEmptyUsers())
 
     def onLoginEvent(self, username):
         self.deiconify()
@@ -52,7 +63,6 @@ class ChatGUI(Tk):
                 self.chatList.notify(c, conversations[c][m]['text'], conversations[c][m]['time'],isMine, False, True)
 
     def onCloseEvent(self):
-        print("closing event")
         self.destroy()
         self.client.onClosing(self.chatList.getNotEmptyUsers())
 
@@ -61,8 +71,8 @@ if __name__ == '__main__':
         os.chdir("Client")
 
     chat = ChatGUI()
-    client = Client("", 6555)
-    chat.createWidgets(client)
+    client = Client("")
+    # chat.createWidgets(client)
 
     chat.chatList.addChatListElement("Rododendro", "Oggi piove", None)
     # chat.chatWindow.receiveMessage("Rododendro", "Associated", "0:00")

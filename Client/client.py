@@ -307,8 +307,8 @@ class Client:
         if not self.XML.getRemember():
             return -2
         else :
-
-            return self.login(self.XML.getUserName(), self.XML.getUserPwd())
+            self.username = self.XML.getUserName()
+            return self.login(self.username, self.XML.getUserPwd())
 
     def logout(self, ordinatedUserList):
         for x in self.socketClient :

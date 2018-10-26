@@ -44,7 +44,7 @@ class XMLClientHandler:
     def getServerAddress(self):
         return self.root[1][1].text
     def getRemember(self):
-        return self.root[2][0].text
+        return int(self.root[2][0].text)
     def getUserName(self):
         return self.root[2][1].text
     def getUserPwd(self):
@@ -52,10 +52,10 @@ class XMLClientHandler:
     def getEnableLog(self):
         return self.root[0][0].text
 
-    def setAutoLogin(self, remember, user, psw):
+    def setAutoLogin(self, remember, user, password):
         self.root[2][0].text = str(remember)
         self.root[2][1].text = user
-        self.root[2][2].text = pwd
+        self.root[2][2].text = password
 
     def saveXML(self):
         tree = etree.ElementTree(self.root)
