@@ -20,11 +20,11 @@ class Server:
         self.server = socket.socket(socket.AF_INET,socket.SOCK_STREAM);
         self.server.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);
         self.server.bind((self.ip,self.port))
-        self.DB = Database(self.XML.getDatabaseAddress(),\
-                           self.XML.getDatabasePort(),\
-                           self.XML.getDatabaseUser(),\
-                           self.XML.getDatabasePwd(),\
-                           self.XML.getDatabaseName());
+        self.DB = Database(_host = self.XML.getDatabaseAddress(),\
+                           _port = self.XML.getDatabasePort(),\
+                           _user = self.XML.getDatabaseUser(),\
+                           _password = self.XML.getDatabasePwd(),\
+                           _db = self.XML.getDatabaseName());
         self.Log = Log(self.XML.getEnableLog(),self.XML.GetLogPath())
         #self.state = 1
         #print ("Server iniziallizato")

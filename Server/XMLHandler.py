@@ -35,9 +35,11 @@ class XMLHandler:
         #Security
         PemPath = etree.SubElement(root,"PemPath")
         PemPath.text = "Default"
+
         #Writing in the file
         tree = etree.ElementTree(root)
         tree.write(self.PATH,pretty_print=True)
+        
         return root
 
     def getDatabasePort(self):
