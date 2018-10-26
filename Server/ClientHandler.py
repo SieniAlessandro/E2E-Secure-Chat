@@ -52,6 +52,9 @@ class ClientHandler(Thread):
             #Store the message waiting for the user
             elif jsonMessage['id'] == "4":
                 self.StoreMessage(jsonMessage)
+            #logout
+            elif jsonMessage['id'] == "0":
+                del self.OnlineClients[self.HandledUser.getUserName()]
 
     def login(self,message):
         """Login with inserted credential and search in the Database if the information
