@@ -53,10 +53,10 @@ class XMLClientHandler:
         return self.root[0][0].text
 
     def setAutoLogin(self, remember, user, psw):
-        self.root[2][0].text = remember
+        self.root[2][0].text = str(remember)
         self.root[2][1].text = user
         self.root[2][2].text = pwd
 
     def saveXML(self):
-        tree = etree.ElementTree(root)
+        tree = etree.ElementTree(self.root)
         tree.write(self.PATH,pretty_print=True)
