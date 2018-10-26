@@ -18,10 +18,10 @@ class Client:
     CODE_TYPE = 'utf-16'
     socketClient = {}
 
-    def __init__(self, hostServer, portServer, chat = None):
-        self.hostServer = hostServer#self.HOST_SERVER #IPv4 Address of the server
-        self.portServer = self.PORT_SERVER
+    def __init__(self, chat = None):
         self.XML = XMLClientHandler()
+        self.hostServer = self.XML.getServerAddress()#self.HOST_SERVER #IPv4 Address of the server
+        self.portServer = self.XML.getServerPort()
         self.portp2p = random.randint(6001,60000)
         self.Log = Log()
         self.Log.log('Client initialized')
@@ -300,8 +300,18 @@ class Client:
                 self.socketClient[receiver] = 'server'
                 self.sendClient(receiver, text)
 
+    def setAutoLogin(self, remember, username, password):
+        self.XML.setAutoLogin(remember, username, password)
+
+    def checkAutoLogin(self):
+        if not self.XML.getRemember():
+            return -2
+        else
+            return self.login(self.XML.getUserName(), self.XML.getUserPwd())
+
     def onClosing(self, ordinatedUserList = None): #clean up before close
         #close the socket connection
+        self.XML.saveXML()
         if ordinatedUserList is not None :
             for x in self.socketClient :
                 if not isinstance(x, str) :

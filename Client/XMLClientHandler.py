@@ -43,7 +43,7 @@ class XMLClientHandler:
         return int(self.root[1][0].text))
     def getServerAddress(self):
         return self.root[1][1].text
-    def getAutoLogin(self):
+    def getRemember(self):
         return self.root[2][0].text
     def getUserName(self):
         return self.root[2][1].text
@@ -52,10 +52,9 @@ class XMLClientHandler:
     def getEnableLog(self):
         return self.root[0][0].text
 
-    def setUserName(self, user):
+    def setAutoLogin(self, remember, user, psw):
+        self.root[2][0].text = remember
         self.root[2][1].text = user
-
-    def setPassword(self, pwd):
         self.root[2][2].text = pwd
 
     def saveXML(self):
