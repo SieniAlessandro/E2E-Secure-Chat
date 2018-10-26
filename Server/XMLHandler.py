@@ -19,7 +19,8 @@ class XMLHandler:
         server_port.text = "6000"
         EnableLog = etree.SubElement(root,"EnableLog")
         EnableLog.text = "1"
-
+        LogPath = etree.SubElement(root,"LogPath")
+        LogPath.text = "tempLog.txt"
         # Database
         db = etree.SubElement(root,"Database")
         db_addr = etree.SubElement(db,"Address")
@@ -38,14 +39,18 @@ class XMLHandler:
         tree.write(self.PATH,pretty_print=True)
 
     def getDatabasePort(self):
-        return int(self.root[2][1].text)
+        return int(self.root[3][1].text)
     def getDatabaseAddress(self):
-        return self.root[2][0].text
+        return self.root[3][0].text
     def getDatabaseUser(self):
-        return self.root[2][2].text
+        return self.root[3][2].text
     def getDatabasePwd(self):
-        return self.root[2][3].text
+        return self.root[3][3].text
     def getServerPort(self):
         return int(self.root[0].text)
     def getDatabaseName(self):
-        return self.root[2][4].text
+        return self.root[3][4].text
+    def getEnableLog(self):
+        return int(self.root[1].text)
+    def GetLogPath(self):
+        return self.root[2].text

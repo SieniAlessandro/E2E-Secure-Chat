@@ -25,7 +25,7 @@ class Server:
                            self.XML.getDatabaseUser(),\
                            self.XML.getDatabasePwd(),\
                            self.XML.getDatabaseName());
-        self.Log = Log()
+        self.Log = Log(self.XML.getEnableLog(),self.XML.GetLogPath())
         #self.state = 1
         #print ("Server iniziallizato")
         self.Log.log("Server Initialized")
@@ -70,6 +70,8 @@ class Server:
         """Close all the socket and close the connection with the database"""
         self.Log.log("Server Closed")
         for User in self.Users.values():
+            User.getSocket.shutdown(socket.SHUT_RDWR)
             User.getSocket.close()
         self.DB.close_connection()
+        self.Log.closeFile()
         os._exit(0)

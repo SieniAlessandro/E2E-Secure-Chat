@@ -1,6 +1,7 @@
 <Server>
   <ListenPort>6000</ListenPort>
   <EnableLog>1</EnableLog>
+  <LogPath>tempLog.txt</LogPath>
   <Database>
     <Address>127.0.0.1</Address>
     <Port>3306</Port>
