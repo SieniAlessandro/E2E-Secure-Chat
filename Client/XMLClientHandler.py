@@ -27,26 +27,37 @@ class XMLClientHandler:
         server_address.text = "127.0.0.1"
 
         # User
-        user = etree.SubElement(root,"User")
-        user_remember = etree.SubElement(user, "AutoLogin")
+        auto = etree.SubElement(root,"AutoLogin")
+        user_remember = etree.SubElement(auto, "remember")
         user_remember.text = "0"
-        user_name = etree.SubElement(user,"UserName")
+        user_name = etree.SubElement(auto,"UserName")
         user_name.text = '-'
-        user_pwd = etree.SubElement(user,"Password")
+        user_pwd = etree.SubElement(auto,"Password")
         user_pwd.text = "-"
 
         #Writing in the file
         tree = etree.ElementTree(root)
         tree.write(self.PATH,pretty_print=True)
-'''
-    def getDatabasePort(self):
-        return int(self.root[2][1].text))
-    def getDatabaseAddress(self):
+
+    def getServerPort(self):
+        return int(self.root[1][0].text))
+    def getServerAddress(self):
+        return self.root[1][1].text
+    def getAutoLogin(self):
         return self.root[2][0].text
-    def getDatabaseUser(self):
-        return self.root[2][2]
-    def.getDatabasePwd(self):
-        return self.root[2][3]
-    def.getServerPort(self):
-        return int(self.root[0])
-'''
+    def getUserName(self):
+        return self.root[2][1].text
+    def getUserPwd(self):
+        return self.root[2][2].text
+    def getEnableLog(self):
+        return self.root[0][0].text
+
+    def setUserName(self, user):
+        self.root[2][1].text = user
+
+    def setPassword(self, pwd):
+        self.root[2][2].text = pwd
+
+    def saveXML(self):
+        tree = etree.ElementTree(root)
+        tree.write(self.PATH,pretty_print=True)

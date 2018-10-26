@@ -6,7 +6,7 @@
     <Address>127.0.0.1</Address>
     <Port>3306</Port>
     <User>root</User>
-    <Password>rootroot</Password>
+    <Password>root</Password>
     <name>messaggistica_mps</name>
   </Database>
 </Server>
