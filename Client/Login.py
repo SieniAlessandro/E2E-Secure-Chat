@@ -1,26 +1,16 @@
 from tkinter import *
-import os
 from PIL import ImageTk, Image
+import os
 
-class LoginGUI(Tk):
+class LoginGUI(Frame):
 
     backgroundWindow = '#1f2327'
     backgroundItems = '#434d56'
     activebackground = '#657481'
-    def __init__(self):
-        Tk.__init__(self)
-        w = 300 # width for the Tk root
-        h = 350 # height for the Tk root
-        ws = self.winfo_screenwidth() # width of the screen
-        hs = self.winfo_screenheight() # height of the screen
+    def __init__(self, master):
+        Frame.__init__(self, master)
 
-        x = (ws/2) - (w/2)
-        y = (hs/2) - (h/2)
-
-        self.geometry('%dx%d+%d+%d' % (w, h, x, y))
-        self.resizable(width=FALSE, height=FALSE)
-        self.title("Login")
-        self.rememberLogin = IntVar()
+        self.var = IntVar()
 
         self.mainFrame = Frame(self, bg=self.backgroundWindow)
 
@@ -33,7 +23,7 @@ class LoginGUI(Tk):
         self.passwordLabel = Label(self.mainFrame, text="Password", bg=self.backgroundWindow, fg='white')
         self.passwordEntry = Entry(self.mainFrame, show="*", bg=self.backgroundItems, fg='white', relief='flat')
         self.buttonsFrame = Frame(self.mainFrame, bg=self.backgroundWindow )
-        self.rememberLoginCheckbutton = Checkbutton(self.mainFrame, variable = self.rememberLogin, command = self.toggleCB, text="Autologin", bg=self.backgroundWindow, fg='#2a8c8c', activebackground=self.backgroundItems, activeforeground='#2a8c8c')
+        self.rememberLoginCheckbutton = Checkbutton(self.mainFrame, variable = self.var, text="Autologin", bg=self.backgroundWindow, fg='#2a8c8c', activebackground=self.backgroundItems, activeforeground='#2a8c8c')
         self.signUpButton = Button(self.buttonsFrame, text="Sign Up", command=self.signUpEvent, bg=self.backgroundItems, fg='white', relief='flat', activebackground = self.activebackground, activeforeground='white')
         self.confirmButton = Button(self.buttonsFrame, text="Confirm", command=self.loginEvent, bg=self.backgroundItems, fg='white', relief='flat', activebackground = self.activebackground, activeforeground='white')
 
@@ -49,11 +39,28 @@ class LoginGUI(Tk):
         self.signUpButton.pack(side="left", padx=5, pady=5)
         self.confirmButton.pack(side="right", padx=5, pady=5)
 
-        self.bind('<Return>', self.pressEnterEvent)
+        master.bind('<Return>', self.pressEnterEvent)
         self.usernameEntry.focus_force()
 
-    def toggleCB(self):
-        self.rememberLogin.set((self.rememberLogin.get()+1)%2)
+    def showLoginFrame(self):
+        self.pack(fill=BOTH, expand=True)
+        master = self._nametowidget(self.winfo_parent())
+
+        w = 300 # width for the Tk root
+        h = 350 # height for the Tk root
+        ws = self.winfo_screenwidth() # width of the screen
+        hs = self.winfo_screenheight() # height of the screen
+
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+
+        master.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        master.resizable(width=FALSE, height=FALSE)
+        master.title("Login")
+        # master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
+
+    def hideLoginFrame(self):
+        self.pack_forget()
 
     def setSignUpWindow(self, signUpWindow):
         self.signUpWindow = signUpWindow
@@ -61,11 +68,10 @@ class LoginGUI(Tk):
     def setItems(self, client, chat):
         self.client = client
         self.chat = chat
-        self.protocol("WM_DELETE_WINDOW", self.client.onClosing )
 
     def signUpEvent(self):
-        self.withdraw()
-        self.signUpWindow.deiconify()
+        self.hideLoginFrame()
+        self.signUpWindow.showSignUpFrame()
 
     def loginEvent(self):
         username = self.usernameEntry.get()
@@ -73,19 +79,18 @@ class LoginGUI(Tk):
         if not username or not password :
             self.confirmButton.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
         else:
-            self.client.setAutoLogin(self.rememberLogin.get(), username, password )
+            self.client.setAutoLogin(self.var.get(), username, password )
             ret = self.client.login(username, password)
             if  ret == 1:
-                self.withdraw()
+                self.hideLoginFrame()
                 self.usernameEntry.delete(0, 'end')
                 self.passwordEntry.delete(0, 'end')
-                self.chat.onLoginEvent(self.usernameEntry.get())
+                self.chat.onLoginEvent(username)
             elif ret == 0:
                 print("Invalid Username or Password")
                 self.showError()
             elif ret == -1:
                 self.showMessage("You are already logged in other device",  "#ff1a1a" )
-
 
     def pressEnterEvent(self, event):
         self.loginEvent()
@@ -107,6 +112,8 @@ if __name__ == '__main__':
     if os.getcwd().find("Client") == -1:
         os.chdir("Client")
 
-    login = LoginGUI()
-
-    login.mainloop()
+    root = Tk()
+    login = LoginGUI(root)
+    login.setItems(client=None, chat=None)
+    login.showLoginFrame()
+    root.mainloop()

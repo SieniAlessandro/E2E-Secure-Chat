@@ -1,0 +1,13 @@
+<Server>
+  <ListenPort>6000</ListenPort>
+  <EnableLog>1</EnableLog>
+  <LogPath>tempLog.txt</LogPath>
+  <Database>
+    <Address>127.0.0.1</Address>
+    <Port>3306</Port>
+    <User>root</User>
+    <Password>rootroot</Password>
+    <name>messaggistica_mps</name>
+  </Database>
+  <PemPath>Default</PemPath>
+</Server>

@@ -1,3 +1,4 @@
+from tkinter import *
 from client import Client
 from PIL import ImageTk, Image
 from Chat import ChatGUI
@@ -17,15 +18,11 @@ if os.getcwd().find("Client") == -1:
 if sys.platform.startswith('win'):
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
-chat = ChatGUI()
-login = LoginGUI()
-signUp = SignUpGUI()
+MPSChat = Tk()
+chat = ChatGUI(MPSChat)
+login = LoginGUI(MPSChat)
+signUp = SignUpGUI(MPSChat)
 client = Client(chat.chatList)
-
-
-chat.withdraw()
-login.withdraw()
-signUp.withdraw()
 
 chat.createWidgets(client, login)
 client.connectServer()
@@ -37,12 +34,14 @@ signUp.setClient(client)
 
 ret = client.checkAutoLogin()
 if ret == 1:
+    print(client.username)
     chat.onLoginEvent(client.username)
 else:
     if ret == 0 :
         login.showError()
     elif ret == -1:
         login.showMessage("You are already logged in other device",  "#ff1a1a" )
-    login.deiconify()
+    login.showLoginFrame()
 
-login.mainloop()
+MPSChat.iconbitmap(r'Images/windowIcon.ico')
+MPSChat.mainloop()

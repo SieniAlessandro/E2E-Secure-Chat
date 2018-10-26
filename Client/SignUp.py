@@ -3,21 +3,13 @@ from validate_email import validate_email
 import re
 import os
 
-class SignUpGUI(Tk):
+class SignUpGUI(Frame):
     backgroundWindow = '#1f2327'
     backgroundItems = '#434d56'
     activebackground = '#657481'
-    def __init__(self):
-        Tk.__init__(self)
-        w = 390 # width for the Tk root
-        h = 350 # height for the Tk root
-        ws = self.winfo_screenwidth() # width of the screen
-        hs = self.winfo_screenheight() # height of the screen
-        x = (ws/2) - (w/2)
-        y = (hs/2) - (h/2)
-        self.geometry('%dx%d+%d+%d' % (w, h, x, y))
-        self.resizable(width=FALSE, height=FALSE)
-        self.title("Sign Up")
+    def __init__(self, master):
+        Frame.__init__(self, master)
+
         self.mainFrame = Frame(self, bg=self.backgroundWindow)
         self.rightFrame = Frame(self.mainFrame, bg=self.backgroundWindow)
         self.leftFrame = Frame(self.mainFrame, bg=self.backgroundWindow)
@@ -125,13 +117,13 @@ class SignUpGUI(Tk):
         self.surnameEntry.delete(0, 'end')
         self.passwordEntry.delete(0, 'end')
         self.confirmPasswordEntry.delete(0, 'end')
-        self.withdraw()
-        self.loginWindow.deiconify()
+        self.hideSignUpFrame()
+        self.loginWindow.showLoginFrame()
 
     def setClient(self, client):
         self.client = client
-        self.protocol("WM_DELETE_WINDOW", self.client.onClosing )
-
+        master = self._nametowidget(self.winfo_parent())
+        master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
 
     def signUpEvent(self):
         if False in self.isFormValid.values():
@@ -145,12 +137,28 @@ class SignUpGUI(Tk):
             elif ret == 0:
                 self.showErrorLabel()
 
-
     def showErrorLabel(self):
         self.errorLabel.grid(row = 1, columnspan=2)
 
     def hideErrorLabel(self):
         self.errorLabel.grid_forget()
+
+    def showSignUpFrame(self):
+        self.pack(fill=BOTH, expand=True)
+        master = self._nametowidget(self.winfo_parent())
+        w = 390 # width for the Tk root
+        h = 350 # height for the Tk root
+        ws = self.winfo_screenwidth() # width of the screen
+        hs = self.winfo_screenheight() # height of the screen
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+        master.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        master.resizable(width=FALSE, height=FALSE)
+        master.title("Sign Up")
+        master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
+
+    def hideSignUpFrame(self):
+        self.pack_forget()
 
 if __name__ == '__main__':
     if os.getcwd().find("Client") == -1:

@@ -13,7 +13,7 @@ class ChatList(Frame):
         self.chatListDict = {}
         self.master = master
 
-        self.grid(row=0, column=0, sticky=N+S+W+E)
+        self.pack(side=LEFT,fill=BOTH)
         self.searchBarFrame = Frame(self, bg=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         listFrame = Frame(self)
         self.scrollableFrame = Scrollable(listFrame, background)
@@ -155,19 +155,19 @@ class ChatListElement(Frame):
         global activeChat
         if  activeChat is None:
             activeChat = self.chatWindow
-            print("Active chat (changeRoom): " + activeChat.getChatName())
-            self.chatWindow.grid(row=0, column=1, sticky=N+S+W+E)
+            activeChat.entryBar.focus_force()
+            self.chatWindow.pack(side=RIGHT, fill=BOTH, expand=True)
             self.notifies.set(0)
             self.notifiesLabel.grid_forget()
         elif self.chatName.get() == activeChat.chatName.get():
-            activeChat.grid_forget()
+            activeChat.pack_forget()
             activeChat.entryBar.focus_force()
             activeChat = None
         else:
             activeChat.grid_forget()
             activeChat = self.chatWindow
             activeChat.entryBar.focus_force()
-            self.chatWindow.grid(row=0, column=1, sticky=N+S+W+E)
+            self.chatWindow.pack(side=RIGHT, fill=BOTH, expand=True)
             self.notifies.set(0)
             self.notifiesLabel.grid_forget()
 
