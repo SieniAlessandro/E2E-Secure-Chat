@@ -309,15 +309,19 @@ class Client:
         else
             return self.login(self.XML.getUserName(), self.XML.getUserPwd())
 
+    def logout(self):
+        for x in self.socketClient :
+            if not isinstance(x, str) :
+                x.shutdown(socket.SHUT_RDWR)
+                x.close()
+        self.Message.saveConversations(self.username, ordinatedUserList)
+
+
     def onClosing(self, ordinatedUserList = None): #clean up before close
         #close the socket connection
         self.XML.saveXML()
         if ordinatedUserList is not None :
-            for x in self.socketClient :
-                if not isinstance(x, str) :
-                    x.shutdown(socket.SHUT_RDWR)
-                    x.close()
-            self.Message.saveConversations(self.username, ordinatedUserList)
+            logout()
         try:
             self.socketServer.shutdown(socket.SHUT_RDWR)
             self.socketServer.close()
