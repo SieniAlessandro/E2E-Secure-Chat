@@ -1,10 +1,4 @@
-2018-10-26 11:41:04	Server Initialized
-2018-10-26 11:41:04	Waiting for connections...
-2018-10-26 11:41:10	Client handled has address: 127.0.0.1 and port 59190
-2018-10-26 11:41:10	Waiting for connections...
-2018-10-26 11:41:12	A client want to login
-2018-10-26 11:41:12	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 59190 ClientPort: 8034}
-2018-10-26 11:41:12	There are no message for this client
-2018-10-26 11:41:12	A client want to find another user
-2018-10-26 11:41:12	Store the message to l
-2018-10-26 11:41:32	Client had a problem, connection closed
+2018-10-26 13:03:53	Server Initialized
+2018-10-26 13:03:53	Waiting for connections...
+2018-10-26 13:04:07	Client handled has address: 127.0.0.1 and port 59509
+2018-10-26 13:04:07	Waiting for connections...

@@ -307,6 +307,7 @@ class Client:
         if not self.XML.getRemember():
             return -2
         else :
+
             return self.login(self.XML.getUserName(), self.XML.getUserPwd())
 
     def logout(self, ordinatedUserList):
@@ -315,15 +316,16 @@ class Client:
                 x.shutdown(socket.SHUT_RDWR)
                 x.close()
         self.Message.saveConversations(self.username, ordinatedUserList)
+        msg = {}
         msg['id'] = '0'
-        sendServer(msg)
+        #self.sendServer(msg)
 
 
     def onClosing(self, ordinatedUserList = None): #clean up before close
         #close the socket connection
         self.XML.saveXML()
         if ordinatedUserList is not None :
-            logout(ordinatedUserList)
+            self.logout(ordinatedUserList)
         try:
             self.socketServer.shutdown(socket.SHUT_RDWR)
             self.socketServer.close()

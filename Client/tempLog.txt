@@ -1,11 +1,11 @@
-2018-10-26 11:41:10	Client initialized
-2018-10-26 11:41:10	Message Handler has been initialized!
-2018-10-26 11:41:12	Message: <{"id": "2", "username": "a", "password": "a", "porta": "8034"}> sended to the server correctly
-2018-10-26 11:41:12	Received a message from the SERVER: {"id": "?", "status": "1"}
-2018-10-26 11:41:12	Succesfull logged in as a
-2018-10-26 11:41:12	Received a message from the SERVER: {"id": "0", "status": "1"}
-2018-10-26 11:41:12	No messages stored in the server
-2018-10-26 11:41:12	MessageHandler Initialized! Associated port: 8034
-2018-10-26 11:41:12	All the conversations has been charged : {"l": {"0": {"text": "forse", "time": "2018-10-25 19:32:14.550606", "whoSendIt": 1}, "1": {"text": "siiiiiiiiiiiiii", "time": "2018-10-25 19:32:18.530960", "whoSendIt": 0}}}
-2018-10-26 11:41:12	Message: <{"id": "3", "username": "l"}> sended to the server correctly
-2018-10-26 11:41:12	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-10-26 13:05:37	Client initialized
+2018-10-26 13:05:37	Message Handler has been initialized!
+2018-10-26 13:05:38	Message: <{"id": "2", "username": "a", "password": "a", "porta": "51392"}> sended to the server correctly
+2018-10-26 13:05:38	Received a message from the SERVER: {"id": "?", "status": "1"}
+2018-10-26 13:05:38	Succesfull logged in as a
+2018-10-26 13:05:38	Received a message from the SERVER: {"id": "0", "status": "1"}
+2018-10-26 13:05:38	No messages stored in the server
+2018-10-26 13:05:38	MessageHandler Initialized! Associated port: 51392
+2018-10-26 13:05:38	All the conversations has been charged : {"l": {"0": {"text": "forse", "time": "2018-10-25 19:32:14.550606", "whoSendIt": 1}, "1": {"text": "siiiiiiiiiiiiii", "time": "2018-10-25 19:32:18.530960", "whoSendIt": 0}}}
+2018-10-26 13:05:38	Message: <{"id": "3", "username": "l"}> sended to the server correctly
+2018-10-26 13:05:38	Received a message from the SERVER: {"id": "!", "status": "0"}
