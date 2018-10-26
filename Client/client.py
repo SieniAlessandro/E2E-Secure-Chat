@@ -6,6 +6,7 @@ from threading import Thread
 from Message import *
 from ConnectionHandler import *
 from Log import *
+from XMLClientHandler import *
 
 class Client:
     '''
@@ -13,7 +14,6 @@ class Client:
     '''
     BUFFER_SIZE = 2048
     PORT_SERVER = 6000
-    PORT_P2P = 7000
     HOST_SERVER = '10.102.12.15'#'127.0.0.1'
     CODE_TYPE = 'utf-16'
     socketClient = {}
@@ -21,6 +21,7 @@ class Client:
     def __init__(self, hostServer, portServer, chat = None):
         self.hostServer = hostServer#self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.PORT_SERVER
+        self.XML = XMLClientHandler()
         self.portp2p = random.randint(6001,60000)
         self.Log = Log()
         self.Log.log('Client initialized')
