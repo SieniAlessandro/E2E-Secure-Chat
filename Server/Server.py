@@ -30,8 +30,8 @@ class Server:
         #print ("Server iniziallizato")
         self.Log.log("Server Initialized")
     def start(self):
-        """Create a new thread able to handle the administrator request (like see the number of active thread or online users)
-        listen for new connections"""
+        """Create a new thread able to handle the administrator request (like see the number of active thread or online users)"""
+        #Starting the thread able to handle the administrator request
         t2 = threading.Thread(target=self.handleServer)
         t2.start()
         self.ActiveThreads.append(t2)

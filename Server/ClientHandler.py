@@ -55,9 +55,6 @@ class ClientHandler(Thread):
             #logout
             elif jsonMessage['id'] == "0":
                 del self.OnlineClients[self.HandledUser.getUserName()]
-                self.log.log("Client disconnected: "+ self.HandledUser)
-                self.log.log("Online users: ")
-                self.log.log(self.OnlineClients)
     def login(self,message):
         """Login with inserted credential and search in the Database if the information
         sended are correct, in this case if there are several messagges sended to the user when
