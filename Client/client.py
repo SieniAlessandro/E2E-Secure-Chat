@@ -12,7 +12,7 @@ class Client:
     '''
     Back end of the client
     '''
-    BUFFER_SIZE = 2048
+    BUFFER_SIZE = 2048*1024
     PORT_SERVER = 6000
     HOST_SERVER = '10.102.12.15'#'127.0.0.1'
     CODE_TYPE = 'utf-16'
@@ -83,7 +83,7 @@ class Client:
             by the server
         '''
         try:
-            ret = self.socketServer.recv(self.BUFFER_SIZE*128)
+            ret = self.socketServer.recv(self.BUFFER_SIZE)
             if not ret:
                 self.Log.log('Connection with the server closed!')
                 return -1

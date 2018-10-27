@@ -5,8 +5,8 @@
     <ServerAddress>127.0.0.1</ServerAddress>
   </Server>
   <AutoLogin>
-    <remember>1</remember>
-    <UserName>a</UserName>
-    <Password>a</Password>
+    <remember>0</remember>
+    <UserName>b</UserName>
+    <Password>b</Password>
   </AutoLogin>
 </Client>

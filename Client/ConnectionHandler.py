@@ -8,7 +8,7 @@ from Log import *
 
 
 class ConnectionHandler(Thread) :
-    MSG_LEN = 2048
+    MSG_LEN = 4096
     #Constructor
     '''
         Create a new socket and bind it to the port destinated for connectio p2p
