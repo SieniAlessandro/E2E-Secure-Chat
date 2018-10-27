@@ -132,6 +132,12 @@ class ChatList(Frame):
                 list.append(cle[0])
         return list
 
+    def flushChatDict(self):
+        for cle in self.chatListDict.values():
+            cle[0].destroy()
+            cle[1].destroy()
+        self.chatListDict = {}
+
 class ChatListElement(Frame):
     MAXMESSAGELEN = 10
 
@@ -164,7 +170,7 @@ class ChatListElement(Frame):
             activeChat.entryBar.focus_force()
             activeChat = None
         else:
-            activeChat.grid_forget()
+            activeChat.pack_forget()
             activeChat = self.chatWindow
             activeChat.entryBar.focus_force()
             self.chatWindow.pack(side=RIGHT, fill=BOTH, expand=True)

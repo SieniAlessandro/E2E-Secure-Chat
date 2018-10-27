@@ -80,6 +80,15 @@ class ChatWindow(Frame):
         message = str(self.entryBar.get())
         if not message:
             return
+        if len(message) > 200:
+            while len(message) > 200 :
+                chunk = message[0:200]
+                self.send(chunk)
+                message = message[200:-1]
+        else:
+            self.send(message)
+
+    def send(self, message):
         self.addBoxMessageElement(message, datetime.datetime.now(), True)
         self.entryBar.delete(0, 'end')
         ret = self.client.sendClient(str(self.chatName.get().lower()), message)
@@ -102,7 +111,7 @@ class BoxMessage(Frame):
 
     def createWidgets(self, message, arrivalTime, isMine):
         rowFrame = Frame(self)
-        self.messageLabel = Message(rowFrame, aspect=350, textvariable=self.message, padx=5, pady=2, fg='white')
+        self.messageLabel = Message(rowFrame, aspect=250, textvariable=self.message, padx=5, pady=2, fg='white')
         self.arrivalTimeLabel = Label(rowFrame, textvariable=self.arrivalTime, padx=5, pady=2, fg='white')
 
         self.message.set(message)

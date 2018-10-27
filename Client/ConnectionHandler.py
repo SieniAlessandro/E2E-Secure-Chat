@@ -52,7 +52,8 @@ class ConnectionHandler(Thread) :
                     self.Chat.receiveMessage(dict['sender'], dict['text'], dict['time'])
                 #appendToConversation
                 self.Message.addMessagetoConversations(dict['sender'], dict['text'], dict['time'], 1)
-            except :
+            except Exception as e:
+                print(e)
                 self.Log.log('Connection closed')
                 return -1
     '''

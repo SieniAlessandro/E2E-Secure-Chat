@@ -25,11 +25,11 @@ signUp = SignUpGUI(MPSChat)
 client = Client(chat.chatList)
 
 chat.createWidgets(client, login)
-client.connectServer()
 
 login.setSignUpWindow(signUp)
 login.setItems(client, chat)
 signUp.setLoginWindow(login)
+client.connectServer()
 signUp.setClient(client)
 
 ret = client.checkAutoLogin()

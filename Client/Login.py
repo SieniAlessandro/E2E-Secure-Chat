@@ -57,7 +57,7 @@ class LoginGUI(Frame):
         master.geometry('%dx%d+%d+%d' % (w, h, x, y))
         master.resizable(width=FALSE, height=FALSE)
         master.title("Login")
-        # master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
+        master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
 
     def hideLoginFrame(self):
         self.pack_forget()

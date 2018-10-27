@@ -45,9 +45,9 @@ class ChatGUI(Frame):
         self.chatList.scrollableFrame.setCanvasWidth(self.w*1/4)
 
     def logout(self):
+        self.client.logout(self.chatList.getNotEmptyUsers())
         self.login.showLoginFrame()
         self.hideChatFrame()
-        self.client.logout(self.chatList.getNotEmptyUsers())
 
     def onLoginEvent(self, username):
         self.showChatFrame()
@@ -74,6 +74,7 @@ class ChatGUI(Frame):
 
     def hideChatFrame(self):
         self.pack_forget()
+        self.chatList.flushChatDict()
 
 if __name__ == '__main__':
     if os.getcwd().find("Client") == -1:
