@@ -80,10 +80,11 @@ if __name__ == '__main__':
     if os.getcwd().find("Client") == -1:
         os.chdir("Client")
 
-    chat = ChatGUI()
+    root = Tk()
+    chat = ChatGUI(root)
     client = Client("")
-    # chat.createWidgets(client)
+    chat.createWidgets(None, None)
 
     chat.chatList.addChatListElement("Rododendro", "Oggi piove", None)
     # chat.chatWindow.receiveMessage("Rododendro", "Associated", "0:00")
-    chat.mainloop()
+    root.mainloop()

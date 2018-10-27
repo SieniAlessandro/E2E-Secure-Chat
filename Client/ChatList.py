@@ -60,9 +60,13 @@ class ChatList(Frame):
             timeString = str(lastMessageTime).split('.')[0].split(' ')[1][:-3]
 
         newChatListElement = ChatListElement(self.scrollableFrame, self['bg'])
+        newChatListElement.setChatList(self)
+        newChatListElement.createWidgets()
+
         newChatWindow = ChatWindow(self.master, self['bg'])
         newChatWindow.createWidgets(self['bg'], chatName, self.client, self)
         newChatListElement.bindMouseWheel( self.scrollableFrame)
+
         w =  self.master.winfo_screenwidth()*1.5/3
         newChatWindow.scrollableFrame.setCanvasWidth(w*3/4)
         newChatListElement.setElements(newChatWindow, chatName, lastMessage, timeString)
@@ -138,6 +142,17 @@ class ChatList(Frame):
             cle[1].destroy()
         self.chatListDict = {}
 
+    def deleteChatListElement(self, username):
+        username = username.lower()
+        self.chatListDict[username][0].destroy()
+        self.chatListDict[username][1].destroy()
+        indexToRemove = self.chatListDict[username][2]
+        del self.chatListDict[username]
+
+        for key, val in self.chatListDict.items():
+            if val[2] > indexToRemove:
+                val[2] -= 1
+
 class ChatListElement(Frame):
     MAXMESSAGELEN = 10
 
@@ -154,8 +169,6 @@ class ChatListElement(Frame):
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=8)
         self.columnconfigure(2, weight=1)
-
-        self.createWidgets()
 
     def changeChatRoom(self, event):
         global activeChat
@@ -177,7 +190,13 @@ class ChatListElement(Frame):
             self.notifies.set(0)
             self.notifiesLabel.grid_forget()
 
+    def setChatList(self, chatList):
+        self.chatList = chatList
+
     def createWidgets(self):
+        self.rightClickMenu = Menu(self, tearoff=0)
+        self.rightClickMenu.add_command(label="Delete", command= lambda: self.chatList.deleteChatListElement(self.chatName.get()))
+
         self.photoLabel = Label(self, image = self.photo )
         self.chatNameLabel = Label(self, textvariable = self.chatName, background=self['bg'], fg='white', anchor=NW)
         self.lastMessageLabel = Label(self, textvariable = self.lastMessage, background=self['bg'], anchor=NW, fg='white')
@@ -195,6 +214,19 @@ class ChatListElement(Frame):
         self.lastMessageTimeLabel.bind('<Button-1>', self.changeChatRoom)
         self.photoLabel.bind('<Button-1>', self.changeChatRoom)
         self.notifiesLabel.bind('<Button-1>', self.changeChatRoom)
+
+        self.bind('<Button-3>', self.popup)
+        self.chatNameLabel.bind('<Button-3>', self.popup)
+        self.lastMessageLabel.bind('<Button-3>', self.popup)
+        self.lastMessageTimeLabel.bind('<Button-3>', self.popup)
+        self.photoLabel.bind('<Button-3>', self.popup)
+        self.notifiesLabel.bind('<Button-3>', self.popup)
+
+    def popup(self, event):
+        try:
+            self.rightClickMenu.tk_popup(event.x_root+40, event.y_root+10, 0)
+        finally:
+            self.rightClickMenu.grab_release()
 
     def checkStringLenght(self, s):
         if ( len(s) > self.MAXMESSAGELEN ):
