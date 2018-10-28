@@ -96,7 +96,6 @@ class LoginGUI(Frame):
                 self.passwordEntry.delete(0, 'end')
                 self.chat.onLoginEvent(username)
             elif ret == 0:
-                print("Invalid Username or Password")
                 self.showError()
             elif ret == -1:
                 self.showMessage("You are already logged in other device",  self.errorColor )

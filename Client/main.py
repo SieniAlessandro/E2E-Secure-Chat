@@ -33,7 +33,6 @@ signUp.setClient(client)
 
 ret = client.checkAutoLogin()
 if ret == 1:
-    print(client.username)
     chat.onLoginEvent(client.username)
 else:
     if ret == 0 :
