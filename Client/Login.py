@@ -7,6 +7,7 @@ class LoginGUI(Frame):
     backgroundWindow = '#1f2327'
     backgroundItems = '#434d56'
     activebackground = '#657481'
+    errorColor = '#ff3333'
     def __init__(self, master):
         Frame.__init__(self, master)
 
@@ -61,13 +62,21 @@ class LoginGUI(Frame):
 
     def hideLoginFrame(self):
         self.pack_forget()
+        self.usernameEntry.delete(0, 'end')
+        self.passwordEntry.delete(0, 'end')
+        self.usernameEntry.config(fg ='white', highlightthickness=0)
+        self.passwordEntry.config(fg = 'white', highlightthickness=0)
+        self.hideMessage()
 
-    def setSignUpWindow(self, signUpWindow):
-        self.signUpWindow = signUpWindow
 
-    def setItems(self, client, chat):
+    def setItems(self, client, chat, signUpWindow, online):
         self.client = client
         self.chat = chat
+        self.signUpWindow = signUpWindow
+        if online == -1:
+            self.showMessage("Server Offline, please try again later!",  "#ff3333" )
+            self.confirmButton.config(state=DISABLED)
+            self.signUpButton.config(state=DISABLED)
 
     def signUpEvent(self):
         self.hideLoginFrame()
@@ -77,7 +86,7 @@ class LoginGUI(Frame):
         username = self.usernameEntry.get()
         password = self.passwordEntry.get()
         if not username or not password :
-            self.confirmButton.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
+            self.confirmButton.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
         else:
             self.client.setAutoLogin(self.var.get(), username, password )
             ret = self.client.login(username, password)
@@ -90,7 +99,7 @@ class LoginGUI(Frame):
                 print("Invalid Username or Password")
                 self.showError()
             elif ret == -1:
-                self.showMessage("You are already logged in other device",  "#ff1a1a" )
+                self.showMessage("You are already logged in other device",  self.errorColor )
 
     def pressEnterEvent(self, event):
         self.loginEvent()
@@ -98,8 +107,8 @@ class LoginGUI(Frame):
     def showError(self):
         self.messageLabel.config(text="Username or Password is incorrect", fg = "#ff1a1a")
         self.messageLabel.grid(row = 1)
-        self.usernameEntry.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
-        self.passwordEntry.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
+        self.usernameEntry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
+        self.passwordEntry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
 
     def hideMessage(self):
         self.messageLabel.grid_forget()

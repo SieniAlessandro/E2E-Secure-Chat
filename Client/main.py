@@ -26,10 +26,9 @@ client = Client(chat.chatList)
 
 chat.createWidgets(client, login)
 
-login.setSignUpWindow(signUp)
-login.setItems(client, chat)
+online = client.connectServer()
+login.setItems(client, chat, signUp, online)
 signUp.setLoginWindow(login)
-client.connectServer()
 signUp.setClient(client)
 
 ret = client.checkAutoLogin()

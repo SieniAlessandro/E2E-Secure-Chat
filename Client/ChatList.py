@@ -143,7 +143,11 @@ class ChatList(Frame):
         self.chatListDict = {}
 
     def deleteChatListElement(self, username):
+        global activeChat
         username = username.lower()
+        if activeChat.chatName == self.chatListDict[username][1].chatName:
+            activeChat = None
+
         self.chatListDict[username][0].destroy()
         self.chatListDict[username][1].destroy()
         indexToRemove = self.chatListDict[username][2]
@@ -215,12 +219,20 @@ class ChatListElement(Frame):
         self.photoLabel.bind('<Button-1>', self.changeChatRoom)
         self.notifiesLabel.bind('<Button-1>', self.changeChatRoom)
 
-        self.bind('<Button-3>', self.popup)
-        self.chatNameLabel.bind('<Button-3>', self.popup)
-        self.lastMessageLabel.bind('<Button-3>', self.popup)
-        self.lastMessageTimeLabel.bind('<Button-3>', self.popup)
-        self.photoLabel.bind('<Button-3>', self.popup)
-        self.notifiesLabel.bind('<Button-3>', self.popup)
+        if sys.platform.startswith('darwin'):
+            self.bind('<Button-2>', self.popup)
+            self.chatNameLabel.bind('<Button-2>', self.popup)
+            self.lastMessageLabel.bind('<Button-2>', self.popup)
+            self.lastMessageTimeLabel.bind('<Button-2>', self.popup)
+            self.photoLabel.bind('<Button-2>', self.popup)
+            self.notifiesLabel.bind('<Button-2>', self.popup)
+        else:
+            self.bind('<Button-3>', self.popup)
+            self.chatNameLabel.bind('<Button-3>', self.popup)
+            self.lastMessageLabel.bind('<Button-3>', self.popup)
+            self.lastMessageTimeLabel.bind('<Button-3>', self.popup)
+            self.photoLabel.bind('<Button-3>', self.popup)
+            self.notifiesLabel.bind('<Button-3>', self.popup)
 
     def popup(self, event):
         try:

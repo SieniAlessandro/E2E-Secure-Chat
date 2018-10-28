@@ -7,6 +7,8 @@ class SignUpGUI(Frame):
     backgroundWindow = '#1f2327'
     backgroundItems = '#434d56'
     activebackground = '#657481'
+    errorColor = '#ff3333'
+
     def __init__(self, master):
         Frame.__init__(self, master)
 
@@ -104,7 +106,7 @@ class SignUpGUI(Frame):
         return False
 
     def invalidate(self, entry):
-        entry.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
+        entry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
         self.isFormValid[entry.winfo_name] = False
 
     def setLoginWindow(self, loginWindow):
@@ -127,7 +129,7 @@ class SignUpGUI(Frame):
 
     def signUpEvent(self):
         if False in self.isFormValid.values():
-            self.confirmButton.config(fg = "red", highlightbackground="red", highlightcolor="red", highlightthickness=1)
+            self.confirmButton.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
         else:
             self.confirmButton.config(fg = "black",  highlightthickness=0)
             ret = self.client.register(self.usernameEntry.get(), self.passwordEntry.get(), self.emailEntry.get(), self.nameEntry.get(), self.surnameEntry.get(), '0')
