@@ -6,7 +6,7 @@ from ScrollableFrame import *
 
 class ChatWindow(Frame):
     backgroundWindow = '#1f2327'
-    MAXMESSAGELEN = 300
+    MAXMESSAGELEN = 250
     def __init__(self, master, background):
         Frame.__init__(self, master, background=self.backgroundWindow)
 
@@ -81,13 +81,9 @@ class ChatWindow(Frame):
         message = str(self.entryBar.get())
         if not message:
             return
-        if len(message) > self.MAXMESSAGELEN:
-            while len(message) > self.MAXMESSAGELEN :
-                chunk = message[0:self.MAXMESSAGELEN]
-                self.send(chunk)
-                message = message[self.MAXMESSAGELEN:-1]
-        else:
-            self.send(message)
+        chunks = [message[i:i+self.MAXMESSAGELEN] for i in range(0, len(message), self.MAXMESSAGELEN)]
+        for c in chunks:
+            self.send(c)
         self.entryBar.delete(0, 'end')
 
     def send(self, message):

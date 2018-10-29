@@ -145,7 +145,7 @@ class ChatList(Frame):
     def deleteChatListElement(self, username):
         global activeChat
         username = username.lower()
-        if activeChat.chatName == self.chatListDict[username][1].chatName:
+        if activeChat.chatName.get() == self.chatListDict[username][1].chatName.get():
             activeChat = None
 
         self.chatListDict[username][0].destroy()
