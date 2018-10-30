@@ -280,9 +280,9 @@ class Client:
                 return value
 
         msg = self.Message.createMessageJson(text, str(datetime.datetime.now()), self.username)
-        self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
         if self.socketClient[receiver] == 'server' :
             #Check after x time if receiver is now online
+            self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()))
         else :
             try:
@@ -290,8 +290,9 @@ class Client:
                 #print('sended ' + str(len(msg)))
                 self.Log.log('Message to be send : ' + msg)
                 value = self.socketClient[receiver].send(msg.encode(self.CODE_TYPE))
-                return
+
                 if value > 0:
+                    self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
                     return 1
                 else :
                     raise ConnectionResetError()

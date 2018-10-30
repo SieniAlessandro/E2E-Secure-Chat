@@ -39,8 +39,8 @@ class ConnectionHandler(Thread) :
             try:
                 #length = conn.recv(self.MSG_LEN)
                 msg = conn.recv(self.MSG_LEN)
-                if not msg :
-                    raise Exception()
+                #if not msg :
+                #    raise Exception()
 
                 msg = msg.decode(self.Code)
 
@@ -53,7 +53,7 @@ class ConnectionHandler(Thread) :
                 #appendToConversation
                 self.Message.addMessagetoConversations(dict['sender'], dict['text'], dict['time'], 1)
             except Exception as e:
-                print(e)
+                #print(e)
                 self.Log.log('Connection closed')
                 return -1
     '''
