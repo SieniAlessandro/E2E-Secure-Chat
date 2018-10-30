@@ -8,7 +8,7 @@ from Log import *
 
 
 class ConnectionHandler(Thread) :
-    MSG_LEN = 4096
+    MSG_LEN = 1024
     #Constructor
     '''
         Create a new socket and bind it to the port destinated for connectio p2p
@@ -37,10 +37,9 @@ class ConnectionHandler(Thread) :
         #self.Log.log('Connection started with ' + str(user))
         while True:
             try:
-                #length = conn.recv(self.MSG_LEN)
                 msg = conn.recv(self.MSG_LEN)
-                #if not msg :
-                #    raise Exception()
+                if not msg :
+                    raise Exception()
 
                 msg = msg.decode(self.Code)
 
