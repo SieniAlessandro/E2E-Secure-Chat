@@ -1,6 +1,9 @@
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import utils
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import padding
 
 
 class Security:
@@ -10,7 +13,6 @@ class Security:
             self.ServerInitialized(path,BackupPath)
         else:
             print("Not else implemented for the client PEM")
-
     def ServerInitialized(self,path,BackupPath):
 
             try:
@@ -48,15 +50,47 @@ class Security:
                     print("I don't have anything")
                     with open(path,"wb") as pem, open(BackupPath,"wb") as backup:
                         self.generate_key(path,backupPath)
-
     def generate_key(self,path,backupPath):
         with open(path,"wb") as pem, open(backupPath,"wb") as backup:
             self.privateKey = rsa.generate_private_key(public_exponent=65537,\
                                                    key_size=4098,\
                                                    backend=default_backend())
             self.publicKey = self.private_key.public_key()
-            serializedPrivateKey = private_key.private_bytes(encoding=serialization.Encoding.PEM,\
-                                                             format=serialization.PrivateFormat.PKCS8,\
+            serializedPrivateKey = private_key.private_bytes(encoding=serialization.Encoding.PEM,
+                                                             format=serialization.PrivateFormat.PKCS8,
                                                              encryption_algorithm=serialization.BestAvailableEncryption(b'ServerMPSprivatekey'))
             pem.write(serializedPrivateKey)
             backup.write(serializedPrivateKey)
+    def encrypt_text(self,text):
+        cipherText = self.publicKey.encrypt(text,
+                                            padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                                                         algorithm=hashes.SHA256(),
+                                                         label=None
+                                                         )
+                                            )
+        return cipherText
+
+    def decrypt_text(self,cipherText):
+        plaintext = self.privateKey.decrypt(ciphertext,
+                                            padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                                                         algorithm=hashes.SHA256(),
+                                                         label=None
+                                                         )
+                                            )
+        return plaintext
+
+    def getSignature(self,text):
+        signature = private_key.sign(text,
+                                     padding.PSS(mgf=padding.MGF1(hashes.SHA256()),
+                                                 salt_length=padding.PSS.MAX_LENGTH
+                                                 ),
+                                     hashes.SHA256()
+                                     )
+        return signature
+
+    def VerifySignature(self,text,signature):
+        try:
+            self.publicKey.verify(signature,message,padding.PSS(mgf=padding.MGF1(hashes.SHA256()),salt_length=padding.PSS.MAX_LENGTH),hashes.SHA256())
+            return True
+        except InvalidSignature:
+            return False
