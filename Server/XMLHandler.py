@@ -34,12 +34,14 @@ class XMLHandler:
 
         #Security
         PemPath = etree.SubElement(root,"PemPath")
-        PemPath.text = "Default"
+        PemPath.text = "Security/PrivateKey.pem"
+        BackupPemPath = etree.SubElement(root,"PemPath")
+        BackupPemPath.text = "Security/Backup/PrivateKey.pem"
 
         #Writing in the file
         tree = etree.ElementTree(root)
         tree.write(self.PATH,pretty_print=True)
-        
+
         return root
 
     def getDatabasePort(self):
@@ -58,3 +60,7 @@ class XMLHandler:
         return int(self.root[1].text)
     def GetLogPath(self):
         return self.root[2].text
+    def getPemPath(self):
+        return self.root[4].text
+    def getBackupPemPath(self):
+        return self.root[5].text

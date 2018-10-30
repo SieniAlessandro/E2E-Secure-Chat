@@ -9,5 +9,6 @@
     <Password>rootroot</Password>
     <name>messaggistica_mps</name>
   </Database>
-  <PemPath>Default</PemPath>
+  <PemPath>Security/PrivateKey.pem</PemPath>
+  <PemPath>Security/Backup/PrivateKey.pem</PemPath>
 </Server>

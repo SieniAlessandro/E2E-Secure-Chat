@@ -2,15 +2,15 @@ import socket
 from threading import Thread
 from Log import *
 from User import User
+from Security.Security import Security
 import json
 
-JSON = 1
 class ClientHandler(Thread):
     """ Used to handle the new user whenever he try to connect to the server.
     This mechanism implies that for each user there is an appropriate thread that handle all the
     requests coming from that clinet
     """
-    MSG_LEN = 2048
+    MSG_LEN = 10240
     #Constructor of the class
     def __init__(self,Conn,ip,port,db,clients,Log,ActiveThreads):
         Thread.__init__(self)   #Instatation of the thread

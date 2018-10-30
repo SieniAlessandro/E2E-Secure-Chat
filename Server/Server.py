@@ -8,6 +8,7 @@ from os import system, name
 import sys
 from User import User
 from XMLHandler import XMLHandler
+from Security.Security import Security
 
 class Server:
     """Handle the global information, and the connection with the database"""
@@ -17,6 +18,7 @@ class Server:
         self.ActiveThreads = []
         self.ip = "0.0.0.0"
         self.port = self.XML.getServerPort()
+        self.sec = Security(1,self.XML.getPemPath(),self.XML.getBackupPemPath())
         self.server = socket.socket(socket.AF_INET,socket.SOCK_STREAM);
         self.server.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);
         self.server.bind((self.ip,self.port))
@@ -26,8 +28,6 @@ class Server:
                            _password = self.XML.getDatabasePwd(),\
                            _db = self.XML.getDatabaseName());
         self.Log = Log(self.XML.getEnableLog(),self.XML.GetLogPath())
-        #self.state = 1
-        #print ("Server iniziallizato")
         self.Log.log("Server Initialized")
     def start(self):
         """Create a new thread able to handle the administrator request (like see the number of active thread or online users)"""
