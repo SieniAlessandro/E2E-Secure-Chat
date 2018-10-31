@@ -61,7 +61,7 @@ class Security:
                                                              encryption_algorithm=serialization.BestAvailableEncryption(b'ServerMPSprivatekey'))
             pem.write(serializedPrivateKey)
             backup.write(serializedPrivateKey)
-    def encrypt_text(self,text):
+    def RSAEncryptText(self,text):
         cipherText = self.publicKey.encrypt(text,
                                             padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
                                                          algorithm=hashes.SHA256(),
@@ -69,8 +69,7 @@ class Security:
                                                          )
                                             )
         return cipherText
-
-    def decrypt_text(self,cipherText):
+    def RSADecryptText(self,cipherText):
         plaintext = self.privateKey.decrypt(ciphertext,
                                             padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
                                                          algorithm=hashes.SHA256(),
@@ -78,7 +77,6 @@ class Security:
                                                          )
                                             )
         return plaintext
-
     def getSignature(self,text):
         signature = private_key.sign(text,
                                      padding.PSS(mgf=padding.MGF1(hashes.SHA256()),
@@ -87,7 +85,6 @@ class Security:
                                      hashes.SHA256()
                                      )
         return signature
-
     def VerifySignature(self,text,signature):
         try:
             self.publicKey.verify(signature,message,padding.PSS(mgf=padding.MGF1(hashes.SHA256()),salt_length=padding.PSS.MAX_LENGTH),hashes.SHA256())
