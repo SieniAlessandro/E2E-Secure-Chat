@@ -48,7 +48,7 @@ class ConnectionHandler(Thread) :
 
                 self.Log.log(dict['sender'] + ' send : ' + msg)
                 if self.Chat is not None:
-                    self.Chat.receiveMessage(dict['sender'], dict['text'], dict['time'])
+                    self.Chat.notify(dict['sender'], dict['text'], dict['time'], False, False)
                 #appendToConversation
                 self.Message.addMessagetoConversations(dict['sender'], dict['text'], dict['time'], 1)
             except Exception as e:

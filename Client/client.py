@@ -7,6 +7,7 @@ from Message import *
 from ConnectionHandler import *
 from Log import *
 from XMLClientHandler import *
+from Security.SecurityClient import *
 
 class Client:
     '''
@@ -27,7 +28,7 @@ class Client:
         self.Log.log('Client initialized')
         self.Chat = chat
         self.Message = Message(self.Log)
-
+        self.Security = SecurityClient(self.XML.getSecurityPath(), self.XML.getSecurityBackup())
     #Functions to communicate with Server#
     def sendServer(self, text):
         '''
@@ -300,7 +301,7 @@ class Client:
                 self.Log.log(receiver + 'has disconnected')
                 #possible signal to FrontEnd
                 self.socketClient[receiver] = 'server'
-                self.sendClient(receiver, text)
+                return self.sendClient(receiver, text)
 
     def setAutoLogin(self, remember, username, password):
         self.XML.setAutoLogin(remember, username, password)
