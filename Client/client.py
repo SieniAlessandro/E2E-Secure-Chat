@@ -28,7 +28,7 @@ class Client:
         self.Log.log('Client initialized')
         self.Chat = chat
         self.Message = Message(self.Log)
-        selg.Security = SecurityClient(self.XML.getSecurityServerKey())
+        self.Security = SecurityClient(self.XML.getSecurityServerKey())
         #print(self.Security.getServerPublicKey().decode('utf-8'))
     #Functions to communicate with Server#
     def sendServer(self, text):
@@ -153,7 +153,7 @@ class Client:
         else :
             #we can handle better the possible error
             self.Log.log('Error in registration')
-            
+
         return value
 
     def login(self, username, password):

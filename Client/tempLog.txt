@@ -1,3 +1,3 @@
-2018-10-31 14:08:39	Client initialized
-2018-10-31 14:08:39	Message Handler has been initialized!
-2018-10-31 14:08:40	Error in connection with the server, is it down?
+2018-10-31 15:24:48	Client initialized
+2018-10-31 15:24:48	Message Handler has been initialized!
+2018-10-31 15:24:50	Error in connection with the server, is it down?

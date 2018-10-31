@@ -8,7 +8,7 @@ from cryptography.hazmat.primitives.asymmetric import padding
 
 class SecurityClient:
     def __init__(self, serverPublicKeyPath):
-        with open(self.serverPublicKeyPath, 'rb') as pubfile:
+        with open(serverPublicKeyPath, 'rb') as pubfile:
             self.serverPublicKey = serialization.load_pem_public_key(pubfile.read(),backend=default_backend())
 
     def initializeSecurity(self,path,BackupPath, username, password):
