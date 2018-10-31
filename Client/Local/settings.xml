@@ -9,4 +9,8 @@
     <UserName>-</UserName>
     <Password>-</Password>
   </AutoLogin>
+  <Security>
+    <path>Security/PrivateKey.pem</path>
+    <backup>Security/Backup/PrivateKey.pem</backup>
+  </Security>
 </Client>

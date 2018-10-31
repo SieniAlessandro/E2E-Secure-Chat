@@ -18,21 +18,21 @@ class XMLClientHandler:
 
 
     def initilizeXML(self):
-        root = etree.Element('Client')
+        self.root = etree.Element('Client')
 
         # General Config
-        EnableLog = etree.SubElement(root,"EnableLog")
+        EnableLog = etree.SubElement(self.root,"EnableLog")
         EnableLog.text = "1"
 
         # Server
-        server = etree.SubElement(root,"Server")
+        server = etree.SubElement(self.root,"Server")
         server_port = etree.SubElement(server,"ServerPort")
         server_port.text = "6000"
         server_address = etree.SubElement(server,"ServerAddress")
         server_address.text = "127.0.0.1"
 
         # User
-        auto = etree.SubElement(root,"AutoLogin")
+        auto = etree.SubElement(self.root,"AutoLogin")
         user_remember = etree.SubElement(auto, "remember")
         user_remember.text = "0"
         user_name = etree.SubElement(auto,"UserName")
@@ -41,12 +41,13 @@ class XMLClientHandler:
         user_pwd.text = "-"
 
         # Security
-        sec = etree.SubElement(root, "Security")
+        sec = etree.SubElement(self.root, "Security")
         sec_path = etree.SubElement(sec, "path")
+        sec_path.text = "Security/PrivateKey.pem"
         sec_backup = etree.SubElement(sec, "backup")
-
+        sec_backup.text = "Security/Backup/PrivateKey.pem"
         #Writing in the file
-        tree = etree.ElementTree(root)
+        tree = etree.ElementTree(self.root)
         tree.write(self.PATH,pretty_print=True)
 
     def getServerPort(self):
@@ -62,10 +63,10 @@ class XMLClientHandler:
     def getEnableLog(self):
         return self.root[0][0].text
     def getSecurityPath(self):
-        return self.root[3][1].text
+        return self.root[3][0].text
     def getSecurityBackup(self):
-        return self.root[3][2].text
-        
+        return self.root[3][1].text
+
     def setAutoLogin(self, remember, user, password):
         self.root[2][0].text = str(remember)
         self.root[2][1].text = user

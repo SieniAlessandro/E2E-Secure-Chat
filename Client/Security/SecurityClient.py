@@ -4,17 +4,13 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import utils
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
-import os
+
 
 class SecurityClient:
     def __init__(self,path,BackupPath):
         self.ServerInitialized(path,BackupPath)
 
     def ServerInitialized(self,path,BackupPath):
-            try:
-                os.stat('Backup')
-            except:
-                os.mkdir('Backup')
             try:
                 with open(path,"rb") as pem:
                     try:
@@ -45,24 +41,24 @@ class SecurityClient:
                             pem.write(SerializedPrivateKey)
                         except ValueError:
                             print("The backup is corrupted")
-                            generate_key(path,BackupPath)
+                            self.generate_key(path,BackupPath)
                 except FileNotFoundError:
                     print("I don't have anything")
                     with open(path,"wb") as pem, open(BackupPath,"wb") as backup:
-                        self.generate_key(path,backupPath)
+                        self.generate_key(path,BackupPath)
     def generate_key(self,path,backupPath):
         with open(path,"wb") as pem, open(backupPath,"wb") as backup:
             self.privateKey = rsa.generate_private_key(public_exponent=65537,\
                                                    key_size=4098,\
                                                    backend=default_backend())
-            self.publicKey = self.private_key.public_key()
-            serializedPrivateKey = private_key.private_bytes(encoding=serialization.Encoding.PEM,
+            self.publicKey = self.privateKey.public_key()
+            serializedPrivateKey = self.privateKey.private_bytes(encoding=serialization.Encoding.PEM,
                                                              format=serialization.PrivateFormat.PKCS8,
                                                              encryption_algorithm=serialization.BestAvailableEncryption(b'ServerMPSprivatekey'))
             pem.write(serializedPrivateKey)
             backup.write(serializedPrivateKey)
     def RSAEncryptText(self,text):
-        cipherText = self.publicKey.encrypt(text,
+        cipherText = self.ClientPublicKey.encrypt(text,
                                             padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
                                                          algorithm=hashes.SHA256(),
                                                          label=None
@@ -91,3 +87,6 @@ class SecurityClient:
             return True
         except InvalidSignature:
             return False
+
+    def getSerializedPublicKey(self):
+        return self.publicKey.public_bytes(encoding=serialization.Encoding.PEM,format=serialization.PublicFormat.SubjectPublicKeyInfo)
