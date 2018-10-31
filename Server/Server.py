@@ -18,7 +18,7 @@ class Server:
         self.ActiveThreads = []
         self.ip = "0.0.0.0"
         self.port = self.XML.getServerPort()
-        self.sec = Security(1,self.XML.getPemPath(),self.XML.getBackupPemPath())
+        self.sec = Security(self.XML.getPemPath(),self.XML.getBackupPemPath())
         self.server = socket.socket(socket.AF_INET,socket.SOCK_STREAM);
         self.server.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);
         self.server.bind((self.ip,self.port))
@@ -42,7 +42,7 @@ class Server:
             #Obtaining the parameters like the socket and the address/port of the incoming connection
             (conn, (ip,port)) = self.server.accept()
             #Creating a new thread able to handle the new connection with the client
-            newClient = ClientHandler(conn,ip,port,self.DB,self.Users,self.Log,self.ActiveThreads);
+            newClient = ClientHandler(conn,ip,port,self.DB,self.Users,self.Log,self.XML);
             #Starting the new thread
             newClient.start()
             self.ActiveThreads.append(newClient)
