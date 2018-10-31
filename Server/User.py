@@ -1,3 +1,5 @@
+from Security.Security import Security
+
 class User:
     def __init__(self,_socket,_ip,_ClientPort,_ServerPort,_UserName):
         self.Ip = _ip
@@ -19,5 +21,10 @@ class User:
         self.ClientPort = _clientPort
     def setUserName(self,_username):
         self.Username = _username
+    def InitSecurityModule(self,key):
+        self.Security = Security()
+        self.Security.AddClientKey(key)
+    def GetSecurityModule(self):
+        return self.Security
     def __repr__(self):
         return  "Username: "+ self.Username+" IP: "+self.Ip+" ServerPort: "+str(self.ServerPort)+" ClientPort: "+str(self.ClientPort)

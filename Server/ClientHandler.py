@@ -78,6 +78,11 @@ class ClientHandler(Thread):
             #Preparing the internal structure used to handle te connection between different clinet
             self.HandledUser.setUserName(message['username'].lower())
             self.HandledUser.setClientPort(message['porta'])
+            key = self.DB.getKeyFromUser(self.HandledUser.getUserName())
+            if key is not None:
+                self.HandledUser.InitSecurityModule(key)
+            else:
+                print("Errore nella query per la chiave")
             #Adding the client to the list of active users
             self.OnlineClients[message['username'].lower()] = self.HandledUser
             self.log.log("Active users: "+str(self.OnlineClients))

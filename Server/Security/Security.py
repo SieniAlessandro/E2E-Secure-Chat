@@ -7,12 +7,8 @@ from cryptography.hazmat.primitives.asymmetric import padding
 
 
 class Security:
-    def __init__(self,type,path,BackupPath):
-        #Type == 1 means that the module must handle it's own private key
-        if type == 1:
-            self.ServerInitialized(path,BackupPath)
-        else:
-            print("Not else implemented for the client PEM")
+    def __init__(self,path,BackupPath):
+        self.ServerInitialized(path,BackupPath)
     def ServerInitialized(self,path,BackupPath):
 
             try:
@@ -62,7 +58,7 @@ class Security:
             pem.write(serializedPrivateKey)
             backup.write(serializedPrivateKey)
     def RSAEncryptText(self,text):
-        cipherText = self.publicKey.encrypt(text,
+        cipherText = self.ClientPublicKey.encrypt(text,
                                             padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
                                                          algorithm=hashes.SHA256(),
                                                          label=None
@@ -91,3 +87,6 @@ class Security:
             return True
         except InvalidSignature:
             return False
+    def AddClientKey(self,key):
+        self.ClientPublicKey = key
+    

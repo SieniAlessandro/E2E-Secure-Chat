@@ -72,6 +72,19 @@ class Database:
             print ("Error in the message insertion query")
             return -1
 
+    def getKeyFromUser(self,_user):
+        query = "SELECT PublicKey from user where UserName = %s"
+        try:
+            #Executing the query
+            self.cursor.execute(query,(receiver))
+            rows = self.cursor.fetchall()
+            return rows[0][0]
+        except:
+            #rollback to the previous operations
+            self.db.rollback()
+            print ("Error in the message insertion query")
+            return None
+
     def userIsPresent(self,_user,_password):
         query = "SELECT * from user where UserName = %s AND Password = %s "
         try:
