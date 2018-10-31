@@ -75,7 +75,6 @@ class SignUpGUI(Frame):
         self.isFormValid[self.surnameEntry.winfo_name] = False
         self.isFormValid[self.passwordEntry.winfo_name] = False
         self.isFormValid[self.confirmPasswordEntry.winfo_name] = False
-
     def validatePassword(self):
         pattern = "^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$"
         if re.findall(pattern, self.passwordEntry.get()):
@@ -83,35 +82,29 @@ class SignUpGUI(Frame):
             self.isFormValid[self.passwordEntry.winfo_name] = True
             return True
         return False
-
     def validateConfirmPassword(self):
         if self.confirmPasswordEntry.get() == self.passwordEntry.get():
             self.confirmPasswordEntry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
             self.isFormValid[self.confirmPasswordEntry.winfo_name] = True
             return True
         return False
-
     def validateEmail(self):
         if validate_email(self.emailEntry.get()):
             self.emailEntry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
             self.isFormValid[self.emailEntry.winfo_name] = True
             return True
         return False
-
     def validateLength(self, entry, length):
         if len(entry.get()) > 0 and len(entry.get()) < length :
             entry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
             self.isFormValid[entry.winfo_name] = True
             return True
         return False
-
     def invalidate(self, entry):
         entry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
         self.isFormValid[entry.winfo_name] = False
-
     def setLoginWindow(self, loginWindow):
         self.loginWindow = loginWindow
-
     def cancelEvent(self):
         self.usernameEntry.delete(0, 'end')
         self.emailEntry.delete(0, 'end')
@@ -121,12 +114,10 @@ class SignUpGUI(Frame):
         self.confirmPasswordEntry.delete(0, 'end')
         self.hideSignUpFrame()
         self.loginWindow.showLoginFrame()
-
     def setClient(self, client):
         self.client = client
         master = self._nametowidget(self.winfo_parent())
         master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
-
     def signUpEvent(self):
         if False in self.isFormValid.values():
             self.confirmButton.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
@@ -138,13 +129,10 @@ class SignUpGUI(Frame):
                 self.loginWindow.showMessage("Succefully Registered", "#4bf442")
             elif ret == 0:
                 self.showErrorLabel()
-
     def showErrorLabel(self):
         self.errorLabel.grid(row = 1, columnspan=2)
-
     def hideErrorLabel(self):
         self.errorLabel.grid_forget()
-
     def showSignUpFrame(self):
         self.pack(fill=BOTH, expand=True)
         master = self._nametowidget(self.winfo_parent())
@@ -158,7 +146,6 @@ class SignUpGUI(Frame):
         master.resizable(width=FALSE, height=FALSE)
         master.title("Sign Up")
         master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
-
     def hideSignUpFrame(self):
         self.pack_forget()
 

@@ -5,6 +5,9 @@ from client import Client
 import os
 
 class ChatGUI(Frame):
+    """
+        Chat Grafic Interface, creates widgets and handles several events
+    """
     backgroundWindow = '#1f2327'
     backgroundItems = '#282e33'
     activebackground = '#657481'
@@ -37,19 +40,23 @@ class ChatGUI(Frame):
         self.emptyMessage.place( x =emptyFrameWidth, y = emptyFrameHeight-30, anchor=CENTER)
         self.orLabel.place( x =emptyFrameWidth, y = emptyFrameHeight-0, anchor=CENTER)
         self.logoutButton.place( x =emptyFrameWidth, y = emptyFrameHeight+30, anchor=CENTER)
-
     def createWidgets(self, client, login):
+        """ Receive client instance in order to call client's functions, login instance in order to show/hide the login window"""
         self.client = client
         self.login = login
         self.chatList.setItems(self.client)
         self.chatList.scrollableFrame.setCanvasWidth(self.w*1/4)
-
     def logout(self):
+        """
+            Call client logout function and swap windows
+        """
         self.client.logout(self.chatList.getNotEmptyUsers())
         self.login.showLoginFrame()
         self.hideChatFrame()
-
     def onLoginEvent(self, username):
+        """
+            After login, change window and load all the previous conversation + the new conversation received from the server
+        """
         self.showChatFrame()
         master = self._nametowidget(self.winfo_parent())
         master.title("MPS Chat - " + username)
@@ -58,21 +65,27 @@ class ChatGUI(Frame):
         for c in conversations.keys():
             for m in conversations[c]:
                 isMine = True if conversations[c][m]['whoSendIt'] == 0 else False
-                self.chatList.notify(c, conversations[c][m]['text'], conversations[c][m]['time'],isMine, False, True)
-
+                self.chatList.notify(c, conversations[c][m]['text'], conversations[c][m]['time'],isMine, True)
     def onCloseEvent(self):
+        """
+            Deallocate resource window and call onClosing event of client in order to save locally the conversations
+        """
         self.destroy()
         self.client.onClosing(self.chatList.getNotEmptyUsers())
-
     def showChatFrame(self):
+        """
+            Display chat interface inside the root window
+        """
         self.pack(fill=BOTH, expand=True)
         master = self._nametowidget(self.winfo_parent())
         master.geometry('%dx%d+%d+%d' % (self.w, self.h, self.x, self.y))
         master.title("MPS Chat")
         master.resizable(width=FALSE, height=FALSE)
         master.protocol("WM_DELETE_WINDOW", self.onCloseEvent )
-
     def hideChatFrame(self):
+        """
+            Hide chat interface from the root window
+        """
         self.pack_forget()
         self.chatList.flushChatDict()
 
