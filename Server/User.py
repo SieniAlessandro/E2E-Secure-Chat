@@ -21,13 +21,8 @@ class User:
         self.ClientPort = _clientPort
     def setUserName(self,_username):
         self.Username = _username
-    def InitSecurityModule(self,key,PemPath,BackupPemPath):
-<<<<<<< HEAD
-        self.Security = Security(PemPath,BackupPemPath,key)
-=======
-        self.Security = Security()
-        self.Security.AddClientKey(key)
->>>>>>> 6122c91d5c41b238d5118e4a8e4b9d5b2a0fe91a
+    def addSecurityModule(self,Security):
+        self.Security = Security
     def GetSecurityModule(self):
         return self.Security
     def __repr__(self):

@@ -19,6 +19,7 @@ class ClientHandler(Thread):
         self.OnlineClients = clients
         self.log = Log
         self.XML = xml
+        self.Security = Security(self.xml.getPemPath(),self.xml.getBackupPemPath())
         self.log.log("Client handled has address: "+ self.HandledUser.getIp() +" and port "+str(self.HandledUser.getServerPort()))
     #Method whose listen the message coming from the handled client,showing its content
     def run(self):
@@ -39,6 +40,7 @@ class ClientHandler(Thread):
                     del self.OnlineClients[self.HandledUser.getUserName()]
                 return -1
             msg = data.decode('utf-16')
+            msg = self.Security.RSADecryptText(msg)
             jsonMessage = json.loads(msg)
             #Registration
             if jsonMessage['id'] == "1":
@@ -80,8 +82,9 @@ class ClientHandler(Thread):
             self.HandledUser.setClientPort(message['porta'])
             key = self.DB.getKeyFromUser(self.HandledUser.getUserName())
             if key is not None:
-                self.HandledUser.InitSecurityModule(key,self.XML.getPemPath(),self.XML.getBackupPemPath())
                 print(str(key))
+                self.Security.AddClientKey(key)
+                self.HandledUser.addSecurityModule(self.Security)
             else:
                 print("Errore nella query per la chiave")
             #Adding the client to the list of active users
