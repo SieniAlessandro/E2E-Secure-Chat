@@ -19,7 +19,7 @@ class ClientHandler(Thread):
         self.OnlineClients = clients
         self.log = Log
         self.XML = xml
-        self.Security = Security(self.xml.getPemPath(),self.xml.getBackupPemPath())
+        self.Security = Security(self.XML.getPemPath(),self.XML.getBackupPemPath())
         self.log.log("Client handled has address: "+ self.HandledUser.getIp() +" and port "+str(self.HandledUser.getServerPort()))
     #Method whose listen the message coming from the handled client,showing its content
     def run(self):
