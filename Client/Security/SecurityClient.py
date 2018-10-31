@@ -7,12 +7,9 @@ from cryptography.hazmat.primitives.asymmetric import padding
 import os
 
 class SecurityClient:
-    def __init__(self,type,path,BackupPath):
-        #Type == 1 means that the module must handle it's own private key
-        if type == 1:
-            self.ServerInitialized(path,BackupPath)
-        else:
-            print("Not else implemented for the client PEM")
+    def __init__(self,path,BackupPath):
+        self.ServerInitialized(path,BackupPath)
+
     def ServerInitialized(self,path,BackupPath):
             try:
                 os.stat('Backup')

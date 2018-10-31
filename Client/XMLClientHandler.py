@@ -40,6 +40,11 @@ class XMLClientHandler:
         user_pwd = etree.SubElement(auto,"Password")
         user_pwd.text = "-"
 
+        # Security
+        sec = etree.SubElement(root, "Security")
+        sec_path = etree.SubElement(sec, "path")
+        sec_backup = etree.SubElement(sec, "backup")
+
         #Writing in the file
         tree = etree.ElementTree(root)
         tree.write(self.PATH,pretty_print=True)
@@ -56,7 +61,11 @@ class XMLClientHandler:
         return self.root[2][2].text
     def getEnableLog(self):
         return self.root[0][0].text
-
+    def getSecurityPath(self):
+        return self.root[3][1].text
+    def getSecurityBackup(self):
+        return self.root[3][2].text
+        
     def setAutoLogin(self, remember, user, password):
         self.root[2][0].text = str(remember)
         self.root[2][1].text = user
