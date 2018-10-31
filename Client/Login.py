@@ -42,7 +42,6 @@ class LoginGUI(Frame):
 
         master.bind('<Return>', self.pressEnterEvent)
         self.usernameEntry.focus_force()
-
     def showLoginFrame(self):
         self.pack(fill=BOTH, expand=True)
         master = self._nametowidget(self.winfo_parent())
@@ -59,7 +58,6 @@ class LoginGUI(Frame):
         master.resizable(width=FALSE, height=FALSE)
         master.title("Login")
         master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
-
     def hideLoginFrame(self):
         self.pack_forget()
         self.usernameEntry.delete(0, 'end')
@@ -67,8 +65,6 @@ class LoginGUI(Frame):
         self.usernameEntry.config(fg ='white', highlightthickness=0)
         self.passwordEntry.config(fg = 'white', highlightthickness=0)
         self.hideMessage()
-
-
     def setItems(self, client, chat, signUpWindow, online):
         self.client = client
         self.chat = chat
@@ -77,11 +73,9 @@ class LoginGUI(Frame):
             self.showMessage("Server Offline, please try again later!",  "#ff3333" )
             self.confirmButton.config(state=DISABLED)
             self.signUpButton.config(state=DISABLED)
-
     def signUpEvent(self):
         self.hideLoginFrame()
         self.signUpWindow.showSignUpFrame()
-
     def loginEvent(self):
         username = self.usernameEntry.get()
         password = self.passwordEntry.get()
@@ -99,19 +93,15 @@ class LoginGUI(Frame):
                 self.showError()
             elif ret == -1:
                 self.showMessage("You are already logged in other device",  self.errorColor )
-
     def pressEnterEvent(self, event):
         self.loginEvent()
-
     def showError(self):
         self.messageLabel.config(text="Username or Password is incorrect", fg = "#ff1a1a")
         self.messageLabel.grid(row = 1)
         self.usernameEntry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
         self.passwordEntry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
-
     def hideMessage(self):
         self.messageLabel.grid_forget()
-
     def showMessage(self, message, color):
         self.messageLabel.config(text=message, fg = color)
         self.messageLabel.grid(row = 1)
