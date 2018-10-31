@@ -7,10 +7,12 @@ from cryptography.hazmat.primitives.asymmetric import padding
 
 
 class Security:
-    def __init__(self,path,BackupPath):
-        self.ServerInitialized(path,BackupPath)
+    def __init__(self,path,BackupPath,publicKey = None):
+        if publicKey is None:
+            self.ServerInitialized(path,BackupPath)
+        else:
+            self.AddClientKey(publicKey)
     def ServerInitialized(self,path,BackupPath):
-
             try:
                 with open(path,"rb") as pem:
                     try:
@@ -89,4 +91,5 @@ class Security:
             return False
     def AddClientKey(self,key):
         self.ClientPublicKey = key
-    
+    def getSerializedPublicKey(self):
+        return self.publicKey.public_bytes(encoding=serialization.Encoding.PEM,format=serialization.PublicFormat.SubjectPublicKeyInfo)

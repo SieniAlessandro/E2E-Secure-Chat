@@ -18,7 +18,7 @@ class Server:
         self.ActiveThreads = []
         self.ip = "0.0.0.0"
         self.port = self.XML.getServerPort()
-        self.sec = Security(1,self.XML.getPemPath(),self.XML.getBackupPemPath())
+        self.sec = Security(self.XML.getPemPath(),self.XML.getBackupPemPath())
         self.server = socket.socket(socket.AF_INET,socket.SOCK_STREAM);
         self.server.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);
         self.server.bind((self.ip,self.port))
@@ -42,7 +42,7 @@ class Server:
             #Obtaining the parameters like the socket and the address/port of the incoming connection
             (conn, (ip,port)) = self.server.accept()
             #Creating a new thread able to handle the new connection with the client
-            newClient = ClientHandler(conn,ip,port,self.DB,self.Users,self.Log,self.ActiveThreads);
+            newClient = ClientHandler(conn,ip,port,self.DB,self.Users,self.Log,self.XML);
             #Starting the new thread
             newClient.start()
             self.ActiveThreads.append(newClient)
@@ -51,7 +51,7 @@ class Server:
         choice = 1
         while choice != 0:
             try:
-                choice = int(input("What you want to do?\n1)Count online user \n2)Count Active Thread\n)Other key to close the server:\n"))
+                choice = int(input("What you want to do?\n1)Count online user \n2)Count Active Thread\n3)Print Public Key\n)Other key to close the server:\n"))
             except ValueError:
                 self.close()
             if choice == 1:
@@ -62,6 +62,8 @@ class Server:
                         print("UserName: "+User.getUserName()+" has address: "+User.getIp()+" and a Client port: "+str(User.getClientPort()))
             elif choice == 2:
                 print("Actually there are %d active thread" % (len(threading.enumerate())))
+            elif choice == 3:
+                print(self.sec.getSerializedPublicKey().decode('utf-8'))
             else:
                 print("Ok i'll close the server")
                 self.close()

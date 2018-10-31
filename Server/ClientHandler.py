@@ -12,13 +12,13 @@ class ClientHandler(Thread):
     """
     MSG_LEN = 10240
     #Constructor of the class
-    def __init__(self,Conn,ip,port,db,clients,Log,ActiveThreads):
+    def __init__(self,Conn,ip,port,db,clients,Log,XML):
         Thread.__init__(self)   #Instatation of the thread
         self.HandledUser = User(Conn,ip,0,port,"none")
         self.DB = db
         self.OnlineClients = clients
         self.log = Log
-        self.ActiveThreads = ActiveThreads
+        self.XML = xml
         self.log.log("Client handled has address: "+ self.HandledUser.getIp() +" and port "+str(self.HandledUser.getServerPort()))
     #Method whose listen the message coming from the handled client,showing its content
     def run(self):
@@ -80,7 +80,8 @@ class ClientHandler(Thread):
             self.HandledUser.setClientPort(message['porta'])
             key = self.DB.getKeyFromUser(self.HandledUser.getUserName())
             if key is not None:
-                self.HandledUser.InitSecurityModule(key)
+                self.HandledUser.InitSecurityModule(key,self.XML.getPemPath(),self.XML.getBackupPemPath())
+                print(str(key))
             else:
                 print("Errore nella query per la chiave")
             #Adding the client to the list of active users
