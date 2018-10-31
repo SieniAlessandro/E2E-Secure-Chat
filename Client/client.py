@@ -21,14 +21,15 @@ class Client:
 
     def __init__(self, chat = None):
         self.XML = XMLClientHandler()
-        self.hostServer = self.XML.getServerAddress()#self.HOST_SERVER #IPv4 Address of the server
+        self.hostServer = '10.102.27.154'#self.XML.getServerAddress()#self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.XML.getServerPort()
         self.portp2p = random.randint(6001,60000)
         self.Log = Log()
         self.Log.log('Client initialized')
         self.Chat = chat
         self.Message = Message(self.Log)
-        self.Security = SecurityClient(self.XML.getSecurityPath(), self.XML.getSecurityBackup())
+        selg.Security = SecurityClient(self.XML.getSecurityServerKey())
+        #print(self.Security.getServerPublicKey().decode('utf-8'))
     #Functions to communicate with Server#
     def sendServer(self, text):
         '''
@@ -37,8 +38,9 @@ class Client:
         If the communication with the server is closed return -1
         else return the return of the send function [a number > 0]
         '''
-
-        ret = self.socketServer.send(text.encode(self.CODE_TYPE))
+        textBit = self.Security.RSAEncryptText(text,self.Security.serverPublicKey)
+        #text = text.decode()
+        ret = self.socketServer.send(textBit)#.encode(self.CODE_TYPE))
         if ret == 0:
             #Socket is close
             self.Log.log('Problem in the connection with the server')
@@ -130,6 +132,9 @@ class Client:
             if succesfull registration return 1
             otherwise return 0 {we can use other codes to know why it is not okay}
         '''
+
+        self.Security.generate_key()
+
         msg = {}
         msg['id'] = '1'
         msg['user'] = username
@@ -137,16 +142,18 @@ class Client:
         msg['name'] = name
         msg['surname'] = surname
         msg['email'] = email
-        msg['key'] = key
+        msg['key'] = self.Security.publicKey
         msgToSend = json.dumps(msg)
         self.sendServer(msgToSend)
 
         value = int(self.receiveServer());
         if value == 1 :
             self.Log.log('Succesfully registered')
+            self.Security.savePrivateKey(self.XML.getSecurityPath(), self.XML.getSecurityBackup())
         else :
             #we can handle better the possible error
             self.Log.log('Error in registration')
+            
         return value
 
     def login(self, username, password):
@@ -159,6 +166,7 @@ class Client:
         '''
         self.username = username.lower()
 
+
         msg = {}
         msg['id'] = '2'
         msg['username'] = username
@@ -170,6 +178,8 @@ class Client:
         value = int(self.receiveServer())
         if value == 1 :
             self.Log.log('Succesfull logged in as ' + self.username)
+            #Carico le chiavi del client in Security
+            self.Security.initializeSecurity(self.XML.getSecurityPath(), self.XML.getSecurityBackup(), username, password)
 
             self.Message.loadConversations(self.username)
 

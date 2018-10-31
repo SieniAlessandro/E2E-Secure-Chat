@@ -6,11 +6,12 @@
   </Server>
   <AutoLogin>
     <remember>0</remember>
-    <UserName>-</UserName>
-    <Password>-</Password>
+    <UserName>b</UserName>
+    <Password>b</Password>
   </AutoLogin>
   <Security>
     <path>Security/PrivateKey.pem</path>
     <backup>Security/Backup/PrivateKey.pem</backup>
+    <serverPubKeyPath>Security/ServerPublicKey.pem</serverPubKeyPath>
   </Security>
 </Client>
