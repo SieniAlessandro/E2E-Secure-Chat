@@ -43,7 +43,7 @@ class Security:
                             pem.write(SerializedPrivateKey)
                         except ValueError:
                             print("The backup is corrupted")
-                            generate_key(path,BackupPath)
+                            self.generate_key(path,BackupPath)
                 except FileNotFoundError:
                     print("I don't have anything")
                     with open(path,"wb") as pem, open(BackupPath,"wb") as backup:
