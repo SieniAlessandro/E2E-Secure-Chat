@@ -21,7 +21,7 @@ class Client:
 
     def __init__(self, chat = None):
         self.XML = XMLClientHandler()
-        self.hostServer = '10.102.27.154'#self.XML.getServerAddress()#self.HOST_SERVER #IPv4 Address of the server
+        self.hostServer = self.XML.getServerAddress()#self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.XML.getServerPort()
         self.portp2p = random.randint(6001,60000)
         self.Log = Log()
