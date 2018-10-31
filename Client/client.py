@@ -258,7 +258,7 @@ class Client:
             self.Log.log('Message send correctly to be stored in the Server')
         elif value == 0:
             self.Log.log('Error in the database! Try again later!')
-        return value
+        return value-1
 
     def sendClient(self, receiver, text):
         '''
