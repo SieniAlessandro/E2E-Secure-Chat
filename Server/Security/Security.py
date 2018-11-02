@@ -51,7 +51,7 @@ class Security:
     def generate_key(self,path,backupPath):
         with open(path,"wb") as pem, open(backupPath,"wb") as backup:
             self.privateKey = rsa.generate_private_key(public_exponent=65537,\
-                                                   key_size=4098,\
+                                                   key_size=8196,\
                                                    backend=default_backend())
             self.publicKey = self.privateKey.public_key()
             serializedPrivateKey = self.privateKey.private_bytes(encoding=serialization.Encoding.PEM,
