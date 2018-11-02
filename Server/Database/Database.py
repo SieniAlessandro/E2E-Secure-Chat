@@ -76,10 +76,10 @@ class Database:
         query = "SELECT PublicKey from user where UserName = %s"
         try:
             #Executing the query
-            self.cursor.execute(query,(receiver))
+            self.cursor.execute(query,(_user))
             rows = self.cursor.fetchall()
             return rows[0][0]
-        except:
+        except Exception as e :
             #rollback to the previous operations
             self.db.rollback()
             print ("Error in the message insertion query")

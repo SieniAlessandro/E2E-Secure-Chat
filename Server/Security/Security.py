@@ -68,7 +68,7 @@ class Security:
                                             )
         return cipherText
     def RSADecryptText(self,cipherText):
-        plaintext = self.privateKey.decrypt(ciphertext,
+        plaintext = self.private_key.decrypt(cipherText,
                                             padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
                                                          algorithm=hashes.SHA256(),
                                                          label=None

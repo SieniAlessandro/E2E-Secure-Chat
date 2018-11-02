@@ -18,7 +18,7 @@ class ClientHandler(Thread):
         self.DB = db
         self.OnlineClients = clients
         self.log = Log
-        self.XML = xml
+        self.XML = XML
         self.Security = Security(self.XML.getPemPath(),self.XML.getBackupPemPath())
         self.log.log("Client handled has address: "+ self.HandledUser.getIp() +" and port "+str(self.HandledUser.getServerPort()))
     #Method whose listen the message coming from the handled client,showing its content
@@ -39,9 +39,12 @@ class ClientHandler(Thread):
                 if self.HandledUser in self.OnlineClients.values():
                     del self.OnlineClients[self.HandledUser.getUserName()]
                 return -1
-            msg = data.decode('utf-16')
-            msg = self.Security.RSADecryptText(msg)
-            jsonMessage = json.loads(msg)
+
+            #print(msg)
+            #msg = data.decode('utf-16')
+            msg = self.Security.RSADecryptText(data)
+            jsonMessage = json.loads(msg.decode())
+            print(jsonMessage)
             #Registration
             if jsonMessage['id'] == "1":
                 self.registerUser(jsonMessage)
