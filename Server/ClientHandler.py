@@ -44,7 +44,6 @@ class ClientHandler(Thread):
             #msg = data.decode('utf-16')
             msg = self.Security.RSADecryptText(data)
             jsonMessage = json.loads(msg.decode())
-            print(jsonMessage)
             #Registration
             if jsonMessage['id'] == "1":
                 self.registerUser(jsonMessage)
@@ -190,6 +189,7 @@ class ClientHandler(Thread):
                     response['id'] = "!"
                     response['status'] = "0"
         jsonResponse = json.dumps(response)
+        
         self.HandledUser.getSocket().send(jsonResponse.encode('utf-16'))
 
     def getHandledUser(self):
