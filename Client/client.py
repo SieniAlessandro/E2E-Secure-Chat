@@ -142,7 +142,8 @@ class Client:
         msg['name'] = name
         msg['surname'] = surname
         msg['email'] = email
-        msg['key'] = self.Security.publicKey
+        print(len(self.Security.getSerializedPublicKey().decode('utf-8')))
+        msg['key'] = self.Security.getSerializedPublicKey().decode('utf-8')
         msgToSend = json.dumps(msg)
         self.sendServer(msgToSend)
 

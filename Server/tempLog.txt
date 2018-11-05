@@ -1,3 +1,13 @@
-2018-10-31 12:01:25	Server Initialized
-2018-10-31 12:01:25	Waiting for connections...
-2018-10-31 12:01:35	Server Closed
+2018-11-05 16:27:59	Server Initialized
+2018-11-05 16:27:59	Waiting for connections...
+2018-11-05 16:28:06	Client handled has address: 127.0.0.1 and port 52080
+2018-11-05 16:28:06	Waiting for connections...
+2018-11-05 16:28:08	A client want to login
+2018-11-05 16:28:09	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 52080 ClientPort: 45700}
+2018-11-05 16:28:09	There are no message for this client
+2018-11-05 16:28:22	A client want to find another user
+2018-11-05 16:28:22	Store the message to b
+2018-11-05 16:28:30	A client want to find another user
+2018-11-05 16:28:30	Store the message to b
+2018-11-05 16:28:31	The user has a massage to be stored on the DB :
+2018-11-05 16:28:53	Client disconnected, closing this thread

@@ -6,8 +6,8 @@
   </Server>
   <AutoLogin>
     <remember>0</remember>
-    <UserName>b</UserName>
-    <Password>b</Password>
+    <UserName>a</UserName>
+    <Password>a</Password>
   </AutoLogin>
   <Security>
     <path>Security/PrivateKey.pem</path>

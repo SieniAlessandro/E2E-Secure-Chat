@@ -49,11 +49,12 @@ class SecurityClient:
 
     def generate_key(self):
         self.privateKey = rsa.generate_private_key(public_exponent=65537,\
-                                               key_size=4098,\
+                                               key_size=2048,\
                                                backend=default_backend())
         self.publicKey = self.privateKey.public_key()
 
     def RSAEncryptText(self,text, key):
+        print('len mes:' + str(len(text)))
         cipherText = key.encrypt(text.encode(),
                                 padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
                                              algorithm=hashes.SHA256(),

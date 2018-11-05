@@ -1,3 +1,18 @@
-2018-10-31 15:24:48	Client initialized
-2018-10-31 15:24:48	Message Handler has been initialized!
-2018-10-31 15:24:50	Error in connection with the server, is it down?
+2018-11-05 16:28:06	Client initialized
+2018-11-05 16:28:06	Message Handler has been initialized!
+2018-11-05 16:28:07	Message: <{"id": "2", "username": "a", "password": "a", "porta": "45700"}> sended to the server correctly
+2018-11-05 16:28:09	Received a message from the SERVER: {"id": "?", "status": "1"}
+2018-11-05 16:28:09	Succesfull logged in as a
+2018-11-05 16:28:09	Received a message from the SERVER: {"id": "0", "status": "1"}
+2018-11-05 16:28:09	No messages stored in the server
+2018-11-05 16:28:09	MessageHandler Initialized! Associated port: 45700
+2018-11-05 16:28:09	All the conversations has been charged : {}
+2018-11-05 16:28:22	Message: <{"id": "3", "username": "b"}> sended to the server correctly
+2018-11-05 16:28:22	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-11-05 16:28:29	Message: <{"id": "3", "username": "b"}> sended to the server correctly
+2018-11-05 16:28:30	Received a message from the SERVER: {"id": "!", "status": "0"}
+2018-11-05 16:28:30	Added message to the conversation : {"text": "ciao", "time": "2018-11-05 16:28:30.613421", "whoSendIt": 0}
+2018-11-05 16:28:30	Message: <{"id": "4", "Receiver": "b", "Text": "ciao", "Time": "2018-11-05 16:28:30.613421"}> sended to the server correctly
+2018-11-05 16:28:31	Received a message from the SERVER: {"id": ".", "status": "1"}
+2018-11-05 16:28:31	Message send correctly to be stored in the Server
+2018-11-05 16:28:52	Message: <{"id": "0"}> sended to the server correctly
