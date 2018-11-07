@@ -4,6 +4,7 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import utils
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
 
 class Security:
@@ -48,6 +49,7 @@ class Security:
                     print("I don't have anything")
                     with open(path,"wb") as pem, open(BackupPath,"wb") as backup:
                         self.generate_key(path,BackupPath)
+
     def generate_key(self,path,backupPath):
         with open(path,"wb") as pem, open(backupPath,"wb") as backup:
             self.privateKey = rsa.generate_private_key(public_exponent=65537,\
@@ -59,6 +61,7 @@ class Security:
                                                              encryption_algorithm=serialization.BestAvailableEncryption(b'ServerMPSprivatekey'))
             pem.write(serializedPrivateKey)
             backup.write(serializedPrivateKey)
+
     def RSAEncryptText(self,text):
         cipherText = self.ClientPublicKey.encrypt(text,
                                             padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
@@ -67,6 +70,7 @@ class Security:
                                                          )
                                             )
         return cipherText
+
     def RSADecryptText(self,cipherText):
         plaintext = self.private_key.decrypt(cipherText,
                                             padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
@@ -83,13 +87,59 @@ class Security:
                                      hashes.SHA256()
                                      )
         return signature
+
     def VerifySignature(self,text,signature):
         try:
             self.publicKey.verify(signature,message,padding.PSS(mgf=padding.MGF1(hashes.SHA256()),salt_length=padding.PSS.MAX_LENGTH),hashes.SHA256())
             return True
         except InvalidSignature:
             return False
+
     def AddClientKey(self,key):
         self.ClientPublicKey = key
+
     def getSerializedPublicKey(self):
         return self.publicKey.public_bytes(encoding=serialization.Encoding.PEM,format=serialization.PublicFormat.SubjectPublicKeyInfo)
+
+    def generateSymmetricKey(self,len):
+        self.len = len
+        self.SymmetricKey = AESGCM.generate_key(bit_length=self.len);
+        return 0
+
+    def getSymmetricKey():
+        return self.SymmetricKey;
+
+    def getSymmetricKeyasDict(self):
+        key = {}
+        key["lenght"] = str(self.len)
+        key["format"] = "B" * int((self.len/8))
+        key["content"] = [byte for byte in self.SymmetricKey]
+        return key
+
+    def AddSymmetricKeyFromDict(self,dict):
+        """Must be passed as argument the dict located at message['key']"""
+        self.len = int(key["lenght"])
+        self.SymmetricKey = struct.pack(dict["format"],*dict["content"])
+
+    def AESDecryptText(self,ct,nonce):
+        try:
+            aescgm = AESCCM(self.SymmetricKey)
+            return aescgm.decrypt(nonce,ct,None)
+        except ValueError:
+            print("Error in decrypt GCM")
+            return None
+
+    def AESEncryptText(self,pt,nonce):
+        try:
+            aesgcm = AESGCM(self.SymmetricKey)
+            return aesgcm.encrypt(nonce, pt, None)
+        except:
+            print("Error in encrypt GCM")
+            return None
+
+    def addDHparameters(self,p,g):
+        self.p = p
+        self.g = g
+        
+    def getDHparameters(self):
+        return [selg.p,self.g]
