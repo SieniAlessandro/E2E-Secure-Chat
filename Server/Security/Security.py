@@ -84,7 +84,7 @@ class Security:
     def splitMessage(self,pt):
         return [pt[0:-32],pt[-32:]]
 
-        
+
     def generateDigest(self,pt):
         digest = hashes.Hash(hashes.SHA256(), backend=default_backend())
         digest.update(pt)
@@ -135,6 +135,7 @@ class Security:
     def AESDecryptText(self,ct,nonce):
         try:
             aescgm = AESCCM(self.SymmetricKey)
+            nonce = nonce+1
             return aescgm.decrypt(nonce,ct,None)
         except ValueError:
             print("Error in decrypt GCM")
