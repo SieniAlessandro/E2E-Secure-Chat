@@ -41,6 +41,11 @@ class ClientHandler(Thread):
                     del self.OnlineClients[self.HandledUser.getUserName()]
                 return -1
             msg = self.Security.RSADecryptText(data) if self.logged == False else self.Security.AESDecryptText(data)
+            if self.logged == False:
+                msg,d = self.Security.splitMessage(msg)
+                checkd = self.Security.generateDigest(msg.decode())
+                if checkd != d:
+                    msg = None
             if msg is None:
                 print("Cannot decrypt this message")
             else:
