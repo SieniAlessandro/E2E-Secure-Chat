@@ -90,6 +90,8 @@ class ChatGUI(Frame):
         self.chatList.flushChatDict()
 
 if __name__ == '__main__':
+    import ctypes
+
     if os.getcwd().find("Client") == -1:
         os.chdir("Client")
 
@@ -97,7 +99,9 @@ if __name__ == '__main__':
     chat = ChatGUI(root)
     client = Client("")
     chat.createWidgets(None, None)
+    if sys.platform.startswith('win'):
+            ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
     chat.chatList.addChatListElement("Rododendro", "Oggi piove", None)
-    # chat.chatWindow.receiveMessage("Rododendro", "Associated", "0:00")
+    chat.showChatFrame()
     root.mainloop()

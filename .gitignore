@@ -1,0 +1,7 @@
+tempLog.txt
+/Client/__pycache__
+/Client/tempLog.txt
+/Client/Security/__pycache__
+/Server/__pycache__
+/Server/tempLog.txt
+/Server/Security/__pycache__
