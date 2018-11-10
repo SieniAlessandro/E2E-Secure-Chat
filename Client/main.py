@@ -8,13 +8,10 @@ import os
 import ctypes
 import sys
 
-host = '127.0.0.1'#'10.102.11.147'
-port = 6000
-MESSAGE = 'hi'
-
+# Set the right working directory
 if os.getcwd().find("Client") == -1:
     os.chdir("Client")
-
+# High-DPI disply on Windows
 if sys.platform.startswith('win'):
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
@@ -31,6 +28,7 @@ login.setItems(client, chat, signUp, online)
 signUp.setLoginWindow(login)
 signUp.setClient(client)
 
+# checking autologin 
 ret = client.checkAutoLogin()
 if ret == 1:
     chat.onLoginEvent(client.username)

@@ -3,16 +3,17 @@ from PIL import ImageTk, Image
 import os
 
 class LoginGUI(Frame):
-
     backgroundWindow = '#1f2327'
     backgroundItems = '#434d56'
     activebackground = '#657481'
     errorColor = '#ff3333'
     def __init__(self, master):
+        """
+            Login Grafic Interface, this is the first shown if the autologin is disabled
+        """
         Frame.__init__(self, master)
 
         self.var = IntVar()
-
         self.mainFrame = Frame(self, bg=self.backgroundWindow)
 
         self.titleLabel = Label(self.mainFrame, text="Login", bg=self.backgroundWindow, font = ("Default", 18, "bold"), fg='white')
@@ -40,25 +41,34 @@ class LoginGUI(Frame):
         self.signUpButton.pack(side="left", padx=5, pady=5)
         self.confirmButton.pack(side="right", padx=5, pady=5)
 
-        master.bind('<Return>', self.pressEnterEvent)
+        self.master.bind('<Return>', self.pressEnterEvent)
         self.usernameEntry.focus_force()
-    def showLoginFrame(self):
-        self.pack(fill=BOTH, expand=True)
-        master = self._nametowidget(self.winfo_parent())
-
+    def setRootSize(self, height):
+        """
+            Set width and height of root window
+        """
         w = 300 # width for the Tk root
-        h = 350 # height for the Tk root
+        h = height # height for the Tk root
         ws = self.winfo_screenwidth() # width of the screen
         hs = self.winfo_screenheight() # height of the screen
 
         x = (ws/2) - (w/2)
         y = (hs/2) - (h/2)
 
-        master.geometry('%dx%d+%d+%d' % (w, h, x, y))
-        master.resizable(width=FALSE, height=FALSE)
-        master.title("Login")
-        master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
+        self.master.geometry('%dx%d+%d+%d' % (w, h, x, y))
+    def showLoginFrame(self):
+        """
+            Display login interface inside the root window
+        """
+        self.pack(fill=BOTH, expand=True)
+        self.setRootSize(350)
+        self.master.resizable(width=FALSE, height=FALSE)
+        self.master.title("Login")
+        self.master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
     def hideLoginFrame(self):
+        """
+            Hide login interface from the root window
+        """
         self.pack_forget()
         self.usernameEntry.delete(0, 'end')
         self.passwordEntry.delete(0, 'end')
@@ -66,6 +76,10 @@ class LoginGUI(Frame):
         self.passwordEntry.config(fg = 'white', highlightthickness=0)
         self.hideMessage()
     def setItems(self, client, chat, signUpWindow, online):
+        """
+            Receive client instance in order to call client's functions, signUp
+            and chat instance in order to show/hide them
+        """
         self.client = client
         self.chat = chat
         self.signUpWindow = signUpWindow
@@ -74,9 +88,17 @@ class LoginGUI(Frame):
             self.confirmButton.config(state=DISABLED)
             self.signUpButton.config(state=DISABLED)
     def signUpEvent(self):
+        """
+            When Sign Up button is pressed
+        """
         self.hideLoginFrame()
         self.signUpWindow.showSignUpFrame()
     def loginEvent(self):
+        """
+            When Confirm button is pressed, it checks that fields are not empty
+            and call the client.login(), showing error if it doesn't succed or
+            showing chat if the user has been logged
+        """
         username = self.usernameEntry.get()
         password = self.passwordEntry.get()
         if not username or not password :
@@ -96,22 +118,39 @@ class LoginGUI(Frame):
     def pressEnterEvent(self, event):
         self.loginEvent()
     def showError(self):
+        """
+            Show error label and set fields style to red
+        """
         self.messageLabel.config(text="Username or Password is incorrect", fg = "#ff1a1a")
         self.messageLabel.grid(row = 1)
         self.usernameEntry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
         self.passwordEntry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
-    def hideMessage(self):
+        self.setRootSize(370)
+    # def hideMessage(self):
         self.messageLabel.grid_forget()
+        self.usernameEntry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=0)
+        self.passwordEntry.config(fg = 'white', highlightthickness=0)
+        self.setRootSize(350)
     def showMessage(self, message, color):
         self.messageLabel.config(text=message, fg = color)
         self.messageLabel.grid(row = 1)
+        self.setRootSize(370)
 
+#Testing purposes
 if __name__ == '__main__':
+    from client import Client
+    import ctypes
     if os.getcwd().find("Client") == -1:
         os.chdir("Client")
 
+    if sys.platform.startswith('win'):
+            ctypes.windll.shcore.SetProcessDpiAwareness(1)
     root = Tk()
     login = LoginGUI(root)
-    login.setItems(client=None, chat=None)
+    client = Client(None)
+    login.setItems(client, chat=None, signUpWindow=None, online=None)
     login.showLoginFrame()
+    login.showError()
+    login.hideMessage()
+    login.showMessage("ciao", "green")
     root.mainloop()

@@ -9,6 +9,9 @@ activeChat = None
 class ChatList(Frame):
 
     def __init__(self, master, background):
+        """
+            Left frame of chatGUI, it contains a list of available chats
+        """
         Frame.__init__(self, master, background=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         self.chatListDict = {}
         self.master = master
@@ -27,6 +30,13 @@ class ChatList(Frame):
         self.searchButton.pack(side=RIGHT, padx=5, pady=5)
         listFrame.pack(fill=BOTH, expand=True)
     def pressSearchButton(self):
+        """
+            When search button is pressed, it checks if the chat already exists
+            and it open that chat if exists. Else starts a connection with the
+            searched name calling client.startConnection. If this function succedes
+            it creates a new chat element and add it into the dictionary using
+            the chat name as key, otherwise it invalidates the entry
+        """
         username = self.searchBar.get()
         searchKey = username.lower()
         if not username:
@@ -51,6 +61,9 @@ class ChatList(Frame):
     def setItems(self, client ):
         self.client = client
     def addChatListElement(self, chatName, lastMessage, lastMessageTime):
+        """
+            Creates a new chatListElement and adds it to the dictionary
+        """
         if lastMessageTime is None:
             timeString = '-:--'
         else:
@@ -77,6 +90,13 @@ class ChatList(Frame):
         self.scrollableFrame.update()
         self.scrollableFrame.canvas.yview_moveto( 1 )
     def notify(self, sender, message, time, isMine, onLogin):
+        """
+            When a message is received, if the sender is not in dict create a new
+            chatListElement and starts the connection with the sender. If the
+            chatListElement is already in the dict, if the activeChat is not the
+            sender's one, then increment the number of unreaded messages of the
+            sender. In any case, add the boxMessageElement to the sender chat
+        """
         searchKey = sender.lower()
         global activeChat
         if searchKey not in self.chatListDict:
@@ -96,23 +116,20 @@ class ChatList(Frame):
 
         # add the new message to that chatWindow anyway
         self.chatListDict[searchKey][1].addBoxMessageElement(message, time, isMine)
-        print(self.chatListDict[searchKey][1].userState.get())
-
-    def checkChatExists(self, sender, message, time):
-        searchKey = sender.lower()
-        if searchKey not in self.chatListDict:
-            #chatList not found in the list
-            self.addChatListElement(sender, message, time)
-            status = self.client.startConnection(searchKey)
-            self.chatListDict[searchKey][1].updateState(status)
-            if activeChat is None:
-                # there is no active chat
-                self.chatListDict[searchKey][0].changeChatRoom(event=None)
     def updateMessageTime(self, chatName, message, time):
+        """
+            Every time a new message is received or sent, it updates the last
+            message of the chat list element
+        """
         searchKey = chatName.lower()
         self.chatListDict[searchKey][0].setLastMessage(message)
         self.chatListDict[searchKey][0].setLastMessageTime(time)
     def sortChatList(self, searchKey):
+        """
+            bring the chat with chatname==searchKey in the first row of the list.
+            The list is sorted by the last message time so the higher the element
+            is in the list, the more recent the last message is
+        """
         oldIndex = self.chatListDict[searchKey][2]
         for key, val in self.chatListDict.items():
             if key == searchKey:
@@ -121,7 +138,6 @@ class ChatList(Frame):
                 val[2] += 1
 
         sortedByIndex = sorted(self.chatListDict.items(), key=lambda kv: kv[1][2])
-
         self.chatListDict = {}
         for cle in sortedByIndex:
             self.chatListDict[cle[0]] = [cle[1][0], cle[1][1], cle[1][2]]
@@ -134,6 +150,9 @@ class ChatList(Frame):
             cle[1][0].pack(fill=X)
         self.scrollableFrame.update()
     def getNotEmptyUsers(self):
+        """
+            create a list of chat names with atleast one message sent or received
+        """
         list = []
         for cle in self.chatListDict.items():
             if not cle[1][0].lastMessageTime.get() == '-:--':
@@ -145,6 +164,9 @@ class ChatList(Frame):
             cle[1].destroy()
         self.chatListDict = {}
     def deleteChatListElement(self, username):
+        """
+            Delete the chat list element
+        """
         global activeChat
         username = username.lower()
         if activeChat.chatName.get() == self.chatListDict[username][1].chatName.get():
@@ -163,6 +185,9 @@ class ChatListElement(Frame):
     MAXMESSAGELEN = 10
 
     def __init__(self, master, background):
+        """
+            Element of the list on left side of the chat
+        """
 
         Frame.__init__(self, master)
         self.configure(background=background, padx=10, pady=5)
@@ -175,29 +200,12 @@ class ChatListElement(Frame):
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=8)
         self.columnconfigure(2, weight=1)
-
-    def changeChatRoom(self, event):
-        global activeChat
-        if  activeChat is None:
-            activeChat = self.chatWindow
-            activeChat.entryBar.focus_force()
-            self.chatWindow.pack(side=RIGHT, fill=BOTH, expand=True)
-            self.notifies.set(0)
-            self.notifiesLabel.grid_forget()
-        elif self.chatName.get() == activeChat.chatName.get():
-            activeChat.pack_forget()
-            activeChat.entryBar.focus_force()
-            activeChat = None
-        else:
-            activeChat.pack_forget()
-            activeChat = self.chatWindow
-            activeChat.entryBar.focus_force()
-            self.chatWindow.pack(side=RIGHT, fill=BOTH, expand=True)
-            self.notifies.set(0)
-            self.notifiesLabel.grid_forget()
-    def setChatList(self, chatList):
-        self.chatList = chatList
     def createWidgets(self):
+        """
+            Creates widgets inside the chat list element and binds the click
+            event in order to change the chat on click and the right-click in
+            order to display the menu and select "delete"
+        """
         self.rightClickMenu = Menu(self, tearoff=0)
         self.rightClickMenu.add_command(label="Delete", command= lambda: self.chatList.deleteChatListElement(self.chatName.get()))
 
@@ -233,16 +241,52 @@ class ChatListElement(Frame):
             self.lastMessageTimeLabel.bind('<Button-3>', self.popup)
             self.photoLabel.bind('<Button-3>', self.popup)
             self.notifiesLabel.bind('<Button-3>', self.popup)
+
+    def changeChatRoom(self, event):
+        """
+            When the element is clicked, it loads on the right frame, the clicked
+            element's chatWindow
+        """
+        global activeChat
+        if  activeChat is None:
+            activeChat = self.chatWindow
+            activeChat.entryBar.focus_force()
+            self.chatWindow.pack(side=RIGHT, fill=BOTH, expand=True)
+            self.notifies.set(0)
+            self.notifiesLabel.grid_forget()
+        elif self.chatName.get() == activeChat.chatName.get():
+            activeChat.pack_forget()
+            activeChat.entryBar.focus_force()
+            activeChat = None
+        else:
+            activeChat.pack_forget()
+            activeChat = self.chatWindow
+            activeChat.entryBar.focus_force()
+            self.chatWindow.pack(side=RIGHT, fill=BOTH, expand=True)
+            self.notifies.set(0)
+            self.notifiesLabel.grid_forget()
+    def setChatList(self, chatList):
+        self.chatList = chatList
+
     def popup(self, event):
+        """
+            Handles the right click event
+        """
         try:
             self.rightClickMenu.tk_popup(event.x_root+40, event.y_root+10, 0)
         finally:
             self.rightClickMenu.grab_release()
     def checkStringLenght(self, s):
+        """
+            if the message is too long, it is cut and "..." is concatenated to it
+        """
         if ( len(s) > self.MAXMESSAGELEN ):
             return s[0:self.MAXMESSAGELEN] + " ..."
         return s
     def bindMouseWheel(self, scrollableFrame):
+        """
+            Mouse wheel event
+        """
         self.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
         self.chatNameLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
         self.lastMessageLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
@@ -262,6 +306,9 @@ class ChatListElement(Frame):
         self.lastMessage.set(self.checkStringLenght(lastMessage))
         self.lastMessageTime.set(lastMessageTime)
     def increaseNotifies(self, message, time):
+        """
+            Display the notify label and add 1 to the variable
+        """
         self.notifies.set(self.notifies.get()+1)
         self.notifiesLabel.grid(row=1, column=2, sticky=W+E)
         self.setLastMessage(message)

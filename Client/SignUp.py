@@ -10,13 +10,16 @@ class SignUpGUI(Frame):
     errorColor = '#ff3333'
 
     def __init__(self, master):
+        """
+            SignUp Grafic Interface, containg a form to be compiled by the user
+        """
         Frame.__init__(self, master)
-
+        self.master = master
         self.mainFrame = Frame(self, bg=self.backgroundWindow)
         self.rightFrame = Frame(self.mainFrame, bg=self.backgroundWindow)
         self.leftFrame = Frame(self.mainFrame, bg=self.backgroundWindow)
         self.titleLabel = Label(self.mainFrame, text="Sign Up", bg=self.backgroundWindow, font = ("Default", 18, "bold"), fg='white')
-        self.errorLabel = Label(self.mainFrame, text="Something went wrong!", fg = "#ff1a1a", bg="#8585ad")
+        self.errorLabel = Label(self.mainFrame, text="Something went wrong!", fg = "#ff1a1a", bg=self.backgroundItems)
 
         self.usernameLabel = Label(self.leftFrame, bg=self.backgroundWindow, fg='white', text="Username")
         self.usernameEntry = Entry(self.leftFrame, validate="focusout", vcmd= lambda: self.validateLength(self.usernameEntry, 20), invalidcommand = lambda: self.invalidate(self.usernameEntry), bg=self.backgroundItems, fg='white', relief='flat' )
@@ -75,7 +78,23 @@ class SignUpGUI(Frame):
         self.isFormValid[self.surnameEntry.winfo_name] = False
         self.isFormValid[self.passwordEntry.winfo_name] = False
         self.isFormValid[self.confirmPasswordEntry.winfo_name] = False
+    def setRootSize(self, height):
+        """
+            Set width and height of root window
+        """
+        w = 390 # width for the Tk root
+        h = height # height for the Tk root
+        ws = self.winfo_screenwidth() # width of the screen
+        hs = self.winfo_screenheight() # height of the screen
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+        self.master.geometry('%dx%d+%d+%d' % (w, h, x, y))
     def validatePassword(self):
+        """
+            Password must contain atleast 8 characters,
+            atleast 1 uppercase letter, atleast 1 lowercase letter and atleast
+            1 digit
+        """
         pattern = "^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$"
         if re.findall(pattern, self.passwordEntry.get()):
             self.passwordEntry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
@@ -83,29 +102,48 @@ class SignUpGUI(Frame):
             return True
         return False
     def validateConfirmPassword(self):
+        """
+            Password string and ConfirmPassword string must be equal
+        """
         if self.confirmPasswordEntry.get() == self.passwordEntry.get():
             self.confirmPasswordEntry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
             self.isFormValid[self.confirmPasswordEntry.winfo_name] = True
             return True
         return False
     def validateEmail(self):
+        """
+            Email must have the right structure ( email@example.com )
+        """
         if validate_email(self.emailEntry.get()):
             self.emailEntry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
             self.isFormValid[self.emailEntry.winfo_name] = True
             return True
         return False
     def validateLength(self, entry, length):
+        """
+            entry cannot be longer than length
+        """
         if len(entry.get()) > 0 and len(entry.get()) < length :
             entry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
             self.isFormValid[entry.winfo_name] = True
             return True
         return False
     def invalidate(self, entry):
+        """
+            Invalidate entry if the check fails
+        """
         entry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
         self.isFormValid[entry.winfo_name] = False
     def setLoginWindow(self, loginWindow):
+        """
+            Set a loginGUI instance in order to show the login window if the
+            cancel button is pressed
+        """
         self.loginWindow = loginWindow
     def cancelEvent(self):
+        """
+            Reset the entries and show login window
+        """
         self.usernameEntry.delete(0, 'end')
         self.emailEntry.delete(0, 'end')
         self.nameEntry.delete(0, 'end')
@@ -115,10 +153,18 @@ class SignUpGUI(Frame):
         self.hideSignUpFrame()
         self.loginWindow.showLoginFrame()
     def setClient(self, client):
+        """
+            Set client instance in order to call client.register when the form
+            is valid and Confirm button is pressed
+        """
         self.client = client
-        master = self._nametowidget(self.winfo_parent())
-        master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
+        self.master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
     def signUpEvent(self):
+        """
+            Check if the form is valid then call client.register, showing error
+            if something went wrong or showing loginWindow if the user has been
+            registered on the server
+        """
         if False in self.isFormValid.values():
             self.confirmButton.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
         else:
@@ -131,28 +177,31 @@ class SignUpGUI(Frame):
                 self.showErrorLabel()
     def showErrorLabel(self):
         self.errorLabel.grid(row = 1, columnspan=2)
+        self.setRootSize(370)
     def hideErrorLabel(self):
         self.errorLabel.grid_forget()
+        self.setRootSize(350)
     def showSignUpFrame(self):
         self.pack(fill=BOTH, expand=True)
-        master = self._nametowidget(self.winfo_parent())
-        w = 390 # width for the Tk root
-        h = 350 # height for the Tk root
-        ws = self.winfo_screenwidth() # width of the screen
-        hs = self.winfo_screenheight() # height of the screen
-        x = (ws/2) - (w/2)
-        y = (hs/2) - (h/2)
-        master.geometry('%dx%d+%d+%d' % (w, h, x, y))
-        master.resizable(width=FALSE, height=FALSE)
-        master.title("Sign Up")
-        master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
+        self.setRootSize(350)
+        self.master.resizable(width=FALSE, height=FALSE)
+        self.master.title("Sign Up")
+        self.master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
     def hideSignUpFrame(self):
         self.pack_forget()
 
+# Testing purposes
 if __name__ == '__main__':
+    from client import Client
+    import ctypes
     if os.getcwd().find("Client") == -1:
         os.chdir("Client")
 
-    signUp = SignUpGUI()
-
-    signUp.mainloop()
+    if sys.platform.startswith('win'):
+            ctypes.windll.shcore.SetProcessDpiAwareness(1)
+    root = Tk()
+    signUp = SignUpGUI(root)
+    client = Client()
+    signUp.setClient(client)
+    signUp.showSignUpFrame()
+    root.mainloop()

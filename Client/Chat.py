@@ -41,7 +41,9 @@ class ChatGUI(Frame):
         self.orLabel.place( x =emptyFrameWidth, y = emptyFrameHeight-0, anchor=CENTER)
         self.logoutButton.place( x =emptyFrameWidth, y = emptyFrameHeight+30, anchor=CENTER)
     def createWidgets(self, client, login):
-        """ Receive client instance in order to call client's functions, login instance in order to show/hide the login window"""
+        """
+            Receive client instance in order to call client's functions, login instance in order to show/hide the login window
+        """
         self.client = client
         self.login = login
         self.chatList.setItems(self.client)
@@ -89,6 +91,7 @@ class ChatGUI(Frame):
         self.pack_forget()
         self.chatList.flushChatDict()
 
+# Testing purposes
 if __name__ == '__main__':
     import ctypes
 

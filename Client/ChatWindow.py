@@ -8,6 +8,11 @@ class ChatWindow(Frame):
     backgroundWindow = '#1f2327'
     MAXMESSAGELEN = 250
     def __init__(self, master, background):
+        """
+            Right frame of the chatGUI, it contains the chat name, that display
+            the receiver's status ( Online/Offline ), the list of messages and
+            input bar
+        """
         Frame.__init__(self, master, background=self.backgroundWindow)
 
         self.chatName = StringVar()
@@ -50,6 +55,10 @@ class ChatWindow(Frame):
     def setClient(self, client):
         self.client = client
     def addBoxMessageElement(self, message, time, isMine):
+        """
+            Append a new message and diplay it into the frame on the right if
+            it is a message sent by me or on the left if it is a received message
+        """
         timeString = str(time).split('.')[0].split(' ')[1][:-3]
         boxMessage = BoxMessage(self.scrollableFrame, self['bg'])
         boxMessage.createWidgets( message, timeString , isMine)
@@ -61,6 +70,13 @@ class ChatWindow(Frame):
     def getChatName(self):
         return self.chatName.get()
     def pressSendButton(self):
+        """
+            When send button is pressed the message is splitted into chunks in
+            order to avoid length of packet problems. In this way, a very long
+            message is splitted into n chunks and the client.sendClient is called
+            n times, as they were n independent messages, so this is transparent
+            to the receiver
+        """
         message = str(self.entryBar.get())
         if not message:
             return
@@ -87,6 +103,9 @@ class ChatWindow(Frame):
 
 class BoxMessage(Frame):
     def __init__(self, master, background):
+        """
+            Frame containg the message and the arrival/send time
+        """
         Frame.__init__(self, master, padx=3, pady=3, bg=background )
         self.message = StringVar()
         self.arrivalTime = StringVar()
@@ -117,6 +136,10 @@ class BoxMessage(Frame):
             self.messageLabel.configure(background=backgroundIts)
             self.arrivalTimeLabel.configure(background=backgroundIts)
     def bindMouseWheel(self, scrollableFrame):
+        """
+            Bind mouse wheel event so the scrollableFrame can scroll even if the
+            cursor is over this frame
+        """
         self.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
         self.messageLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
         self.arrivalTimeLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
