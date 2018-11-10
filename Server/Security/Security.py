@@ -5,6 +5,7 @@ from cryptography.hazmat.primitives.asymmetric import utils
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+from cryptography.hazmat.primitives import hashes, cmac
 
 
 class Security:
@@ -79,6 +80,16 @@ class Security:
                                                          )
                                             )
         return plaintext
+
+    def splitMessage(self,pt):
+        return [pt[0:-32],pt[-32:]]
+
+
+    def generateDigest(self,pt):
+        digest = hashes.Hash(hashes.SHA256(), backend=default_backend())
+        digest.update(pt)
+        return digest.finalize()
+
     def getSignature(self,text):
         signature = private_key.sign(text,
                                      padding.PSS(mgf=padding.MGF1(hashes.SHA256()),
@@ -124,6 +135,7 @@ class Security:
     def AESDecryptText(self,ct,nonce):
         try:
             aescgm = AESCCM(self.SymmetricKey)
+            nonce = nonce+1
             return aescgm.decrypt(nonce,ct,None)
         except ValueError:
             print("Error in decrypt GCM")
@@ -140,6 +152,6 @@ class Security:
     def addDHparameters(self,p,g):
         self.p = p
         self.g = g
-        
+
     def getDHparameters(self):
         return [selg.p,self.g]
