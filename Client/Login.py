@@ -126,7 +126,7 @@ class LoginGUI(Frame):
         self.usernameEntry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
         self.passwordEntry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
         self.setRootSize(370)
-    # def hideMessage(self):
+     def hideMessage(self):
         self.messageLabel.grid_forget()
         self.usernameEntry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=0)
         self.passwordEntry.config(fg = 'white', highlightthickness=0)
