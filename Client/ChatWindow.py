@@ -1,7 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
 import datetime
-import random
 from ScrollableFrame import *
 
 class ChatWindow(Frame):
@@ -21,7 +20,6 @@ class ChatWindow(Frame):
         self.rowconfigure(1, weight=8)
         Grid.columnconfigure(master, 1, weight=1)
         Grid.columnconfigure(master, 2, weight=4)
-
     def createWidgets(self, background, chatName, client, chatList ):
         self.chatName.set(chatName)
         self.client = client
@@ -108,20 +106,20 @@ class BoxMessage(Frame):
         """
         Frame.__init__(self, master, padx=3, pady=3, bg=background )
         self.message = StringVar()
-        self.arrivalTime = StringVar()
+        self.time = StringVar()
         self.isMine = True
         self.pack(fill='x')
-    def createWidgets(self, message, arrivalTime, isMine):
+    def createWidgets(self, message, time, isMine):
         rowFrame = Frame(self)
         self.messageLabel = Message(rowFrame, aspect=250, textvariable=self.message, padx=5, pady=2, fg='white')
-        self.arrivalTimeLabel = Label(rowFrame, textvariable=self.arrivalTime, padx=5, pady=2, fg='white')
+        self.timeLabel = Label(rowFrame, textvariable=self.time, padx=5, pady=2, fg='white')
 
         self.message.set(message)
-        self.arrivalTime.set(arrivalTime)
+        self.time.set(time)
         self.isMine = isMine
 
         self.messageLabel.grid(row=0, column=0, sticky=N+S+W)
-        self.arrivalTimeLabel.grid(row=0, column=1, sticky=NE)
+        self.timeLabel.grid(row=0, column=1, sticky=NE)
 
         backgroundMine = '#2a8c8c'
         backgroundIts = '#282e33'
@@ -129,12 +127,12 @@ class BoxMessage(Frame):
             rowFrame.pack(side='right', fill='x', padx=10, pady=5)
             rowFrame.configure(background=backgroundMine)
             self.messageLabel.configure(background=backgroundMine)
-            self.arrivalTimeLabel.configure(background=backgroundMine)
+            self.timeLabel.configure(background=backgroundMine)
         else:
             rowFrame.pack(side='left', fill='x', padx=10, pady=5)
             rowFrame.configure(background=backgroundIts)
             self.messageLabel.configure(background=backgroundIts)
-            self.arrivalTimeLabel.configure(background=backgroundIts)
+            self.timeLabel.configure(background=backgroundIts)
     def bindMouseWheel(self, scrollableFrame):
         """
             Bind mouse wheel event so the scrollableFrame can scroll even if the
@@ -142,4 +140,4 @@ class BoxMessage(Frame):
         """
         self.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
         self.messageLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
-        self.arrivalTimeLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
+        self.timeLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)

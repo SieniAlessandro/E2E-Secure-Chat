@@ -1,7 +1,6 @@
 from tkinter import *
 from validate_email import validate_email
 import re
-import os
 
 class SignUpGUI(Frame):
     backgroundWindow = '#1f2327'
@@ -194,6 +193,7 @@ class SignUpGUI(Frame):
 if __name__ == '__main__':
     from client import Client
     import ctypes
+    import os
     if os.getcwd().find("Client") == -1:
         os.chdir("Client")
 

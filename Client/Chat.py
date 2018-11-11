@@ -2,7 +2,6 @@ from tkinter import *
 from ChatList import ChatList
 from ChatWindow import *
 from client import Client
-import os
 
 class ChatGUI(Frame):
     """
@@ -94,17 +93,18 @@ class ChatGUI(Frame):
 # Testing purposes
 if __name__ == '__main__':
     import ctypes
-
+    import os
     if os.getcwd().find("Client") == -1:
         os.chdir("Client")
 
     root = Tk()
     chat = ChatGUI(root)
-    client = Client("")
-    chat.createWidgets(None, None)
+    client = Client()
+    chat.createWidgets(client, None)
     if sys.platform.startswith('win'):
             ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
     chat.chatList.addChatListElement("Rododendro", "Oggi piove", None)
+    chat.chatList.addChatListElement("ASD", "Oggi piove", None)
     chat.showChatFrame()
     root.mainloop()

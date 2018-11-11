@@ -2,7 +2,6 @@ from tkinter import *
 from PIL import ImageTk, Image
 from ChatWindow import *
 from ScrollableFrame import *
-import os
 
 activeChat = None
 
@@ -46,7 +45,7 @@ class ChatList(Frame):
             if status >= 0:
                 self.addChatListElement(username, "", lastMessageTime=None)
                 activeChat = self.chatListDict[searchKey][1]
-                self.chatListDict[searchKey][0].changeChatRoom(event=None)
+                self.chatListDict[searchKey][0].changeChatWindow(event=None)
                 self.searchBarFrame.config(highlightbackground="black", highlightcolor="black", highlightthickness=1)
                 self.searchBar.config(fg='white')
                 self.searchBar.delete(0, 'end')
@@ -55,7 +54,7 @@ class ChatList(Frame):
                 self.searchBarFrame.config(highlightbackground="red", highlightcolor="red", highlightthickness=1)
                 self.searchBar.config(fg='red')
         else:
-            self.chatListDict[searchKey][0].changeChatRoom(event='none')
+            self.chatListDict[searchKey][0].changeChatWindow(event='none')
     def pressEnterEvent(self, event):
         self.pressSearchButton()
     def setItems(self, client ):
@@ -85,7 +84,7 @@ class ChatList(Frame):
         self.chatListDict[chatName.lower()] = [newChatListElement, newChatWindow, index]
         if activeChat is None:
             # there is no active chat
-            self.chatListDict[chatName.lower()][0].changeChatRoom(event=None)
+            self.chatListDict[chatName.lower()][0].changeChatWindow(event=None)
 
         self.scrollableFrame.update()
         self.scrollableFrame.canvas.yview_moveto( 1 )
@@ -220,12 +219,12 @@ class ChatListElement(Frame):
         self.lastMessageLabel.grid(row=1,column=1, sticky=W+E, padx=5)
         self.lastMessageTimeLabel.grid(row=0,column=2, sticky=W+E)
 
-        self.bind('<Button-1>', self.changeChatRoom)
-        self.chatNameLabel.bind('<Button-1>', self.changeChatRoom)
-        self.lastMessageLabel.bind('<Button-1>', self.changeChatRoom)
-        self.lastMessageTimeLabel.bind('<Button-1>', self.changeChatRoom)
-        self.photoLabel.bind('<Button-1>', self.changeChatRoom)
-        self.notifiesLabel.bind('<Button-1>', self.changeChatRoom)
+        self.bind('<Button-1>', self.changeChatWindow)
+        self.chatNameLabel.bind('<Button-1>', self.changeChatWindow)
+        self.lastMessageLabel.bind('<Button-1>', self.changeChatWindow)
+        self.lastMessageTimeLabel.bind('<Button-1>', self.changeChatWindow)
+        self.photoLabel.bind('<Button-1>', self.changeChatWindow)
+        self.notifiesLabel.bind('<Button-1>', self.changeChatWindow)
 
         if sys.platform.startswith('darwin'):
             self.bind('<Button-2>', self.popup)
@@ -241,8 +240,7 @@ class ChatListElement(Frame):
             self.lastMessageTimeLabel.bind('<Button-3>', self.popup)
             self.photoLabel.bind('<Button-3>', self.popup)
             self.notifiesLabel.bind('<Button-3>', self.popup)
-
-    def changeChatRoom(self, event):
+    def changeChatWindow(self, event):
         """
             When the element is clicked, it loads on the right frame, the clicked
             element's chatWindow
@@ -267,7 +265,6 @@ class ChatListElement(Frame):
             self.notifiesLabel.grid_forget()
     def setChatList(self, chatList):
         self.chatList = chatList
-
     def popup(self, event):
         """
             Handles the right click event

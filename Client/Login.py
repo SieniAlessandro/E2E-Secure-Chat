@@ -1,6 +1,5 @@
 from tkinter import *
 from PIL import ImageTk, Image
-import os
 
 class LoginGUI(Frame):
     backgroundWindow = '#1f2327'
@@ -116,7 +115,7 @@ class LoginGUI(Frame):
             elif ret == -1:
                 self.showMessage("You are already logged in other device",  self.errorColor )
     def pressEnterEvent(self, event):
-        self.loginEvent()
+        self.loghiinEvent()
     def showError(self):
         """
             Show error label and set fields style to red
@@ -126,7 +125,7 @@ class LoginGUI(Frame):
         self.usernameEntry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
         self.passwordEntry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
         self.setRootSize(370)
-     def hideMessage(self):
+    def hideMessage(self):
         self.messageLabel.grid_forget()
         self.usernameEntry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=0)
         self.passwordEntry.config(fg = 'white', highlightthickness=0)
@@ -140,6 +139,7 @@ class LoginGUI(Frame):
 if __name__ == '__main__':
     from client import Client
     import ctypes
+    import os
     if os.getcwd().find("Client") == -1:
         os.chdir("Client")
 
