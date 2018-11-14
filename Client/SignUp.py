@@ -156,7 +156,8 @@ class SignUpGUI(Frame):
         self.surnameEntry.config(fg = "white", highlightthickness=0)
         self.passwordEntry.config(fg = "white", highlightthickness=0)
         self.confirmPasswordEntry.config(fg = "white", highlightthickness=0)
-        
+
+        self.hideErrorLabel()
         self.hideSignUpFrame()
         self.loginWindow.showLoginFrame()
     def setClient(self, client):
