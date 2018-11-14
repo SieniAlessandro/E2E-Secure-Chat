@@ -149,6 +149,14 @@ class SignUpGUI(Frame):
         self.surnameEntry.delete(0, 'end')
         self.passwordEntry.delete(0, 'end')
         self.confirmPasswordEntry.delete(0, 'end')
+
+        self.usernameEntry.config(fg = "white", highlightthickness=0)
+        self.emailEntry.config(fg = "white", highlightthickness=0)
+        self.nameEntry.config(fg = "white", highlightthickness=0)
+        self.surnameEntry.config(fg = "white", highlightthickness=0)
+        self.passwordEntry.config(fg = "white", highlightthickness=0)
+        self.confirmPasswordEntry.config(fg = "white", highlightthickness=0)
+        
         self.hideSignUpFrame()
         self.loginWindow.showLoginFrame()
     def setClient(self, client):
