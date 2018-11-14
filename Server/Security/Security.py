@@ -6,7 +6,10 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives import hashes, cmac
-
+from cryptography.exceptions import InvalidSignature
+import binascii
+import os
+import json
 
 class Security:
     def __init__(self,path,BackupPath,publicKey = None):
@@ -81,9 +84,8 @@ class Security:
                                             )
         return plaintext
 
-    def splitMessage(self,pt):
-        return [pt[0:-32],pt[-32:]]
-
+    def splitMessage(self,pt,len):
+        return [pt[0:len*(-1)],pt[len*(-1):]]
 
     def generateDigest(self,pt):
         digest = hashes.Hash(hashes.SHA256(), backend=default_backend())
@@ -91,7 +93,7 @@ class Security:
         return digest.finalize()
 
     def getSignature(self,text):
-        signature = private_key.sign(text,
+        signature = self.private_key.sign(text,
                                      padding.PSS(mgf=padding.MGF1(hashes.SHA256()),
                                                  salt_length=padding.PSS.MAX_LENGTH
                                                  ),
@@ -100,14 +102,16 @@ class Security:
         return signature
 
     def VerifySignature(self,text,signature):
+        #jsontemp = json.loads(text.decode('utf-8'))
+        #temp = json.dumps(jsontemp)
         try:
-            self.publicKey.verify(signature,message,padding.PSS(mgf=padding.MGF1(hashes.SHA256()),salt_length=padding.PSS.MAX_LENGTH),hashes.SHA256())
+            self.ClientPublicKey.verify(signature,text,padding.PSS(mgf=padding.MGF1(hashes.SHA256()),salt_length=padding.PSS.MAX_LENGTH),hashes.SHA256())
             return True
         except InvalidSignature:
             return False
 
     def AddClientKey(self,key):
-        self.ClientPublicKey = key
+        self.ClientPublicKey = serialization.load_pem_public_key(key,backend=default_backend())
 
     def getSerializedPublicKey(self):
         return self.publicKey.public_bytes(encoding=serialization.Encoding.PEM,format=serialization.PublicFormat.SubjectPublicKeyInfo)
@@ -144,6 +148,7 @@ class Security:
     def AESEncryptText(self,pt,nonce):
         try:
             aesgcm = AESGCM(self.SymmetricKey)
+            nonce = nonce + 1
             return aesgcm.encrypt(nonce, pt, None)
         except:
             print("Error in encrypt GCM")
@@ -154,4 +159,7 @@ class Security:
         self.g = g
 
     def getDHparameters(self):
-        return [selg.p,self.g]
+        return [self.p,self.g]
+
+    def generateNonce(self,size):
+        return int(binascii.hexlify(os.urandom(size)),16)

@@ -1,13 +1,10 @@
-2018-11-05 16:27:59	Server Initialized
-2018-11-05 16:27:59	Waiting for connections...
-2018-11-05 16:28:06	Client handled has address: 127.0.0.1 and port 52080
-2018-11-05 16:28:06	Waiting for connections...
-2018-11-05 16:28:08	A client want to login
-2018-11-05 16:28:09	Active users: {'a': Username: a IP: 127.0.0.1 ServerPort: 52080 ClientPort: 45700}
-2018-11-05 16:28:09	There are no message for this client
-2018-11-05 16:28:22	A client want to find another user
-2018-11-05 16:28:22	Store the message to b
-2018-11-05 16:28:30	A client want to find another user
-2018-11-05 16:28:30	Store the message to b
-2018-11-05 16:28:31	The user has a massage to be stored on the DB :
-2018-11-05 16:28:53	Client disconnected, closing this thread
+2018-11-14 11:27:02	Server Initialized
+2018-11-14 11:27:02	Waiting for connections...
+2018-11-14 11:27:14	Client handled has address: 10.102.16.246 and port 56149
+2018-11-14 11:27:14	Waiting for connections...
+2018-11-14 11:27:30	A client want to register
+2018-11-14 11:27:30	Wait for the public key
+2018-11-14 11:27:30	Wait for the DH parameters
+2018-11-14 11:27:33	DH parameters inserted correctly
+2018-11-14 11:27:33	Registration completed correctly
+2018-11-14 11:27:54	Server Closed

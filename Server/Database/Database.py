@@ -51,6 +51,24 @@ class Database:
             self.db.rollback()
             print ("Error in the message insertion query")
             return -1
+
+    def insertDHParameter(self,user,p,g):
+
+        """Insert the Diffie Helmann parameter after of the registered user"""
+        query = "UPDATE user SET P = %s,G = %s WHERE userName = %s"
+        try:
+            #Executing the query
+            self.cursor.execute(query,(str(p),str(g),user))
+            #Commit the changes to the databes
+            self.db.commit()
+            return 0
+        except Exception as e:
+            #rollback to the previous operations
+            print(e)
+            self.db.rollback()
+            #print ("Error in the DH parameter insertion query")
+            return -1
+
     def getMessageByReceiver(self,receiver):
         query = "SELECT Sender,Text,Time FROM message WHERE Receiver = %s"
         msg = []
@@ -118,7 +136,6 @@ class Database:
 
     def remove_user(self,user):
         query = "DELETE from user WHERE UserName = %s"
-        print(query)
         try:
             #Executing the query
             self.cursor.execute(query,(user))
