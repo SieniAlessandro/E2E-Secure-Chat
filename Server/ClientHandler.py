@@ -5,7 +5,7 @@ from User import User
 from Security.Security import Security
 import json
 import os
-import binascii
+
 
 class ClientHandler(Thread):
     """ Used to handle the new user whenever he try to connect to the server.
@@ -24,7 +24,9 @@ class ClientHandler(Thread):
         self.HandledUser.addSecurityModule(Security(self.XML.getPemPath(),self.XML.getBackupPemPath()))
         self.logged = False
         self.log.log("Client handled has address: "+ self.HandledUser.getIp() +" and port "+str(self.HandledUser.getServerPort()))
-        self.serverNonce = int(binascii.hexlify(os.urandom(12)),16)
+        self.serverNonce = self.HandledUser.GetSecurityModule().generateNonce(11)
+        #Setting a timeout in order to handle eventually fault during the communication
+        self.HandledUser.getSocket().settimeout(60)
     #Method whose listen the message coming from the handled client,showing its content
     def run(self):
         """Waiting for the message coming from the associate client"""
@@ -44,9 +46,16 @@ class ClientHandler(Thread):
                     del self.OnlineClients[self.HandledUser.getUserName()]
                 return -1
             if self.logged == False:
-                msg,d = self.HandledUser.GetSecurityModule().splitMessage(data,32)
+                try:
+                    msg,d = self.HandledUser.GetSecurityModule().splitMessage(data,32)
+                    msg = self.HandledUser.GetSecurityModule().RSADecryptText(msg)
+                except:
+                    print("Messaggio Firmato")
+                    msg,d = self.HandledUser.GetSecurityModule().splitMessage(data,256)
+                    msg = self.HandledUser.GetSecurityModule().RSADecryptText(msg)
                 #print(str(len(d))+" " + str(len(msg)) + "  " + str(len(data)))
-            msg = self.HandledUser.GetSecurityModule().RSADecryptText(msg) if self.logged == False else self.HandledUser.GetSecurityModule().AESDecryptText(data,self.serverNonce)
+            else:
+                msg= self.HandledUser.GetSecurityModule().AESDecryptText(data)
             if msg is None:
                 print("Message not valid")
             else:
@@ -71,8 +80,15 @@ class ClientHandler(Thread):
         """Login with inserted credential and search in the Database if the information
         sended are correct, in this case if there are several messagges sended to the user when
         he was offline, the server send them , specifying the sender and also the time (yy-mm-dd hh-mm-ss)"""
-
         self.log.log("A client want to login")
+        key = self.DB.getSecurityInfoFromUser(message['username'])
+        self.HandledUser.GetSecurityModule().AddClientKey(key[0].encode('utf-8'))
+        #Check the signature
+        if(self.HandledUser.GetSecurityModule().VerifySignature(msg,signature) == False):
+            self.log.log("Signature Invalid, aborting login procedure")
+            print("Signature Invalid, aborting login procedure")
+            return
+
         response = {}
         #Check if the signature is valid
         #Check if this user is already Logged In
@@ -80,58 +96,77 @@ class ClientHandler(Thread):
             response['id'] = "?"
             response['status'] = "-1"
             jsonResponse = json.dumps(response)
-            ct = self.HandledUser.GetSecurityModule().AESEncryptText(jsonResponse.encode('utf-8'),self.serverNonce)
-            self.HandledUser.getSocket().send(ct)
+            signature = self.HandledUser.GetSecurityModule().getSignature(jsonResponse.encode('utf-8'))
+            ct = self.HandledUser.GetSecurityModule().RSAEncryptText(jsonResponse.encode('utf-8'))
+            self.HandledUser.getSocket().send(ct+signature)
             self.log.log("The request is sended by an user already logged in")
         elif self.DB.userIsPresent(message['username'].lower(),message['password']):
             response['id'] = "?"
             response['status'] = "1"
             #Generating the symmetric key used in communication with this client from now on
-            self.Security.generateSymmetricKey()
-            #Getting the symmetric key as a dict in order to serialized in a json
-            response['key'] = self.HandledUser.GetSecurityModule().getSymmetricKeyasDict()
-            response['clientNonce'] = self.clientNonce
+            self.HandledUser.GetSecurityModule().generateSymmetricKey(128,self.serverNonce)
+            #self.serverNonce = self.ClientHandler.GetSecurityModule().generateNonce(12)
+            response['clientNonce'] = message['clientNonce']
             response['serverNonce'] = self.serverNonce
+            #Getting the symmetric key as a dict in order to serialized in a json
+            #response['key'] = self.HandledUser.GetSecurityModule().getSymmetricKeyasDict()
+            response['key'] = int.from_bytes(self.HandledUser.GetSecurityModule().getSymmetricKey(),byteorder='big')
             #Preparing the internal structure used to handle te connection between different clinet
             self.HandledUser.setUserName(message['username'].lower())
             self.HandledUser.setClientPort(message['porta'])
             key,g,p = self.DB.getSecurityInfoFromUser(self.HandledUser.getUserName())
             if key is not None:
-                print(str(key)+" "+str(g)+ " "+str(p))
-                self.HandledUser.GetSecurityModule().AddClientKey(key)
+                #print(str(key)+" "+str(g)+ " "+str(p))
                 self.HandledUser.GetSecurityModule().addDHparameters(p,g)
             else:
                 print("Errore nella query per la chiave")
-
             jsonResponse = json.dumps(response)
-            signature = self.HandledUser.getSignature(jsonResponse.encode("utf-8"))
-            ct = self.HandledUser.GetSecurityModule().RSAEncryptText(jsonResponse.encode("utf-8")+signature)
+            print(len(jsonResponse.encode('utf-8')))
+            print(jsonResponse)
+            signature = self.HandledUser.GetSecurityModule().getSignature(jsonResponse.encode("utf-8"))
+            ct = self.HandledUser.GetSecurityModule().RSAEncryptText(jsonResponse.encode("utf-8"))
             #Informing the client about the correctness of the login procedure
-            self.HandledUser.getSocket().send(ct)
+            self.HandledUser.getSocket().send(ct+signature)
             #Adding the client to the list of active users
             self.OnlineClients[message['username'].lower()] = self.HandledUser
             self.logged = True
             self.log.log("Active users: "+str(self.OnlineClients))
-            #Obtaining all the messages waiting for that user
-            msg = self.DB.getMessageByReceiver(self.HandledUser.getUserName())
-            response = {}
-            if len(msg.keys()) == 0:
-                self.log.log("There are no message for this client")
-                response['id'] = "0"
-                jsonResponse = json.dumps(response)
-                #Informing the user that there are no message for him
+            ct = self.HandledUser.getSocket().recv(2048)
+            pt = self.HandledUser.GetSecurityModule().AESDecryptText(ct)
+            if pt is None:
+                self.log.log("Error in decrypt with AESCGM")
+                return
             else:
-                self.log.log("There are several messages to be sended: "+ str(msg))
-                lens = len(msg)
-                response['id'] = str(lens)
-                response['messages'] = {}
-                response['messages'] = msg
-                jsonResponse = json.dumps(response)
-                #Removing the messagess previously obtained
-                self.DB.remove_waiting_messages_by_receiver(self.HandledUser.getUserName())
+                response = json.loads(pt.decode('utf-8'))
+                print(response)
+                if response['serverNonce'] == self.serverNonce:
+                    msg = self.DB.getMessageByReceiver(self.HandledUser.getUserName())
+                    response = {}
+                    if len(msg.keys()) == 0:
+                        self.log.log("There are no message for this client")
+                        response['id'] = "0"
+                        jsonResponse = json.dumps(response)
+                        #Informing the user that there are no message for him
+                    else:
+                        self.log.log("There are several messages to be sended: "+ str(msg))
+                        lens = len(msg)
+                        response['id'] = str(lens)
+                        response['messages'] = {}
+                        response['messages'] = msg
+                        jsonResponse = json.dumps(response)
+                        #Removing the messagess previously obtained
+                        self.DB.remove_waiting_messages_by_receiver(self.HandledUser.getUserName())
+                    print(jsonResponse)
+                    ct = self.HandledUser.GetSecurityModule().AESEncryptText(jsonResponse.encode('utf-8'))
+                    if(ct is None):
+                        self.log.log("Error in encrypt with AESCGM")
+                    else:
+                        self.HandledUser.getSocket().send(ct)
+                        self.log.log("Login completed correctly")
+                else:
+                    self.log.log("Connection is not fresh removing user")
+                    del self.OnlineClients[self.HandledUser.getUserName()]
 
-            ct = self.HandledUser.GetSecurityModule().AESEncryptText(response.encode('utf-8'),self.serverNonce)
-            self.HandledUser.getSocket().send(ct)
         else:
             response['id'] = "?"
             response['status'] = "0"
@@ -166,14 +201,14 @@ class ClientHandler(Thread):
             #Send to the client that the request has failed
             response['id'] = "-"
             response['status'] = "0"
-            signature = self.HandledUser.GetSecurityModule().getSignature(jsonMessage.encode('utf-8'))
-            ct = self.HandledUser.GetSecurityModule().RSAEncryptText(jsonMessage.encode('utf-8'))
+            jsonResponse = json.dumps(response)
+            signature = self.HandledUser.GetSecurityModule().getSignature(jsonResponse.encode('utf-8'))
+            ct = self.HandledUser.GetSecurityModule().RSAEncryptText(jsonResponse.encode('utf-8'))
             self.HandledUser.getSocket().send(ct+signature)
             return
-
+        #Preparing the nonce according the protocol
         response['clientNonce'] = message['clientNonce']
-        serverNonce = self.HandledUser.GetSecurityModule().generateNonce(6)
-        response['serverNonce'] = serverNonce
+        response['serverNonce'] = self.serverNonce
         jsonMessage = json.dumps(response)
         signature = self.HandledUser.GetSecurityModule().getSignature(jsonMessage.encode('utf-8'))
         ct = self.HandledUser.GetSecurityModule().RSAEncryptText(jsonMessage.encode('utf-8'))
@@ -183,6 +218,7 @@ class ClientHandler(Thread):
             self.log.log("Wait for the DH parameters")
             #Wait for the parameter
             ReceivedCt = self.HandledUser.getSocket().recv(self.MSG_LEN)
+            #Verifying that the
             if not ReceivedCt:
                 self.log.log("Error in receiving the dh parameters, removing the user")
                 self.Database.remove_user(message['user'])
@@ -229,15 +265,17 @@ class ClientHandler(Thread):
         #vedere la login per conferma
         sender = self.HandledUser.getUserName()
         response = {}
-        if self.DB.insert_message(sender,message['Receiver'],message['Text'],message['Time']) == 0:
+        print(message['Text'])
+        if self.DB.insert_message(sender,message['Receiver'],str(message['Text']),message['Time']) == 0:
             response['id'] = "."
             response['status'] = "1"
         else:
             response['id'] = "."
             response['status'] = "0"
         jsonResponse = json.dumps(response)
-        ct = self.HandledUser.Security.AESEncryptText(jsonResponse('utf-8'),self.serverNonce)
+        ct = self.HandledUser.GetSecurityModule().AESEncryptText(jsonResponse.encode('utf-8'))
         self.HandledUser.getSocket().send(ct)
+        self.log.log("Message stored correctly")
 
     def findUser(self,message):
         """ Find the information about the user (IPaddress:clientPort) related to the username passed as parameter"""
@@ -267,12 +305,15 @@ class ClientHandler(Thread):
                     response['status'] = "-3"
                     self.log.log("User requested not found")
                 else:
-                    self.log.log("Store the message to "+message['username'].lower())
+                    self.log.log("The user "+message['username'].lower()+"is offline")
                     response['id'] = "!"
                     response['status'] = "0"
+        sec = self.DB.getSecurityInfoFromUser(message['username'].lower())
+        response['key'] = sec[0]
         jsonResponse = json.dumps(response)
-
-        self.HandledUser.getSocket().send(jsonResponse.encode('utf-8'))
+        #Using symmetric key criptography because this request can be done only by logged user
+        ct = self.HandledUser.GetSecurityModule().AESEncryptText(jsonResponse.encode('utf-8'))
+        self.HandledUser.getSocket().send(ct)
 
     def getHandledUser(self):
         """This function gets back the username associate to the handled client"""

@@ -7,9 +7,8 @@ from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives import hashes, cmac
 from cryptography.exceptions import InvalidSignature
-import binascii
+from cryptography.exceptions import InvalidTag
 import os
-import json
 
 class Security:
     def __init__(self,path,BackupPath,publicKey = None):
@@ -21,8 +20,8 @@ class Security:
             try:
                 with open(path,"rb") as pem:
                     try:
-                        self.private_key = serialization.load_pem_private_key(pem.read(),password=b'ServerMPSprivatekey',backend=default_backend())
-                        self.publicKey = self.private_key.public_key()
+                        self.privateKey = serialization.load_pem_private_key(pem.read(),password=b'ServerMPSprivatekey',backend=default_backend())
+                        self.publicKey = self.privateKey.public_key()
                     except ValueError:
                         try:
                             with open(BackupPath,"rb") as backup:
@@ -76,7 +75,7 @@ class Security:
         return cipherText
 
     def RSADecryptText(self,cipherText):
-        plaintext = self.private_key.decrypt(cipherText,
+        plaintext = self.privateKey.decrypt(cipherText,
                                             padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
                                                          algorithm=hashes.SHA256(),
                                                          label=None
@@ -93,7 +92,7 @@ class Security:
         return digest.finalize()
 
     def getSignature(self,text):
-        signature = self.private_key.sign(text,
+        signature = self.privateKey.sign(text,
                                      padding.PSS(mgf=padding.MGF1(hashes.SHA256()),
                                                  salt_length=padding.PSS.MAX_LENGTH
                                                  ),
@@ -102,8 +101,6 @@ class Security:
         return signature
 
     def VerifySignature(self,text,signature):
-        #jsontemp = json.loads(text.decode('utf-8'))
-        #temp = json.dumps(jsontemp)
         try:
             self.ClientPublicKey.verify(signature,text,padding.PSS(mgf=padding.MGF1(hashes.SHA256()),salt_length=padding.PSS.MAX_LENGTH),hashes.SHA256())
             return True
@@ -116,40 +113,43 @@ class Security:
     def getSerializedPublicKey(self):
         return self.publicKey.public_bytes(encoding=serialization.Encoding.PEM,format=serialization.PublicFormat.SubjectPublicKeyInfo)
 
-    def generateSymmetricKey(self,len):
+    def generateSymmetricKey(self,len,nonce):
+        self.nonce  = nonce
         self.len = len
         self.SymmetricKey = AESGCM.generate_key(bit_length=self.len);
         return 0
 
-    def getSymmetricKey():
+    def getSymmetricKey(self):
         return self.SymmetricKey;
 
     def getSymmetricKeyasDict(self):
         key = {}
         key["lenght"] = str(self.len)
-        key["format"] = "B" * int((self.len/8))
         key["content"] = [byte for byte in self.SymmetricKey]
         return key
 
     def AddSymmetricKeyFromDict(self,dict):
         """Must be passed as argument the dict located at message['key']"""
         self.len = int(key["lenght"])
-        self.SymmetricKey = struct.pack(dict["format"],*dict["content"])
+        self.SymmetricKey = struct.pack("B"*int(dict["lenght"]/8),*dict["content"])
 
-    def AESDecryptText(self,ct,nonce):
+    def AESDecryptText(self,ct):
         try:
-            aescgm = AESCCM(self.SymmetricKey)
-            nonce = nonce+1
-            return aescgm.decrypt(nonce,ct,None)
-        except ValueError:
-            print("Error in decrypt GCM")
+            aescgm = AESGCM(self.SymmetricKey)
+            self.nonce = self.nonce+1
+            print("Decrypt:"+str(self.nonce))
+            pt = aescgm.decrypt(self.nonce.to_bytes(16,byteorder='big'),ct,None)
+            return pt
+        except:
+            print("Error in decrypt with AESCGM")
             return None
 
-    def AESEncryptText(self,pt,nonce):
+    def AESEncryptText(self,pt):
         try:
             aesgcm = AESGCM(self.SymmetricKey)
-            nonce = nonce + 1
-            return aesgcm.encrypt(nonce, pt, None)
+            self.nonce = self.nonce + 1
+            print("Encrypt:"+str(self.nonce))
+            return aesgcm.encrypt(self.nonce.to_bytes(16,byteorder='big'), pt, None)
         except:
             print("Error in encrypt GCM")
             return None
@@ -162,4 +162,4 @@ class Security:
         return [self.p,self.g]
 
     def generateNonce(self,size):
-        return int(binascii.hexlify(os.urandom(size)),16)
+        return int.from_bytes(os.urandom(size),byteorder='little')

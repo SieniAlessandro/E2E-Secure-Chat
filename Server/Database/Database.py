@@ -27,10 +27,10 @@ class Database:
             #Commit the changes to the databes
             self.db.commit()
             return 0
-        except:
+        except Exception as e:
             #rollback to the previous operations
             self.db.rollback()
-            print ("Error in the user insertion query")
+            print(e)
             return -1
 
     #This method is used to store a message in the database and is invoked when the receiver of that message is offline,
@@ -46,10 +46,10 @@ class Database:
             #Commit the changes to the databes
             self.db.commit()
             return 0
-        except:
+        except Exception as e:
             #rollback to the previous operations
             self.db.rollback()
-            print ("Error in the message insertion query")
+            print (e)
             return -1
 
     def insertDHParameter(self,user,p,g):
@@ -84,10 +84,10 @@ class Database:
                 request[i]['Time'] = str(rows[i][2])
             #print(request)
             return request
-        except:
+        except Exception as e:
             #rollback to the previous operations
             self.db.rollback()
-            print ("Error in the message insertion query")
+            print (e)
             return -1
 
     def getSecurityInfoFromUser(self,_user):
@@ -97,10 +97,10 @@ class Database:
             self.cursor.execute(query,(_user))
             rows = self.cursor.fetchall()
             return [rows[0][0],rows[0][1],rows[0][2]]
-        except Exception as e :
+        except Exception as e:
             #rollback to the previous operations
             self.db.rollback()
-            print ("Error in the message insertion query")
+            print (e)
             return None
 
 
@@ -112,10 +112,10 @@ class Database:
             #Obtaining the result as a list
             results = self.cursor.fetchall()
             return len(results) == 1
-        except:
+        except Exception as e:
             #rollback to the previous operations
             self.db.rollback()
-            print ("Error in the select query")
+            print (e)
             return -1
     def userIsRegistered(self,_user):
         query = "SELECT * from user where UserName = %s"
@@ -125,10 +125,10 @@ class Database:
             #Obtaining the result as a list
             results = self.cursor.fetchall()
             return len(results) == 1
-        except:
+        except Exception as e:
             #rollback to the previous operations
             self.db.rollback()
-            print ("Error in the select query")
+            print (e)
             return -1
 
     #If a user want to unscribe to our platform he can do it and this method is used to remove all his information from
@@ -142,10 +142,10 @@ class Database:
             #Commit the changes to the databes
             self.db.commit()
             return 0
-        except:
+        except Exception as e:
             #rollback the previous operations
             self.db.rollback()
-            print ("Error in the user delete query")
+            print (e)
             return -1
 
     #This method is invkoed when a user back online and there are several waiting message with him as receiver.
@@ -158,10 +158,10 @@ class Database:
             #Commit the changes to the databes
             self.db.commit()
             return 0
-        except:
+        except Exception as e:
             #rollback the previous operations
             self.db.rollback()
-            print ("Error in the message delete query")
+            print (e)
             return -1
 
     def remove_waiting_messages_by_sender(self,sender):
@@ -172,10 +172,10 @@ class Database:
             #Commit the changes to the databes
             self.db.commit()
             return 0
-        except:
+        except Exception as e:
             #rollback to the previous operations
             self.db.rollback()
-            print ("Error in the message delete query")
+            print (e)
             return -1
     def remove_waiting_messages_by_id(self,index):
         query = "DELETE from message WHERE Index = %s"
@@ -185,10 +185,10 @@ class Database:
             #Commit the changes to the databes
             self.db.commit()
             return 0
-        except:
+        except Exception as e:
             #rollback to the previous operations
             self.db.rollback()
-            print ("Error in the message delete query")
+            print (e)
             return -1
 
     #At the end of the execetion the server close the connection with the database invoking this method
