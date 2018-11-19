@@ -5,7 +5,7 @@ from ScrollableFrame import *
 
 class ChatWindow(Frame):
     backgroundWindow = '#1f2327'
-    MAXMESSAGELEN = 250
+    MAXMESSAGELEN = 200
     def __init__(self, master, background):
         """
             Right frame of the chatGUI, it contains the chat name, that display
