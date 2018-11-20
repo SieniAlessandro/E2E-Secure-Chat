@@ -1,0 +1,3 @@
+2018-11-20 10:12:31	Server Initialized
+2018-11-20 10:12:31	Waiting for connections...
+2018-11-20 10:12:41	Server Closed

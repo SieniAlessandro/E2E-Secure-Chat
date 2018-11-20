@@ -1,0 +1,205 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ClientHandler</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>ClientHandler</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/alessandrosieni/Documents/GitHub/PCS/Server/ClientHandler.py">/Users/alessandrosieni/Documents/GitHub/PCS/Server/ClientHandler.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="datetime.html">datetime</a><br>
+<a href="json.html">json</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+<a href="socket.html">socket</a><br>
+</td><td width="25%" valign=top><a href="threading.html">threading</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="threading.html#Thread">threading.Thread</a>(<a href="threading.html#_Verbose">threading._Verbose</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="ClientHandler.html#ClientHandler">ClientHandler</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ClientHandler">class <strong>ClientHandler</strong></a>(<a href="threading.html#Thread">threading.Thread</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Used&nbsp;to&nbsp;handle&nbsp;the&nbsp;new&nbsp;user&nbsp;whenever&nbsp;he&nbsp;try&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;server.<br>
+This&nbsp;mechanism&nbsp;implies&nbsp;that&nbsp;for&nbsp;each&nbsp;user&nbsp;there&nbsp;is&nbsp;an&nbsp;appropriate&nbsp;thread&nbsp;that&nbsp;handle&nbsp;all&nbsp;the<br>
+requests&nbsp;coming&nbsp;from&nbsp;that&nbsp;clinet<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="ClientHandler.html#ClientHandler">ClientHandler</a></dd>
+<dd><a href="threading.html#Thread">threading.Thread</a></dd>
+<dd><a href="threading.html#_Verbose">threading._Verbose</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="ClientHandler-StoreMessage"><strong>StoreMessage</strong></a>(self, message)</dt><dd><tt>Store&nbsp;the&nbsp;message&nbsp;in&nbsp;the&nbsp;database&nbsp;waiting&nbsp;that&nbsp;the&nbsp;client&nbsp;come&nbsp;back&nbsp;online<br>
+Parameter:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;:&nbsp;The&nbsp;dictionary&nbsp;created&nbsp;by&nbsp;the&nbsp;received&nbsp;json&nbsp;message&nbsp;:&nbsp;Dictionary<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Void</tt></dd></dl>
+
+<dl><dt><a name="ClientHandler-__init__"><strong>__init__</strong></a>(self, Conn, ip, port, db, clients, Log, XML)</dt><dd><tt>Instatiate&nbsp;all&nbsp;the&nbsp;variabile&nbsp;and&nbsp;create&nbsp;the&nbsp;security&nbsp;module&nbsp;for&nbsp;the&nbsp;handled&nbsp;user<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Conn&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;The&nbsp;socket&nbsp;used&nbsp;to&nbsp;send&nbsp;and&nbsp;receive&nbsp;data&nbsp;from&nbsp;and&nbsp;to&nbsp;the&nbsp;client&nbsp;&nbsp;&nbsp;:&nbsp;Socket<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ip&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;The&nbsp;ip&nbsp;address&nbsp;of&nbsp;the&nbsp;handled&nbsp;clients&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;port&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;The&nbsp;port&nbsp;to&nbsp;communicate&nbsp;with&nbsp;the&nbsp;handled&nbsp;user&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;db&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;The&nbsp;database&nbsp;module&nbsp;to&nbsp;store&nbsp;and&nbsp;find&nbsp;information&nbsp;in&nbsp;the&nbsp;database&nbsp;:&nbsp;Database<br>
+&nbsp;&nbsp;&nbsp;&nbsp;clients&nbsp;:&nbsp;The&nbsp;array&nbsp;of&nbsp;online&nbsp;client&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;List&lt;User&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Log&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;The&nbsp;module&nbsp;able&nbsp;to&nbsp;log&nbsp;the&nbsp;information&nbsp;on&nbsp;a&nbsp;FileNotFoundError&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Log<br>
+&nbsp;&nbsp;&nbsp;&nbsp;XML&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;The&nbsp;XML&nbsp;module&nbsp;able&nbsp;to&nbsp;obtain&nbsp;the&nbsp;parameter&nbsp;from&nbsp;thr&nbsp;XML&nbsp;File&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;XML</tt></dd></dl>
+
+<dl><dt><a name="ClientHandler-findUser"><strong>findUser</strong></a>(self, message)</dt><dd><tt>Find&nbsp;the&nbsp;information&nbsp;about&nbsp;the&nbsp;user&nbsp;(IPaddress:clientPort)&nbsp;related&nbsp;to&nbsp;the&nbsp;username&nbsp;passed&nbsp;as&nbsp;parameter<br>
+Parameter:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;:&nbsp;The&nbsp;dictionary&nbsp;created&nbsp;by&nbsp;the&nbsp;json&nbsp;message&nbsp;received&nbsp;:&nbsp;dictionary<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Void</tt></dd></dl>
+
+<dl><dt><a name="ClientHandler-getHandledUser"><strong>getHandledUser</strong></a>(self)</dt><dd><tt>This&nbsp;function&nbsp;gets&nbsp;back&nbsp;the&nbsp;username&nbsp;associate&nbsp;to&nbsp;the&nbsp;handled&nbsp;client<br>
+Parameter:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Void<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;handled&nbsp;object&nbsp;User&nbsp;,corresponding&nbsp;the&nbsp;user&nbsp;handled&nbsp;by&nbsp;this&nbsp;thread&nbsp;:&nbsp;User</tt></dd></dl>
+
+<dl><dt><a name="ClientHandler-login"><strong>login</strong></a>(self, message, data, signature)</dt><dd><tt>Login&nbsp;with&nbsp;inserted&nbsp;credential&nbsp;and&nbsp;search&nbsp;in&nbsp;the&nbsp;Database&nbsp;if&nbsp;the&nbsp;information<br>
+sended&nbsp;are&nbsp;correct,&nbsp;in&nbsp;this&nbsp;case&nbsp;if&nbsp;there&nbsp;are&nbsp;several&nbsp;messagges&nbsp;sended&nbsp;to&nbsp;the&nbsp;user&nbsp;when<br>
+he&nbsp;was&nbsp;offline,&nbsp;the&nbsp;server&nbsp;send&nbsp;them&nbsp;,&nbsp;specifying&nbsp;the&nbsp;sender&nbsp;and&nbsp;also&nbsp;the&nbsp;time&nbsp;(yy-mm-dd&nbsp;hh-mm-ss)<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;the&nbsp;dictionary&nbsp;created&nbsp;by&nbsp;the&nbsp;json&nbsp;message&nbsp;receveid&nbsp;&nbsp;&nbsp;:&nbsp;Dictionary<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;the&nbsp;raw&nbsp;data&nbsp;reppresenting&nbsp;the&nbsp;message&nbsp;as&nbsp;Received&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Bytes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;signature&nbsp;&nbsp;&nbsp;:&nbsp;The&nbsp;signature&nbsp;of&nbsp;data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Bytes<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Void</tt></dd></dl>
+
+<dl><dt><a name="ClientHandler-registerUser"><strong>registerUser</strong></a>(self, message, digest)</dt><dd><tt>Insert&nbsp;the&nbsp;information&nbsp;of&nbsp;the&nbsp;user&nbsp;in&nbsp;the&nbsp;database,&nbsp;checking&nbsp;if&nbsp;there&nbsp;is&nbsp;another&nbsp;user&nbsp;with&nbsp;the&nbsp;same&nbsp;Username<br>
+and&nbsp;sending&nbsp;back&nbsp;the&nbsp;result<br>
+Parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;:&nbsp;The&nbsp;dictionary&nbsp;created&nbsp;by&nbsp;the&nbsp;received&nbsp;json&nbsp;message&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Dictionary<br>
+&nbsp;&nbsp;&nbsp;&nbsp;digest&nbsp;&nbsp;:&nbsp;The&nbsp;digest&nbsp;created&nbsp;by&nbsp;the&nbsp;data&nbsp;corresponding&nbsp;to&nbsp;the&nbsp;message&nbsp;creator&nbsp;of&nbsp;the&nbsp;dictionary&nbsp;:&nbsp;Bytes<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Void</tt></dd></dl>
+
+<dl><dt><a name="ClientHandler-run"><strong>run</strong></a>(self)</dt><dd><tt>Waiting&nbsp;for&nbsp;the&nbsp;message&nbsp;coming&nbsp;from&nbsp;the&nbsp;associate&nbsp;client<br>
+Parameter&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Void<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Void</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>MSG_LEN</strong> = 10240</dl>
+
+<hr>
+Methods inherited from <a href="threading.html#Thread">threading.Thread</a>:<br>
+<dl><dt><a name="ClientHandler-__repr__"><strong>__repr__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ClientHandler-getName"><strong>getName</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ClientHandler-isAlive"><strong>isAlive</strong></a>(self)</dt><dd><tt>Return&nbsp;whether&nbsp;the&nbsp;thread&nbsp;is&nbsp;alive.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;returns&nbsp;True&nbsp;just&nbsp;before&nbsp;the&nbsp;<a href="#ClientHandler-run">run</a>()&nbsp;method&nbsp;starts&nbsp;until&nbsp;just<br>
+after&nbsp;the&nbsp;<a href="#ClientHandler-run">run</a>()&nbsp;method&nbsp;terminates.&nbsp;The&nbsp;module&nbsp;function&nbsp;enumerate()<br>
+returns&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;alive&nbsp;threads.</tt></dd></dl>
+
+<dl><dt><a name="ClientHandler-isDaemon"><strong>isDaemon</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ClientHandler-is_alive"><strong>is_alive</strong></a> = isAlive(self)</dt><dd><tt>Return&nbsp;whether&nbsp;the&nbsp;thread&nbsp;is&nbsp;alive.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;returns&nbsp;True&nbsp;just&nbsp;before&nbsp;the&nbsp;<a href="#ClientHandler-run">run</a>()&nbsp;method&nbsp;starts&nbsp;until&nbsp;just<br>
+after&nbsp;the&nbsp;<a href="#ClientHandler-run">run</a>()&nbsp;method&nbsp;terminates.&nbsp;The&nbsp;module&nbsp;function&nbsp;enumerate()<br>
+returns&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;alive&nbsp;threads.</tt></dd></dl>
+
+<dl><dt><a name="ClientHandler-join"><strong>join</strong></a>(self, timeout<font color="#909090">=None</font>)</dt><dd><tt>Wait&nbsp;until&nbsp;the&nbsp;thread&nbsp;terminates.<br>
+&nbsp;<br>
+This&nbsp;blocks&nbsp;the&nbsp;calling&nbsp;thread&nbsp;until&nbsp;the&nbsp;thread&nbsp;whose&nbsp;<a href="#ClientHandler-join">join</a>()&nbsp;method&nbsp;is<br>
+called&nbsp;terminates&nbsp;--&nbsp;either&nbsp;normally&nbsp;or&nbsp;through&nbsp;an&nbsp;unhandled&nbsp;exception<br>
+or&nbsp;until&nbsp;the&nbsp;optional&nbsp;timeout&nbsp;occurs.<br>
+&nbsp;<br>
+When&nbsp;the&nbsp;timeout&nbsp;argument&nbsp;is&nbsp;present&nbsp;and&nbsp;not&nbsp;None,&nbsp;it&nbsp;should&nbsp;be&nbsp;a<br>
+floating&nbsp;point&nbsp;number&nbsp;specifying&nbsp;a&nbsp;timeout&nbsp;for&nbsp;the&nbsp;operation&nbsp;in&nbsp;seconds<br>
+(or&nbsp;fractions&nbsp;thereof).&nbsp;As&nbsp;<a href="#ClientHandler-join">join</a>()&nbsp;always&nbsp;returns&nbsp;None,&nbsp;you&nbsp;must&nbsp;call<br>
+<a href="#ClientHandler-isAlive">isAlive</a>()&nbsp;after&nbsp;<a href="#ClientHandler-join">join</a>()&nbsp;to&nbsp;decide&nbsp;whether&nbsp;a&nbsp;timeout&nbsp;happened&nbsp;--&nbsp;if&nbsp;the<br>
+thread&nbsp;is&nbsp;still&nbsp;alive,&nbsp;the&nbsp;<a href="#ClientHandler-join">join</a>()&nbsp;call&nbsp;timed&nbsp;out.<br>
+&nbsp;<br>
+When&nbsp;the&nbsp;timeout&nbsp;argument&nbsp;is&nbsp;not&nbsp;present&nbsp;or&nbsp;None,&nbsp;the&nbsp;operation&nbsp;will<br>
+block&nbsp;until&nbsp;the&nbsp;thread&nbsp;terminates.<br>
+&nbsp;<br>
+A&nbsp;thread&nbsp;can&nbsp;be&nbsp;<a href="#ClientHandler-join">join</a>()ed&nbsp;many&nbsp;times.<br>
+&nbsp;<br>
+<a href="#ClientHandler-join">join</a>()&nbsp;raises&nbsp;a&nbsp;RuntimeError&nbsp;if&nbsp;an&nbsp;attempt&nbsp;is&nbsp;made&nbsp;to&nbsp;join&nbsp;the&nbsp;current<br>
+thread&nbsp;as&nbsp;that&nbsp;would&nbsp;cause&nbsp;a&nbsp;deadlock.&nbsp;It&nbsp;is&nbsp;also&nbsp;an&nbsp;error&nbsp;to&nbsp;<a href="#ClientHandler-join">join</a>()&nbsp;a<br>
+thread&nbsp;before&nbsp;it&nbsp;has&nbsp;been&nbsp;started&nbsp;and&nbsp;attempts&nbsp;to&nbsp;do&nbsp;so&nbsp;raises&nbsp;the&nbsp;same<br>
+exception.</tt></dd></dl>
+
+<dl><dt><a name="ClientHandler-setDaemon"><strong>setDaemon</strong></a>(self, daemonic)</dt></dl>
+
+<dl><dt><a name="ClientHandler-setName"><strong>setName</strong></a>(self, name)</dt></dl>
+
+<dl><dt><a name="ClientHandler-start"><strong>start</strong></a>(self)</dt><dd><tt>Start&nbsp;the&nbsp;thread's&nbsp;activity.<br>
+&nbsp;<br>
+It&nbsp;must&nbsp;be&nbsp;called&nbsp;at&nbsp;most&nbsp;once&nbsp;per&nbsp;thread&nbsp;object.&nbsp;It&nbsp;arranges&nbsp;for&nbsp;the<br>
+object's&nbsp;<a href="#ClientHandler-run">run</a>()&nbsp;method&nbsp;to&nbsp;be&nbsp;invoked&nbsp;in&nbsp;a&nbsp;separate&nbsp;thread&nbsp;of&nbsp;control.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;will&nbsp;raise&nbsp;a&nbsp;RuntimeError&nbsp;if&nbsp;called&nbsp;more&nbsp;than&nbsp;once&nbsp;on&nbsp;the<br>
+same&nbsp;thread&nbsp;object.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="threading.html#Thread">threading.Thread</a>:<br>
+<dl><dt><strong>daemon</strong></dt>
+<dd><tt>A&nbsp;boolean&nbsp;value&nbsp;indicating&nbsp;whether&nbsp;this&nbsp;thread&nbsp;is&nbsp;a&nbsp;daemon&nbsp;thread&nbsp;(True)&nbsp;or&nbsp;not&nbsp;(False).<br>
+&nbsp;<br>
+This&nbsp;must&nbsp;be&nbsp;set&nbsp;before&nbsp;start()&nbsp;is&nbsp;called,&nbsp;otherwise&nbsp;RuntimeError&nbsp;is<br>
+raised.&nbsp;Its&nbsp;initial&nbsp;value&nbsp;is&nbsp;inherited&nbsp;from&nbsp;the&nbsp;creating&nbsp;thread;&nbsp;the<br>
+main&nbsp;thread&nbsp;is&nbsp;not&nbsp;a&nbsp;daemon&nbsp;thread&nbsp;and&nbsp;therefore&nbsp;all&nbsp;threads&nbsp;created&nbsp;in<br>
+the&nbsp;main&nbsp;thread&nbsp;default&nbsp;to&nbsp;daemon&nbsp;=&nbsp;False.<br>
+&nbsp;<br>
+The&nbsp;entire&nbsp;Python&nbsp;program&nbsp;exits&nbsp;when&nbsp;no&nbsp;alive&nbsp;non-daemon&nbsp;threads&nbsp;are<br>
+left.</tt></dd>
+</dl>
+<dl><dt><strong>ident</strong></dt>
+<dd><tt>Thread&nbsp;identifier&nbsp;of&nbsp;this&nbsp;thread&nbsp;or&nbsp;None&nbsp;if&nbsp;it&nbsp;has&nbsp;not&nbsp;been&nbsp;started.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;a&nbsp;nonzero&nbsp;integer.&nbsp;See&nbsp;the&nbsp;thread.get_ident()&nbsp;function.&nbsp;Thread<br>
+identifiers&nbsp;may&nbsp;be&nbsp;recycled&nbsp;when&nbsp;a&nbsp;thread&nbsp;exits&nbsp;and&nbsp;another&nbsp;thread&nbsp;is<br>
+created.&nbsp;The&nbsp;identifier&nbsp;is&nbsp;available&nbsp;even&nbsp;after&nbsp;the&nbsp;thread&nbsp;has&nbsp;exited.</tt></dd>
+</dl>
+<dl><dt><strong>name</strong></dt>
+<dd><tt>A&nbsp;string&nbsp;used&nbsp;for&nbsp;identification&nbsp;purposes&nbsp;only.<br>
+&nbsp;<br>
+It&nbsp;has&nbsp;no&nbsp;semantics.&nbsp;Multiple&nbsp;threads&nbsp;may&nbsp;be&nbsp;given&nbsp;the&nbsp;same&nbsp;name.&nbsp;The<br>
+initial&nbsp;name&nbsp;is&nbsp;set&nbsp;by&nbsp;the&nbsp;constructor.</tt></dd>
+</dl>
+<hr>
+Data descriptors inherited from <a href="threading.html#_Verbose">threading._Verbose</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>
