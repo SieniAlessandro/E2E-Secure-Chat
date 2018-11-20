@@ -9,7 +9,11 @@ class ChatList(Frame):
 
     def __init__(self, master, background):
         """
-            Left frame of chatGUI, it contains a list of available chats
+            :type master: ChatGUI
+            :param master: parent widget
+
+            :type background: string
+            :param background: background color
         """
         Frame.__init__(self, master, background=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         self.chatListDict = {}
@@ -56,12 +60,29 @@ class ChatList(Frame):
         else:
             self.chatListDict[searchKey][0].changeChatWindow(event='none')
     def pressEnterEvent(self, event):
+        """
+            :type event: Event
+            :param event: information about the event
+        """
         self.pressSearchButton()
     def setItems(self, client ):
+        """
+            :type client: Client
+            :param client: instance of class Client
+        """
         self.client = client
     def addChatListElement(self, chatName, lastMessage, lastMessageTime):
         """
             Creates a new chatListElement and adds it to the dictionary
+
+            :type chatName: string
+            :param chatName: name of the chatListElement
+
+            :type lastMessage: string
+            :param lastMessage: last arrived or sent message
+
+            :type lastMessageTime: string
+            :param lastMessageTime: time of the last arrived or sent message
         """
         if lastMessageTime is None:
             timeString = '-:--'
@@ -95,6 +116,21 @@ class ChatList(Frame):
             chatListElement is already in the dict, if the activeChat is not the
             sender's one, then increment the number of unreaded messages of the
             sender. In any case, add the boxMessageElement to the sender chat
+
+            :type sender: string
+            :param sender: name of the sender
+
+            :type message: string
+            :param message: sent or received message
+
+            :type time: string
+            :param time: arrival or sending time
+
+            :type isMine: boolean
+            :param isMine: true if this is a message sent by me
+
+            :type onLogin: boolean
+            :param onLogin: true if this is called after the login to restore chats
         """
         searchKey = sender.lower()
         global activeChat
@@ -119,6 +155,15 @@ class ChatList(Frame):
         """
             Every time a new message is received or sent, it updates the last
             message of the chat list element
+
+            :type chatName: string
+            :param chatName: name of the chat
+
+            :type message: string
+            :param message: sent or received message
+
+            :type time: string
+            :param time: arrival or sending time
         """
         searchKey = chatName.lower()
         self.chatListDict[searchKey][0].setLastMessage(message)
@@ -128,6 +173,9 @@ class ChatList(Frame):
             bring the chat with chatname==searchKey in the first row of the list.
             The list is sorted by the last message time so the higher the element
             is in the list, the more recent the last message is
+
+            :type searchKey: string
+            :param searchKey: name of the chat in the dictionary
         """
         oldIndex = self.chatListDict[searchKey][2]
         for key, val in self.chatListDict.items():
@@ -151,6 +199,9 @@ class ChatList(Frame):
     def getNotEmptyUsers(self):
         """
             create a list of chat names with atleast one message sent or received
+
+            :rtype: list
+            :return: list of chat name
         """
         list = []
         for cle in self.chatListDict.items():
@@ -158,6 +209,9 @@ class ChatList(Frame):
                 list.append(cle[0])
         return list
     def flushChatDict(self):
+        """
+            Destroy all the chat of the list
+        """
         for cle in self.chatListDict.values():
             cle[0].destroy()
             cle[1].destroy()
@@ -165,6 +219,9 @@ class ChatList(Frame):
     def deleteChatListElement(self, username):
         """
             Delete the chat list element
+
+            :type username: string
+            :param username: name of the chat to be deleted
         """
         global activeChat
         username = username.lower()
@@ -186,6 +243,12 @@ class ChatListElement(Frame):
     def __init__(self, master, background):
         """
             Element of the list on left side of the chat
+
+            :type master: Scrollable
+            :param master: parent widget
+
+            :type background: string
+            :param background: background color
         """
 
         Frame.__init__(self, master)
@@ -244,6 +307,9 @@ class ChatListElement(Frame):
         """
             When the element is clicked, it loads on the right frame, the clicked
             element's chatWindow
+
+            :type event: Event
+            :param event: information about the event
         """
         global activeChat
         if  activeChat is None:
@@ -264,10 +330,17 @@ class ChatListElement(Frame):
             self.notifies.set(0)
             self.notifiesLabel.grid_forget()
     def setChatList(self, chatList):
+        """
+            :type chatList: ChatList
+            :param ChatListGUI: instance of class ChatList
+        """
         self.chatList = chatList
     def popup(self, event):
         """
             Handles the right click event
+
+            :type event: Event
+            :param event: information about the event
         """
         try:
             self.rightClickMenu.tk_popup(event.x_root+40, event.y_root+10, 0)
@@ -276,6 +349,9 @@ class ChatListElement(Frame):
     def checkStringLenght(self, s):
         """
             if the message is too long, it is cut and "..." is concatenated to it
+
+            :type s: string
+            :param s: string to be checked
         """
         if ( len(s) > self.MAXMESSAGELEN ):
             return s[0:self.MAXMESSAGELEN] + " ..."
@@ -283,6 +359,9 @@ class ChatListElement(Frame):
     def bindMouseWheel(self, scrollableFrame):
         """
             Mouse wheel event
+
+            :type scrollableFrame: Scrollable
+            :param scrollableFrame: instance of class Scrollable
         """
         self.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
         self.chatNameLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
@@ -291,13 +370,38 @@ class ChatListElement(Frame):
         self.photoLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
         self.notifiesLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
     def setLastMessage(self, message):
+        """
+            :type message: string
+            :param message: last message
+        """
         self.lastMessage.set(self.checkStringLenght(message))
     def setChatName(self, chatName):
+        """
+            :type chatName: string
+            :param chatName: name of the chat
+        """
         self.chatName.set(self.checkStringLenght(chatName))
     def setLastMessageTime(self, lastMessageTime):
+        """
+            :type lastMessageTime: string
+            :param lastMessageTime: time of the last arrived or sent message
+        """
         timeString = str(lastMessageTime).split('.')[0].split(' ')[1][:-3]
         self.lastMessageTime.set(timeString)
     def setElements(self, chatWindow, chatName, lastMessage, lastMessageTime):
+        """
+            :type chatWindow: ChatWindow
+            :param chatWindow: instance of class ChatWindow
+
+            :type chatName: string
+            :param chatName: name of the chat
+
+            :type lastMessage: string
+            :param lastMessage: last message
+
+            :type lastMessageTime: string
+            :param lastMessageTime: time of the last arrived or sent message
+        """
         self.chatWindow = chatWindow
         self.chatName.set(self.checkStringLenght(chatName))
         self.lastMessage.set(self.checkStringLenght(lastMessage))
@@ -305,6 +409,12 @@ class ChatListElement(Frame):
     def increaseNotifies(self, message, time):
         """
             Display the notify label and add 1 to the variable
+
+            :type message: string
+            :param message: last message
+
+            :type time: string
+            :param time: time of the last arrived message
         """
         self.notifies.set(self.notifies.get()+1)
         self.notifiesLabel.grid(row=1, column=2, sticky=W+E)

@@ -12,6 +12,10 @@ class ChatGUI(Frame):
     activebackground = '#657481'
 
     def __init__(self, master):
+        """
+            :type master: Tk
+            :param master: parent widget
+        """
         Frame.__init__(self, master)
 
         ws = master.winfo_screenwidth() # width of the screen
@@ -42,6 +46,12 @@ class ChatGUI(Frame):
     def createWidgets(self, client, login):
         """
             Receive client instance in order to call client's functions, login instance in order to show/hide the login window
+
+            :type client: Client
+            :param client: instance of class Client
+
+            :type login: LoginGUI
+            :param login: instance of class LoginGUI
         """
         self.client = client
         self.login = login
@@ -57,6 +67,9 @@ class ChatGUI(Frame):
     def onLoginEvent(self, username):
         """
             After login, change window and load all the previous conversation + the new conversation received from the server
+
+            :type username: string
+            :param username: logged in username
         """
         self.showChatFrame()
         master = self._nametowidget(self.winfo_parent())

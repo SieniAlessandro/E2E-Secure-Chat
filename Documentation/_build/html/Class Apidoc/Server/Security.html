@@ -1,0 +1,210 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Security package &#8212; MPS Protocol - Cybersecurity Project 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="security-package">
+<h1>Security package<a class="headerlink" href="#security-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-Security.Security">
+<span id="security-security-module"></span><h2>Security.Security module<a class="headerlink" href="#module-Security.Security" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Security.Security.Security">
+<em class="property">class </em><code class="descclassname">Security.Security.</code><code class="descname">Security</code><span class="sig-paren">(</span><em>path</em>, <em>BackupPath</em>, <em>publicKey=None</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="Security.Security.Security.AESDecryptText">
+<code class="descname">AESDecryptText</code><span class="sig-paren">(</span><em>ct</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.AESDecryptText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.AESEncryptText">
+<code class="descname">AESEncryptText</code><span class="sig-paren">(</span><em>pt</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.AESEncryptText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.AddClientKey">
+<code class="descname">AddClientKey</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.AddClientKey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.AddSymmetricKeyFromDict">
+<code class="descname">AddSymmetricKeyFromDict</code><span class="sig-paren">(</span><em>dict</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.AddSymmetricKeyFromDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Must be passed as argument the dict located at message[‘key’]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.RSADecryptText">
+<code class="descname">RSADecryptText</code><span class="sig-paren">(</span><em>cipherText</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.RSADecryptText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.RSAEncryptText">
+<code class="descname">RSAEncryptText</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.RSAEncryptText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.ServerInitialized">
+<code class="descname">ServerInitialized</code><span class="sig-paren">(</span><em>path</em>, <em>BackupPath</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.ServerInitialized" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.VerifySignature">
+<code class="descname">VerifySignature</code><span class="sig-paren">(</span><em>text</em>, <em>signature</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.VerifySignature" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.addDHparameters">
+<code class="descname">addDHparameters</code><span class="sig-paren">(</span><em>p</em>, <em>g</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.addDHparameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.generateDigest">
+<code class="descname">generateDigest</code><span class="sig-paren">(</span><em>pt</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.generateDigest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.generateNonce">
+<code class="descname">generateNonce</code><span class="sig-paren">(</span><em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.generateNonce" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.generateSymmetricKey">
+<code class="descname">generateSymmetricKey</code><span class="sig-paren">(</span><em>len</em>, <em>nonce</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.generateSymmetricKey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.generate_key">
+<code class="descname">generate_key</code><span class="sig-paren">(</span><em>path</em>, <em>backupPath</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.generate_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.getDHparameters">
+<code class="descname">getDHparameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.getDHparameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.getSerializedPublicKey">
+<code class="descname">getSerializedPublicKey</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.getSerializedPublicKey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.getSignature">
+<code class="descname">getSignature</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.getSignature" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.getSymmetricKey">
+<code class="descname">getSymmetricKey</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.getSymmetricKey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.getSymmetricKeyasDict">
+<code class="descname">getSymmetricKeyasDict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.getSymmetricKeyasDict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Security.Security.Security.splitMessage">
+<code class="descname">splitMessage</code><span class="sig-paren">(</span><em>pt</em>, <em>len</em><span class="sig-paren">)</span><a class="headerlink" href="#Security.Security.Security.splitMessage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Security">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-Security" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Security package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-Security.Security">Security.Security module</a></li>
+<li><a class="reference internal" href="#module-Security">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/Class Apidoc/Server/Security.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Amedeo Pochiero.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
+</html>

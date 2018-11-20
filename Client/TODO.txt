@@ -1,5 +1,0 @@
-TODO
-- setAutoLogin durante il login e settare remember se la checkbox è spuntata
-- Prima di mostrare il loginWindow chiamare la checkAutoLogin
-- Inserire nell'emptyFrame un button per il logout
-- chiamare la client.logout() e mostrare la login Window

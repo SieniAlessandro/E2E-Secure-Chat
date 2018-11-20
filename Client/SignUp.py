@@ -11,6 +11,9 @@ class SignUpGUI(Frame):
     def __init__(self, master):
         """
             SignUp Grafic Interface, containg a form to be compiled by the user
+
+            :type master: Tk
+            :param master: parent widget
         """
         Frame.__init__(self, master)
         self.master = master
@@ -80,6 +83,9 @@ class SignUpGUI(Frame):
     def setRootSize(self, height):
         """
             Set width and height of root window
+
+            :type height: int
+            :param height: height of signUp frame
         """
         w = 390 # width for the Tk root
         h = height # height for the Tk root
@@ -93,6 +99,9 @@ class SignUpGUI(Frame):
             Password must contain atleast 8 characters,
             atleast 1 uppercase letter, atleast 1 lowercase letter and atleast
             1 digit
+
+            :rtype: boolean
+            :return: is password valid?
         """
         pattern = "^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$"
         if re.findall(pattern, self.passwordEntry.get()):
@@ -103,6 +112,9 @@ class SignUpGUI(Frame):
     def validateConfirmPassword(self):
         """
             Password string and ConfirmPassword string must be equal
+
+            :rtype: boolean
+            :return: is confirm password valid?
         """
         if self.confirmPasswordEntry.get() == self.passwordEntry.get():
             self.confirmPasswordEntry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
@@ -112,6 +124,9 @@ class SignUpGUI(Frame):
     def validateEmail(self):
         """
             Email must have the right structure ( email@example.com )
+
+            :rtype: boolean
+            :return: is email valid?
         """
         if validate_email(self.emailEntry.get()):
             self.emailEntry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
@@ -121,6 +136,15 @@ class SignUpGUI(Frame):
     def validateLength(self, entry, length):
         """
             entry cannot be longer than length
+
+            :type entry: Entry
+            :param entry: entry to be validated
+
+            :type length: int
+            :param length: max length
+
+            :rtype: boolean
+            :return: is entry valid?
         """
         if len(entry.get()) > 0 and len(entry.get()) < length :
             entry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
@@ -130,6 +154,9 @@ class SignUpGUI(Frame):
     def invalidate(self, entry):
         """
             Invalidate entry if the check fails
+
+            :type entry: Entry
+            :param entry: entry to be invalidated
         """
         entry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
         self.isFormValid[entry.winfo_name] = False
@@ -137,6 +164,9 @@ class SignUpGUI(Frame):
         """
             Set a loginGUI instance in order to show the login window if the
             cancel button is pressed
+
+            :type loginWindow: LoginGUI
+            :param loginWindow: instance of LoginGUI
         """
         self.loginWindow = loginWindow
     def cancelEvent(self):
@@ -164,6 +194,9 @@ class SignUpGUI(Frame):
         """
             Set client instance in order to call client.register when the form
             is valid and Confirm button is pressed
+
+            :type client: Client
+            :param client: instance of class Client
         """
         self.client = client
         self.master.protocol("WM_DELETE_WINDOW", self.client.onClosing )

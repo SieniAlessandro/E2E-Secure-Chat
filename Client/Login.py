@@ -9,6 +9,9 @@ class LoginGUI(Frame):
     def __init__(self, master):
         """
             Login Grafic Interface, this is the first shown if the autologin is disabled
+
+            :type master: Tk
+            :param master: parent widget
         """
         Frame.__init__(self, master)
 
@@ -45,6 +48,9 @@ class LoginGUI(Frame):
     def setRootSize(self, height):
         """
             Set width and height of root window
+
+            :type height: int
+            :param height: height of login frame
         """
         w = 300 # width for the Tk root
         h = height # height for the Tk root
@@ -78,6 +84,18 @@ class LoginGUI(Frame):
         """
             Receive client instance in order to call client's functions, signUp
             and chat instance in order to show/hide them
+
+            :type client: Client
+            :param client: instance of class Client
+
+            :type chat: ChatGUI
+            :param chat: instance of class ChatGUI
+
+            :type signUpWindow: SignUpGUI
+            :param signUpWindow: instance of class SignUpGUI
+
+            :type online: int
+            :param online: server status
         """
         self.client = client
         self.chat = chat
@@ -115,7 +133,11 @@ class LoginGUI(Frame):
             elif ret == -1:
                 self.showMessage("You are already logged in other device",  self.errorColor )
     def pressEnterEvent(self, event):
-        self.loghiinEvent()
+        """
+            :type event: Event
+            :param event: information about the event
+        """
+        self.loginEvent()
     def showError(self):
         """
             Show error label and set fields style to red
@@ -131,6 +153,11 @@ class LoginGUI(Frame):
         self.passwordEntry.config(fg = 'white', highlightthickness=0)
         self.setRootSize(350)
     def showMessage(self, message, color):
+        """
+            Show a label to notify some event
+            :type message: string
+            :param message: message to be shown
+        """
         self.messageLabel.config(text=message, fg = color)
         self.messageLabel.grid(row = 1)
         self.setRootSize(370)

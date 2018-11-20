@@ -11,6 +11,13 @@ class ChatWindow(Frame):
             Right frame of the chatGUI, it contains the chat name, that display
             the receiver's status ( Online/Offline ), the list of messages and
             input bar
+
+            :type master: ChatGUI
+            :param master: parent widget
+
+            :type background: string
+            :param background: background color
+
         """
         Frame.__init__(self, master, background=self.backgroundWindow)
 
@@ -21,6 +28,19 @@ class ChatWindow(Frame):
         Grid.columnconfigure(master, 1, weight=1)
         Grid.columnconfigure(master, 2, weight=4)
     def createWidgets(self, background, chatName, client, chatList ):
+        """
+            :type background: string
+            :param background: background color
+
+            :type chatName: string
+            :param chatName: name of the chat
+
+            :type client: Client
+            :param client: instance of class Client
+
+            :type chatList: ChatList
+            :param chatList: list of available chats
+        """
         self.chatName.set(chatName)
         self.client = client
         self.chatList = chatList
@@ -51,11 +71,24 @@ class ChatWindow(Frame):
         sendButton = Button(inputBar, text="send", command=self.pressSendButton, bg=background, bd=0, activebackground='#787878', image=self.icon)
         sendButton.grid(row=0, column=1)
     def setClient(self, client):
+        """
+            :type client: Client
+            :param client: instance of class Client
+        """
         self.client = client
     def addBoxMessageElement(self, message, time, isMine):
         """
             Append a new message and diplay it into the frame on the right if
             it is a message sent by me or on the left if it is a received message
+
+            :type message: string
+            :param message: sent or received message
+
+            :type time: string
+            :param time: arrival or sending time
+
+            :type isMine: boolean
+            :param isMine: true if this is a message sent by me
         """
         timeString = str(time).split('.')[0].split(' ')[1][:-3]
         boxMessage = BoxMessage(self.scrollableFrame, self['bg'])
@@ -83,17 +116,32 @@ class ChatWindow(Frame):
             self.send(c)
         self.entryBar.delete(0, 'end')
     def pressEnterEvent(self, event):
+        """
+            :type event: Event
+            :param event: information about the event
+        """
         self.pressSendButton()
     def send(self, message):
+        """
+            :type message: string
+            :param message: message to be sent
+        """
         self.addBoxMessageElement(message, datetime.datetime.now(), True)
         status = self.client.sendClient(str(self.chatName.get().lower()), message)
         self.chatList.sortChatList(self.chatName.get().lower())
-        print("SEND status: " + str(status))
         self.updateState(status)
     def pressEscEvent(self, event):
+        """
+            :type event: Event
+            :param event: information about the event
+        """
         self.chatList.searchBar.focus_force()
         self.chatList.chatListDict[self.chatName.get().lower()][0].changeChatRoom(event=None)
     def updateState(self, status):
+        """
+            :type status: int
+            :param status: online or offline
+        """
         if status == 1:
             self.userState.set('Online')
         else:
@@ -102,7 +150,13 @@ class ChatWindow(Frame):
 class BoxMessage(Frame):
     def __init__(self, master, background):
         """
-            Frame containg the message and the arrival/send time
+            Frame containg the message and the arrival/sending time
+
+            :type master: Scrollable
+            :param master: parent widget
+
+            :type background: string
+            :param background: background color
         """
         Frame.__init__(self, master, padx=3, pady=3, bg=background )
         self.message = StringVar()
@@ -110,6 +164,16 @@ class BoxMessage(Frame):
         self.isMine = True
         self.pack(fill='x')
     def createWidgets(self, message, time, isMine):
+        """
+            :type message: string
+            :param message: sent or received message
+
+            :type time: string
+            :param time: arrival or sending time
+
+            :type isMine: boolean
+            :param isMine: true if this is a message sent by me
+        """
         rowFrame = Frame(self)
         self.messageLabel = Message(rowFrame, aspect=250, textvariable=self.message, padx=5, pady=2, fg='white')
         self.timeLabel = Label(rowFrame, textvariable=self.time, padx=5, pady=2, fg='white')
@@ -137,6 +201,9 @@ class BoxMessage(Frame):
         """
             Bind mouse wheel event so the scrollableFrame can scroll even if the
             cursor is over this frame
+
+            :type scrollableFrame: Scrollable
+            :param scrollableFrame: instance of class Scrollable
         """
         self.bind('<MouseWheel>', scrollableFrame._on_mousewheel)
         self.messageLabel.bind('<MouseWheel>', scrollableFrame._on_mousewheel)

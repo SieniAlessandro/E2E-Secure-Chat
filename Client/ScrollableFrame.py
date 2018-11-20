@@ -9,6 +9,16 @@ class Scrollable(ttk.Frame):
     """
 
     def __init__(self, frame, background, width=16):
+        """
+            :type frame: Frame
+            :param frame: parent frame
+
+            :type background: string
+            :param background: background color
+
+            :type width: int
+            :param width: width of the scrollbar
+        """
         self.scrollbar = tk.Scrollbar(frame, width=width)
         # self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y, expand=False)
 
@@ -25,8 +35,16 @@ class Scrollable(ttk.Frame):
         # assign this obj (the inner frame) to the windows item of the canvas
         self.windows_item = self.canvas.create_window(0,0, window=self, anchor=tk.NW)
     def setCanvasWidth(self, width):
+        """
+            :type width: int
+            :param width: width of the canvas
+        """
         self.canvas.configure(width=width)
     def _on_mousewheel(self, event):
+        """
+            :type event: Event
+            :param event: information about the event
+        """
         (lo, hi) = self.scrollbar.get()
         if float(lo) <= 0.0 and float(hi) >= 1.0:
             return
@@ -35,11 +53,18 @@ class Scrollable(ttk.Frame):
         elif event.delta > 0:
             self.canvas.yview_scroll(-1, "unit")
     def __fill_canvas(self, event):
-        "Enlarge the windows item to the canvas width"
+        """
+            Enlarge the windows item to the canvas width
+
+            :type event: Event
+            :param event: information about the event
+        """
 
         canvas_width = event.width
         self.canvas.itemconfig(self.windows_item, width = canvas_width)
     def update(self):
-        "Update the canvas and the scrollregion"
+        """
+            Update the canvas and the scrollregion
+        """
         self.update_idletasks()
         self.canvas.config(scrollregion=self.canvas.bbox(self.windows_item))
