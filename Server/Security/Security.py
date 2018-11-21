@@ -12,13 +12,15 @@ import os
 
 class Security:
     def __init__(self,path,BackupPath):
-        """ Initialize the security module loading,using the path passed as argument,if present the private and public key,
+        """
+            Initialize the security module loading,using the path passed as argument,if present the private and public key,
             otherwise generating and saving it
-            Parameters:
-                    path : the path of the pem file with the private key                : string
-                    BackupPath: the path of the backup pem file with the private key    : string
-            Return:
-                    Void - Constructor  """
+
+            :type path: String
+            :param path: The path of the pem file in which the private key must be written
+            :type backupPath: String
+            :param backupPath: The path of the pem file in which the private key must be written
+        """
         try:
             with open(path,"rb") as pem:
                 try:
@@ -56,12 +58,14 @@ class Security:
                     self.generate_key(path,BackupPath)
 
     def generate_key(self,path,backupPath):
-        """ Generate and write the private key
-            Parameter :
-                    path        : the path of the pem file in which the private key must be written : string
-                    backupPath  : the path of the pem file in which the private key must be written : string
-            Return:
-                    Void """
+        """
+            Generate and write the private key
+
+            :type path: String
+            :param path: The path of the pem file in which the private key must be written
+            :type backupPath: String
+            :param backupPath: The path of the pem file in which the private key must be written
+        """
         with open(path,"wb") as pem, open(backupPath,"wb") as backup:
             self.privateKey = rsa.generate_private_key(public_exponent=65537,\
                                                    key_size=8196,\
@@ -74,11 +78,15 @@ class Security:
             backup.write(serializedPrivateKey)
 
     def RSAEncryptText(self,text):
-        """ Encrypt the text using RSA with the public key of the handled client
-            Parameter:
-                    text = the plain text that must be encrypted                                : Bytes
-            Return:
-                    cipherText: the cipher text relative to the plain text passed as argument   : Bytes"""
+        """
+            Encrypt the text using RSA with the public key of the handled client
+
+            :type text: Bytes
+            :param text: The plain text that must be encrypted
+            :rtype: Bytes
+            :return: cipherText: the cipher text relative to the plain text passed as argument
+        """
+
         cipherText = self.ClientPublicKey.encrypt(text,
                                             padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
                                                          algorithm=hashes.SHA256(),
@@ -88,11 +96,15 @@ class Security:
         return cipherText
 
     def RSADecryptText(self,cipherText):
-        """ Decrypt the message using your own private key
-            Parameter:
-                    cipherText: the cipher text that must be decrypted                                  : Bytes
-            Return:
-                    plaintext: the plain text obtained by decriptying the plain text passed as argument : Bytes"""
+        """
+            Decrypt the message using your own private key
+
+            :type cipherText: Bytes
+            :param cipherText: The cipher text that must be decrypted
+            :rtype: Bytes
+            :param plaintext: the plain text obtained by decriptying the plain text passed as argument
+        """
+
         plaintext = self.privateKey.decrypt(cipherText,
                                             padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
                                                          algorithm=hashes.SHA256(),
@@ -102,20 +114,27 @@ class Security:
         return plaintext
 
     def splitMessage(self,data,len):
-        """ Split the message in two part, usefull when you need to compare a message with a digest or a signature
-            Parameter:
-                    data                        : The Data that must be divided in two parts                            : Generic
-                    len                         : The point in which the list must be divided                           : int
-            Return:
-                    [data[0:-len],data[-len:]]  : The touple of lists obtained by dividing in two part the original data : <Generic,Generic>"""
+        """
+            Split the message in two part, usefull when you need to compare a message with a digest or a signature
+
+            :type data: Bytes
+            :param data: The Data that must be divided in two parts
+            :type len: Int
+            :param len: The point in which the list must be divided
+            :rtype: <Bytes,Bytes>
+            :return: The touple of lists obtained by dividing in two part the original data :
+        """
         return [data[0:len*(-1)],data[len*(-1):]]
 
     def generateDigest(self,data):
-        """ Generate the digest of the message (in bytes) using SHA-256
-            Parameter:
-                    pt : the data of which we want generate the digest  : Bytes
-            Return:
-                    digest: the digest of the data passed as argument   : Bytes """
+        """
+            Generate the digest of the message (in bytes) using SHA-256
+
+            :type data: Bytes
+            :param data: The data of which we want generate the digest
+            :rtype: Bytes
+            :return: The digest of the data passed as argument
+        """"
         digest = hashes.Hash(hashes.SHA256(), backend=default_backend())
         digest.update(data)
         return digest.finalize()
@@ -149,37 +168,44 @@ class Security:
             return False
 
     def AddClientKey(self,key):
-        """ Add the public key of the client, in order to use them when it is necessary to encrypt using RSA, pass the key encoded by 'utf-8'
-            Parameter:
-                    key : the public key of the client we want to add : Bytes
-            Return:
-                    Void    """
+        """
+            Add the public key of the client, in order to use them when it is necessary to encrypt using RSA, pass the key encoded by 'utf-8'
+
+            :type key: Bytes
+            :param key: The public key of the client we want to add
+        """
         self.ClientPublicKey = serialization.load_pem_public_key(key,backend=default_backend())
 
     def getSerializedPublicKey(self):
-        """ Get the server public key serializable (it must be decoded) in order to get it printable and sendable
-            Parameter:
-                    Void
-            Return:
-                    The public key of the client        : Bytes"""
+        """
+            Get the server public key serializable (it must be decoded) in order to get it printable and sendable
+
+            :rtype: Bytes
+            :return: The public key of the client
+        """
         return self.publicKey.public_bytes(encoding=serialization.Encoding.PEM,format=serialization.PublicFormat.SubjectPublicKeyInfo)
 
     def getSerializedClientPublicKey(self):
-        """ Get the server public key serializable (it must be decoded) in order to get it printable and sendable
-            Parameter:
-                    Void
-            Return:
-                    The public key of the client        : Bytes"""
+        """
+            Get the server public key serializable (it must be decoded) in order to get it printable and sendable
+
+            :rtype: Bytes
+            :return: The public key of the client
+        """
         return self.ClientPublicKey.public_bytes(encoding=serialization.Encoding.PEM,format=serialization.PublicFormat.SubjectPublicKeyInfo)
 
     def generateSymmetricKey(self,len,nonce):
-        """ Generate a symmetric key used in AESGCM with a lenght (suggested 192/256 bit ) and pass a nonce used with the key
+        """
+            Generate a symmetric key used in AESGCM with a lenght (suggested 192/256 bit ) and pass a nonce used with the key
             to cipher a text (each operation has its own couple of <key,nonce> in order to guarantee security)
-            Parameters:
-                    len     : The lenght of the symmetric key (in bit)      : int
-                    nonce   : The nonce used to encrypt/decrypt             : int
-            Return:
-                    0       : The operations are done correctly             : int"""
+
+            :type len: Int
+            :param len: The lenght of the symmetric key (in bit)
+            :type nonce: Int
+            :param nonce: The nonce used to encrypt/decrypt
+            :rtype: Int
+            :return: The operations are done correctly
+        """
 
         self.nonce  = nonce
         self.len = len
@@ -187,33 +213,36 @@ class Security:
         return 0
 
     def getSymmetricKey(self):
-        """ Get the symmetric key as bytes, if you want to serialize it you have to transform it (suggested in integer with a number of
+        """
+            Get the symmetric key as bytes, if you want to serialize it you have to transform it (suggested in integer with a number of
             intger nessary = bit_length of key / 8, becaues each integer reppresent a byte)
-            Parameter:
-                    Void
-            Return:
-                    SymmetricKey: the symmetric key used to encrypt/decrypt         :Bytes
+
+            :rtype: Bytes
+            :return: The symmetric key used to encrypt/decrypt
         """
         return self.SymmetricKey
 
     def AddPacketNonce(self,nonce):
-        """ Add the nonce used in the AES when is necessary to encapsulate some information about the starter of the conversation
+        """
+            Add the nonce used in the AES when is necessary to encapsulate some information about the starter of the conversation
             between two user
-            Parameter:
-                    nonce: the nonce used to encrypt the packets necessary to exchange key from two clients
-            Return:
-                    Void    """
+
+            :type nonce : Int
+            :param nonce: The nonce used to encrypt the packets necessary to exchange key from two clients
+        """
         self.packetNonce = nonce
 
     def AESDecryptText(self,ct):
-        """ Cipher text with AES and GCM in order to guarantee autenthicity and integrity of the message, the handling of the nonce
+        """
+            Cipher text with AES and GCM in order to guarantee autenthicity and integrity of the message, the handling of the nonce
             is provided by the function itself (each encyption/decryption must increment the nonce in order to maintain it always
             synchronized on the two side )
-            Parameter:
-                    ct      : The cipher text to decrypt                                                    : Bytes
-            Return:
-                    pt      : The plain text obtained by decrypting the cipher text passed as parameter     : Bytes
-                    None    : An error happened during the decyption    """
+
+            :type ct: Bytes
+            :param ct: The cipher text to decrypt
+            :rtype: Bytes or None
+            :return: The plain text obtained by decrypting the cipher text passed as parameter
+        """
         try:
             aescgm = AESGCM(self.SymmetricKey)
             self.nonce = self.nonce+1
@@ -224,14 +253,16 @@ class Security:
             return None
 
     def AESEncryptText(self,pt):
-        """ Cipher text with AES and GCM in order to guarantee autenthicity and integrity of the message, the handling of the nonce
+        """
+            Cipher text with AES and GCM in order to guarantee autenthicity and integrity of the message, the handling of the nonce
             is provided by the function itself (each encyption/decryption must increment the nonce in order to maintain it always
             synchronized on the two side )
-            Parameter:
-                    pt      : The plain text to encrypt                                                      : Bytes
-            Return:
-                    ct      : The cipher text obtained by encrypting the plain text passed as argument       : Bytes
-                    None    : An error happened during the encryption   """
+
+            :type pt: Bytes
+            :param pt: The plain text to encrypt
+            :type ct: Bytes or None
+            :param ct:  The cipher text obtained by encrypting the plain text passed as argument
+        """
         try:
             aesgcm = AESGCM(self.SymmetricKey)
             self.nonce = self.nonce + 1
@@ -241,13 +272,15 @@ class Security:
             return None
 
     def PacketAESEncryptText(self,pt):
-        """Cipher text with AES and a special nonce (sended by the client during the login procedure) in order
+        """
+            Cipher text with AES and a special nonce (sended by the client during the login procedure) in order
             to encapsulate some information useful for the exchange of key between two online user
-            Parameter:
-                    pt      : The plain text to encrypt                                                      : Bytes
-            Return:
-                    ct      : The cipher text obtained by encrypting the plain text passed as argument       : Bytes
-                    None    : An error happened during the encryption   """
+
+            :type pt: Bytes
+            :param pt: The plain text to encrypt
+            :rtype: Bytes or None
+            :return: The cipher text obtained by encrypting the plain text passed as argument
+        """
         try:
             aesgcm = AESGCM(self.SymmetricKey)
             self.packetNonce = self.packetNonce + 1
@@ -258,27 +291,32 @@ class Security:
             return None
 
     def addDHparameters(self,p,g):
-        """ Add the DH parameter, in orde to retrieve efficiently when necessary
-            Parameter:
-                    p : the Diffie Hellman P parameter      : int
-                    g : The Diffie Hellman G parameter      : int
-            Return:
-                    Void"""
+        """
+            Add the DH parameter, in orde to retrieve efficiently when necessary
+            :type p: Int
+            :param p: the Diffie Hellman P parameter
+            :type g: Int
+            :param g: The Diffie Hellman G parameter
+        """
         self.p = p
         self.g = g
 
     def getDHparameters(self):
-        """ Get the DH parameters as a list [p,g]
-            Parameter:
-                    Void
-            Return:
-                    [P,G] : The tuple composed by the two DH parameters : <int,int>"""
+        """
+            Get the DH parameters as a list [p,g]
+
+            :rtype: [Int,Int]
+            :return: The tuple composed by the two DH parameters
+        """
         return [self.p,self.g]
 
     def generateNonce(self,size):
-        """ Generate a nonce of a dimension chosed (in bytes) a get it as an Integer encoded in Big Endian
-            Parameter:
-                    size: The size (in Bytes) of the nonce                                                                          : int
-            Return:
-                    A nonce generated using the system call specific for cryptography purpose of the dimensione passed as argument  : int """
+        """
+            Generate a nonce of a dimension chosed (in bytes) a get it as an Integer encoded in Big Endian
+
+            :type size: Int
+            :param size:The size (in Bytes) of the nonce
+            :rtype: Int
+            :return: A nonce generated using the system call specific for cryptography purpose of the dimensione passed as argument
+        """
         return int.from_bytes(os.urandom(size),byteorder='big')

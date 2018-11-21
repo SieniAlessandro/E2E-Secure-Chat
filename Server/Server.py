@@ -11,7 +11,9 @@ from XMLHandler import XMLHandler
 from Security.Security import Security
 
 class Server:
-    """Handle the global information, and the connection with the database"""
+    """
+        Handle the global information, and the connection with the database
+    """
     def __init__(self):
         self.XML = XMLHandler()
         self.Users = {}
@@ -30,7 +32,9 @@ class Server:
         self.Log = Log(self.XML.getEnableLog(),self.XML.GetLogPath())
         self.Log.log("Server Initialized")
     def start(self):
-        """Create a new thread able to handle the administrator request (like see the number of active thread or online users)"""
+        """
+            Create a new thread able to handle the administrator request (like see the number of active thread or online users)
+        """
         #Starting the thread able to handle the administrator request
         t2 = threading.Thread(target=self.handleServer)
         t2.start()
@@ -47,7 +51,9 @@ class Server:
             newClient.start()
             self.ActiveThreads.append(newClient)
     def handleServer(self):
-        """Handle the administrator request"""
+        """
+            Handle the administrator request
+        """
         choice = 1
         while choice != 0:
             try:
@@ -69,7 +75,9 @@ class Server:
                 self.close()
 
     def close(self):
-        """Close all the socket and close the connection with the database"""
+        """
+            Close all the socket and close the connection with the database
+        """
         self.Log.log("Server Closed")
         for User in self.Users.values():
             User.getSocket.shutdown(socket.SHUT_RDWR)
