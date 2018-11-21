@@ -194,6 +194,7 @@ class ClientHandler(Thread):
                     self.log.log("Connection is not fresh removing user")
                     del self.OnlineClients[self.HandledUser.getUserName()]
 
+
         else:
             response['id'] = "?"
             response['status'] = "0"
@@ -349,7 +350,7 @@ class ClientHandler(Thread):
                     response['id'] = "!"
                     response['status'] = "0"
                     SecurityParameters = self.DB.getSecurityInfoFromUser(message['username'].lower())
-                    response['key'] = SecurityParametersc[0]
+                    response['key'] = SecurityParameters[0]
         jsonResponse = json.dumps(response)
         #Using symmetric key criptography because this request can be done only by logged user
         ct = self.HandledUser.GetSecurityModule().AESEncryptText(jsonResponse.encode('utf-8'))
