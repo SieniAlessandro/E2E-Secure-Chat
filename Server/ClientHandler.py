@@ -93,6 +93,11 @@ class ClientHandler(Thread):
                 #logout
                 elif jsonMessage['id'] == "0":
                     del self.OnlineClients[self.HandledUser.getUserName()]
+                    self.HandledUser = User(Conn,ip,0,port,"none")
+                    self.serverNonce = self.HandledUser.GetSecurityModule().generateNonce(11)
+                    self.HandledUser.addSecurityModule(Security(self.XML.getPemPath(),self.XML.getBackupPemPath()))
+                    self.logged = False
+
     def login(self,message,data,signature):
         """
             Login with inserted credential and search in the Database if the information
@@ -182,6 +187,9 @@ class ClientHandler(Thread):
                         #Removing the messagess previously obtained
                         self.DB.remove_waiting_messages_by_receiver(self.HandledUser.getUserName())
                     ct = self.HandledUser.GetSecurityModule().AESEncryptText(jsonResponse.encode('utf-8'))
+                    cct = zlib.compress(ct)
+                    print("Lunghezza testo originale: "+str(len(ct)))
+                    print("Lunghezza testo compresso: "+str(len(cct)))
                     if(ct is None):
                         self.log.log("Error in encrypt with AESCGM")
                     else:
