@@ -127,7 +127,7 @@ class Database:
 
             :type receiver: String
             :param receiver: The username of the receiver
-            rtype: Dictionary
+            :rtype: Dictionary
             :return: An array of dictionary containing all the information about the messages:
                      ['Sender'] means The sender of the message as String
                      ['Text'] means The text of the message as String
