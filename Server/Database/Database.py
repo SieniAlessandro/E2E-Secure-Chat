@@ -99,13 +99,18 @@ class Database:
     def insertDHParameter(self,user,p,g):
         """
             Insert the Diffie Helmann parameter after of the registered user
-            Parameters:
-                    user    : the username associated with the parameter    : string
-                    p       : the P parameter                               : int
-                    g       : the G parameter                               : int
-            Return:
-                     0      : the insertion is done correctly               : int
-                    -1      : an error happened                             : int  """
+
+            :type user: String
+            :param user: the username associated with the parameter
+            :type p: Int
+            :param p: the P parameter
+            :type g: Int
+            :param g: the G parameter
+
+            :rtype: Int
+            :return: 0 if the insertion is done correctly\n
+                     -1 if an error happened
+        """
 
         query = "UPDATE user SET P = %s,G = %s WHERE userName = %s"
         try:
@@ -127,6 +132,7 @@ class Database:
 
             :type receiver: String
             :param receiver: The username of the receiver
+
             :rtype: Dictionary
             :return: An array of dictionary containing all the information about the messages \n
                      ['Sender'] means The sender of the message as String\n
@@ -155,12 +161,16 @@ class Database:
             return -1
 
     def getSecurityInfoFromUser(self,_user):
-        """ Obtain the security parameter of an user as a list
-            Parameter:
-                    _user           : the username of the user of which we want the security information        : string
-            Return:
-                    [PublicKey,G,P] : the list of security information "Public key and DH parameters            : [string,int,int]
-                    None:           : An error happened during the search of the information"""
+        """
+            Obtain the security parameter of an user as a list
+
+            :type _user: String
+            :param _user: The username of the user of which we want the security information
+
+            :rtype: [String,Int,Int] or None
+            :return: The list of security information "Public key and DH parameters as [PublicKey,G,P] or None if
+                     an error happened during the search of the information
+        """
 
         query = "SELECT PublicKey,G,P from user where UserName = %s"
         try:
@@ -185,9 +195,9 @@ class Database:
             :param _password: the password used to login
 
             :rtype: Int
-            :return: 0 if The combination user/password is incorrect
-                     1 if he combination user/password is correct
-                    -1 if An error happened
+            :return: 0 if The combination user/password is incorrect\n
+                     1 if he combination user/password is correct\n
+                     -1 if An error happened
             """
 
         query = "SELECT * from user where UserName = %s AND Password = %s "
@@ -204,13 +214,16 @@ class Database:
             return -1
 
     def userIsRegistered(self,_user):
-        """ Check if the user is registred,
-            Parameter:
-                    _user   : the username to check                         : string
-            Return:
-                     0      : The username is not present in the database   : int
-                     1      : The username is present in the database       : int
-                    -1      : An error happened                             : int """
+        """
+            Check if the user is registred,
+
+            :type _user: String
+            :param _user: The username to check
+            :rtype: Int
+            :return: 0 if the username is not present in the database\n
+                     1 if the username is present in the database\n
+                     -1 if An error happened
+        """
 
         query = "SELECT * from user where UserName = %s"
         try:
@@ -229,12 +242,15 @@ class Database:
     #the database
 
     def remove_user(self,user):
-        """ Remove that user from the database
-            Parameter:
-                    user    : The username of the user to remove    : string
-            Return:
-                     0      : The operation is done correctly       : int
-                    -1      : An error happened                     : int    """
+        """
+            Remove that user from the database
+            :type user: String
+            :param user: The username of the user to remove
+
+            :rtype: Int
+            :return: 0 if the operation is done correctly\n
+                     -1 if an error happened\n
+        """
 
         query = "DELETE from user WHERE UserName = %s"
         try:
@@ -252,12 +268,15 @@ class Database:
     #This method is invkoed when a user back online and there are several waiting message with him as receiver.
 
     def remove_waiting_messages_by_receiver(self,receiver):
-        """ Remove all the message destined to the user passed as argument from the database
-            Parameter:
-                    receiver : the username of the user we want to delete all the messages  : string
-            Return:
-                     0       : The operation is done correctly                              : int
-                    -1       : An error happened                                            : int   """
+        """
+            Remove all the message destined to the user passed as argument from the database
+            :type receiver: String
+            :param receiver: The username of the user we want to delete all the messages
+            
+            :rtype: Int
+            :return: 0 if the operation is done correctly\n
+                     -1 if an error happened\n
+        """
 
         query = "DELETE from message WHERE Receiver = %s"
         try:
@@ -271,42 +290,6 @@ class Database:
             self.db.rollback()
             print (e)
             return -1
-    '''
-    def remove_waiting_messages_by_sender(self,sender):
-        #DA RIMUOVERE
-
-
-        query = "DELETE from message WHERE Sender = %s"
-        try:
-            #Executing the query
-            self.cursor.execute(query,(sender))
-            #Commit the changes to the databes
-            self.db.commit()
-            return 0
-        except Exception as e:
-            #rollback to the previous operations
-            self.db.rollback()
-            print (e)
-            return -1
-
-    def remove_waiting_messages_by_id(self,index):
-        #DA RIMUOVERE
-
-
-
-        query = "DELETE from message WHERE Index = %s"
-        try:
-            #Executing the query
-            self.cursor.execute(query,(index))
-            #Commit the changes to the databes
-            self.db.commit()
-            return 0
-        except Exception as e:
-            #rollback to the previous operations
-            self.db.rollback()
-            print (e)
-            return -1
-    '''
     #At the end of the execetion the server close the connection with the database invoking this method
 
     def close_connection(self):
