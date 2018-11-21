@@ -2,24 +2,27 @@ import threading
 import datetime
 class Log:
     def __init__(self,enableLog,path):
-        """ Open the file in write mode (overwriting the precedent content) and instatiate a lock
-            Parameter:
-                    enableLog   : Boolean variable meaning if the log must be enable or not : Boolean
-                    path        : The path of the log file                                  : string
-            Return :
-                    Void - Constructor """
+        """
+            Open the file in write mode (overwriting the precedent content) and instatiate a lock
+
+            :param enableLog: Boolean variable meaning if the log must be enable or not
+            :type enableLog: Boolean
+            :param path: The path of the log file
+            :type path: String
+        """
         self.lock = threading.Lock()
         self.file = open(path,"w")
         self.enableLog = enableLog
 
 
     def log(self,_log):
-        """ Save in the opened file the string passed as argument with a timestamp prefixed, in order to define when
+        """
+            Save in the opened file the string passed as argument with a timestamp prefixed, in order to define when
             the action logged is happened
-            Parameter:
-                    _log : The string that must be saved in the file    : string
-            Return:
-                    Void    """
+
+            :param _log: The string that must be saved in the file
+            :type _log: string
+        """
         with self.lock:
             if self.enableLog:
                 #Obtaining the timestamp of this moment
@@ -33,9 +36,7 @@ class Log:
 
 
     def closeFile(self):
-        """ Close the file
-            Parameter:
-                    Void
-            Return:
-                    Void   """
+        """
+            Close the file
+        """
         self.file.close()

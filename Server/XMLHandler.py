@@ -6,23 +6,19 @@ class XMLHandler:
 
     PATH = "preferences.xml"
     def __init__(self):
-        """ Open the XML file from the default PATH (preferences.xml) and if it is not present, create it and write
+        """
+            Open the XML file from the default PATH (preferences.xml) and if it is not present, create it and write
             default configuration
-            Parameter:
-                    Void
-            Return:
-                    Void - Constructor"""
+        """
         try:
             self.root = etree.fromstring(open(self.PATH,"r").read())
         except FileNotFoundError:
             self.initilizeXML()
 
     def initilizeXML(self):
-        """ Intialize a new XML file with the default configuration:
-            Parameter:
-                    Void
-            Return:
-                    Void        """
+        """
+            Intialize a new XML file with the default configuration:
+        """
 
         root = etree.Element('Server')
 
@@ -60,81 +56,91 @@ class XMLHandler:
         self.root = root
 
     def getDatabasePort(self):
-        """ Obtain the port used by the DBMS to listen new requests
-            Parameter:
-                    Void
-            Return:
-                    The port used by the DBMS to listen new requests    : int   """
+        """
+            Obtain the port used by the DBMS to listen new requests
+
+            :rtype:int
+            :return:The port used by the DBMS to listen new requests
+        """
         return int(self.root[3][1].text)
 
     def getDatabaseAddress(self):
-        """ Obtain the IP address of the database
-            Parameter:
-                    Void
-            Return:
-                    The IP address of the database           : string   """
+        """
+            Obtain the IP address of the database
+
+            :rtype:string
+            :return:The IP address of the database
+        """
         return self.root[3][0].text
 
     def getDatabaseUser(self):
-        """ Obtain the username to login on the database
-            Parameter:
-                    Void
-            Return:
-                    The username to login on the database           : string   """
+        """
+            Obtain the username to login on the database
+
+            :rtype:String
+            :return:The username to login on the database
+        """
         return self.root[3][2].text
 
     def getDatabasePwd(self):
-        """ Obtain the password to login on the database
-            Parameter:
-                    Void
-            Return:
-                    The password to login on the database           : string   """
+        """
+            Obtain the password to login on the database
+
+            :rtype: String
+            :return: The password to login on the database
+        """
         return self.root[3][3].text
 
     def getServerPort(self):
-        """ Obtain the port used by the server to listen for new requests
-            Parameter:
-                    Void
-            Return:
-                    The port used by the server to listen for new requests           : int   """
+        """
+            Obtain the port used by the server to listen for new requests
+
+            :rtype: Int
+            :return:The port used by the server to listen for new requests
+        """
         return int(self.root[0].text)
 
     def getDatabaseName(self):
-        """ Obtain the name of the database
-            Parameter:
-                    Void
-            Return:
-                    The name of the database           : string   """
+        """
+            Obtain the name of the database
+
+            :rtype: String
+            :return: The name of the database
+        """
         return self.root[3][4].text
 
     def getEnableLog(self):
-        """ Obtain the boolean variable meaning if the Log must be enable or not
-            Parameter:
-                    Void
-            Return:
-                    The boolean variable meaning if the Log must be enable or not           : Boolean   """
+        """
+            Obtain the boolean variable meaning if the Log must be enable or not
+
+            :rtype: Boolean
+            :return: The boolean variable meaning if the Log must be enable or not
+        """
         return int(self.root[1].text)
 
     def GetLogPath(self):
-        """ Obtain the path of the log file
-            Parameter:
-                    Void
-            Return:
-                    The path of the log file          : string   """
+        """
+            Obtain the path of the log file
+
+            :rtype: String
+            :return: The path of the log file
+        """
         return self.root[2].text
 
     def getPemPath(self):
-        """ Obtain the path of the pem file with the private key of the server
-            Parameter:
-                    Void
-            Return:
-                    The path of the pem file with the private key of the server          : string   """
+        """
+            Obtain the path of the pem file with the private key of the server
+
+            :rtype: String
+            :return: The path of the pem file with the private key of the server
+        """
         return self.root[4].text
 
     def getBackupPemPath(self):
-        """ Obtain the path of the backup pem file with the private key of the server
-            Parameter:
-                    Void
-            Return:
-                    The path of the backup pem file with the private key of the server          : string   """
+        """
+            Obtain the path of the backup pem file with the private key of the server
+            
+            :rtype: String
+            :return: The path of the backup pem file with the private key of the server
+        """
         return self.root[5].text
