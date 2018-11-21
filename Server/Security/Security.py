@@ -134,7 +134,7 @@ class Security:
             :param data: The data of which we want generate the digest
             :rtype: Bytes
             :return: The digest of the data passed as argument
-        """"
+        """
         digest = hashes.Hash(hashes.SHA256(), backend=default_backend())
         digest.update(data)
         return digest.finalize()
