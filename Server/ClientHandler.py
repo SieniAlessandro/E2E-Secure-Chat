@@ -283,8 +283,8 @@ class ClientHandler(Thread):
     def StoreMessage(self,message):
         """ Store the message in the database waiting that the client come back online
 
-            :type message   : Dictionary
-            :param message  : The dictionary created by the received json message
+            :type message: Dictionary
+            :param message: The dictionary created by the received json message
         """
         self.log.log("The user has a massage to be stored on the DB :")
         #Qui non importa il .lower() in quanto tutti gli handledUser hanno gia' l'username in minuscolo
