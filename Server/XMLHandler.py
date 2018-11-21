@@ -59,8 +59,8 @@ class XMLHandler:
         """
             Obtain the port used by the DBMS to listen new requests
 
-            :rtype:int
-            :return:The port used by the DBMS to listen new requests
+            :rtype: Int
+            :return: The port used by the DBMS to listen new requests
         """
         return int(self.root[3][1].text)
 
@@ -68,8 +68,8 @@ class XMLHandler:
         """
             Obtain the IP address of the database
 
-            :rtype:string
-            :return:The IP address of the database
+            :rtype: String
+            :return: The IP address of the database
         """
         return self.root[3][0].text
 
