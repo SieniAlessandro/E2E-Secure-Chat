@@ -17,20 +17,20 @@ class ClientHandler(Thread):
         """
             Instatiate all the variabile and create the security module for the handled user
 
-            :type Conn      : Socket
-            :param Conn     : The socket used to send and receive data from and to the client
-            :type ip        : string
-            :param ip       : The ip address of the handled clients
-            :type port      : int
-            :param port     : The port to communicate with the handled user
-            :type db        : Database
-            :param db       : The database module to store and find information in the database
-            :type clinets   : List<User>
-            :param clients  : The array of online client
-            :type Log       : Log
-            :param Log      : The module able to log the information on a FileNotFoundError
-            :type XML       : XMLHandler
-            :name XML       : The XML module able to obtain the parameter from thr XML File
+            :type Conn: Socket
+            :param Conn: The socket used to send and receive data from and to the client
+            :type ip: String
+            :param ip: The ip address of the handled clients
+            :type port: Int
+            :param port: The port to communicate with the handled user
+            :type db: Database
+            :param db: The database module to store and find information in the database
+            :type clinets: List<User>
+            :param clients: The array of online client
+            :type Log: Log
+            :param Log: The module able to log the information on a FileNotFoundError
+            :type XML: XMLHandler
+            :param XML: The XML module able to obtain the parameter from thr XML File
         """
         Thread.__init__(self)   #Instatation of the thread
         self.HandledUser = User(Conn,ip,0,port,"none")
@@ -99,12 +99,12 @@ class ClientHandler(Thread):
             sended are correct, in this case if there are several messagges sended to the user when
             he was offline, the server send them , specifying the sender and also the time (yy-mm-dd hh-mm-ss)
 
-            :type message       : Dictionary
-            :param message      : The dictionary created by the json message receveid
-            :type data          : Bytes
-            :param data         : The raw data reppresenting the message as Received
-            :type signature     : Bytes
-            :param signature    : The signature of data
+            :type message: Dictionary
+            :param message: The dictionary created by the json message receveid
+            :type data: Bytes
+            :param data: The raw data reppresenting the message as Received
+            :type signature: Bytes
+            :param signature: The signature of data
         """
         self.log.log("A client want to login")
         key = self.DB.getSecurityInfoFromUser(message['username'])
@@ -204,10 +204,10 @@ class ClientHandler(Thread):
         """ Insert the information of the user in the database, checking if there is another user with the same Username
             and sending back the result
 
-            :type message   : Dictionary
-            :param message  : The dictionary created by the received json message
-            :type digest    : Bytes
-            :param digest   : The digest created by the data corresponding to the message creator of the dictionary
+            :type message: Dictionary
+            :param message: The dictionary created by the received json message
+            :type digest: Bytes
+            :param digest: The digest created by the data corresponding to the message creator of the dictionary
         """
         checkdigest = self.HandledUser.GetSecurityModule().generateDigest(json.dumps(message).encode('utf-8'))
         if digest != checkdigest:
@@ -307,8 +307,8 @@ class ClientHandler(Thread):
         """
             Find the information about the user (IPaddress:clientPort) related to the username passed as parameter
 
-            :type message   : dictionary
-            :param message  : The dictionary created by the json message received
+            :type message: Dictionary
+            :param message: The dictionary created by the json message received
         """
         self.log.log("A client want to find another user")
         response = {}
