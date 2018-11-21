@@ -157,12 +157,20 @@ class Security:
         self.ClientPublicKey = serialization.load_pem_public_key(key,backend=default_backend())
 
     def getSerializedPublicKey(self):
-        """ Get the public key serializable (it must be decoded) in order to get it printable and sendable
+        """ Get the server public key serializable (it must be decoded) in order to get it printable and sendable
             Parameter:
                     Void
             Return:
                     The public key of the client        : Bytes"""
         return self.publicKey.public_bytes(encoding=serialization.Encoding.PEM,format=serialization.PublicFormat.SubjectPublicKeyInfo)
+
+    def getSerializedClientPublicKey(self):
+        """ Get the server public key serializable (it must be decoded) in order to get it printable and sendable
+            Parameter:
+                    Void
+            Return:
+                    The public key of the client        : Bytes"""
+        return self.ClientPublicKey.public_bytes(encoding=serialization.Encoding.PEM,format=serialization.PublicFormat.SubjectPublicKeyInfo)
 
     def generateSymmetricKey(self,len,nonce):
         """ Generate a symmetric key used in AESGCM with a lenght (suggested 192/256 bit ) and pass a nonce used with the key

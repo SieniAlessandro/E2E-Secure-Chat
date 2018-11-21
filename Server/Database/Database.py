@@ -166,10 +166,10 @@ class Database:
         """ Control if the credential passed as arguments are corrected,
             Parameters:
                     _user       : the username used to login                    : string
-                    -password   : the password used to login                    : string
+                    _password   : the password used to login                    : string
             Return:
-                    0           : The combination user/password is incorrect    : int
-                    1           : The combination user/password is correct      : int
+                     0          : The combination user/password is incorrect    : int
+                     1          : The combination user/password is correct      : int
                     -1          : An error happened                             : int"""
 
         query = "SELECT * from user where UserName = %s AND Password = %s "
@@ -240,7 +240,7 @@ class Database:
             Return:
                      0       : The operation is done correctly                              : int
                     -1       : An error happened                                            : int   """
-                    
+
         query = "DELETE from message WHERE Receiver = %s"
         try:
             #Executing the query

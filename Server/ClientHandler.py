@@ -5,7 +5,6 @@ from User import User
 from Security.Security import Security
 import json
 import os
-
 class ClientHandler(Thread):
     """ Used to handle the new user whenever he try to connect to the server.
     This mechanism implies that for each user there is an appropriate thread that handle all the
@@ -134,6 +133,7 @@ class ClientHandler(Thread):
             self.HandledUser.setClientPort(message['porta'])
             key,g,p = self.DB.getSecurityInfoFromUser(self.HandledUser.getUserName())
             if key is not None:
+                self.HandledUser.GetSecurityModule().AddClientKey(key.encode('utf-8'))
                 self.HandledUser.GetSecurityModule().addDHparameters(p,g)
             else:
                 print("Errore nella query per la chiave")
@@ -328,24 +328,18 @@ class ClientHandler(Thread):
                     FoundUser = self.OnlineClients[message['username'].lower()]
                     response['id'] = "!"
                     response['status'] = FoundUser.getIp()+":"+str(FoundUser.getClientPort())
-                    response['key'] = FoundUser.GetSecurityModule().getSerializedPublicKey().decode('utf-8')
+                    response['key'] = FoundUser.GetSecurityModule().getSerializedClientPublicKey().decode('utf-8')
                     response['p'],response['g'] = FoundUser.GetSecurityModule().getDHparameters()
-
-                    """pt = self.HandledUser.GetSecurityModule().getSerializedPublicKey() + \
-                    self.HandledUser.nonce.to_bytes(11,byteorder='big') + \
-                    FoundUser.nonce.to_bytes(6,byteorder='big')"""
                     info = {}
-                    info['key'] = self.HandledUser.GetSecurityModule().getSerializedPublicKey().decode('utf-8')
+                    info['key'] = self.HandledUser.GetSecurityModule().getSerializedClientPublicKey().decode('utf-8')
                     info['Nsa'] = self.HandledUser.GetSecurityModule().nonce
                     info['Nsb'] = FoundUser.GetSecurityModule().nonce
                     info['username'] = self.HandledUser.getUserName()
                     pt = json.dumps(info).encode('utf-8')
                     ct = FoundUser.GetSecurityModule().PacketAESEncryptText(pt)
-                    print("Lunghezza del testo cifrato:" + str(len(ct)))
                     response['lenInfo'] = len(ct)
                     response['info'] = int.from_bytes(ct,byteorder='big')
-                    #print("Messaggio cifrato: "+ str(response['info']))
-                    self.log.log("Ip found:"+response['status'])
+                    self.log.log("Ip found: "+response['status'])
             else:
                 #Check if the receiver is not registered
                 if self.DB.userIsRegistered(message['username'].lower()) == 0:
