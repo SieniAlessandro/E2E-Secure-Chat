@@ -122,15 +122,16 @@ class Database:
             return -1
 
     def getMessageByReceiver(self,receiver):
-        """ Obatain all the message waiting for that user as a dictionary with keys = 'Sender', 'Text' and 'Time'
-            Parameter:
-                    receiver: the username of the receiver                      : string
-            Return :
-                    request     : An array of dictionary containing all the information about the messages:
-                        ['Sender']  : The sender of the message                 : string
-                        ['Text']    : The text of the message                   : string
-                        ['Time']    : The time in which the message is sended   : string
-                    -1          : An error happened                             : int     """
+        """
+            Obatain all the message waiting for that user
+            :type receiver: String
+            :param receiver: The username of the receiver
+            rtype: Dictionary
+            :return: An array of dictionary containing all the information about the messages:
+                     ['Sender']  : The sender of the message as String
+                     ['Text']    : The text of the message as String
+                     ['Time']    : The time in which the message is sended as String
+        """
 
         query = "SELECT Sender,Text,Time FROM message WHERE Receiver = %s"
         msg = []
@@ -180,7 +181,8 @@ class Database:
             :type _user: String
             :param _user: the username used to login
             :type _password: String
-            :param _password: the password used to login         
+            :param _password: the password used to login
+
             :rtype: Int
             :return: 0 if The combination user/password is incorrect
                      1 if he combination user/password is correct
