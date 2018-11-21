@@ -49,6 +49,7 @@ class Server:
             newClient = ClientHandler(conn,ip,port,self.DB,self.Users,self.Log,self.XML);
             #Starting the new thread
             newClient.start()
+            #Appending the thread to the list of active threads
             self.ActiveThreads.append(newClient)
     def handleServer(self):
         """
@@ -85,3 +86,13 @@ class Server:
         self.DB.close_connection()
         self.Log.closeFile()
         os._exit(0)
+
+
+### SERVER EXECUTION ############
+
+if __name__ == "__main__":
+    s = Server()
+    try:
+        s.start()
+    except KeyboardInterrupt:
+        s.close()

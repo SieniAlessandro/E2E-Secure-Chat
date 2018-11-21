@@ -5,6 +5,7 @@ from User import User
 from Security.Security import Security
 import json
 import os
+import zlib
 class ClientHandler(Thread):
     """
         Used to handle the new user whenever he try to connect to the server.
@@ -12,7 +13,6 @@ class ClientHandler(Thread):
         requests coming from that clinet
     """
     MSG_LEN = 10240
-    #Constructor of the class
     def __init__(self,Conn,ip,port,db,clients,Log,XML):
         """
             Instatiate all the variabile and create the security module for the handled user
@@ -151,8 +151,6 @@ class ClientHandler(Thread):
             else:
                 print("Errore nella query per la chiave")
             jsonResponse = json.dumps(response)
-            #print(len(jsonResponse.encode('utf-8')))
-            #print(jsonResponse)
             signature = self.HandledUser.GetSecurityModule().getSignature(jsonResponse.encode("utf-8"))
             ct = self.HandledUser.GetSecurityModule().RSAEncryptText(jsonResponse.encode("utf-8"))
             #Informing the client about the correctness of the login procedure
@@ -168,7 +166,6 @@ class ClientHandler(Thread):
                 return
             else:
                 response = json.loads(pt.decode('utf-8'))
-                print(response)
                 if response['serverNonce'] == self.serverNonce:
                     msg = self.DB.getMessageByReceiver(self.HandledUser.getUserName())
                     response = {}
@@ -187,9 +184,6 @@ class ClientHandler(Thread):
                         #Removing the messagess previously obtained
                         self.DB.remove_waiting_messages_by_receiver(self.HandledUser.getUserName())
                     ct = self.HandledUser.GetSecurityModule().AESEncryptText(jsonResponse.encode('utf-8'))
-                    cct = zlib.compress(ct)
-                    print("Lunghezza testo originale: "+str(len(ct)))
-                    print("Lunghezza testo compresso: "+str(len(cct)))
                     if(ct is None):
                         self.log.log("Error in encrypt with AESCGM")
                     else:
@@ -228,7 +222,6 @@ class ClientHandler(Thread):
         self.log.log("Wait for the public key")
         #Waiting for the public key
         publicKey = self.HandledUser.getSocket().recv(4096)
-        #publicKey,d = self.HandledUser.GetSecurityModule().splitMessage(publicKey)
         self.HandledUser.GetSecurityModule().AddClientKey(publicKey)
         response = {}
         if (self.DB.insert_user(message['user'].lower(),message['password'],message['name'].lower(),message['surname'].lower(),message['email'].lower(),publicKey.decode()) == 0):
@@ -295,11 +288,8 @@ class ClientHandler(Thread):
             :param message: The dictionary created by the received json message
         """
         self.log.log("The user has a massage to be stored on the DB :")
-        #Qui non importa il .lower() in quanto tutti gli handledUser hanno gia' l'username in minuscolo
-        #vedere la login per conferma
         sender = self.HandledUser.getUserName()
         response = {}
-        #print(message['Text'])
         if self.DB.insert_message(sender,message['Receiver'],str(message['Text']),message['Time']) == 0:
             response['id'] = "."
             response['status'] = "1"
@@ -358,8 +348,8 @@ class ClientHandler(Thread):
                     self.log.log("The user "+message['username'].lower()+" is offline")
                     response['id'] = "!"
                     response['status'] = "0"
-                    sec = self.DB.getSecurityInfoFromUser(message['username'].lower())
-                    response['key'] = sec[0]
+                    SecurityParameters = self.DB.getSecurityInfoFromUser(message['username'].lower())
+                    response['key'] = SecurityParametersc[0]
         jsonResponse = json.dumps(response)
         #Using symmetric key criptography because this request can be done only by logged user
         ct = self.HandledUser.GetSecurityModule().AESEncryptText(jsonResponse.encode('utf-8'))
