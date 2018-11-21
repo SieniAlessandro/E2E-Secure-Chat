@@ -77,8 +77,8 @@ class XMLHandler:
         """
             Obtain the username to login on the database
 
-            :rtype:String
-            :return:The username to login on the database
+            :rtype: String
+            :return: The username to login on the database
         """
         return self.root[3][2].text
 
@@ -96,7 +96,7 @@ class XMLHandler:
             Obtain the port used by the server to listen for new requests
 
             :rtype: Int
-            :return:The port used by the server to listen for new requests
+            :return: The port used by the server to listen for new requests
         """
         return int(self.root[0].text)
 
@@ -139,7 +139,7 @@ class XMLHandler:
     def getBackupPemPath(self):
         """
             Obtain the path of the backup pem file with the private key of the server
-            
+
             :rtype: String
             :return: The path of the backup pem file with the private key of the server
         """
