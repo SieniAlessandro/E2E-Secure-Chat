@@ -233,7 +233,7 @@ class Security:
             Add the nonce used in the AES when is necessary to encapsulate some information about the starter of the conversation
             between two user
 
-            :type nonce : Int
+            :type nonce: Int
             :param nonce: The nonce used to encrypt the packets necessary to exchange key from two clients
         """
         self.packetNonce = nonce
@@ -321,7 +321,7 @@ class Security:
             Generate a nonce of a dimension chosed (in bytes) a get it as an Integer encoded in Big Endian
 
             :type size: Int
-            :param size:The size (in Bytes) of the nonce
+            :param size: The size (in Bytes) of the nonce
             :rtype: Int
             :return: A nonce generated using the system call specific for cryptography purpose of the dimensione passed as argument
         """
