@@ -124,13 +124,14 @@ class Database:
     def getMessageByReceiver(self,receiver):
         """
             Obatain all the message waiting for that user
+
             :type receiver: String
             :param receiver: The username of the receiver
             rtype: Dictionary
             :return: An array of dictionary containing all the information about the messages:
-                     ['Sender']  : The sender of the message as String
-                     ['Text']    : The text of the message as String
-                     ['Time']    : The time in which the message is sended as String
+                     ['Sender'] means The sender of the message as String
+                     ['Text'] means The text of the message as String
+                     ['Time'] means The time in which the message is sended as String
         """
 
         query = "SELECT Sender,Text,Time FROM message WHERE Receiver = %s"
