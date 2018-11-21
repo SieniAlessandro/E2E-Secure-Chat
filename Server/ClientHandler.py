@@ -6,22 +6,32 @@ from Security.Security import Security
 import json
 import os
 class ClientHandler(Thread):
-    """ Used to handle the new user whenever he try to connect to the server.
-    This mechanism implies that for each user there is an appropriate thread that handle all the
-    requests coming from that clinet
+    """
+        Used to handle the new user whenever he try to connect to the server.
+        This mechanism implies that for each user there is an appropriate thread that handle all the
+        requests coming from that clinet
     """
     MSG_LEN = 10240
     #Constructor of the class
     def __init__(self,Conn,ip,port,db,clients,Log,XML):
-        """ Instatiate all the variabile and create the security module for the handled user
-            Parameters:
-                Conn    : The socket used to send and receive data from and to the client   : Socket
-                ip      : The ip address of the handled clients                             : string
-                port    : The port to communicate with the handled user                     : int
-                db      : The database module to store and find information in the database : Database
-                clients : The array of online client                                        : List<User>
-                Log     : The module able to log the information on a FileNotFoundError     : Log
-                XML     : The XML module able to obtain the parameter from thr XML File     : XML """
+        """
+            Instatiate all the variabile and create the security module for the handled user
+
+            :type Conn      : Socket
+            :param Conn     : The socket used to send and receive data from and to the client
+            :type ip        : string
+            :param ip       : The ip address of the handled clients
+            :type port      : int
+            :param port     : The port to communicate with the handled user
+            :type db        : Database
+            :param db       : The database module to store and find information in the database
+            :type clinets   : List<User>
+            :param clients  : The array of online client
+            :type Log       : Log
+            :param Log      : The module able to log the information on a FileNotFoundError
+            :type XML       : XMLHandler
+            :name XML       : The XML module able to obtain the parameter from thr XML File
+        """
         Thread.__init__(self)   #Instatation of the thread
         self.HandledUser = User(Conn,ip,0,port,"none")
         self.DB = db
@@ -36,11 +46,7 @@ class ClientHandler(Thread):
         #self.HandledUser.getSocket().settimeout(60)
     #Method whose listen the message coming from the handled client,showing its content
     def run(self):
-        """Waiting for the message coming from the associate client
-        Parameter :
-                Void
-        Return:
-                Void """
+        """ Waiting for the message coming from the associate client """
         while self._is_stopped == False:
             #Receiving the data from the handled client
             try:
@@ -88,15 +94,17 @@ class ClientHandler(Thread):
                 elif jsonMessage['id'] == "0":
                     del self.OnlineClients[self.HandledUser.getUserName()]
     def login(self,message,data,signature):
-        """ Login with inserted credential and search in the Database if the information
+        """
+            Login with inserted credential and search in the Database if the information
             sended are correct, in this case if there are several messagges sended to the user when
             he was offline, the server send them , specifying the sender and also the time (yy-mm-dd hh-mm-ss)
-            Parameters:
-                    message     : the dictionary created by the json message receveid   : Dictionary
-                    data        : the raw data reppresenting the message as Received    : Bytes
-                    signature   : The signature of data                                 : Bytes
-            Return:
-                    Void
+
+            :type message       : Dictionary
+            :param message      : The dictionary created by the json message receveid
+            :type data          : Bytes
+            :param data         : The raw data reppresenting the message as Received
+            :type signature     : Bytes
+            :param signature    : The signature of data
         """
         self.log.log("A client want to login")
         key = self.DB.getSecurityInfoFromUser(message['username'])
@@ -195,11 +203,12 @@ class ClientHandler(Thread):
     def registerUser(self,message,digest):
         """ Insert the information of the user in the database, checking if there is another user with the same Username
             and sending back the result
-            Parameters:
-                message : The dictionary created by the received json message                                   : Dictionary
-                digest  : The digest created by the data corresponding to the message creator of the dictionary : Bytes
-            Return:
-                Void    """
+
+            :type message   : Dictionary
+            :param message  : The dictionary created by the received json message
+            :type digest    : Bytes
+            :param digest   : The digest created by the data corresponding to the message creator of the dictionary
+        """
         checkdigest = self.HandledUser.GetSecurityModule().generateDigest(json.dumps(message).encode('utf-8'))
         if digest != checkdigest:
             print("Errore nella firma")
@@ -255,15 +264,6 @@ class ClientHandler(Thread):
                     #inserting the DH parameter in the DB
                     if self.DB.insertDHParameter(message['user'],jsonResponse['p'],jsonResponse['g']) == 0:
                         self.log.log("DH parameters inserted correctly")
-                        '''
-                        response = {}
-                        response['serverNonce'] = jsonResponse['serverNonce']
-                        response['p'] = str(self.HandledUser.GetSecurityModule().generateDigest(str(jsonResponse['p']).encode()))
-                        response['g'] = str(self.HandledUser.GetSecurityModule().generateDigest(str(jsonResponse['g']).encode()))
-                        jsonResponse = json.dumps(response)
-                        signature = self.HandledUser.GetSecurityModule().getSignature(jsonResponse.encode('utf-8'))
-                        ct = self.HandledUser.GetSecurityModule().RSAEncryptText(jsonResponse.encode('utf-8'))
-                        '''
                         d = self.HandledUser.GetSecurityModule().generateDigest(pt)
                         ct = self.HandledUser.GetSecurityModule().RSAEncryptText(d)
                         signature = self.HandledUser.GetSecurityModule().getSignature(d)
@@ -282,10 +282,10 @@ class ClientHandler(Thread):
 
     def StoreMessage(self,message):
         """ Store the message in the database waiting that the client come back online
-            Parameter:
-                message : The dictionary created by the received json message : Dictionary
-            Return:
-                Void"""
+
+            :type message   : Dictionary
+            :param message  : The dictionary created by the received json message
+        """
         self.log.log("The user has a massage to be stored on the DB :")
         #Qui non importa il .lower() in quanto tutti gli handledUser hanno gia' l'username in minuscolo
         #vedere la login per conferma
@@ -304,12 +304,12 @@ class ClientHandler(Thread):
         self.log.log("Message stored correctly")
 
     def findUser(self,message):
-        """ Find the information about the user (IPaddress:clientPort) related to the username passed as parameter
-            Parameter:
-                    message : The dictionary created by the json message received : dictionary
-            Return:
-                    Void    """
+        """
+            Find the information about the user (IPaddress:clientPort) related to the username passed as parameter
 
+            :type message   : dictionary
+            :param message  : The dictionary created by the json message received
+        """
         self.log.log("A client want to find another user")
         response = {}
         if self.HandledUser not in self.OnlineClients.values():
@@ -358,9 +358,7 @@ class ClientHandler(Thread):
         self.HandledUser.getSocket().send(ct)
 
     def getHandledUser(self):
-        """This function gets back the username associate to the handled client
-            Parameter:
-                    Void
-            Return:
-                    The handled object User ,corresponding the user handled by this thread : User"""
+        """
+            This function gets back the username associate to the handled client
+        """
         return self.HandledUser.getUserName()
