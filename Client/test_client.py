@@ -5,7 +5,7 @@ host = '127.0.0.1'
 port = 6000
 MESSAGE = 'hi'
 
-a = Client(host, port)
+a = Client()
 a.connectServer()
 #a.sendServer(MESSAGE)
 

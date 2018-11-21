@@ -8,6 +8,8 @@ from ConnectionHandler import *
 from Log import *
 from XMLClientHandler import *
 from Security.SecurityClient import *
+import os
+import binascii
 
 class Client:
     '''
@@ -16,37 +18,67 @@ class Client:
     BUFFER_SIZE = 2048*1024
     PORT_SERVER = 6000
     HOST_SERVER = '10.102.12.15'#'127.0.0.1'
-    CODE_TYPE = 'utf-16'
+    CODE_TYPE = 'utf-8'
     socketClient = {}
 
     def __init__(self, chat = None):
         self.XML = XMLClientHandler()
-        self.hostServer = self.XML.getServerAddress()#self.HOST_SERVER #IPv4 Address of the server
+        self.hostServer = '10.102.7.112'#self.XML.getServerAddress()#self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.XML.getServerPort()
         self.portp2p = random.randint(6001,60000)
+        self.username = None
         self.Log = Log()
         self.Log.log('Client initialized')
         self.Chat = chat
         self.Message = Message(self.Log)
         self.Security = SecurityClient(self.XML.getSecurityServerKey())
+        #################TESTING####################
+        #self.Security.generateDHParameters()
+        #Thread(target=self.Security.generate_key()).start()
+        ############################################
         #print(self.Security.getServerPublicKey().decode('utf-8'))
     #Functions to communicate with Server#
-    def sendServer(self, text):
+    def sendServer(self, text, id = None):
         '''
         Send a Message, containing the parameter text, to the Server
-        encoded with utf-16
+        encoded with utf-8
         If the communication with the server is closed return -1
         else return the return of the send function [a number > 0]
         '''
-        textBit = self.Security.RSAEncryptText(text,self.Security.serverPublicKey)
+
+        textBit = ''
+        hash = ''
+        if id is 'register':
+            textBit = text.encode('utf-8')#self.CODE_TYPE)
+            #print(str(len(textBit)))
+        elif id == 'server':
+            text = text.encode(self.CODE_TYPE)
+            textBit = self.Security.RSAEncryptText(text, self.Security.serverPublicKey)
+            #print('len mes crypted: ' + str(len(textBit)))
+            hash = self.Security.getSignature(text)
+            if hash is None:
+                h = hashes.Hash(hashes.SHA256(), backend=default_backend())
+                h.update(text)
+                hash = h.finalize()
+                #print('len hash ' + str(len(hash)))
+            else:
+                print('len digest ' + str(len(hash)))
+            #print('SONO QUI: ' + textBit+hash)
+            textBit = textBit+hash
+        else:
+            text = text.encode(self.CODE_TYPE)
+            #usa chiave simmetrica
+            textBit = self.Security.AESEncryptText(text)
         #text = text.decode()
-        ret = self.socketServer.send(textBit)#.encode(self.CODE_TYPE))
+        #print('lunghezza del messaggio criptato + hash : ' + str(len(textBit+hash)))
+        ret = self.socketServer.send(textBit)
+
         if ret == 0:
             #Socket is close
             self.Log.log('Problem in the connection with the server')
             return -1
         else:
-            self.Log.log('Message: <' + text + '> sended to the server correctly')
+            #self.Log.log('Message: <' + text + '> sended to the server correctly')
             return ret
 
     def connectServer(self) :
@@ -72,11 +104,14 @@ class Client:
             messages related to the specific connection with that specific user
             TO FINISH
         '''
+        #print(msgs)
         for x in msgs:
+            ct = int(msgs[x]['Text']).to_bytes(256,byteorder='big')
+            pt = self.Security.RSADecryptText(ct).decode(self.CODE_TYPE)
             self.Log.log('sender :' + msgs[x]['Sender'])
-            self.Log.log('text : ' + msgs[x]['Text'])
+            self.Log.log('text : ' + pt)
             self.Log.log('time : ' + msgs[x]['Time'])
-            self.Message.addMessagetoConversations(msgs[x]['Sender'], msgs[x]['Text'], msgs[x]['Time'], 1)
+            self.Message.addMessagetoConversations(msgs[x]['Sender'], pt, msgs[x]['Time'], 1)
 
     def receiveServer(self):
         '''
@@ -91,7 +126,12 @@ class Client:
                 self.Log.log('Connection with the server closed!')
                 return -1
             else:
-                msg = ret.decode(self.CODE_TYPE)
+                msg = self.Security.decryptText(ret)
+                if msg is None:
+                    print('The connection is not safe!')
+                    self.onClosing()
+                #print('secondo me è qua!')
+                msg = msg.decode(self.CODE_TYPE)
                 self.Log.log('Received a message from the SERVER: ' + msg)
 
                 dictMsg = json.loads(msg)
@@ -102,30 +142,35 @@ class Client:
                     else :
                         self.Log.log('No messages stored in the server')
                     return 1
+                else:
                     #if ! we are waiting to know the IP of the host we want to connect to
-                elif dictMsg['id'] == '!' :
-                    return dictMsg['status']
-                    #if ? we are waiting to know if the login is gone
-                elif dictMsg['id'] == '?' :
-                    return dictMsg['status']
-                    #if - we are waiting to know how the registration is gone
-                elif dictMsg['id'] == '-' :
-                    return dictMsg['status']
-                    #if . we are waiting to know if a message sended to be stored
-                    #in the server has been succesfully received and stored
-                elif dictMsg['id'] == '.' :
-                    return dictMsg['status']
-                else :
-                    print('The protocol for this kind of message has not been implemented yet')
-                    return dictMsg['id']
-
+                    if dictMsg['id'] == '!' :
+                        return dictMsg
+                        #if ? we are waiting to know if the login is done
+                    elif dictMsg['id'] == '?' :
+                        return dictMsg
+                        #if - we are waiting to know how the registration is done
+                    elif dictMsg['id'] == '-' :
+                        return dictMsg
+                        #if . we are waiting to know if a message sended to be stored
+                        #in the server has been succesfully received and stored
+                    elif dictMsg['id'] == '.' :
+                        return dictMsg['status']
+                    else :
+                        print('The protocol for this kind of message has not been implemented yet')
+                        return dictMsg['id']
+        except Exception as e:
+            print(e)
+            self.Log.log('An Exception has been raised in the receiveServer function')
+            return -1
         except:
+            print(sys.exc_info()[0])
             self.Log.log('An Exception has been raised in the receiveServer function')
             return -1
     ######################################
 
     #Functions for the FrontEnd#
-    def register(self, username, password, name, surname, email, key):
+    def register(self, username, password, name, surname, email, key = 0):
         '''
             send a message to the server to register
             The message is sent with the prefix '1|'
@@ -133,29 +178,69 @@ class Client:
             otherwise return 0 {we can use other codes to know why it is not okay}
         '''
 
-        self.Security.generate_key()
-
         msg = {}
         msg['id'] = '1'
-        msg['user'] = username
+        msg['user'] = username.lower()
         msg['password'] = password
         msg['name'] = name
         msg['surname'] = surname
         msg['email'] = email
-        print(len(self.Security.getSerializedPublicKey().decode('utf-8')))
-        msg['key'] = self.Security.getSerializedPublicKey().decode('utf-8')
+        clientNonce = int(binascii.hexlify(os.urandom(6)),16)
+        msg['clientNonce'] = clientNonce
+        #msg['key'] = self.Security.getSerializedPublicKey().decode('utf-8')
         msgToSend = json.dumps(msg)
-        self.sendServer(msgToSend)
+        print('inizio registrazione')
+        self.sendServer(msgToSend, 'server')
+        #print(str(msgToSend) + ' \nlen :' + str(len(msgToSend)))
 
-        value = int(self.receiveServer());
-        if value == 1 :
+        self.Security.generate_key()
+
+        #print(len(self.Security.getSerializedPublicKey().decode('utf-8')))
+        #print(self.Security.getSerializedPublicKey().decode('utf-8'))
+        key = self.Security.getSerializedPublicKey().decode('utf-8')
+        print('invio chiave pubblica')
+        self.sendServer(key, 'register')
+
+        print('attendo risposta dal server')
+        dict = self.receiveServer()
+        print('ricevuto qualcosa')
+        #print(dict)
+        status = int(dict['status'])
+        if status != 1:
+            self.Security.resetKeys()
+            return status
+
+        if dict['clientNonce'] != clientNonce:
+            print('The connection is not fresh for me')
+            return 0
+
+        msg = {}
+        g,p = self.Security.generateDHParameters()
+        msg['serverNonce'] = dict['serverNonce']
+        msg['g'] = g
+        msg['p'] = p
+
+        self.sendServer(json.dumps(msg), 'server')
+
+        res = self.socketServer.recv(self.BUFFER_SIZE)
+        res = self.Security.decryptText(res)
+        print('res preso')
+
+        if self.Security.getDigest(json.dumps(msg).encode(self.CODE_TYPE)) != res:
+            print('the digest is not right!')
+            self.onClosing()
+
+        if status == 1 :
             self.Log.log('Succesfully registered')
-            self.Security.savePrivateKey(self.XML.getSecurityPath(), self.XML.getSecurityBackup())
+            self.Security.savePrivateKey(self.XML.getSecurityPath()+'-'+username + '.pem', self.XML.getSecurityBackup()+'-'+username+'.pem', password)
         else :
             #we can handle better the possible error
             self.Log.log('Error in registration')
 
-        return value
+        self.Security.saveParameters(g, p, self.XML.getSecurityParameters()+'-'+username+'.')
+        self.Security.resetKeys()
+        return status
+
 
     def login(self, username, password):
         '''
@@ -170,32 +255,50 @@ class Client:
 
         msg = {}
         msg['id'] = '2'
-        msg['username'] = username
+        msg['username'] = self.username
         msg['password'] = password
         msg['porta'] = str(self.portp2p)
+        self.Security.addClientNonce(username, self.Security.generateNonce(12))
+        msg['clientNonce'] = self.Security.getClientNonce(self.username)
         msgToSend = json.dumps(msg)
-        self.sendServer(msgToSend)
+        self.Security.initializeSecurity(self.XML.getSecurityPath(), self.XML.getSecurityBackup(), self.username, password.encode(self.CODE_TYPE))
+        print('LA CHIAVE PUBBLICA DI ' + self.username + '\n\n')
+        print(self.Security.getSerializedPublicKey())
+        print('\n\n\n\n\n\n\n\n\n')
+        self.sendServer(msgToSend, 'server')
 
-        value = int(self.receiveServer())
+        dict = self.receiveServer()
+        #print('the dict is ' + json.dumps(dict))
+        if dict['clientNonce'] != self.Security.getClientNonce(self.username):
+            print('the connection is not fresh for me!')
+            self.onClosing()
+
+        self.Security.AddSymmetricKeyFromDict(dict['key'])
+
+        msg = {}
+        msg['serverNonce'] = dict['serverNonce']
+        self.Security.serverNonce = msg['serverNonce']
+        self.sendServer(json.dumps(msg), self.Security.getSymmetricKey())
+        print('message sent with AES')
+        value = int(dict['status'])
         if value == 1 :
             self.Log.log('Succesfull logged in as ' + self.username)
-            #Carico le chiavi del client in Security
-            self.Security.initializeSecurity(self.XML.getSecurityPath(), self.XML.getSecurityBackup(), username, password)
 
             self.Message.loadConversations(self.username)
-
             #wating to know if there are waiting messages on the server
             self.receiveServer()
             #starting the connectionHandler in order to manage
             #connections received from new clients
-            ch = ConnectionHandler(self.portp2p, self.Log, self.Chat, self.CODE_TYPE, self.Message)
+            ch = ConnectionHandler(self.username, self.portp2p, self.Log, self.Chat, self.CODE_TYPE, self.Message, self.Security)
             ch.start()
-        elif value == 0 :
-            self.Log.log('Login : Wrong Username or Password')
-        elif value == -1 :
-            self.Log.log('Login : You are already connected with another device')
         else:
-            self.Log.log('Login : an unreachable part of the code has been reached ' + value)
+            if value == 0 :
+                self.Log.log('Login : Wrong Username or Password')
+            elif value == -1 :
+                self.Log.log('Login : You are already connected with another device')
+            else:
+                self.Log.log('Login : an unreachable part of the code has been reached, yupee!!! value: ' + value)
+            self.Security.resetKeys()
         return value
 
     def startConnection(self, receiver):
@@ -216,11 +319,14 @@ class Client:
         msgToSend = json.dumps(msg)
         self.sendServer(msgToSend)
 
-        value = self.receiveServer()
+        dict =  self.receiveServer()
+        print('message received from the server : ' + json.dumps(dict))
+        value = dict['status']
         msg = ''
 
         if value == '0' :
             msg = 'user offline'
+            self.Security.insertKeyClient(receiver, dict['key'])
             self.socketClient[receiver] = 'server'
             return 0
         elif value == '-1' :
@@ -236,16 +342,53 @@ class Client:
             msg = receiver.lower() + ' has IP:Port : ' + value
             self.Log.log('Starting a new connection with ' + receiver.lower())
             #try:
+
+
             self.socketClient[receiver] = socket.socket()
             ret = self.socketClient[receiver].connect((ip, int(port)))
+            cipherText = dict['info'].to_bytes(dict['lenInfo'], byteorder='big')
 
+
+            sign = self.Security.getSignature(cipherText)
+            self.socketClient[receiver].send(cipherText+sign)
+            print('sended symmetric message')
+            self.Security.insertKeyClient(receiver, dict['key'])
+            self.Security.generateDH(dict['p'], dict['g'], receiver)
+
+            plainText = self.Security.getSharedKey(receiver)
+            cipherText = self.Security.RSAEncryptText(plainText, self.Security.getKeyClient(receiver))
+            sign = self.Security.getSignature(plainText)
+
+            self.socketClient[receiver].send(cipherText+sign)
+            print('sended all the M3 message')
+
+            msg = self.socketClient[receiver].recv(self.BUFFER_SIZE)
+            signature = msg[-256:]
+            msg = msg[:-256]
+            if not self.Security.VerifySignature(msg, signature, receiver):
+                print('The integrity is not valid for the sender. Signature:\n' + signature)
+                return
+            else:
+                print('integrity of the DH shared_key is valid')
+            dict = json.loads(msg)
+            self.Security.computeDHKey(receiver, dict['sharedKey'])
+            ###############VERIFICA CHE IL NONCE SIA GIUSTO############
+            ###TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO###
+            ###########################################################
+            self.Security.addClientNonce(receiver, 0)
+            Nb = int.from_bytes(self.Security.AESDecryptText(dict['Nb'], None, 1), byteorder='big')
+            self.Security.addClientNonce(receiver, Nb)
+
+            self.socketClient[receiver].send(self.Security.AESEncryptText(Nb.to_bytes(6, byteorder='big')))
+
+            print('STARTCONNECTION CONCLUSA???????')
             value = 1
             if ret == 0:
                 msg = 'Error in sending the message to the client connection redirected to the server'
                 self.socketClient[receiver] = 'server'
-            #except:
-            #    self.Log.log('An exception has been raised in the startConnection function')
-            #    return -4
+            else:
+                self.Log.log('An exception has been raised in the startConnection function')
+                return -4
         self.Log.log(msg)
         return int(value)
 
@@ -260,7 +403,9 @@ class Client:
         msg = {}
         msg['id'] = '4'
         msg['Receiver'] = receiver
-        msg['Text'] = text
+        t = self.Security.RSAEncryptText(text.encode(self.CODE_TYPE), self.Security.getKeyClient(receiver))
+        #print(len(t))
+        msg['Text'] = int.from_bytes(self.Security.RSAEncryptText(text.encode(self.CODE_TYPE), self.Security.getKeyClient(receiver)), byteorder='big')
         msg['Time'] = time
         msgToSend = json.dumps(msg)
         self.sendServer(msgToSend)
@@ -333,6 +478,7 @@ class Client:
         msg = {}
         msg['id'] = '0'
         self.sendServer(json.dumps(msg))
+        self.username = None
 
 
     def onClosing(self, ordinatedUserList = None): #clean up before close
@@ -347,14 +493,3 @@ class Client:
             os._exit(0)
         print('Exiting....')
         os._exit(0)
-'''
-        if msg == "{quit}":
-            client_socket.close()
-            top.quit()
-
-
-
-    #Functions for the Security#
-    ##TO DO TO DO  TO DO TO DO##
-    ############################
-'''

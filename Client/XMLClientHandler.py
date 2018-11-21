@@ -43,11 +43,13 @@ class XMLClientHandler:
         # Security
         sec = etree.SubElement(self.root, "Security")
         sec_path = etree.SubElement(sec, "path")
-        sec_path.text = "Security/PrivateKey.pem"
+        sec_path.text = "Security/PrivateKey"
         sec_backup = etree.SubElement(sec, "backup")
-        sec_backup.text = "Security/Backup/PrivateKey.pem"
+        sec_backup.text = "Security/Backup/PrivateKey"
         sec_path = etree.SubElement(sec, "serverPubKeyPath")
         sec_path.text = "Security/ServerPublicKey.pem"
+        sec_path = etree.SubElement(sec, "parametersDH")
+        sec_path.text = "Security/ParametersDH"
         #Writing in the file
         tree = etree.ElementTree(self.root)
         tree.write(self.PATH,pretty_print=True)
@@ -70,7 +72,9 @@ class XMLClientHandler:
         return self.root[3][1].text
     def getSecurityServerKey(self):
         return self.root[3][2].text
-        
+    def getSecurityParameters(self):
+        return self.root[3][3].text
+
     def setAutoLogin(self, remember, user, password):
         self.root[2][0].text = str(remember)
         self.root[2][1].text = user

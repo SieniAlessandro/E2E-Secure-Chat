@@ -6,12 +6,13 @@
   </Server>
   <AutoLogin>
     <remember>0</remember>
-    <UserName>a</UserName>
-    <Password>a</Password>
+    <UserName>prova1</UserName>
+    <Password>Prova1234</Password>
   </AutoLogin>
   <Security>
-    <path>Security/PrivateKey.pem</path>
-    <backup>Security/Backup/PrivateKey.pem</backup>
+    <path>Security/PrivateKey</path>
+    <backup>Security/Backup/PrivateKey</backup>
     <serverPubKeyPath>Security/ServerPublicKey.pem</serverPubKeyPath>
+    <parametersDH>Security/ParametersDH</parametersDH>
   </Security>
 </Client>
