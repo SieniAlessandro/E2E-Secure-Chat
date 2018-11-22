@@ -6,18 +6,17 @@
 Welcome to MPS Protocol - Cybersecurity Project's documentation!
 ================================================================
 
+Cybersecurity's Project by Magherini Roberto, Pochiero Amedeo and Alessandro Sieni.
+Master in Computer Engineering, Academic Year 2017/18 - University of Pisa
+
+
+
 .. toctree::
-   :maxdepth: 4
-   :caption: Client:
+  :maxdepth: 2
 
-   Class Apidoc/Client/modules.rst
-
-.. toctree::
-    :maxdepth: 4
-    :caption: Server:
-    
-    Class Apidoc/Server/modules.rst
-
+  rst/Protocols.rst
+  rst/Client.rst
+  rst/Server.rst
 
 
 Indices and tables

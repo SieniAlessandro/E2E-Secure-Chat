@@ -16,7 +16,8 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="User module" href="User.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,7 +28,12 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="User.html" title="User module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../Server.html" >List of Server’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="modules.html" accesskey="U">&lt;no title&gt;</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -42,10 +48,22 @@
 <dt id="XMLHandler.XMLHandler">
 <em class="property">class </em><code class="descclassname">XMLHandler.</code><code class="descname">XMLHandler</code><a class="headerlink" href="#XMLHandler.XMLHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Module used to read the configuration of the server from an XML file</p>
 <dl class="method">
 <dt id="XMLHandler.XMLHandler.GetLogPath">
 <code class="descname">GetLogPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLHandler.XMLHandler.GetLogPath" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the path of the log file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The path of the log file</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="XMLHandler.XMLHandler.PATH">
@@ -55,52 +73,152 @@
 <dl class="method">
 <dt id="XMLHandler.XMLHandler.getBackupPemPath">
 <code class="descname">getBackupPemPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLHandler.XMLHandler.getBackupPemPath" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the path of the backup pem file with the private key of the server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The path of the backup pem file with the private key of the server</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLHandler.XMLHandler.getDatabaseAddress">
 <code class="descname">getDatabaseAddress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLHandler.XMLHandler.getDatabaseAddress" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the IP address of the database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The IP address of the database</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLHandler.XMLHandler.getDatabaseName">
 <code class="descname">getDatabaseName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLHandler.XMLHandler.getDatabaseName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the name of the database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The name of the database</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLHandler.XMLHandler.getDatabasePort">
 <code class="descname">getDatabasePort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLHandler.XMLHandler.getDatabasePort" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the port used by the DBMS to listen new requests</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Int</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The port used by the DBMS to listen new requests</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLHandler.XMLHandler.getDatabasePwd">
 <code class="descname">getDatabasePwd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLHandler.XMLHandler.getDatabasePwd" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the password to login on the database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The password to login on the database</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLHandler.XMLHandler.getDatabaseUser">
 <code class="descname">getDatabaseUser</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLHandler.XMLHandler.getDatabaseUser" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the username to login on the database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The username to login on the database</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLHandler.XMLHandler.getEnableLog">
 <code class="descname">getEnableLog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLHandler.XMLHandler.getEnableLog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the boolean variable meaning if the Log must be enable or not</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The boolean variable meaning if the Log must be enable or not</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLHandler.XMLHandler.getPemPath">
 <code class="descname">getPemPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLHandler.XMLHandler.getPemPath" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the path of the pem file with the private key of the server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The path of the pem file with the private key of the server</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLHandler.XMLHandler.getServerPort">
 <code class="descname">getServerPort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLHandler.XMLHandler.getServerPort" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the port used by the server to listen for new requests</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Int</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The port used by the server to listen for new requests</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLHandler.XMLHandler.initilizeXML">
 <code class="descname">initilizeXML</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLHandler.XMLHandler.initilizeXML" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Intialize a new XML file with the default configuration:</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -112,6 +230,9 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="User.html"
+                        title="previous chapter">User module</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -144,7 +265,12 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="User.html" title="User module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../Server.html" >List of Server’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="modules.html" >&lt;no title&gt;</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

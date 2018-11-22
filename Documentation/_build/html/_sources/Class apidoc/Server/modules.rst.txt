@@ -11,4 +11,3 @@
    Server
    User
    XMLHandler
-   test_server

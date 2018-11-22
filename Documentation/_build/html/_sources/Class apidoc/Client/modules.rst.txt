@@ -17,4 +17,3 @@
    XMLClientHandler
    client
    main
-   test_client

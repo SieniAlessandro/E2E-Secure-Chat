@@ -16,7 +16,9 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Database package" href="Database.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="modules.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,7 +29,15 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="Database.html" title="Database package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="&lt;no title&gt;"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../rst/Server.html" >List of Server’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="modules.html" accesskey="U">&lt;no title&gt;</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -54,12 +64,28 @@ requests coming from that clinet</p>
 <dt id="ClientHandler.ClientHandler.StoreMessage">
 <code class="descname">StoreMessage</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#ClientHandler.ClientHandler.StoreMessage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Store the message in the database waiting that the client come back online</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> (<em>Dictionary</em>) – The dictionary created by the received json message</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="ClientHandler.ClientHandler.findUser">
 <code class="descname">findUser</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#ClientHandler.ClientHandler.findUser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find the information about the user (IPaddress:clientPort) related to the username passed as parameter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> (<em>Dictionary</em>) – The dictionary created by the json message received</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -70,17 +96,42 @@ requests coming from that clinet</p>
 
 <dl class="method">
 <dt id="ClientHandler.ClientHandler.login">
-<code class="descname">login</code><span class="sig-paren">(</span><em>message</em>, <em>msg</em>, <em>signature</em><span class="sig-paren">)</span><a class="headerlink" href="#ClientHandler.ClientHandler.login" title="Permalink to this definition">¶</a></dt>
+<code class="descname">login</code><span class="sig-paren">(</span><em>message</em>, <em>data</em>, <em>signature</em><span class="sig-paren">)</span><a class="headerlink" href="#ClientHandler.ClientHandler.login" title="Permalink to this definition">¶</a></dt>
 <dd><p>Login with inserted credential and search in the Database if the information
 sended are correct, in this case if there are several messagges sended to the user when
 he was offline, the server send them , specifying the sender and also the time (yy-mm-dd hh-mm-ss)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>Dictionary</em>) – The dictionary created by the json message receveid</li>
+<li><strong>data</strong> (<em>Bytes</em>) – The raw data reppresenting the message as Received</li>
+<li><strong>signature</strong> (<em>Bytes</em>) – The signature of data</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="ClientHandler.ClientHandler.registerUser">
-<code class="descname">registerUser</code><span class="sig-paren">(</span><em>message</em>, <em>msg</em>, <em>d</em><span class="sig-paren">)</span><a class="headerlink" href="#ClientHandler.ClientHandler.registerUser" title="Permalink to this definition">¶</a></dt>
+<code class="descname">registerUser</code><span class="sig-paren">(</span><em>message</em>, <em>digest</em><span class="sig-paren">)</span><a class="headerlink" href="#ClientHandler.ClientHandler.registerUser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Insert the information of the user in the database, checking if there is another user with the same Username
 and sending back the result</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>Dictionary</em>) – The dictionary created by the received json message</li>
+<li><strong>digest</strong> (<em>Bytes</em>) – The digest created by the data corresponding to the message creator of the dictionary</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -99,6 +150,12 @@ and sending back the result</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="previous chapter">&lt;no title&gt;</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Database.html"
+                        title="next chapter">Database package</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -131,7 +188,15 @@ and sending back the result</p>
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="Database.html" title="Database package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="&lt;no title&gt;"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../rst/Server.html" >List of Server’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="modules.html" >&lt;no title&gt;</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

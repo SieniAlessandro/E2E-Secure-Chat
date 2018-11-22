@@ -15,6 +15,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -82,9 +83,9 @@
 </li>
       <li><a href="Class Apidoc/Client/Message.html#Message.Message.addMessagetoConversations">addMessagetoConversations() (Message.Message method)</a>
 </li>
-      <li><a href="Class Apidoc/Server/User.html#User.User.addSecurityModule">addSecurityModule() (User.User method)</a>
+      <li><a href="Class Apidoc/Server/Security.html#Security.Security.Security.AddPacketNonce">AddPacketNonce() (Security.Security.Security method)</a>
 </li>
-      <li><a href="Class Apidoc/Server/Security.html#Security.Security.Security.AddSymmetricKeyFromDict">AddSymmetricKeyFromDict() (Security.Security.Security method)</a>
+      <li><a href="Class Apidoc/Server/User.html#User.User.addSecurityModule">addSecurityModule() (User.User method)</a>
 </li>
       <li><a href="Class Apidoc/Server/Security.html#Security.Security.Security.AESDecryptText">AESDecryptText() (Security.Security.Security method)</a>
 </li>
@@ -176,6 +177,8 @@
         <li><a href="Class Apidoc/Client/ChatWindow.html#ChatWindow.ChatWindow.createWidgets">(ChatWindow.ChatWindow method)</a>
 </li>
       </ul></li>
+      <li><a href="Class Apidoc/Server/Database.html#Database.Database.Database.CredentialCorrect">CredentialCorrect() (Database.Database.Database method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -264,10 +267,10 @@
 </li>
       <li><a href="Class Apidoc/Server/Database.html#Database.Database.Database.getMessageByReceiver">getMessageByReceiver() (Database.Database.Database method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="Class Apidoc/Client/ChatList.html#ChatList.ChatList.getNotEmptyUsers">getNotEmptyUsers() (ChatList.ChatList method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="Class Apidoc/Server/XMLHandler.html#XMLHandler.XMLHandler.getPemPath">getPemPath() (XMLHandler.XMLHandler method)</a>
 </li>
       <li><a href="Class Apidoc/Client/XMLClientHandler.html#XMLClientHandler.XMLClientHandler.getRemember">getRemember() (XMLClientHandler.XMLClientHandler method)</a>
@@ -278,9 +281,13 @@
 </li>
       <li><a href="Class Apidoc/Server/User.html#User.User.GetSecurityModule">GetSecurityModule() (User.User method)</a>
 </li>
+      <li><a href="Class Apidoc/Client/XMLClientHandler.html#XMLClientHandler.XMLClientHandler.getSecurityParameters">getSecurityParameters() (XMLClientHandler.XMLClientHandler method)</a>
+</li>
       <li><a href="Class Apidoc/Client/XMLClientHandler.html#XMLClientHandler.XMLClientHandler.getSecurityPath">getSecurityPath() (XMLClientHandler.XMLClientHandler method)</a>
 </li>
       <li><a href="Class Apidoc/Client/XMLClientHandler.html#XMLClientHandler.XMLClientHandler.getSecurityServerKey">getSecurityServerKey() (XMLClientHandler.XMLClientHandler method)</a>
+</li>
+      <li><a href="Class Apidoc/Server/Security.html#Security.Security.Security.getSerializedClientPublicKey">getSerializedClientPublicKey() (Security.Security.Security method)</a>
 </li>
       <li><a href="Class Apidoc/Server/Security.html#Security.Security.Security.getSerializedPublicKey">getSerializedPublicKey() (Security.Security.Security method)</a>
 </li>
@@ -299,8 +306,6 @@
       <li><a href="Class Apidoc/Server/User.html#User.User.getSocket">getSocket() (User.User method)</a>
 </li>
       <li><a href="Class Apidoc/Server/Security.html#Security.Security.Security.getSymmetricKey">getSymmetricKey() (Security.Security.Security method)</a>
-</li>
-      <li><a href="Class Apidoc/Server/Security.html#Security.Security.Security.getSymmetricKeyasDict">getSymmetricKeyasDict() (Security.Security.Security method)</a>
 </li>
       <li><a href="Class Apidoc/Server/User.html#User.User.getUserName">getUserName() (User.User method)</a>
 
@@ -420,6 +425,8 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="Class Apidoc/Server/Security.html#Security.Security.Security.PacketAESEncryptText">PacketAESEncryptText() (Security.Security.Security method)</a>
+</li>
       <li><a href="Class Apidoc/Client/XMLClientHandler.html#XMLClientHandler.XMLClientHandler.PATH">PATH (XMLClientHandler.XMLClientHandler attribute)</a>
 
       <ul>
@@ -456,16 +463,12 @@
 </li>
       <li><a href="Class Apidoc/Server/Database.html#Database.Database.Database.remove_user">remove_user() (Database.Database.Database method)</a>
 </li>
-      <li><a href="Class Apidoc/Server/Database.html#Database.Database.Database.remove_waiting_messages_by_id">remove_waiting_messages_by_id() (Database.Database.Database method)</a>
-</li>
       <li><a href="Class Apidoc/Server/Database.html#Database.Database.Database.remove_waiting_messages_by_receiver">remove_waiting_messages_by_receiver() (Database.Database.Database method)</a>
 </li>
-      <li><a href="Class Apidoc/Server/Database.html#Database.Database.Database.remove_waiting_messages_by_sender">remove_waiting_messages_by_sender() (Database.Database.Database method)</a>
+      <li><a href="Class Apidoc/Client/Message.html#Message.Message.retrieveAllConversations">retrieveAllConversations() (Message.Message method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="Class Apidoc/Client/Message.html#Message.Message.retrieveAllConversations">retrieveAllConversations() (Message.Message method)</a>
-</li>
       <li><a href="Class Apidoc/Client/Message.html#Message.Message.retrieveConversation">retrieveConversation() (Message.Message method)</a>
 </li>
       <li><a href="Class Apidoc/Server/Security.html#Security.Security.Security.RSADecryptText">RSADecryptText() (Security.Security.Security method)</a>
@@ -508,8 +511,6 @@
         <li><a href="Class Apidoc/Server/Server.html#module-Server">(module)</a>
 </li>
       </ul></li>
-      <li><a href="Class Apidoc/Server/Security.html#Security.Security.Security.ServerInitialized">ServerInitialized() (Security.Security.Security method)</a>
-</li>
       <li><a href="Class Apidoc/Client/XMLClientHandler.html#XMLClientHandler.XMLClientHandler.setAutoLogin">setAutoLogin() (XMLClientHandler.XMLClientHandler method)</a>
 </li>
       <li><a href="Class Apidoc/Client/ScrollableFrame.html#ScrollableFrame.Scrollable.setCanvasWidth">setCanvasWidth() (ScrollableFrame.Scrollable method)</a>
@@ -598,8 +599,6 @@
         <li><a href="Class Apidoc/Server/User.html#module-User">(module)</a>
 </li>
       </ul></li>
-      <li><a href="Class Apidoc/Server/Database.html#Database.Database.Database.userIsPresent">userIsPresent() (Database.Database.Database method)</a>
-</li>
       <li><a href="Class Apidoc/Server/Database.html#Database.Database.Database.userIsRegistered">userIsRegistered() (Database.Database.Database method)</a>
 </li>
   </ul></td>

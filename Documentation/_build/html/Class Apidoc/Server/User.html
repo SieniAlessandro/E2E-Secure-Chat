@@ -16,7 +16,9 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="XMLHandler module" href="XMLHandler.html" />
+    <link rel="prev" title="Server module" href="Server.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,7 +29,15 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="XMLHandler.html" title="XMLHandler module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Server.html" title="Server module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../Server.html" >List of Server’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="modules.html" accesskey="U">&lt;no title&gt;</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -45,47 +55,119 @@
 <dl class="method">
 <dt id="User.User.GetSecurityModule">
 <code class="descname">GetSecurityModule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#User.User.GetSecurityModule" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the security module in order to use its own method
+Parameter:</p>
+<blockquote>
+<div>Void</div></blockquote>
+<dl class="docutils">
+<dt>Return:</dt>
+<dd>The security Module     : Security</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="User.User.addSecurityModule">
 <code class="descname">addSecurityModule</code><span class="sig-paren">(</span><em>Security</em><span class="sig-paren">)</span><a class="headerlink" href="#User.User.addSecurityModule" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Add the security module for this user
+Parameter:</p>
+<blockquote>
+<div>Security: The security object   : Security</div></blockquote>
+<dl class="docutils">
+<dt>Return:</dt>
+<dd>Void</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="User.User.getClientPort">
 <code class="descname">getClientPort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#User.User.getClientPort" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the port used by the user to listen from other clients
+Parameter:</p>
+<blockquote>
+<div>Void</div></blockquote>
+<dl class="docutils">
+<dt>Return:</dt>
+<dd>The port used by the user to listen from the other clients     : int</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="User.User.getIp">
 <code class="descname">getIp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#User.User.getIp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the IP address of this user
+Parameter:</p>
+<blockquote>
+<div>Void</div></blockquote>
+<dl class="docutils">
+<dt>Return:</dt>
+<dd>The IP address of this user     : string</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="User.User.getServerPort">
 <code class="descname">getServerPort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#User.User.getServerPort" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the port used by the user to listen from the server
+Parameter:</p>
+<blockquote>
+<div>Void</div></blockquote>
+<dl class="docutils">
+<dt>Return:</dt>
+<dd>The port used by the user to listen from the server     : int</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="User.User.getSocket">
 <code class="descname">getSocket</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#User.User.getSocket" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the socket used to communicate with this user
+Parameter:</p>
+<blockquote>
+<div>Void</div></blockquote>
+<dl class="docutils">
+<dt>Return:</dt>
+<dd>The port used to communicate with this user     : Socket</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="User.User.getUserName">
 <code class="descname">getUserName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#User.User.getUserName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the username of this user
+Parameter :</p>
+<blockquote>
+<div>Void</div></blockquote>
+<dl class="docutils">
+<dt>Return:</dt>
+<dd>The username of this user</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="User.User.setClientPort">
 <code class="descname">setClientPort</code><span class="sig-paren">(</span><em>_clientPort</em><span class="sig-paren">)</span><a class="headerlink" href="#User.User.setClientPort" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Set the port used by the user to listen from other clients
+Parameter:</p>
+<blockquote>
+<div>_clientPort: The port used by the user to listen from other clients     : int</div></blockquote>
+<dl class="docutils">
+<dt>Return:</dt>
+<dd>Void</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="User.User.setUserName">
 <code class="descname">setUserName</code><span class="sig-paren">(</span><em>_username</em><span class="sig-paren">)</span><a class="headerlink" href="#User.User.setUserName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Set the username of this user
+Parameter:</p>
+<blockquote>
+<div>_username: the username to associate    : string</div></blockquote>
+<dl class="docutils">
+<dt>Return:</dt>
+<dd>Void</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -97,6 +179,12 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Server.html"
+                        title="previous chapter">Server module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="XMLHandler.html"
+                        title="next chapter">XMLHandler module</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -129,7 +217,15 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="XMLHandler.html" title="XMLHandler module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Server.html" title="Server module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../Server.html" >List of Server’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="modules.html" >&lt;no title&gt;</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
