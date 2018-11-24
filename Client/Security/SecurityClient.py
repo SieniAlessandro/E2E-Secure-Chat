@@ -178,11 +178,11 @@ class SecurityClient:
                 #print('encryptnonce ' + str(self.serverNonce))
                 return aesgcm.encrypt(self.serverNonce.to_bytes(16, byteorder="big"), pt, None)
             else:
-                print(self.clientNonce[username])
                 aesgcm = AESGCM(self.clientSymmetricKeys[username])
                 self.clientNonce[username] = self.clientNonce[username]+1
+                print('Nonce client used for AES encrypt ' + str(self.clientNonce[username]))
                 #print('encryptnonce ' + str(self.serverNonce))
-                return aesgcm.encrypt(self.serverNonce.to_bytes(16, byteorder="big"), pt, None)
+                return aesgcm.encrypt(self.clientNonce[username].to_bytes(16, byteorder="big"), pt, None)
 
         except Exception as e:
             print(e)
@@ -241,8 +241,11 @@ class SecurityClient:
         with open(path+'json', 'w') as parameters:
             json.dump(txt, parameters)
 
-    def loadParameters(self):
-        return
+    def loadParameters(self, path):
+        par = {}
+        with open(path+'-'+self.username+'.json', 'r') as parameters:
+            par = json.loads(parameters.read())
+        self.generateDH(par['p'], par['g'], self.username)
 
     def resetKeys(self):
         self.privateKey = None
@@ -265,13 +268,15 @@ class SecurityClient:
             when we compute this we remove from the system
         '''
         print('key of the communication with the other host has been computed')
-        self.clientKeys[user] = HKDF(
+        self.clientSymmetricKeys[user] = HKDF(
                  algorithm=hashes.SHA256(),
                  length=32,
                  salt=None,
                  info=b'handshake data',
                  backend=default_backend()
             ).derive(shared_key)
+        print('added symmetric key')
+        print(self.clientSymmetricKeys[user])
 
     def getSharedKey(self, user):
         return self.DH[user].exchange(self.DH[user].public_key())

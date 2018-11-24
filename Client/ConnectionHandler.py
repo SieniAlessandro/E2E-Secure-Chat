@@ -5,6 +5,10 @@ from client import *
 from threading import Thread
 import json
 from Log import *
+import zlib
+
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import serialization
 
 
 class ConnectionHandler(Thread) :
@@ -28,7 +32,7 @@ class ConnectionHandler(Thread) :
         self.Message = Message
         self.Security = Security
         self.Log.log('MessageHandler Initialized! Associated port: ' + str(self.portp2p))
-
+        self.sizeNonce = 6
     '''
         Handle the connection with a specific user
         when a message is received is passed to the FrontEnd (AMEDEO)
@@ -70,22 +74,27 @@ class ConnectionHandler(Thread) :
 
         sharedKey = self.Security.RSADecryptText(msg)
 
-        self.Security.computeDHKey(self.username, sharedKey)
+        self.Security.computeDHKey(dict['username'], sharedKey)
         print('KEY COMPUTED!!!')
 
         plainText = {}
-        plainText['sharedKey'] = self.Security.getSharedKey(dict['username'])
+        plainText['sharedKey'] = int.from_bytes(self.Security.getSharedKey(self.username), byteorder='big')
         plainText['Nsa'] = dict['Nsa']
-        Nb = self.Security.generateNonce(6)
+
+        Nb = self.Security.generateNonce(self.sizeNonce)
         self.Security.addClientNonce(dict['username'],0)
 
-        plaintext['Nb'] = self.Security.AESEncryptText(Nb.to_bytes(6,byteorder='big'), dict['username'])
-
+        plainText['Nb'] = int.from_bytes(self.Security.AESEncryptText(Nb.to_bytes(self.sizeNonce,byteorder='big'), dict['username']), byteorder='big')
+        print('ciao ' + str(plainText['Nb']))
         self.Security.addClientNonce(Nb,0)
         ptBit = json.dumps(plainText).encode(self.Code)
-        cipherText = self.Security.RSAEncryptText(ptBit, self.Security.getKeyClient(dict['username']))
-        sign = self.Security.getSignature(ptBit)
 
+        ptBitCompress = zlib.compress(ptBit)
+
+        print('Lunghezza messaggio M4: ' + str(len(ptBitCompress)))
+        cipherText = self.Security.RSAEncryptText(ptBitCompress, serialization.load_pem_public_key(dict['key'].encode('utf-8'), backend=default_backend()))
+        sign = self.Security.getSignature(ptBit)
+        print('message prepared properly')
         conn.send(cipherText+sign)
         print('message sended to ' + dict['username'])
 
