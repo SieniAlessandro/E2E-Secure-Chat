@@ -10,6 +10,7 @@ from XMLClientHandler import *
 from Security.SecurityClient import *
 import os
 import binascii
+import zlib
 
 class Client:
     '''
@@ -23,7 +24,7 @@ class Client:
 
     def __init__(self, chat = None):
         self.XML = XMLClientHandler()
-        self.hostServer = '10.102.7.112'#self.XML.getServerAddress()#self.HOST_SERVER #IPv4 Address of the server
+        self.hostServer = '127.0.0.1'#self.XML.getServerAddress()#self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.XML.getServerPort()
         self.portp2p = random.randint(6001,60000)
         self.username = None
@@ -274,6 +275,7 @@ class Client:
             self.onClosing()
 
         self.Security.AddSymmetricKeyFromDict(dict['key'])
+        self.Security.loadParameters(self.XML.getSecurityParameters())
 
         msg = {}
         msg['serverNonce'] = dict['serverNonce']
@@ -365,21 +367,30 @@ class Client:
             msg = self.socketClient[receiver].recv(self.BUFFER_SIZE)
             signature = msg[-256:]
             msg = msg[:-256]
-            if not self.Security.VerifySignature(msg, signature, receiver):
+            msg = self.Security.RSADecryptText(msg)
+            dictBin = zlib.decompress(msg)
+            if not self.Security.VerifySignature(dictBin, signature, receiver):
                 print('The integrity is not valid for the sender. Signature:\n' + signature)
                 return
             else:
                 print('integrity of the DH shared_key is valid')
-            dict = json.loads(msg)
-            self.Security.computeDHKey(receiver, dict['sharedKey'])
+            dict = json.loads(dictBin)
+            print('starting computing key')
+            self.Security.computeDHKey(receiver, dict['sharedKey'].to_bytes(150, byteorder='big'))
+            print('Computed key in the sender')
             ###############VERIFICA CHE IL NONCE SIA GIUSTO############
             ###TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO###
             ###########################################################
             self.Security.addClientNonce(receiver, 0)
-            Nb = int.from_bytes(self.Security.AESDecryptText(dict['Nb'], None, 1), byteorder='big')
+            print('ciao' + str(dict['Nb']))
+            Nb = int(dict['Nb'])
+            temp1 = Nb.to_bytes(150, byteorder='big')
+            temp2 = self.Security.AESDecryptText(temp1, receiver)
+            print(temp2)
+            Nb = int.from_bytes(temp2, byteorder='big')
             self.Security.addClientNonce(receiver, Nb)
 
-            self.socketClient[receiver].send(self.Security.AESEncryptText(Nb.to_bytes(6, byteorder='big')))
+            self.socketClient[receiver].send(self.Security.AESEncryptText(int(dict['Nb']).to_bytes(150, byteorder='big')))
 
             print('STARTCONNECTION CONCLUSA???????')
             value = 1
