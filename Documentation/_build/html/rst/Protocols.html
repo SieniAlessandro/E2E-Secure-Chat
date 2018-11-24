@@ -51,6 +51,11 @@
 secure communication channel between 2 clients. The purpose of the server is just
 to store clients information so that they can establish a secure session key,
 that is unknown even to the server.</p>
+<div class="section" id="ban-logic">
+<h2>BAN Logic<a class="headerlink" href="#ban-logic" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference download internal" download="" href="../_downloads/fb9acf2d71498fe0a768adcdd43b1beb/Protocollo E2EE 3.2.3.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Here</span></code></a>
+you can find the BAN logic analysis of the 4 protocols.</p>
+</div>
 <div class="section" id="sign-up-protocol">
 <h2>Sign Up Protocol<a class="headerlink" href="#sign-up-protocol" title="Permalink to this headline">¶</a></h2>
 <p>The Sign Up Protocol describes the messages exchanged between Client and Server
@@ -82,14 +87,14 @@ fresh in the others protocols.</p>
 </div>
 <div class="section" id="online-key-exchange-protocol">
 <h2>Online Key Exchange Protocol<a class="headerlink" href="#online-key-exchange-protocol" title="Permalink to this headline">¶</a></h2>
-<p>OEK Protocol is the core of this project, that is to make sure that Alice and Bob
+<p>OKE Protocol is the core of this project, that is to make sure that Alice and Bob
 have a symmetric session key that only they know. Obviously, in order to that, both Alice and
 Bob must be online to exchange information and derive the key. Otherwise, if Bob is not
 available, Alice and the server will go on with the Offline Communication Protocol.</p>
 <p>Alice starts the protocol whenever she wants to talk with Bob, so she notifies that
 to the server, sending the Bob’s identifier and hers Session ID, in order to ensure
 that this message comes from the current session.</p>
-<p>The content of M2 differentiates the OEK from the Offline Communication Protocol.
+<p>The content of M2 differentiates the OKE from the Offline Communication Protocol.
 Supposing Bob is online, the server sends to Alice the public key and the DH
 parameters of Bob and, besides, it creates a packet that is supposed to be sent to Bob,
 so that he can trust the content of that packet since the server is its source.
@@ -113,6 +118,21 @@ he can realize that Alice has the symmetric key as well.</p>
 messages, adding a sequence number in order to avoid reordering attacks.</p>
 <img alt="../_images/Online.png" src="../_images/Online.png" />
 </div>
+<div class="section" id="offline-communication-protocol">
+<h2>Offline Communication Protocol<a class="headerlink" href="#offline-communication-protocol" title="Permalink to this headline">¶</a></h2>
+<p>As we said before, Alice can initiate a communication with Bob, without knowing if
+he is available to talk. For this reason, OKE and this protocol share the same
+first message M1.</p>
+<p>Once the server realizes that Bob is not online, it sends to Alice the Bob’s
+public key <span class="math notranslate nohighlight">\(K_{b}\)</span>, thus she can encrypt her data using it.</p>
+<p>Whenever Alice has a message for Bob, she sends it to the server. Eventually, it
+will delivery all the messages arrived when Bob executes the Authentication
+Protocol. In order to ensure authentication, 2 digital signature are needed.
+The first one signs the whole packet and it is verified by the server, so that it
+can be sure that this packet comes from Alice. The second one signs the content
+of the packet, so that when Bob decrypts, he can verify that Alice once said that.</p>
+<img alt="../_images/Offline.png" src="../_images/Offline.png" />
+</div>
 </div>
 
 
@@ -124,9 +144,11 @@ messages, adding a sequence number in order to avoid reordering attacks.</p>
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Protocols</a><ul>
+<li><a class="reference internal" href="#ban-logic">BAN Logic</a></li>
 <li><a class="reference internal" href="#sign-up-protocol">Sign Up Protocol</a></li>
 <li><a class="reference internal" href="#authentication-protocol">Authentication Protocol</a></li>
 <li><a class="reference internal" href="#online-key-exchange-protocol">Online Key Exchange Protocol</a></li>
+<li><a class="reference internal" href="#offline-communication-protocol">Offline Communication Protocol</a></li>
 </ul>
 </li>
 </ul>

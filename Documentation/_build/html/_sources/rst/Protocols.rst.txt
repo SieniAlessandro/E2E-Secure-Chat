@@ -5,6 +5,13 @@ secure communication channel between 2 clients. The purpose of the server is jus
 to store clients information so that they can establish a secure session key,
 that is unknown even to the server.
 
+BAN Logic
+`````````
+:download:`Here <../BAN Logic/Protocollo E2EE 3.2.3.pdf>`
+you can find the BAN logic analysis of the 4 protocols.
+
+
+
 Sign Up Protocol
 ````````````````
 
@@ -43,7 +50,7 @@ fresh in the others protocols.
 
 Online Key Exchange Protocol
 `````````````````````````````
-OEK Protocol is the core of this project, that is to make sure that Alice and Bob
+OKE Protocol is the core of this project, that is to make sure that Alice and Bob
 have a symmetric session key that only they know. Obviously, in order to that, both Alice and
 Bob must be online to exchange information and derive the key. Otherwise, if Bob is not
 available, Alice and the server will go on with the Offline Communication Protocol.
@@ -52,7 +59,7 @@ Alice starts the protocol whenever she wants to talk with Bob, so she notifies t
 to the server, sending the Bob's identifier and hers Session ID, in order to ensure
 that this message comes from the current session.
 
-The content of M2 differentiates the OEK from the Offline Communication Protocol.
+The content of M2 differentiates the OKE from the Offline Communication Protocol.
 Supposing Bob is online, the server sends to Alice the public key and the DH
 parameters of Bob and, besides, it creates a packet that is supposed to be sent to Bob,
 so that he can trust the content of that packet since the server is its source.
@@ -80,3 +87,23 @@ Once both Alice and Bob have the symmetric key :math:`K_{ab}`, they can encrypt 
 messages, adding a sequence number in order to avoid reordering attacks.
 
 .. image:: ../Images/Online.png
+
+
+Offline Communication Protocol
+``````````````````````````````
+As we said before, Alice can initiate a communication with Bob, without knowing if
+he is available to talk. For this reason, OKE and this protocol share the same
+first message M1.
+
+Once the server realizes that Bob is not online, it sends to Alice the Bob's
+public key :math:`K_{b}`, thus she can encrypt her data using it.
+
+Whenever Alice has a message for Bob, she sends it to the server. Eventually, it
+will delivery all the messages arrived when Bob executes the Authentication
+Protocol. In order to ensure authentication, 2 digital signature are needed.
+The first one signs the whole packet and it is verified by the server, so that it
+can be sure that this packet comes from Alice. The second one signs the content
+of the packet, so that when Bob decrypts, he can verify that Alice once said that.
+
+
+.. image:: ../Images/Offline.png
