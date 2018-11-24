@@ -93,7 +93,7 @@ class ClientHandler(Thread):
                 #logout
                 elif jsonMessage['id'] == "0":
                     del self.OnlineClients[self.HandledUser.getUserName()]
-                    self.HandledUser = User(Conn,ip,0,port,"none")
+                    self.HandledUser.setUserName("none")
                     self.serverNonce = self.HandledUser.GetSecurityModule().generateNonce(11)
                     self.HandledUser.addSecurityModule(Security(self.XML.getPemPath(),self.XML.getBackupPemPath()))
                     self.logged = False
