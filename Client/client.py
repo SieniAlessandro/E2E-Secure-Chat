@@ -61,17 +61,12 @@ class Client:
                 h = hashes.Hash(hashes.SHA256(), backend=default_backend())
                 h.update(text)
                 hash = h.finalize()
-                #print('len hash ' + str(len(hash)))
-            else:
-                print('len digest ' + str(len(hash)))
-            #print('SONO QUI: ' + textBit+hash)
+
             textBit = textBit+hash
         else:
             text = text.encode(self.CODE_TYPE)
-            #usa chiave simmetrica
             textBit = self.Security.AESEncryptText(text)
-        #text = text.decode()
-        #print('lunghezza del messaggio criptato + hash : ' + str(len(textBit+hash)))
+
         ret = self.socketServer.send(textBit)
 
         if ret == 0:
@@ -199,12 +194,9 @@ class Client:
         #print(len(self.Security.getSerializedPublicKey().decode('utf-8')))
         #print(self.Security.getSerializedPublicKey().decode('utf-8'))
         key = self.Security.getSerializedPublicKey().decode('utf-8')
-        print('invio chiave pubblica')
         self.sendServer(key, 'register')
 
-        print('attendo risposta dal server')
         dict = self.receiveServer()
-        print('ricevuto qualcosa')
         #print(dict)
         status = int(dict['status'])
         if status != 1:
@@ -225,7 +217,6 @@ class Client:
 
         res = self.socketServer.recv(self.BUFFER_SIZE)
         res = self.Security.decryptText(res)
-        print('res preso')
 
         if self.Security.getDigest(json.dumps(msg).encode(self.CODE_TYPE)) != res:
             print('the digest is not right!')
@@ -263,9 +254,6 @@ class Client:
         msg['clientNonce'] = self.Security.getClientNonce(self.username)
         msgToSend = json.dumps(msg)
         self.Security.initializeSecurity(self.XML.getSecurityPath(), self.XML.getSecurityBackup(), self.username, password.encode(self.CODE_TYPE))
-        print('LA CHIAVE PUBBLICA DI ' + self.username + '\n\n')
-        print(self.Security.getSerializedPublicKey())
-        print('\n\n\n\n\n\n\n\n\n')
         self.sendServer(msgToSend, 'server')
 
         dict = self.receiveServer()
@@ -281,7 +269,7 @@ class Client:
         msg['serverNonce'] = dict['serverNonce']
         self.Security.serverNonce = msg['serverNonce']
         self.sendServer(json.dumps(msg), self.Security.getSymmetricKey())
-        print('message sent with AES')
+        #print('message sent with AES')
         value = int(dict['status'])
         if value == 1 :
             self.Log.log('Succesfull logged in as ' + self.username)
@@ -322,7 +310,7 @@ class Client:
         self.sendServer(msgToSend)
 
         dict =  self.receiveServer()
-        print('message received from the server : ' + json.dumps(dict))
+        #print('message received from the server : ' + json.dumps(dict))
         value = dict['status']
         msg = ''
 
@@ -343,26 +331,54 @@ class Client:
             port = msgs[1]
             msg = receiver.lower() + ' has IP:Port : ' + value
             self.Log.log('Starting a new connection with ' + receiver.lower())
-            #try:
 
 
             self.socketClient[receiver] = socket.socket()
             ret = self.socketClient[receiver].connect((ip, int(port)))
+            #info contains the symmetric message from the server to the client
             cipherText = dict['info'].to_bytes(dict['lenInfo'], byteorder='big')
-
-
             sign = self.Security.getSignature(cipherText)
             self.socketClient[receiver].send(cipherText+sign)
             print('sended symmetric message')
+
             self.Security.insertKeyClient(receiver, dict['key'])
+
             self.Security.generateDH(dict['p'], dict['g'], receiver)
-
             plainText = self.Security.getSharedKey(receiver)
-            cipherText = self.Security.RSAEncryptText(plainText, self.Security.getKeyClient(receiver))
-            sign = self.Security.getSignature(plainText)
+            pt1 = plainText[:round(len(plainText)/2)]
+            pt2 = plainText[round(len(plainText)/2):]
 
-            self.socketClient[receiver].send(cipherText+sign)
+            ct1 = self.Security.RSAEncryptText(pt1, self.Security.getKeyClient(receiver))
+            sign = self.Security.getSignature(pt1)
+            self.socketClient[receiver].send(ct1+sign)
+
+            ct2 = self.Security.RSAEncryptText(pt2, self.Security.getKeyClient(receiver))
+            sign = self.Security.getSignature(pt2)
+            self.socketClient[receiver].send(ct2+sign)
             print('sended all the M3 message')
+            ############GETTING THE PUBLIC Y_B ##################
+            msg = self.socketClient[receiver].recv(self.BUFFER_SIZE)
+            signature = msg[-256:]
+            msg = msg[:-256]
+            pt1 = self.Security.RSADecryptText(msg)
+            if not self.Security.VerifySignature(pt1, signature, receiver):
+                print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
+                return
+            else:
+                print('integrity of the DH shared_key is valid')
+
+            msg = self.socketClient[receiver].recv(self.BUFFER_SIZE)
+            signature = msg[-256:]
+            msg = msg[:-256]
+            pt2 = self.Security.RSADecryptText(msg)
+            if not self.Security.VerifySignature(pt2, signature, receiver):
+                print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
+                return
+            else:
+                print('integrity of the DH shared_key is valid')
+
+            sharedKey = (pt1+pt2)
+            print('YB è : ' + str(sharedKey))
 
             msg = self.socketClient[receiver].recv(self.BUFFER_SIZE)
             signature = msg[-256:]
@@ -375,22 +391,24 @@ class Client:
             else:
                 print('integrity of the DH shared_key is valid')
             dict = json.loads(dictBin)
+            print('message M4 received ' + json.dumps(dict))
             print('starting computing key')
-            self.Security.computeDHKey(receiver, dict['sharedKey'].to_bytes(150, byteorder='big'))
+            self.Security.computeDHKey(receiver, sharedKey)
             print('Computed key in the sender')
             ###############VERIFICA CHE IL NONCE SIA GIUSTO############
             ###TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO###
             ###########################################################
             self.Security.addClientNonce(receiver, 0)
-            print('ciao' + str(dict['Nb']))
-            Nb = int(dict['Nb'])
-            temp1 = Nb.to_bytes(150, byteorder='big')
+
+            Nb = dict['Nb']
+            print('CRIPTATO CON AES ' + str(Nb))
+            temp1 = Nb.to_bytes(dict['lenNb'], byteorder='big')
             temp2 = self.Security.AESDecryptText(temp1, receiver)
-            print(temp2)
+            #print(temp2)
             Nb = int.from_bytes(temp2, byteorder='big')
             self.Security.addClientNonce(receiver, Nb)
-
-            self.socketClient[receiver].send(self.Security.AESEncryptText(int(dict['Nb']).to_bytes(150, byteorder='big')))
+            print('Invio M5')
+            self.socketClient[receiver].send(self.Security.AESEncryptText(temp2, receiver))
 
             print('STARTCONNECTION CONCLUSA???????')
             value = 1
@@ -457,7 +475,9 @@ class Client:
                 #value = self.socketClient[receiver].send(str(len(msg)).encode(self.CODE_TYPE))
                 #print('sended ' + str(len(msg)))
                 self.Log.log('Message to be send : ' + msg)
-                value = self.socketClient[receiver].send(msg.encode(self.CODE_TYPE))
+                pt = msg.encode(self.CODE_TYPE)
+                ct = self.Security.AESEncryptText(pt, receiver)
+                value = self.socketClient[receiver].send(ct)
 
                 if value > 0:
                     self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)

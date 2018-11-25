@@ -1,20 +1,385 @@
-2018-11-21 15:07:52	Server Initialized
-2018-11-21 15:07:52	Waiting for connections...
-2018-11-21 15:09:27	Client handled has address: 127.0.0.1 and port 50327
-2018-11-21 15:09:27	Waiting for connections...
-2018-11-21 15:09:47	A client want to register
-2018-11-21 15:09:47	Wait for the public key
-2018-11-21 15:09:48	Wait for the DH parameters
-2018-11-21 15:09:51	DH parameters inserted correctly
-2018-11-21 15:09:51	Registration completed correctly
-2018-11-21 15:10:31	A client want to register
-2018-11-21 15:10:31	Wait for the public key
-2018-11-21 15:10:33	Wait for the DH parameters
-2018-11-21 15:10:35	DH parameters inserted correctly
-2018-11-21 15:10:36	Registration completed correctly
-2018-11-21 15:10:48	A client want to login
-2018-11-21 15:10:48	Active users: {'p': Username: p IP: 127.0.0.1 ServerPort: 50327 ClientPort: 38916}
-2018-11-21 15:10:49	There are no message for this client
-2018-11-21 15:10:49	Login completed correctly
-2018-11-21 15:11:05	A client want to find another user
-2018-11-21 15:11:05	The user l is offline
+2018-11-25 22:22:26	Server Initialized
+2018-11-25 22:22:26	Waiting for connections...
+2018-11-25 22:22:27	Client handled has address: 127.0.0.1 and port 52669
+2018-11-25 22:22:27	Waiting for connections...
+2018-11-25 22:22:32	A client want to login
+2018-11-25 22:22:33	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52669 ClientPort: 35284}
+2018-11-25 22:22:33	There are no message for this client
+2018-11-25 22:22:33	Login completed correctly
+2018-11-25 22:22:33	A client want to find another user
+2018-11-25 22:22:33	The user pc2 is offline
+2018-11-25 22:22:58	Client had a problem, connection closed
+2018-11-25 22:24:25	Client handled has address: 127.0.0.1 and port 52686
+2018-11-25 22:24:25	Waiting for connections...
+2018-11-25 22:24:30	A client want to login
+2018-11-25 22:24:30	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52686 ClientPort: 57242}
+2018-11-25 22:24:30	There are no message for this client
+2018-11-25 22:24:30	Login completed correctly
+2018-11-25 22:24:30	A client want to find another user
+2018-11-25 22:24:30	The user pc2 is offline
+2018-11-25 22:24:44	Client disconnected, closing this thread
+2018-11-25 22:25:28	Client handled has address: 127.0.0.1 and port 52687
+2018-11-25 22:25:28	Waiting for connections...
+2018-11-25 22:25:34	A client want to login
+2018-11-25 22:25:34	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52687 ClientPort: 58681}
+2018-11-25 22:25:34	There are no message for this client
+2018-11-25 22:25:34	Login completed correctly
+2018-11-25 22:25:34	A client want to find another user
+2018-11-25 22:25:34	The user pc2 is offline
+2018-11-25 22:25:41	Client handled has address: 127.0.0.1 and port 52688
+2018-11-25 22:25:41	Waiting for connections...
+2018-11-25 22:25:51	A client want to login
+2018-11-25 22:25:52	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52687 ClientPort: 58681, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52688 ClientPort: 7136}
+2018-11-25 22:25:52	There are no message for this client
+2018-11-25 22:25:52	Login completed correctly
+2018-11-25 22:25:52	A client want to find another user
+2018-11-25 22:25:52	Ip found: 127.0.0.1:58681
+2018-11-25 22:27:35	Client had a problem, connection closed
+2018-11-25 22:27:36	Client had a problem, connection closed
+2018-11-25 22:33:23	Client handled has address: 127.0.0.1 and port 52703
+2018-11-25 22:33:23	Waiting for connections...
+2018-11-25 22:33:30	A client want to login
+2018-11-25 22:33:30	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52703 ClientPort: 34748}
+2018-11-25 22:33:30	There are no message for this client
+2018-11-25 22:33:30	Login completed correctly
+2018-11-25 22:33:30	A client want to find another user
+2018-11-25 22:33:30	The user pc2 is offline
+2018-11-25 22:33:36	Client handled has address: 127.0.0.1 and port 52705
+2018-11-25 22:33:36	Waiting for connections...
+2018-11-25 22:33:45	A client want to login
+2018-11-25 22:33:46	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52703 ClientPort: 34748, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52705 ClientPort: 21056}
+2018-11-25 22:33:46	There are no message for this client
+2018-11-25 22:33:46	Login completed correctly
+2018-11-25 22:33:46	A client want to find another user
+2018-11-25 22:33:46	Ip found: 127.0.0.1:34748
+2018-11-25 22:36:21	Client had a problem, connection closed
+2018-11-25 22:36:23	Client had a problem, connection closed
+2018-11-25 22:44:17	Client handled has address: 127.0.0.1 and port 52717
+2018-11-25 22:44:17	Waiting for connections...
+2018-11-25 22:44:24	A client want to login
+2018-11-25 22:44:24	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52717 ClientPort: 26269}
+2018-11-25 22:44:24	There are no message for this client
+2018-11-25 22:44:24	Login completed correctly
+2018-11-25 22:44:24	A client want to find another user
+2018-11-25 22:44:24	The user pc2 is offline
+2018-11-25 22:44:27	Client handled has address: 127.0.0.1 and port 52718
+2018-11-25 22:44:27	Waiting for connections...
+2018-11-25 22:44:41	A client want to login
+2018-11-25 22:44:42	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52717 ClientPort: 26269, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52718 ClientPort: 53528}
+2018-11-25 22:44:42	There are no message for this client
+2018-11-25 22:44:42	Login completed correctly
+2018-11-25 22:44:42	A client want to find another user
+2018-11-25 22:44:42	Ip found: 127.0.0.1:26269
+2018-11-25 22:44:57	Client had a problem, connection closed
+2018-11-25 22:44:58	Client had a problem, connection closed
+2018-11-25 22:45:29	Client handled has address: 127.0.0.1 and port 52720
+2018-11-25 22:45:29	Waiting for connections...
+2018-11-25 22:45:34	A client want to login
+2018-11-25 22:45:34	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52720 ClientPort: 24469}
+2018-11-25 22:45:34	There are no message for this client
+2018-11-25 22:45:34	Login completed correctly
+2018-11-25 22:45:34	A client want to find another user
+2018-11-25 22:45:34	The user pc2 is offline
+2018-11-25 22:45:36	Client handled has address: 127.0.0.1 and port 52721
+2018-11-25 22:45:36	Waiting for connections...
+2018-11-25 22:45:42	A client want to login
+2018-11-25 22:45:42	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52720 ClientPort: 24469, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52721 ClientPort: 15436}
+2018-11-25 22:45:42	There are no message for this client
+2018-11-25 22:45:42	Login completed correctly
+2018-11-25 22:45:42	A client want to find another user
+2018-11-25 22:45:42	Ip found: 127.0.0.1:24469
+2018-11-25 22:45:53	Client had a problem, connection closed
+2018-11-25 22:45:54	Client had a problem, connection closed
+2018-11-25 22:46:11	Client handled has address: 127.0.0.1 and port 52723
+2018-11-25 22:46:11	Waiting for connections...
+2018-11-25 22:46:24	A client want to login
+2018-11-25 22:46:24	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52723 ClientPort: 52077}
+2018-11-25 22:46:24	There are no message for this client
+2018-11-25 22:46:24	Login completed correctly
+2018-11-25 22:46:24	A client want to find another user
+2018-11-25 22:46:24	The user pc2 is offline
+2018-11-25 22:46:27	Client handled has address: 127.0.0.1 and port 52724
+2018-11-25 22:46:27	Waiting for connections...
+2018-11-25 22:46:44	A client want to login
+2018-11-25 22:46:44	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52723 ClientPort: 52077, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52724 ClientPort: 20973}
+2018-11-25 22:46:44	There are no message for this client
+2018-11-25 22:46:44	Login completed correctly
+2018-11-25 22:46:44	A client want to find another user
+2018-11-25 22:46:44	Ip found: 127.0.0.1:52077
+2018-11-25 22:47:36	Client had a problem, connection closed
+2018-11-25 22:47:39	Client had a problem, connection closed
+2018-11-25 22:53:41	Client handled has address: 127.0.0.1 and port 52741
+2018-11-25 22:53:41	Waiting for connections...
+2018-11-25 22:53:46	A client want to login
+2018-11-25 22:53:46	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52741 ClientPort: 17966}
+2018-11-25 22:53:46	There are no message for this client
+2018-11-25 22:53:46	Login completed correctly
+2018-11-25 22:53:46	A client want to find another user
+2018-11-25 22:53:46	The user pc2 is offline
+2018-11-25 22:53:49	Client handled has address: 127.0.0.1 and port 52742
+2018-11-25 22:53:49	Waiting for connections...
+2018-11-25 22:53:58	A client want to login
+2018-11-25 22:53:58	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52741 ClientPort: 17966, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52742 ClientPort: 35322}
+2018-11-25 22:53:58	There are no message for this client
+2018-11-25 22:53:58	Login completed correctly
+2018-11-25 22:53:58	A client want to find another user
+2018-11-25 22:53:58	Ip found: 127.0.0.1:17966
+2018-11-25 22:55:10	Client had a problem, connection closed
+2018-11-25 22:55:12	Client had a problem, connection closed
+2018-11-25 23:04:53	Client handled has address: 127.0.0.1 and port 52773
+2018-11-25 23:04:53	Waiting for connections...
+2018-11-25 23:04:59	A client want to login
+2018-11-25 23:04:59	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52773 ClientPort: 19140}
+2018-11-25 23:04:59	There are no message for this client
+2018-11-25 23:04:59	Login completed correctly
+2018-11-25 23:04:59	A client want to find another user
+2018-11-25 23:04:59	The user pc2 is offline
+2018-11-25 23:05:02	Client handled has address: 127.0.0.1 and port 52774
+2018-11-25 23:05:02	Waiting for connections...
+2018-11-25 23:05:06	A client want to login
+2018-11-25 23:05:06	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52773 ClientPort: 19140, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52774 ClientPort: 31884}
+2018-11-25 23:05:06	There are no message for this client
+2018-11-25 23:05:06	Login completed correctly
+2018-11-25 23:05:07	A client want to find another user
+2018-11-25 23:05:07	Ip found: 127.0.0.1:19140
+2018-11-25 23:06:13	Client had a problem, connection closed
+2018-11-25 23:06:14	Client had a problem, connection closed
+2018-11-25 23:06:20	Client handled has address: 127.0.0.1 and port 52777
+2018-11-25 23:06:20	Waiting for connections...
+2018-11-25 23:06:26	A client want to login
+2018-11-25 23:06:27	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52777 ClientPort: 36405}
+2018-11-25 23:06:27	There are no message for this client
+2018-11-25 23:06:27	Login completed correctly
+2018-11-25 23:06:27	A client want to find another user
+2018-11-25 23:06:27	The user pc2 is offline
+2018-11-25 23:06:29	Client handled has address: 127.0.0.1 and port 52778
+2018-11-25 23:06:29	Waiting for connections...
+2018-11-25 23:06:34	A client want to login
+2018-11-25 23:06:34	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52777 ClientPort: 36405, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52778 ClientPort: 53616}
+2018-11-25 23:06:34	There are no message for this client
+2018-11-25 23:06:34	Login completed correctly
+2018-11-25 23:06:34	A client want to find another user
+2018-11-25 23:06:34	Ip found: 127.0.0.1:36405
+2018-11-25 23:07:45	Client had a problem, connection closed
+2018-11-25 23:07:46	Client had a problem, connection closed
+2018-11-25 23:09:48	Client handled has address: 127.0.0.1 and port 52780
+2018-11-25 23:09:48	Waiting for connections...
+2018-11-25 23:09:53	A client want to login
+2018-11-25 23:09:53	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52780 ClientPort: 59455}
+2018-11-25 23:09:53	There are no message for this client
+2018-11-25 23:09:53	Login completed correctly
+2018-11-25 23:09:53	A client want to find another user
+2018-11-25 23:09:53	The user pc2 is offline
+2018-11-25 23:09:56	Client handled has address: 127.0.0.1 and port 52781
+2018-11-25 23:09:56	Waiting for connections...
+2018-11-25 23:10:03	A client want to login
+2018-11-25 23:10:03	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52780 ClientPort: 59455, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52781 ClientPort: 33774}
+2018-11-25 23:10:03	There are no message for this client
+2018-11-25 23:10:03	Login completed correctly
+2018-11-25 23:10:03	A client want to find another user
+2018-11-25 23:10:03	Ip found: 127.0.0.1:59455
+2018-11-25 23:10:59	Client had a problem, connection closed
+2018-11-25 23:11:01	Client had a problem, connection closed
+2018-11-25 23:14:24	Client handled has address: 127.0.0.1 and port 52788
+2018-11-25 23:14:24	Waiting for connections...
+2018-11-25 23:19:10	Client disconnected, closing this thread
+2018-11-25 23:19:16	Client handled has address: 127.0.0.1 and port 52791
+2018-11-25 23:19:16	Waiting for connections...
+2018-11-25 23:19:24	A client want to login
+2018-11-25 23:19:24	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52791 ClientPort: 41331}
+2018-11-25 23:19:24	There are no message for this client
+2018-11-25 23:19:24	Login completed correctly
+2018-11-25 23:19:24	A client want to find another user
+2018-11-25 23:19:24	The user pc2 is offline
+2018-11-25 23:19:29	Client handled has address: 127.0.0.1 and port 52792
+2018-11-25 23:19:29	Waiting for connections...
+2018-11-25 23:19:34	A client want to login
+2018-11-25 23:19:35	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52791 ClientPort: 41331, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52792 ClientPort: 27484}
+2018-11-25 23:19:35	There are no message for this client
+2018-11-25 23:19:35	Login completed correctly
+2018-11-25 23:19:35	A client want to find another user
+2018-11-25 23:19:35	Ip found: 127.0.0.1:41331
+2018-11-25 23:20:36	Client had a problem, connection closed
+2018-11-25 23:20:38	Client had a problem, connection closed
+2018-11-25 23:22:26	Client handled has address: 127.0.0.1 and port 52795
+2018-11-25 23:22:26	Waiting for connections...
+2018-11-25 23:22:31	A client want to login
+2018-11-25 23:22:31	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52795 ClientPort: 49923}
+2018-11-25 23:22:31	There are no message for this client
+2018-11-25 23:22:31	Login completed correctly
+2018-11-25 23:22:31	A client want to find another user
+2018-11-25 23:22:31	The user pc2 is offline
+2018-11-25 23:22:36	Client handled has address: 127.0.0.1 and port 52796
+2018-11-25 23:22:36	Waiting for connections...
+2018-11-25 23:22:41	A client want to login
+2018-11-25 23:22:41	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52795 ClientPort: 49923, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52796 ClientPort: 40896}
+2018-11-25 23:22:41	There are no message for this client
+2018-11-25 23:22:41	Login completed correctly
+2018-11-25 23:22:41	A client want to find another user
+2018-11-25 23:22:41	Ip found: 127.0.0.1:49923
+2018-11-25 23:23:32	Client had a problem, connection closed
+2018-11-25 23:23:33	Client had a problem, connection closed
+2018-11-25 23:24:06	Client handled has address: 127.0.0.1 and port 52798
+2018-11-25 23:24:06	Waiting for connections...
+2018-11-25 23:24:12	A client want to login
+2018-11-25 23:24:12	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52798 ClientPort: 12060}
+2018-11-25 23:24:12	There are no message for this client
+2018-11-25 23:24:12	Login completed correctly
+2018-11-25 23:24:12	A client want to find another user
+2018-11-25 23:24:12	The user pc2 is offline
+2018-11-25 23:24:15	Client handled has address: 127.0.0.1 and port 52800
+2018-11-25 23:24:15	Waiting for connections...
+2018-11-25 23:24:20	A client want to login
+2018-11-25 23:24:21	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52798 ClientPort: 12060, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52800 ClientPort: 41927}
+2018-11-25 23:24:21	There are no message for this client
+2018-11-25 23:24:21	Login completed correctly
+2018-11-25 23:24:21	A client want to find another user
+2018-11-25 23:24:21	Ip found: 127.0.0.1:12060
+2018-11-25 23:24:36	Client had a problem, connection closed
+2018-11-25 23:24:37	Client had a problem, connection closed
+2018-11-25 23:26:07	Client handled has address: 127.0.0.1 and port 52803
+2018-11-25 23:26:07	Waiting for connections...
+2018-11-25 23:26:12	A client want to login
+2018-11-25 23:26:13	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52803 ClientPort: 44056}
+2018-11-25 23:26:13	There are no message for this client
+2018-11-25 23:26:13	Login completed correctly
+2018-11-25 23:26:13	A client want to find another user
+2018-11-25 23:26:13	The user pc2 is offline
+2018-11-25 23:26:16	Client handled has address: 127.0.0.1 and port 52804
+2018-11-25 23:26:16	Waiting for connections...
+2018-11-25 23:26:21	A client want to login
+2018-11-25 23:26:21	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52803 ClientPort: 44056, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52804 ClientPort: 10629}
+2018-11-25 23:26:21	There are no message for this client
+2018-11-25 23:26:21	Login completed correctly
+2018-11-25 23:26:21	A client want to find another user
+2018-11-25 23:26:21	Ip found: 127.0.0.1:44056
+2018-11-25 23:26:29	Client had a problem, connection closed
+2018-11-25 23:26:30	Client had a problem, connection closed
+2018-11-25 23:26:49	Client handled has address: 127.0.0.1 and port 52806
+2018-11-25 23:26:49	Waiting for connections...
+2018-11-25 23:26:59	A client want to login
+2018-11-25 23:26:59	Active users: {'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52806 ClientPort: 31419}
+2018-11-25 23:26:59	There are no message for this client
+2018-11-25 23:26:59	Login completed correctly
+2018-11-25 23:26:59	A client want to find another user
+2018-11-25 23:26:59	The user pc1 is offline
+2018-11-25 23:27:01	Client handled has address: 127.0.0.1 and port 52807
+2018-11-25 23:27:01	Waiting for connections...
+2018-11-25 23:27:06	A client want to login
+2018-11-25 23:27:06	Active users: {'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52806 ClientPort: 31419, 'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52807 ClientPort: 14033}
+2018-11-25 23:27:06	There are no message for this client
+2018-11-25 23:27:06	Login completed correctly
+2018-11-25 23:27:06	A client want to find another user
+2018-11-25 23:27:06	Ip found: 127.0.0.1:31419
+2018-11-25 23:27:13	Client had a problem, connection closed
+2018-11-25 23:27:15	Client had a problem, connection closed
+2018-11-25 23:28:45	Client handled has address: 127.0.0.1 and port 52811
+2018-11-25 23:28:45	Waiting for connections...
+2018-11-25 23:28:50	A client want to login
+2018-11-25 23:28:50	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52811 ClientPort: 34486}
+2018-11-25 23:28:50	There are no message for this client
+2018-11-25 23:28:50	Login completed correctly
+2018-11-25 23:28:50	A client want to find another user
+2018-11-25 23:28:50	The user pc2 is offline
+2018-11-25 23:28:52	Client handled has address: 127.0.0.1 and port 52812
+2018-11-25 23:28:52	Waiting for connections...
+2018-11-25 23:28:57	A client want to login
+2018-11-25 23:28:57	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52811 ClientPort: 34486, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52812 ClientPort: 26216}
+2018-11-25 23:28:57	There are no message for this client
+2018-11-25 23:28:57	Login completed correctly
+2018-11-25 23:28:57	A client want to find another user
+2018-11-25 23:28:57	Ip found: 127.0.0.1:34486
+2018-11-25 23:29:03	Client had a problem, connection closed
+2018-11-25 23:29:04	Client had a problem, connection closed
+2018-11-25 23:29:29	Client handled has address: 127.0.0.1 and port 52814
+2018-11-25 23:29:29	Waiting for connections...
+2018-11-25 23:29:34	A client want to login
+2018-11-25 23:29:34	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52814 ClientPort: 20067}
+2018-11-25 23:29:34	There are no message for this client
+2018-11-25 23:29:34	Login completed correctly
+2018-11-25 23:29:34	A client want to find another user
+2018-11-25 23:29:34	The user pc2 is offline
+2018-11-25 23:29:36	Client handled has address: 127.0.0.1 and port 52816
+2018-11-25 23:29:36	Waiting for connections...
+2018-11-25 23:29:40	A client want to login
+2018-11-25 23:29:41	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52814 ClientPort: 20067, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52816 ClientPort: 33741}
+2018-11-25 23:29:41	There are no message for this client
+2018-11-25 23:29:41	Login completed correctly
+2018-11-25 23:29:41	A client want to find another user
+2018-11-25 23:29:41	Ip found: 127.0.0.1:20067
+2018-11-25 23:29:54	A client want to find another user
+2018-11-25 23:29:54	Ip found: 127.0.0.1:33741
+2018-11-25 23:30:53	Client disconnected, closing this thread
+2018-11-25 23:30:55	Client disconnected, closing this thread
+2018-11-25 23:49:14	Client handled has address: 127.0.0.1 and port 52855
+2018-11-25 23:49:14	Waiting for connections...
+2018-11-25 23:49:20	A client want to login
+2018-11-25 23:49:21	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52855 ClientPort: 16047}
+2018-11-25 23:49:21	There are no message for this client
+2018-11-25 23:49:21	Login completed correctly
+2018-11-25 23:49:21	A client want to find another user
+2018-11-25 23:49:21	The user pc2 is offline
+2018-11-25 23:49:24	Client handled has address: 127.0.0.1 and port 52856
+2018-11-25 23:49:24	Waiting for connections...
+2018-11-25 23:49:28	A client want to login
+2018-11-25 23:49:29	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52855 ClientPort: 16047, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52856 ClientPort: 36477}
+2018-11-25 23:49:29	There are no message for this client
+2018-11-25 23:49:29	Login completed correctly
+2018-11-25 23:49:29	A client want to find another user
+2018-11-25 23:49:29	Ip found: 127.0.0.1:16047
+2018-11-25 23:49:54	Client had a problem, connection closed
+2018-11-25 23:49:56	Client had a problem, connection closed
+2018-11-25 23:50:16	Client handled has address: 127.0.0.1 and port 52858
+2018-11-25 23:50:16	Waiting for connections...
+2018-11-25 23:50:21	A client want to login
+2018-11-25 23:50:21	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52858 ClientPort: 12826}
+2018-11-25 23:50:21	There are no message for this client
+2018-11-25 23:50:21	Login completed correctly
+2018-11-25 23:50:21	A client want to find another user
+2018-11-25 23:50:21	The user pc2 is offline
+2018-11-25 23:50:23	Client handled has address: 127.0.0.1 and port 52859
+2018-11-25 23:50:23	Waiting for connections...
+2018-11-25 23:50:27	A client want to login
+2018-11-25 23:50:27	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52858 ClientPort: 12826, 'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52859 ClientPort: 55926}
+2018-11-25 23:50:28	There are no message for this client
+2018-11-25 23:50:28	Login completed correctly
+2018-11-25 23:50:28	A client want to find another user
+2018-11-25 23:50:28	Ip found: 127.0.0.1:12826
+2018-11-25 23:50:57	Client had a problem, connection closed
+2018-11-25 23:51:04	Client had a problem, connection closed
+2018-11-25 23:52:06	Client handled has address: 127.0.0.1 and port 52862
+2018-11-25 23:52:06	Waiting for connections...
+2018-11-25 23:52:08	Client had a problem, connection closed
+2018-11-25 23:54:11	Client handled has address: 127.0.0.1 and port 52863
+2018-11-25 23:54:11	Waiting for connections...
+2018-11-25 23:54:18	A client want to login
+2018-11-25 23:54:18	Active users: {'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52863 ClientPort: 38269}
+2018-11-25 23:54:18	There are no message for this client
+2018-11-25 23:54:18	Login completed correctly
+2018-11-25 23:54:18	A client want to find another user
+2018-11-25 23:54:18	The user pc2 is offline
+2018-11-25 23:54:30	A client want to find another user
+2018-11-25 23:54:30	The user pc2 is offline
+2018-11-25 23:54:30	The user has a massage to be stored on the DB :
+2018-11-25 23:54:30	Message stored correctly
+2018-11-25 23:54:32	Client disconnected, closing this thread
+2018-11-25 23:54:35	Client handled has address: 127.0.0.1 and port 52864
+2018-11-25 23:54:35	Waiting for connections...
+2018-11-25 23:54:40	A client want to login
+2018-11-25 23:54:40	Active users: {'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52864 ClientPort: 42270}
+2018-11-25 23:54:40	There are several messages to be sended: {0: {'Sender': 'pc1', 'Text': '10465411940272901360360012341788317154891679907512152546192788838179044560137253702510278895221824964458336846020941131289738160462010171777723976775990321720667467108233534358397063643550979763552188496322873055961364987438897684885497884345466189269936246585221457331681010486297951850742215508604090109847233374082433006621515133771039260770207513699114926245679468453935071241029243711079940519944809204266789997569994291891486572362211588956771013942476914766498916349222473569147772835413543834358411171718498562478767109281724509030556196152989253176681179045678832542964799939266342385627544597872490568586943', 'Time': '2018-11-25 23:54:31'}}
+2018-11-25 23:54:40	Login completed correctly
+2018-11-25 23:54:40	A client want to find another user
+2018-11-25 23:54:40	The user pc1 is offline
+2018-11-25 23:54:43	Client handled has address: 127.0.0.1 and port 52865
+2018-11-25 23:54:43	Waiting for connections...
+2018-11-25 23:55:00	A client want to login
+2018-11-25 23:55:01	Active users: {'pc2': Username: pc2 IP: 127.0.0.1 ServerPort: 52864 ClientPort: 42270, 'pc1': Username: pc1 IP: 127.0.0.1 ServerPort: 52865 ClientPort: 9310}
+2018-11-25 23:55:01	There are no message for this client
+2018-11-25 23:55:01	Login completed correctly
+2018-11-25 23:55:01	A client want to find another user
+2018-11-25 23:55:01	Ip found: 127.0.0.1:42270
+2018-11-25 23:55:13	A client want to find another user
+2018-11-25 23:55:13	Ip found: 127.0.0.1:9310
+2018-11-25 23:56:31	Client had a problem, connection closed
+2018-11-25 23:56:32	Client had a problem, connection closed

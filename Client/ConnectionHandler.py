@@ -12,7 +12,7 @@ from cryptography.hazmat.primitives import serialization
 
 
 class ConnectionHandler(Thread) :
-    MSG_LEN = 2048
+    BUFFER_SIZE = 2048
     #Constructor
     '''
         Create a new socket and bind it to the port destinated for connectio p2p
@@ -41,11 +41,11 @@ class ConnectionHandler(Thread) :
     '''
     def receiveMessage(self, conn) :
         #self.Log.log('Connection started with ' + str(user))
-        messageFromServer = conn.recv(self.MSG_LEN)
+        messageFromServer = conn.recv(self.BUFFER_SIZE)
         msg = messageFromServer[:-256]
 
-        print('P2P connection: ' + str(len(msg)))
-        print('len msg ' + str(len(messageFromServer)))
+        #print('P2P connection: ' + str(len(msg)))
+        #print('len msg ' + str(len(messageFromServer)))
         #ct = int.from_bytes(msg, byteorder='big')
         signature = messageFromServer[-256:]
         #Decrypt the symmetric message from the server to retreìeve
@@ -54,7 +54,7 @@ class ConnectionHandler(Thread) :
             print('Error in AES')
             return
         dict = json.loads(text)
-        self.Security.insertKeyClient(dict['username'], dict['key'])
+        ret = self.Security.insertKeyClient(dict['username'], dict['key'])
         if not self.Security.VerifySignature(msg, signature, dict['username']):
             print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
 
@@ -62,58 +62,86 @@ class ConnectionHandler(Thread) :
 
         print('messaggio del server visto con successo!')
 
-        msg = conn.recv(self.MSG_LEN)
+        msg = conn.recv(self.BUFFER_SIZE)
         signature = msg[-256:]
         msg = msg[:-256]
-        pt = self.Security.RSADecryptText(msg)
-        if not self.Security.VerifySignature(pt, signature, dict['username']):
+        pt1 = self.Security.RSADecryptText(msg)
+        if not self.Security.VerifySignature(pt1, signature, dict['username']):
             print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
             return
         else:
             print('integrity of the DH shared_key is valid')
 
-        sharedKey = self.Security.RSADecryptText(msg)
+        msg = conn.recv(self.BUFFER_SIZE)
+        signature = msg[-256:]
+        msg = msg[:-256]
+        pt2 = self.Security.RSADecryptText(msg)
+        if not self.Security.VerifySignature(pt2, signature, dict['username']):
+            print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
+            return
+        else:
+            print('integrity of the DH shared_key is valid')
 
-        self.Security.computeDHKey(dict['username'], sharedKey)
-        print('KEY COMPUTED!!!')
+        sharedKey = (pt1+pt2)
+        print('YA è : ' + str(sharedKey))
 
+        self.Security.computeDHKey(dict['username'], sharedKey,1)
+        #print('KEY COMPUTED!!!')
+
+        plainText = self.Security.getSharedKey(self.username)
+        pt1 = plainText[:round(len(plainText)/2)]
+        pt2 = plainText[round(len(plainText)/2):]
+
+        ct1 = self.Security.RSAEncryptText(pt1, self.Security.getKeyClient(dict['username']))
+        sign = self.Security.getSignature(pt1)
+        conn.send(ct1+sign)
+
+        ct2 = self.Security.RSAEncryptText(pt2, self.Security.getKeyClient(dict['username']))
+        sign = self.Security.getSignature(pt2)
+        conn.send(ct2+sign)
+
+        #print('sended all mine Y')
         plainText = {}
-        plainText['sharedKey'] = int.from_bytes(self.Security.getSharedKey(self.username), byteorder='big')
+        #        plainText['sharedKey'] = int.from_bytes(self.Security.getSharedKey(self.username), byteorder='big')
         plainText['Nsa'] = dict['Nsa']
-
         Nb = self.Security.generateNonce(self.sizeNonce)
         self.Security.addClientNonce(dict['username'],0)
 
-        plainText['Nb'] = int.from_bytes(self.Security.AESEncryptText(Nb.to_bytes(self.sizeNonce,byteorder='big'), dict['username']), byteorder='big')
-        print('ciao ' + str(plainText['Nb']))
-        self.Security.addClientNonce(Nb,0)
+        NbAES = self.Security.AESEncryptText(Nb.to_bytes(self.sizeNonce,byteorder='big'), dict['username'])
+        plainText['lenNb'] = len(NbAES)
+        plainText['Nb'] = int.from_bytes(NbAES, byteorder='big')
+        print('CRIPTATO CON AES:' + str(plainText['Nb']))
+        self.Security.addClientNonce(dict['username'],Nb)
         ptBit = json.dumps(plainText).encode(self.Code)
 
         ptBitCompress = zlib.compress(ptBit)
 
-        print('Lunghezza messaggio M4: ' + str(len(ptBitCompress)))
+        #print('Lunghezza messaggio M4: ' + str(len(ptBitCompress)))
         cipherText = self.Security.RSAEncryptText(ptBitCompress, serialization.load_pem_public_key(dict['key'].encode('utf-8'), backend=default_backend()))
         sign = self.Security.getSignature(ptBit)
         print('message prepared properly')
         conn.send(cipherText+sign)
-        print('message sended to ' + dict['username'])
+        print('message M4 sended to ' + dict['username'])
 
-        msg = conn.recv(self.MSG_LEN)
-        plainText = self.Security.AESDecryptText(msg, dict['username'])
+        msg = conn.recv(self.BUFFER_SIZE)
+        plainText = int.from_bytes(self.Security.AESDecryptText(msg, dict['username']), byteorder='big')
         if Nb == plainText:
             print('the connection has been set up in the correct way')
         else:
-            print('NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
+            print('Mio Nb: ' + str(Nb))
+            print('Ricevuto Nb: ' + str(plainText))
             return
 
 ############################################################
         while True:
             try:
-                msg = conn.recv(self.MSG_LEN)
-                if not msg :
+                ct = conn.recv(self.BUFFER_SIZE)
+                if not ct :
                     raise Exception()
 
-                msg = msg.decode(self.Code)
+                pt = self.Security.AESDecryptText(ct, dict['username'])
+
+                msg = pt.decode(self.Code)
 
                 #print('Message received: ' + msg + ' length : ' + length)
                 dict = json.loads(msg)

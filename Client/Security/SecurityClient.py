@@ -15,7 +15,7 @@ import os
 
 class SecurityClient:
     def __init__(self, serverPublicKeyPath):
-        self.DH = {}
+        self.DHPrivateKey = {}
         self.clientKeys = {}
         self.clientSymmetricKeys = {}
         self.SymmetricKey = None
@@ -116,12 +116,6 @@ class SecurityClient:
             if user is None:
                 self.serverPublicKey.verify(signature,text,padding.PSS(mgf=padding.MGF1(hashes.SHA256()),salt_length=padding.PSS.MAX_LENGTH),hashes.SHA256())
             else:
-                print('verifying the signature with the of ' + user)
-                print('key : \n\n\n\n\n' + str(int.from_bytes(self.clientKeys[user].public_bytes(encoding=serialization.Encoding.PEM,format=serialization.PublicFormat.SubjectPublicKeyInfo), byteorder='big')))
-                print(self.clientKeys[user].public_bytes(
-                                                encoding=serialization.Encoding.PEM,
-                                                format=serialization.PublicFormat.SubjectPublicKeyInfo)
-                                                )
                 self.clientKeys[user].verify(signature,text,padding.PSS(mgf=padding.MGF1(hashes.SHA256()),salt_length=padding.PSS.MAX_LENGTH),hashes.SHA256())
             return True
         except InvalidSignature as e:
@@ -136,9 +130,6 @@ class SecurityClient:
 
     def AddSymmetricKeyFromDict(self,dict):
         """Must be passed as argument the dict located at message['key']"""
-        #self.len = int(key["lenght"])
-        #self.SymmetricKey = struct.pack("B"*int(dict["lenght"]/8),*dict["content"])
-        print('chiave? ' + str(dict))
         self.SymmetricKey = dict.to_bytes(16, byteorder='big')
 
     def getSymmetricKey(self):
@@ -150,16 +141,17 @@ class SecurityClient:
                 aescgm = AESGCM(self.SymmetricKey)
                 if username is None:
                     self.serverNonce = self.serverNonce+1
-                    print('decryptnonceserver ' + str(self.serverNonce))
+                    #print('decryptnonceserver ' + str(self.serverNonce))
                     return aescgm.decrypt(self.serverNonce.to_bytes(16, byteorder="big"),ct,None)
                 else:
                     self.clientNonce[username] = self.clientNonce[username]+1
-                    print('decryptnonceserver ' + str(self.clientNonce[username]))
+                    #print('decryptnonceserver ' + str(self.clientNonce[username]))
                     return aescgm.decrypt(self.clientNonce[username].to_bytes(16, byteorder="big"),ct,None)
             else:
                 aescgm = AESGCM(self.clientSymmetricKeys[username])
                 self.clientNonce[username] = self.clientNonce[username]+1
-                print('decryptnonceclient ' + str(self.clientNonce[username]))
+                print('decripto con AES , nonce '+ str(self.clientNonce[username]))
+                #print('decryptnonceclient ' + str(self.clientNonce[username]))
                 return aescgm.decrypt(self.clientNonce[username].to_bytes(16, byteorder="big"),ct,None)
         except TypeError as t:
             print(t)
@@ -172,7 +164,7 @@ class SecurityClient:
     def AESEncryptText(self,pt, username = None):
         try:
             if username is None:
-                print(self.serverNonce)
+                #print(self.serverNonce)
                 aesgcm = AESGCM(self.SymmetricKey)
                 self.serverNonce = self.serverNonce+1
                 #print('encryptnonce ' + str(self.serverNonce))
@@ -252,41 +244,54 @@ class SecurityClient:
         self.publicKey = None
 
     def generateDH(self, p, g, user):
+        print('generateDH: parameters p, g and user:\np= ' +str(p) +'\ng= ' + str(g) + '\nuser= ' + str(user))
         pn = dh.DHParameterNumbers(int(p), int(g))
         self.parameters = pn.parameters(default_backend())
-        #print('g^a mod p')
-        self.DH[user] = self.parameters.generate_private_key()
+        #publicNumbers = self.parameters.DHPublicNumbers()
+        self.DHPrivateKey[user] = self.parameters.generate_private_key()
 
 
 #    def computeDHtoSend(self, user):
-#        return self.DH[user]
+#        return self.DHPrivateKey[user]
+    def getSharedKey(self, user):
 
-    def computeDHKey(self, user, shared_key):
+        y = self.DHPrivateKey[user].public_key().public_bytes(encoding=serialization.Encoding.PEM,format=serialization.PublicFormat.SubjectPublicKeyInfo)
+        print('the public key to send [y]')
+        print(y)
+        return y
+
+    def computeDHKey(self, user, shared_key, mine=None):
         '''
             We must pass the value g^b mod p = shared_key received by the other client
             and compute the key as (g^b mod p)^a mod p
             when we compute this we remove from the system
         '''
         print('key of the communication with the other host has been computed')
+        y = ''
+        if mine is None:
+            y = self.DHPrivateKey[user].exchange(serialization.load_pem_public_key(shared_key,backend=default_backend()))
+        else:
+            y = self.DHPrivateKey[self.username].exchange(serialization.load_pem_public_key(shared_key,backend=default_backend()))
+
         self.clientSymmetricKeys[user] = HKDF(
                  algorithm=hashes.SHA256(),
                  length=32,
                  salt=None,
                  info=b'handshake data',
                  backend=default_backend()
-            ).derive(shared_key)
-        print('added symmetric key')
+            ).derive(y)
+        print('This is it:')
         print(self.clientSymmetricKeys[user])
 
-    def getSharedKey(self, user):
-        return self.DH[user].exchange(self.DH[user].public_key())
 
     def insertKeyClient(self, user, key):
-        print('inserting the key of ' + user)
-        print(key)
+        #print('inserting the key of ' + user)
+        #print(key)
         self.clientKeys[user] = serialization.load_pem_public_key(key.encode('utf-8'),backend=default_backend())
 
     def insertSymmetricKeyClient(self, user, key):
+        print('uso questa funzione insertSymmetricKeyClient per user ' + user)
+        print(key)
         self.clientSymmetricKeys[user] = serialization.load_pem_public_key(key.encode('utf-8'),backend=default_backend())
 
     def getKeyClient(self, user):
