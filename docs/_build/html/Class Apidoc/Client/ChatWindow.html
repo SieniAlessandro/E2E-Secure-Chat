@@ -1,0 +1,288 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ChatWindow module &#8212; MPS Protocol - Cybersecurity Project 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Login module" href="Login.html" />
+    <link rel="prev" title="ChatList module" href="ChatList.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Login.html" title="Login module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ChatList.html" title="ChatList module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../rst/Client.html" >List of Client’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="Frontend.html" accesskey="U">&lt;no title&gt;</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-ChatWindow">
+<span id="chatwindow-module"></span><h1>ChatWindow module<a class="headerlink" href="#module-ChatWindow" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="ChatWindow.BoxMessage">
+<em class="property">class </em><code class="descclassname">ChatWindow.</code><code class="descname">BoxMessage</code><span class="sig-paren">(</span><em>master</em>, <em>background</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.BoxMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<dl class="method">
+<dt id="ChatWindow.BoxMessage.bindMouseWheel">
+<code class="descname">bindMouseWheel</code><span class="sig-paren">(</span><em>scrollableFrame</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.BoxMessage.bindMouseWheel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bind mouse wheel event so the scrollableFrame can scroll even if the
+cursor is over this frame</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scrollableFrame</strong> (<a class="reference internal" href="ScrollableFrame.html#ScrollableFrame.Scrollable" title="ScrollableFrame.Scrollable"><em>Scrollable</em></a>) – instance of class Scrollable</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.BoxMessage.createWidgets">
+<code class="descname">createWidgets</code><span class="sig-paren">(</span><em>message</em>, <em>time</em>, <em>isMine</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.BoxMessage.createWidgets" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>string</em>) – sent or received message</li>
+<li><strong>time</strong> (<em>string</em>) – arrival or sending time</li>
+<li><strong>isMine</strong> (<em>boolean</em>) – true if this is a message sent by me</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ChatWindow.ChatWindow">
+<em class="property">class </em><code class="descclassname">ChatWindow.</code><code class="descname">ChatWindow</code><span class="sig-paren">(</span><em>master</em>, <em>background</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<dl class="attribute">
+<dt id="ChatWindow.ChatWindow.MAXMESSAGELEN">
+<code class="descname">MAXMESSAGELEN</code><em class="property"> = 200</em><a class="headerlink" href="#ChatWindow.ChatWindow.MAXMESSAGELEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.addBoxMessageElement">
+<code class="descname">addBoxMessageElement</code><span class="sig-paren">(</span><em>message</em>, <em>time</em>, <em>isMine</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.addBoxMessageElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a new message and diplay it into the frame on the right if
+it is a message sent by me or on the left if it is a received message</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>string</em>) – sent or received message</li>
+<li><strong>time</strong> (<em>string</em>) – arrival or sending time</li>
+<li><strong>isMine</strong> (<em>boolean</em>) – true if this is a message sent by me</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ChatWindow.ChatWindow.backgroundWindow">
+<code class="descname">backgroundWindow</code><em class="property"> = '#1f2327'</em><a class="headerlink" href="#ChatWindow.ChatWindow.backgroundWindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.createWidgets">
+<code class="descname">createWidgets</code><span class="sig-paren">(</span><em>background</em>, <em>chatName</em>, <em>client</em>, <em>chatList</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.createWidgets" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>background</strong> (<em>string</em>) – background color</li>
+<li><strong>chatName</strong> (<em>string</em>) – name of the chat</li>
+<li><strong>client</strong> (<em>Client</em>) – instance of class Client</li>
+<li><strong>chatList</strong> (<a class="reference internal" href="ChatList.html#ChatList.ChatList" title="ChatList.ChatList"><em>ChatList</em></a>) – list of available chats</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.getChatName">
+<code class="descname">getChatName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.getChatName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.pressEnterEvent">
+<code class="descname">pressEnterEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.pressEnterEvent" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>event</strong> (<em>Event</em>) – information about the event</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.pressEscEvent">
+<code class="descname">pressEscEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.pressEscEvent" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>event</strong> (<em>Event</em>) – information about the event</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.pressSendButton">
+<code class="descname">pressSendButton</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.pressSendButton" title="Permalink to this definition">¶</a></dt>
+<dd><p>When send button is pressed the message is splitted into chunks in
+order to avoid length of packet problems. In this way, a very long
+message is splitted into n chunks and the client.sendClient is called
+n times, as they were n independent messages, so this is transparent
+to the receiver</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.send">
+<code class="descname">send</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.send" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> (<em>string</em>) – message to be sent</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.setClient">
+<code class="descname">setClient</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.setClient" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>client</strong> (<em>Client</em>) – instance of class Client</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.updateState">
+<code class="descname">updateState</code><span class="sig-paren">(</span><em>status</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.updateState" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>status</strong> (<em>int</em>) – online or offline</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ChatList.html"
+                        title="previous chapter">ChatList module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Login.html"
+                        title="next chapter">Login module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/Class Apidoc/Client/ChatWindow.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Login.html" title="Login module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ChatList.html" title="ChatList module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol - Cybersecurity Project 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../rst/Client.html" >List of Client’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="Frontend.html" >&lt;no title&gt;</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Amedeo Pochiero.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
+</html>
