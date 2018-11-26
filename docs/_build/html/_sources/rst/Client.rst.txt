@@ -12,5 +12,6 @@ Middleware
 ``````````
 .. toctree::
   :maxdepth: 2
+  
 
   ../Class Apidoc/Client/Middleware.rst
