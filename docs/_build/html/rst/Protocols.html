@@ -53,7 +53,7 @@ to store clients information so that they can establish a secure session key,
 that is unknown even to the server.</p>
 <div class="section" id="ban-logic">
 <h2>BAN Logic<a class="headerlink" href="#ban-logic" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference download internal" download="" href="../_downloads/f86ab9ffbaece74757c713b04861a678/Protocollo E2EE 3.2.3.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Here</span></code></a>
+<p><a class="reference download internal" download="" href="../_downloads/937738fac7934dcae1cf5e16baa1cf56/Protocollo E2EE 4.0.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Here</span></code></a>
 you can find the BAN logic analysis of the 4 protocols.</p>
 </div>
 <div class="section" id="sign-up-protocol">
@@ -127,10 +127,9 @@ first message M1.</p>
 public key <span class="math notranslate nohighlight">\(K_{b}\)</span>, thus she can encrypt her data using it.</p>
 <p>Whenever Alice has a message for Bob, she sends it to the server. Eventually, it
 will delivery all the messages arrived when Bob executes the Authentication
-Protocol. In order to ensure authentication, 2 digital signature are needed.
-The first one signs the whole packet and it is verified by the server, so that it
-can be sure that this packet comes from Alice. The second one signs the content
-of the packet, so that when Bob decrypts, he can verify that Alice once said that.</p>
+Protocol. Replay attacks are not possible because the nonce needed by AES-GCM is
+incremented every time, so if the received message is encrypted with an already used
+nonce, the packet is discarded.</p>
 <img alt="../_images/Offline.png" src="../_images/Offline.png" />
 </div>
 </div>

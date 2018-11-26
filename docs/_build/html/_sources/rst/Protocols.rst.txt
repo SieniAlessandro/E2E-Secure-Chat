@@ -7,7 +7,7 @@ that is unknown even to the server.
 
 BAN Logic
 `````````
-:download:`Here <../BAN Logic/Protocollo E2EE 3.2.3.pdf>`
+:download:`Here <../BAN Logic/Protocollo E2EE 4.0.pdf>`
 you can find the BAN logic analysis of the 4 protocols.
 
 
@@ -100,10 +100,9 @@ public key :math:`K_{b}`, thus she can encrypt her data using it.
 
 Whenever Alice has a message for Bob, she sends it to the server. Eventually, it
 will delivery all the messages arrived when Bob executes the Authentication
-Protocol. In order to ensure authentication, 2 digital signature are needed.
-The first one signs the whole packet and it is verified by the server, so that it
-can be sure that this packet comes from Alice. The second one signs the content
-of the packet, so that when Bob decrypts, he can verify that Alice once said that.
+Protocol. Replay attacks are not possible because the nonce needed by AES-GCM is
+incremented every time, so if the received message is encrypted with an already used
+nonce, the packet is discarded.
 
 
 .. image:: ../Images/Offline.png
