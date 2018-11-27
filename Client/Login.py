@@ -44,7 +44,6 @@ class LoginGUI(Frame):
         self.confirmButton.pack(side="right", padx=5, pady=5)
 
         self.master.bind('<Return>', self.pressEnterEvent)
-        self.usernameEntry.focus_force()
     def setRootSize(self, height):
         """
             Set width and height of root window
@@ -70,6 +69,7 @@ class LoginGUI(Frame):
         self.master.resizable(width=FALSE, height=FALSE)
         self.master.title("Login")
         self.master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
+        self.usernameEntry.focus_force()
     def hideLoginFrame(self):
         """
             Hide login interface from the root window
@@ -149,7 +149,7 @@ class LoginGUI(Frame):
         self.setRootSize(370)
     def hideMessage(self):
         self.messageLabel.grid_forget()
-        self.usernameEntry.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=0)
+        self.usernameEntry.config(fg = 'white', highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=0)
         self.passwordEntry.config(fg = 'white', highlightthickness=0)
         self.setRootSize(350)
     def showMessage(self, message, color):

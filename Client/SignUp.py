@@ -173,20 +173,6 @@ class SignUpGUI(Frame):
         """
             Reset the entries and show login window
         """
-        self.usernameEntry.delete(0, 'end')
-        self.emailEntry.delete(0, 'end')
-        self.nameEntry.delete(0, 'end')
-        self.surnameEntry.delete(0, 'end')
-        self.passwordEntry.delete(0, 'end')
-        self.confirmPasswordEntry.delete(0, 'end')
-
-        self.usernameEntry.config(fg = "white", highlightthickness=0)
-        self.emailEntry.config(fg = "white", highlightthickness=0)
-        self.nameEntry.config(fg = "white", highlightthickness=0)
-        self.surnameEntry.config(fg = "white", highlightthickness=0)
-        self.passwordEntry.config(fg = "white", highlightthickness=0)
-        self.confirmPasswordEntry.config(fg = "white", highlightthickness=0)
-
         self.hideErrorLabel()
         self.hideSignUpFrame()
         self.loginWindow.showLoginFrame()
@@ -229,6 +215,19 @@ class SignUpGUI(Frame):
         self.master.title("Sign Up")
         self.master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
     def hideSignUpFrame(self):
+        self.usernameEntry.delete(0, 'end')
+        self.emailEntry.delete(0, 'end')
+        self.nameEntry.delete(0, 'end')
+        self.surnameEntry.delete(0, 'end')
+        self.passwordEntry.delete(0, 'end')
+        self.confirmPasswordEntry.delete(0, 'end')
+
+        self.usernameEntry.config(fg = "white", highlightthickness=0)
+        self.emailEntry.config(fg = "white", highlightthickness=0)
+        self.nameEntry.config(fg = "white", highlightthickness=0)
+        self.surnameEntry.config(fg = "white", highlightthickness=0)
+        self.passwordEntry.config(fg = "white", highlightthickness=0)
+        self.confirmPasswordEntry.config(fg = "white", highlightthickness=0)
         self.pack_forget()
 
 # Testing purposes
