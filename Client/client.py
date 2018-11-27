@@ -26,7 +26,6 @@ class Client:
         self.XML = XMLClientHandler()
         self.hostServer = '10.102.22.57'#self.XML.getServerAddress()#self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.XML.getServerPort()
-        self.portp2p = random.randint(6001,60000)
         self.username = None
         self.Log = Log()
         self.Log.log('Client initialized')
@@ -243,7 +242,7 @@ class Client:
             if the host is already connected with another device return -1
         '''
         self.username = username.lower()
-
+        self.portp2p = random.randint(6001,60000)
 
         msg = {}
         msg['id'] = '2'

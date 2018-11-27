@@ -25,10 +25,7 @@ class ConnectionHandler(Thread) :
         self.users = []
         self.socketListener = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         self.socketListener.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
-        try:
-            self.socketListener.bind((self.ip,portp2p))
-        except OSError:
-            print('eat')
+        self.socketListener.bind((self.ip,portp2p))
         self.Log = Log
         self.Chat = Chat
         self.Code = Code
