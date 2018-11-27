@@ -168,6 +168,7 @@ class ConnectionHandler(Thread) :
         while True :
             self.socketListener.listen(50)
             (conn, (ip,port)) = self.socketListener.accept()
+            conn.settimeout(60)
             self.Log.log('Accepted a new connecion')
             t = Thread(target=self.receiveMessage, args=(conn, ))
             t.start()
