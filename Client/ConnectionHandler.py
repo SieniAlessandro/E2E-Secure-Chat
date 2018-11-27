@@ -6,6 +6,7 @@ from threading import Thread
 import json
 from Log import *
 import zlib
+import os
 
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization
@@ -133,7 +134,7 @@ class ConnectionHandler(Thread) :
                 print('Mio Nb: ' + str(Nb))
                 print('Ricevuto Nb: ' + str(plainText))
                 return
-
+        #self.Chat.chatListDict[self.username][1].updateState(1)
 ############################################################
         while True:
             try:
