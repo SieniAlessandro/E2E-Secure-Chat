@@ -352,17 +352,18 @@ class Client:
             pt2 = plainText[round(len(plainText)/2):]
 
             ct1 = self.Security.RSAEncryptText(pt1, self.Security.getKeyClient(receiver))
-            sign = self.Security.getSignature(pt1)
-            self.socketClient[receiver].send(ct1+sign)
-
+            sign1 = self.Security.getSignature(pt1)
             ct2 = self.Security.RSAEncryptText(pt2, self.Security.getKeyClient(receiver))
-            sign = self.Security.getSignature(pt2)
-            self.socketClient[receiver].send(ct2+sign)
+            sign2 = self.Security.getSignature(pt2)
+            self.socketClient[receiver].send(ct1+sign1+ct2+sign2)
+
             print('sended all the M3 message')
             ############GETTING THE PUBLIC Y_B ##################
             msg = self.socketClient[receiver].recv(self.BUFFER_SIZE)
-            signature = msg[-256:]
-            msg = msg[:-256]
+            msg1 = msg[:int(len(msg)/2)]
+            msg2 = msg[int(len(msg)/2):]
+            signature = msg1[-256:]
+            msg = msg1[:-256]
             pt1 = self.Security.RSADecryptText(msg)
             if not self.Security.VerifySignature(pt1, signature, receiver):
                 print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
@@ -370,9 +371,8 @@ class Client:
             else:
                 print('integrity of the DH shared_key is valid')
 
-            msg = self.socketClient[receiver].recv(self.BUFFER_SIZE)
-            signature = msg[-256:]
-            msg = msg[:-256]
+            signature = msg2[-256:]
+            msg = msg2[:-256]
             pt2 = self.Security.RSADecryptText(msg)
             if not self.Security.VerifySignature(pt2, signature, receiver):
                 print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
