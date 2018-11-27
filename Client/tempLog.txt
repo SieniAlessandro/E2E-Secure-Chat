@@ -1,14 +1,2 @@
-2018-11-27 09:58:20	Client initialized
-2018-11-27 09:58:20	Message Handler has been initialized!
-2018-11-27 09:58:24	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 62544066469290267583423840692, "serverNonce": 11088743424831023732036282, "key": 87002960469539827401588755057644497267}
-2018-11-27 09:58:24	Succesfull logged in as c
-2018-11-27 09:58:24	Received a message from the SERVER: {"id": "0"}
-2018-11-27 09:58:24	No messages stored in the server
-2018-11-27 09:58:24	MessageHandler Initialized! Associated port: 11533
-2018-11-27 09:58:24	All the conversations has been charged : {}
-2018-11-27 09:58:32	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 75953867449780104685742438289, "serverNonce": 260432302313266912734847233, "key": 326488251070326250958493664758790958627}
-2018-11-27 09:58:32	Succesfull logged in as c
-2018-11-27 09:58:32	Received a message from the SERVER: {"id": "0"}
-2018-11-27 09:58:32	No messages stored in the server
-2018-11-27 09:58:32	MessageHandler Initialized! Associated port: 11533
-2018-11-27 09:58:32	All the conversations has been charged : {}
+2018-11-27 10:05:31	Client initialized
+2018-11-27 10:05:31	Message Handler has been initialized!
