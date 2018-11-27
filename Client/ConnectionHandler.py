@@ -54,83 +54,85 @@ class ConnectionHandler(Thread) :
             print('Error in AES')
             return
         dict = json.loads(text)
-        ret = self.Security.insertKeyClient(dict['username'], dict['key'])
-        if not self.Security.VerifySignature(msg, signature, dict['username']):
+        peerUsername = dict['username']
+        ret = self.Security.insertKeyClient(peerUsername, dict['key'])
+        if not self.Security.VerifySignature(msg, signature, peerUsername):
             print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
 
             return
 
-        print('messaggio del server visto con successo!')
+        #print('messaggio del server visto con successo!')
+        if not self.Security.isSymmetricKeyClientPresent(peerUsername):
+            msg = conn.recv(self.BUFFER_SIZE)
+            signature = msg[-256:]
+            msg = msg[:-256]
+            pt1 = self.Security.RSADecryptText(msg)
+            if not self.Security.VerifySignature(pt1, signature, peerUsername):
+                print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
+                return
+            else:
+                print('integrity of the DH shared_key is valid')
 
-        msg = conn.recv(self.BUFFER_SIZE)
-        signature = msg[-256:]
-        msg = msg[:-256]
-        pt1 = self.Security.RSADecryptText(msg)
-        if not self.Security.VerifySignature(pt1, signature, dict['username']):
-            print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
-            return
-        else:
-            print('integrity of the DH shared_key is valid')
+            msg = conn.recv(self.BUFFER_SIZE)
+            signature = msg[-256:]
+            msg = msg[:-256]
+            pt2 = self.Security.RSADecryptText(msg)
+            if not self.Security.VerifySignature(pt2, signature, peerUsername):
+                print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
+                return
+            else:
+                print('integrity of the DH shared_key is valid')
 
-        msg = conn.recv(self.BUFFER_SIZE)
-        signature = msg[-256:]
-        msg = msg[:-256]
-        pt2 = self.Security.RSADecryptText(msg)
-        if not self.Security.VerifySignature(pt2, signature, dict['username']):
-            print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
-            return
-        else:
-            print('integrity of the DH shared_key is valid')
+            sharedKey = (pt1+pt2)
+            #print('YA è : ' + str(sharedKey))
 
-        sharedKey = (pt1+pt2)
-        print('YA è : ' + str(sharedKey))
+            self.Security.computeDHKey(peerUsername, sharedKey,1)
+            #print('KEY COMPUTED!!!')
 
-        self.Security.computeDHKey(dict['username'], sharedKey,1)
-        #print('KEY COMPUTED!!!')
+            plainText = self.Security.getSharedKey(self.username)
+            pt1 = plainText[:round(len(plainText)/2)]
+            pt2 = plainText[round(len(plainText)/2):]
 
-        plainText = self.Security.getSharedKey(self.username)
-        pt1 = plainText[:round(len(plainText)/2)]
-        pt2 = plainText[round(len(plainText)/2):]
+            ct1 = self.Security.RSAEncryptText(pt1, self.Security.getKeyClient(peerUsername))
+            sign = self.Security.getSignature(pt1)
+            conn.send(ct1+sign)
 
-        ct1 = self.Security.RSAEncryptText(pt1, self.Security.getKeyClient(dict['username']))
-        sign = self.Security.getSignature(pt1)
-        conn.send(ct1+sign)
+            ct2 = self.Security.RSAEncryptText(pt2, self.Security.getKeyClient(peerUsername))
+            sign = self.Security.getSignature(pt2)
+            conn.send(ct2+sign)
 
-        ct2 = self.Security.RSAEncryptText(pt2, self.Security.getKeyClient(dict['username']))
-        sign = self.Security.getSignature(pt2)
-        conn.send(ct2+sign)
+            #print('sended all mine Y')
+            plainText = {}
+            #        plainText['sharedKey'] = int.from_bytes(self.Security.getSharedKey(self.username), byteorder='big')
+            plainText['Nsa'] = dict['Nsa']
+            Nb = self.Security.generateNonce(self.sizeNonce)
+            self.Security.addClientNonce(peerUsername,0)
 
-        #print('sended all mine Y')
-        plainText = {}
-        #        plainText['sharedKey'] = int.from_bytes(self.Security.getSharedKey(self.username), byteorder='big')
-        plainText['Nsa'] = dict['Nsa']
-        Nb = self.Security.generateNonce(self.sizeNonce)
-        self.Security.addClientNonce(dict['username'],0)
+            NbAES = self.Security.AESEncryptText(Nb.to_bytes(self.sizeNonce,byteorder='big'), peerUsername)
+            plainText['lenNb'] = len(NbAES)
+            plainText['Nb'] = int.from_bytes(NbAES, byteorder='big')
+            #print('CRIPTATO CON AES:' + str(plainText['Nb']))
+            self.Security.addClientNonce(peerUsername,Nb)
+            ptBit = json.dumps(plainText).encode(self.Code)
 
-        NbAES = self.Security.AESEncryptText(Nb.to_bytes(self.sizeNonce,byteorder='big'), dict['username'])
-        plainText['lenNb'] = len(NbAES)
-        plainText['Nb'] = int.from_bytes(NbAES, byteorder='big')
-        print('CRIPTATO CON AES:' + str(plainText['Nb']))
-        self.Security.addClientNonce(dict['username'],Nb)
-        ptBit = json.dumps(plainText).encode(self.Code)
+            ptBitCompress = zlib.compress(ptBit)
 
-        ptBitCompress = zlib.compress(ptBit)
+            #print('Lunghezza messaggio M4: ' + str(len(ptBitCompress)))
+            cipherText = self.Security.RSAEncryptText(ptBitCompress, serialization.load_pem_public_key(dict['key'].encode('utf-8'), backend=default_backend()))
+            sign = self.Security.getSignature(ptBit)
+            #print('message prepared properly')
+            conn.send(cipherText+sign)
+            #print('message M4 sended to ' + peerUsername)
 
-        #print('Lunghezza messaggio M4: ' + str(len(ptBitCompress)))
-        cipherText = self.Security.RSAEncryptText(ptBitCompress, serialization.load_pem_public_key(dict['key'].encode('utf-8'), backend=default_backend()))
-        sign = self.Security.getSignature(ptBit)
-        print('message prepared properly')
-        conn.send(cipherText+sign)
-        print('message M4 sended to ' + dict['username'])
-
-        msg = conn.recv(self.BUFFER_SIZE)
-        plainText = int.from_bytes(self.Security.AESDecryptText(msg, dict['username']), byteorder='big')
-        if Nb == plainText:
-            print('the connection has been set up in the correct way')
-        else:
-            print('Mio Nb: ' + str(Nb))
-            print('Ricevuto Nb: ' + str(plainText))
-            return
+            msg = conn.recv(self.BUFFER_SIZE)
+            plainText = int.from_bytes(self.Security.AESDecryptText(msg, peerUsername), byteorder='big')
+            if Nb == plainText:
+                print('Nb da usare ' + str(Nb))
+                print('the connection has been set up in the correct way')
+            else:
+                print('Mio Nb: ' + str(Nb))
+                print('Ricevuto Nb: ' + str(plainText))
+                return
 
 ############################################################
         while True:
@@ -139,8 +141,8 @@ class ConnectionHandler(Thread) :
                 if not ct :
                     raise Exception()
 
-                pt = self.Security.AESDecryptText(ct, dict['username'])
-
+                pt = self.Security.AESDecryptText(ct, peerUsername)
+                #pt = ct
                 msg = pt.decode(self.Code)
 
                 #print('Message received: ' + msg + ' length : ' + length)
@@ -153,6 +155,7 @@ class ConnectionHandler(Thread) :
                 self.Message.addMessagetoConversations(dict['sender'], dict['text'], dict['time'], 1)
             except Exception as e:
                 #print(e)
+                self.Security.resetSymmetricKeyClient(peerUsername)
                 self.Log.log('Connection closed')
                 return -1
     '''

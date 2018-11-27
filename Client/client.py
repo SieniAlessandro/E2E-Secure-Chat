@@ -24,7 +24,7 @@ class Client:
 
     def __init__(self, chat = None):
         self.XML = XMLClientHandler()
-        self.hostServer = '127.0.0.1'#self.XML.getServerAddress()#self.HOST_SERVER #IPv4 Address of the server
+        self.hostServer = '10.102.22.57'#self.XML.getServerAddress()#self.HOST_SERVER #IPv4 Address of the server
         self.portServer = self.XML.getServerPort()
         self.portp2p = random.randint(6001,60000)
         self.username = None
@@ -339,7 +339,10 @@ class Client:
             cipherText = dict['info'].to_bytes(dict['lenInfo'], byteorder='big')
             sign = self.Security.getSignature(cipherText)
             self.socketClient[receiver].send(cipherText+sign)
-            print('sended symmetric message')
+            #print('sended symmetric message')
+
+            if self.Security.isSymmetricKeyClientPresent(receiver):
+                return 1
 
             self.Security.insertKeyClient(receiver, dict['key'])
 
@@ -363,7 +366,7 @@ class Client:
             pt1 = self.Security.RSADecryptText(msg)
             if not self.Security.VerifySignature(pt1, signature, receiver):
                 print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
-                return
+                return -1
             else:
                 print('integrity of the DH shared_key is valid')
 
@@ -373,7 +376,7 @@ class Client:
             pt2 = self.Security.RSADecryptText(msg)
             if not self.Security.VerifySignature(pt2, signature, receiver):
                 print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
-                return
+                return -1
             else:
                 print('integrity of the DH shared_key is valid')
 
@@ -387,7 +390,7 @@ class Client:
             dictBin = zlib.decompress(msg)
             if not self.Security.VerifySignature(dictBin, signature, receiver):
                 print('The integrity is not valid for the sender. Signature:\n' + signature)
-                return
+                return -1
             else:
                 print('integrity of the DH shared_key is valid')
             dict = json.loads(dictBin)
@@ -419,6 +422,7 @@ class Client:
                 self.Log.log('An exception has been raised in the startConnection function')
                 return -4
         self.Log.log(msg)
+        print('cosa ritorno? ' + str(value))
         return int(value)
 
     def sendMessageOffline(self, receiver, text, time):
@@ -477,8 +481,9 @@ class Client:
                 self.Log.log('Message to be send : ' + msg)
                 pt = msg.encode(self.CODE_TYPE)
                 ct = self.Security.AESEncryptText(pt, receiver)
+                #ct = pt
                 value = self.socketClient[receiver].send(ct)
-
+                print('message sended')
                 if value > 0:
                     self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
                     return 1
@@ -510,6 +515,7 @@ class Client:
         msg['id'] = '0'
         self.sendServer(json.dumps(msg))
         self.username = None
+        self.Security.resetKeys()
 
 
     def onClosing(self, ordinatedUserList = None): #clean up before close

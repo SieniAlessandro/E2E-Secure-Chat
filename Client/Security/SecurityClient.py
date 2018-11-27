@@ -15,6 +15,8 @@ import os
 
 class SecurityClient:
     def __init__(self, serverPublicKeyPath):
+        self.privateKey = None
+        self.publicKey = None
         self.DHPrivateKey = {}
         self.clientKeys = {}
         self.clientSymmetricKeys = {}
@@ -242,6 +244,12 @@ class SecurityClient:
     def resetKeys(self):
         self.privateKey = None
         self.publicKey = None
+        self.DHPrivateKey = {}
+        self.clientKeys = {}
+        self.clientSymmetricKeys = {}
+        self.SymmetricKey = None
+        self.serverNonce = None
+        self.clientNonce = {}
 
     def generateDH(self, p, g, user):
         print('generateDH: parameters p, g and user:\np= ' +str(p) +'\ng= ' + str(g) + '\nuser= ' + str(user))
@@ -289,10 +297,14 @@ class SecurityClient:
         #print(key)
         self.clientKeys[user] = serialization.load_pem_public_key(key.encode('utf-8'),backend=default_backend())
 
-    def insertSymmetricKeyClient(self, user, key):
-        print('uso questa funzione insertSymmetricKeyClient per user ' + user)
-        print(key)
-        self.clientSymmetricKeys[user] = serialization.load_pem_public_key(key.encode('utf-8'),backend=default_backend())
+    def resetSymmetricKeyClient(self, user):
+        del self.clientSymmetricKeys[user]
+
+    def isSymmetricKeyClientPresent(self,user):
+        try:
+            return self.clientSymmetricKeys[user] is not None
+        except:
+            return False
 
     def getKeyClient(self, user):
         return self.clientKeys[user]
