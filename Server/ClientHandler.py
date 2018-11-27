@@ -69,7 +69,6 @@ class ClientHandler(Thread):
                     msg = self.HandledUser.GetSecurityModule().RSADecryptText(msg)
                 except:
                     #Otherwise check if it was signed
-                    print("Messaggio Firmato")
                     msg,d = self.HandledUser.GetSecurityModule().splitMessage(data,256)
                     msg = self.HandledUser.GetSecurityModule().RSADecryptText(msg)
             else:
