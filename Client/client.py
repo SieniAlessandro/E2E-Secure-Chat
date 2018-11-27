@@ -411,16 +411,16 @@ class Client:
             Nb = int.from_bytes(temp2, byteorder='big')
             self.Security.addClientNonce(receiver, Nb)
             print('Invio M5')
-            self.socketClient[receiver].send(self.Security.AESEncryptText(temp2, receiver))
+            ret = self.socketClient[receiver].send(self.Security.AESEncryptText(temp2, receiver))
 
             print('STARTCONNECTION CONCLUSA???????')
             value = 1
             if ret == 0:
                 msg = 'Error in sending the message to the client connection redirected to the server'
                 self.socketClient[receiver] = 'server'
-            else:
-                self.Log.log('An exception has been raised in the startConnection function')
-                return -4
+            #else:
+            #    self.Log.log('An exception has been raised in the startConnection function')
+            #    return -4
         self.Log.log(msg)
         print('cosa ritorno? ' + str(value))
         return int(value)
