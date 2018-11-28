@@ -513,7 +513,7 @@ class Client:
         self.sendServer(json.dumps(msg))
         self.username = None
         self.Security = SecurityClient(self.XML.getSecurityServerKey())
-        self.ch._stop()
+        self.ch._is_stopped = True
 
     def onClosing(self, ordinatedUserList = None): #clean up before close
         #close the socket connection
