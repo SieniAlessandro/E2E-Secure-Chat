@@ -162,6 +162,9 @@ class ConnectionHandler(Thread) :
 
                     #print('Message received: ' + msg + ' length : ' + length)
                     dict = json.loads(msg)
+                    if(dict['logout'] == 1):
+                        self.Chat.chatListDict[peerUsername][1].updateState(0)
+                        raise Exception()
 
                     self.Log.log(dict['sender'] + ' send : ' + msg)
                     if self.Chat is not None:

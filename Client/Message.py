@@ -16,12 +16,13 @@ class Message :
         self.Log.log('Message Handler has been initialized!')
 
 
-    def createMessageJson(self, text, time, sender = 'None') :
+    def createMessageJson(self, text, time, sender = 'None', logout = 0) :
 
         msg = {}
         msg['text'] = text
         msg['time'] = time
         msg['sender'] = sender
+        msg['logout'] = logout
         return json.dumps(msg)
 
     def addMessagetoConversations(self, user, text, time, whoSendIt) :

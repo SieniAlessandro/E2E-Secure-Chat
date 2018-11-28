@@ -447,7 +447,7 @@ class Client:
             self.Log.log('Error in the database! Try again later!')
         return value-1
 
-    def sendClient(self, receiver, text):
+    def sendClient(self, receiver, text, logout=None):
         '''
             Used to send a message [text] to the user [receiver]
             checks if there is an existing connection with the user [receiver]
@@ -466,7 +466,7 @@ class Client:
                 print('Client does not exist!!!')
                 return value
 
-        msg = self.Message.createMessageJson(text, str(datetime.datetime.now()), self.username)
+        msg = self.Message.createMessageJson(text, str(datetime.datetime.now()), self.username, logout)
         if self.socketClient[receiver] == 'server' :
             #Check after x time if receiver is now online
             self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
@@ -488,6 +488,7 @@ class Client:
                     raise ConnectionResetError()
             except:
                 self.Log.log(receiver + 'has disconnected')
+                self.Security.resetSymmetricKeyClient(receiver)
                 #possible signal to FrontEnd
                 self.socketClient[receiver] = 'server'
                 return self.sendClient(receiver, text)
@@ -503,14 +504,16 @@ class Client:
             return self.login(self.username, self.XML.getUserPwd())
 
     def logout(self, ordinatedUserList):
-        for x in self.socketClient :
-            if not isinstance(x, str) :
-                x.shutdown(socket.SHUT_RDWR)
-                x.close()
-        self.Message.saveConversations(self.username, ordinatedUserList)
         msg = {}
         msg['id'] = '0'
         self.sendServer(json.dumps(msg))
+        for x in self.socketClient :
+            if not isinstance(x, str) :
+                x.sendClient(x, 'logout', 1)
+                x.shutdown(socket.SHUT_RDWR)
+                x.close()
+
+        self.Message.saveConversations(self.username, ordinatedUserList)
         self.username = None
         self.Security = SecurityClient(self.XML.getSecurityServerKey())
         self.ch.stop()
