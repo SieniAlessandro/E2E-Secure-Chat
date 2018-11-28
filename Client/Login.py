@@ -116,7 +116,7 @@ class LoginGUI(Frame):
             and call the client.login(), showing error if it doesn't succed or
             showing chat if the user has been logged
         """
-        username = self.usernameEntry.get()
+        username = self.usernameEntry.get().lower()
         password = self.passwordEntry.get()
         if not username or not password :
             self.confirmButton.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
