@@ -70,6 +70,8 @@ class LoginGUI(Frame):
         self.master.title("Login")
         self.master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
         self.usernameEntry.focus_force()
+        self.master.bind('<Return>', self.pressEnterEvent)
+
     def hideLoginFrame(self):
         """
             Hide login interface from the root window
