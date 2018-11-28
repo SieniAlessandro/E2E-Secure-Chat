@@ -136,7 +136,11 @@ class ConnectionHandler(Thread) :
                 print('Mio Nb: ' + str(Nb))
                 print('Ricevuto Nb: ' + str(plainText))
                 return
-        #self.Chat.chatListDict[peerUsername][1].updateState(1)
+
+        try:
+            self.Chat.chatListDict[peerUsername][1].updateState(1)
+        except:
+            print('tarabaralla')
 ############################################################
         try:
             while self._is_stopped == False:
