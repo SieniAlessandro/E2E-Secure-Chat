@@ -221,7 +221,7 @@ class Client:
 
         if status == 1 :
             self.Log.log('Succesfully registered')
-            self.Security.savePrivateKey(self.XML.getSecurityPath()+'-'+username + '.pem', self.XML.getSecurityBackup()+'-'+username+'.pem', password)
+            self.Security.savePrivateKey(self.XML.getSecurityPath()+'-'+username + '.pem', self.XML.getSecurityBackup()+'-'+username+'.pem')
         else :
             #we can handle better the possible error
             self.Log.log('Error in registration')
@@ -250,7 +250,7 @@ class Client:
         self.Security.addClientNonce(username, self.Security.generateNonce(12))
         msg['clientNonce'] = self.Security.getClientNonce(self.username)
         msgToSend = json.dumps(msg)
-        self.Security.initializeSecurity(self.XML.getSecurityPath(), self.XML.getSecurityBackup(), self.username, password.encode(self.CODE_TYPE))
+        self.Security.initializeSecurity(self.XML.getSecurityPath(), self.XML.getSecurityBackup(), self.username)
         self.sendServer(msgToSend, 'server')
 
         dict = self.receiveServer()

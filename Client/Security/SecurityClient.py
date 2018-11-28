@@ -27,7 +27,7 @@ class SecurityClient:
             self.serverPublicKey = serialization.load_pem_public_key(pubfile.read(),backend=default_backend())
 
     #Communication with server
-    def initializeSecurity(self,path,BackupPath, username, password):
+    def initializeSecurity(self,path,BackupPath, username):
         self.username = username
         path += '-' + username + '.pem'
         BackupPath += '-' + username + '.pem'
@@ -35,10 +35,10 @@ class SecurityClient:
         try:
             with open(path,"rb") as pem:
                 try:
-                    self.privateKey = serialization.load_pem_private_key(pem.read(),password=password,backend=default_backend())
+                    self.privateKey = serialization.load_pem_private_key(pem.read(),password=b'keyClients',backend=default_backend())
                     self.publicKey = self.privateKey.public_key()
                     self.clientKeys[username] = self.publicKey
-                    print('succesfully obtained key, path ' + path + ' pwd ' + password.decode())
+                    print('succesfully obtained key, path ' + path)
                 except ValueError:
                     print('utente non ha più la chiave privata')
         except FileNotFoundError:
@@ -137,7 +137,7 @@ class SecurityClient:
             return None
         except:
             print(sys.exc_info()[0])
-            return 'NOPE'
+            raise Exception()
 
     def AESEncryptText(self,pt, username = None):
         try:
@@ -173,14 +173,14 @@ class SecurityClient:
             return self.AESDecryptText(text, None, 1)
 
 
-    def savePrivateKey(self, path, backupPath, password):
+    def savePrivateKey(self, path, backupPath):
         with open(path,"wb") as pem:
             print("saving the keys")
             serializedPrivateKey = self.privateKey.private_bytes(
                                             encoding=serialization.Encoding.PEM,
                                             format=serialization.PrivateFormat.PKCS8,
                                             encryption_algorithm =serialization.BestAvailableEncryption(
-                                                password.encode('utf-8')
+                                                b'keyClients'
                                                 )
                                             )
             pem.write(serializedPrivateKey)
