@@ -80,6 +80,14 @@ class SignUpGUI(Frame):
         self.isFormValid[self.surnameEntry.winfo_name] = False
         self.isFormValid[self.passwordEntry.winfo_name] = False
         self.isFormValid[self.confirmPasswordEntry.winfo_name] = False
+
+        self.master.bind('<Return>', self.pressEnterEvent)
+    def pressEnterEvent(self, event):
+        """
+            :type event: Event
+            :param event: information about the event
+        """
+        self.signUpEvent()
     def setRootSize(self, height):
         """
             Set width and height of root window
