@@ -141,8 +141,13 @@ class ConnectionHandler(Thread) :
                 ct = conn.recv(self.BUFFER_SIZE)
                 if not ct :
                     raise Exception()
-
-                pt = self.Security.AESDecryptText(ct, peerUsername)
+                try:
+                    pt = self.Security.AESDecryptText(ct, peerUsername)
+                except Exception as e:
+                    #print(e)
+                    self.Security.resetSymmetricKeyClient(peerUsername)
+                    self.Log.log('Connection closed')
+                    return -1
                 #pt = ct
                 msg = pt.decode(self.Code)
 
