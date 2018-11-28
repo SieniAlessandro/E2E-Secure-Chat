@@ -480,13 +480,13 @@ class Client:
                 ct = self.Security.AESEncryptText(pt, receiver)
                 #ct = pt
                 value = self.socketClient[receiver].send(ct)
-                print('message sended')
+                print('message sended to client')
                 if value > 0:
                     self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
                     return 1
                 else :
                     raise ConnectionResetError()
-            except ConnectionResetError:
+            except:
                 self.Log.log(receiver + 'has disconnected')
                 #possible signal to FrontEnd
                 self.socketClient[receiver] = 'server'
@@ -513,7 +513,7 @@ class Client:
         self.sendServer(json.dumps(msg))
         self.username = None
         self.Security = SecurityClient(self.XML.getSecurityServerKey())
-        self.ch._is_stopped = True
+        self.ch.stop()
         self.ch = None
 
     def onClosing(self, ordinatedUserList = None): #clean up before close

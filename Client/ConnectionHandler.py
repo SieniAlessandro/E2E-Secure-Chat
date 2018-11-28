@@ -34,6 +34,8 @@ class ConnectionHandler(Thread) :
         self.Security = Security
         self.Log.log('MessageHandler Initialized! Associated port: ' + str(self.portp2p))
         self.sizeNonce = 6
+        self.fermo = False
+        self.t = []
     '''
         Handle the connection with a specific user
         when a message is received is passed to the FrontEnd (AMEDEO)
@@ -178,13 +180,25 @@ class ConnectionHandler(Thread) :
          with the specific user}
     '''
     def run(self) :
-        while self._is_stopped == False :
-            self.socketListener.listen(50)
-            (conn, (ip,port)) = self.socketListener.accept()
-            conn.settimeout(60)
-            self.Log.log('Accepted a new connecion')
-            t = Thread(target=self.receiveMessage, args=(conn, ))
-            t.start()
-        print('mi sto fermando')
+        try:
+            while self._is_stopped == False :
+                self.socketListener.listen(50)
+                (conn, (ip,port)) = self.socketListener.accept()
+                conn.settimeout(60)
+                self.Log.log('Accepted a new connecion')
+                self.t.append(Thread(target=self.receiveMessage, args=(conn, )))
+                self.t[-1].start()
+            print('mi sto fermando')
+            self.socketListener.close()
+            return -1
+
+        except:
+            print('mi sto fermando male')
+            self.socketListener.close()
+            return -1
+
+    def stop(self) :
+        self._is_stopped = True
         self.socketListener.close()
-        return -1
+        for x in self.t:
+            x._is_stopped = True
