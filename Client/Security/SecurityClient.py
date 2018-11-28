@@ -40,33 +40,9 @@ class SecurityClient:
                     self.clientKeys[username] = self.publicKey
                     print('succesfully obtained key, path ' + path + ' pwd ' + password.decode())
                 except ValueError:
-                    try:
-                        with open(BackupPath,"rb") as backup:
-                            print("The key is corrupted but i have the backup")
-                            backup_key = serialization.load_pem_private_key(backup.read(),password=password,backend=default_backend())
-                            self.privateKey = backup_key
-                            self.publicKey = self.privateKey.public_key()
-                            self.clientKeys[username] = self.publicKey
-                    except FileNotFoundError:
-                        print("I don't have the backup,and the key is corrupted")
-                        self.generate_key(path,BackupPath)
+                    print('utente non ha più la chiave privata')
         except FileNotFoundError:
-            try:
-                with open(BackupPath,"rb") as backup,open (path,"wb") as pem:
-                    print("I don't have the private key but i have the backup")
-                    try:
-                        backup_key = serialization.load_pem_private_key(backup.read(),password=password,backend=default_backend())
-                        SerializedPrivateKey = backup_key.private_bytes(encoding=serialization.Encoding.PEM,format=serialization.PrivateFormat.PKCS8,encryption_algorithm=serialization.BestAvailableEncryption(b'ServerMPSprivatekey'))
-                        self.privateKey = backup_key
-                        self.publicKey = self.privateKey.public_key()
-                        self.clientKeys[username] = self.publicKey
-                        pem.write(SerializedPrivateKey)
-                    except ValueError:
-                        print("The backup is corrupted")
-                        self.generate_key(path,BackupPath)
-            except FileNotFoundError:
-                print("We should not arrive here")
-
+            print('chiave persa')
 
     def generate_key(self):
         self.privateKey = rsa.generate_private_key(public_exponent=65537,\
@@ -198,7 +174,7 @@ class SecurityClient:
 
 
     def savePrivateKey(self, path, backupPath, password):
-        with open(path,"wb") as pem, open(backupPath,"wb") as backup:
+        with open(path,"wb") as pem:
             print("saving the keys")
             serializedPrivateKey = self.privateKey.private_bytes(
                                             encoding=serialization.Encoding.PEM,
@@ -208,7 +184,6 @@ class SecurityClient:
                                                 )
                                             )
             pem.write(serializedPrivateKey)
-            backup.write(serializedPrivateKey)
 
     '''
         Methods to establish a secure communication client to client

@@ -2,11 +2,11 @@
   <EnableLog>1</EnableLog>
   <Server>
     <ServerPort>6000</ServerPort>
-    <ServerAddress>127.0.0.1</ServerAddress>
+    <ServerAddress>10.102.0.241</ServerAddress>
   </Server>
   <AutoLogin>
     <remember>0</remember>
-    <UserName>1</UserName>
+    <UserName>roberto</UserName>
     <Password>Prova1234</Password>
   </AutoLogin>
   <Security>

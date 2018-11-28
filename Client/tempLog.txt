@@ -1,9 +1,2 @@
-2018-11-27 20:13:40	Client initialized
-2018-11-27 20:13:40	Message Handler has been initialized!
-2018-11-27 20:13:45	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 19586690189364601559415282784, "serverNonce": 167818885521591838649630352, "key": 32011944878163197001449915432665154947}
-2018-11-27 20:13:45	Succesfull logged in as 1
-2018-11-27 20:13:45	Received a message from the SERVER: {"id": "0"}
-2018-11-27 20:13:45	No messages stored in the server
-2018-11-27 20:13:45	MessageHandler Initialized! Associated port: 59389
-2018-11-27 20:13:45	All the conversations has been charged : {"2": {"0": {"text": "ciao", "time": "2018-11-27 19:59:24.770975", "whoSendIt": 0}, "1": {"text": "ciao", "time": "2018-11-27 20:00:07.525034", "whoSendIt": 0}, "2": {"text": "1", "time": "2018-11-27 20:00:10.239691", "whoSendIt": 1}, "3": {"text": "2", "time": "2018-11-27 20:00:12.211619", "whoSendIt": 0}, "4": {"text": "3", "time": "2018-11-27 20:00:14.338606", "whoSendIt": 1}, "5": {"text": "4", "time": "2018-11-27 20:00:17.255959", "whoSendIt": 0}, "6": {"text": "vado offline!", "time": "2018-11-27 20:00:28.472286", "whoSendIt": 1}, "7": {"text": "ok", "time": "2018-11-27 20:00:36.016399", "whoSendIt": 0}, "8": {"text": "ok", "time": "2018-11-27 20:00:51.185430", "whoSendIt": 0}, "9": {"text": "sfsd", "time": "2018-11-27 20:00:52.884112", "whoSendIt": 0}, "10": {"text": "asf", "time": "2018-11-27 20:00:53.638809", "whoSendIt": 0}, "11": {"text": "adsf", "time": "2018-11-27 20:00:54.340347", "whoSendIt": 0}}}
-2018-11-27 20:13:45	Received a message from the SERVER: {"id": "!", "status": "0", "key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3nfvpC0puXjYAp41tw4r\nUZ9n9KD0T7/t9mix+Kd5rbzr7P0pR3GgK0BW5s2RlXszhMHbaayDpAdzY6Nbu7fg\niwWOR43XEnn3VHMbPhHsXRYF5yMigkCxs1xtU9nuNtHzWpNmu+/OYjKy+fHCDQZp\n+jr10QnUarND7Y7SPAP5Jm94dsiO4uD0SZeN1DUH05/kvRBJv7ZxrfF6nKngPMMo\n8Pgmzj5cNzB77TifBJ0ZhFmoPGxqU4x0pDqasSEU4e5AHCpie4veS6XjLRDWJZbr\nRJf41BUqPK/aHKUunRA+vronbRamEw5Y/HFnoBGZ09Ou8Mx60UjcN85oI95TYwxI\n3wIDAQAB\n-----END PUBLIC KEY-----\n"}
+2018-11-28 11:06:42	Client initialized
+2018-11-28 11:06:42	Message Handler has been initialized!
