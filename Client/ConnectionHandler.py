@@ -135,7 +135,7 @@ class ConnectionHandler(Thread) :
                 return
 
 ############################################################
-        while True:
+        while self._is_stopped == False:
             try:
                 ct = conn.recv(self.BUFFER_SIZE)
                 if not ct :

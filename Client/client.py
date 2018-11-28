@@ -17,8 +17,6 @@ class Client:
     Back end of the client
     '''
     BUFFER_SIZE = 2048*1024
-    PORT_SERVER = 6000
-    HOST_SERVER = '10.102.12.15'#'127.0.0.1'
     CODE_TYPE = 'utf-8'
     socketClient = {}
 
@@ -278,8 +276,8 @@ class Client:
             self.receiveServer()
             #starting the connectionHandler in order to manage
             #connections received from new clients
-            ch = ConnectionHandler(self.username, self.portp2p, self.Log, self.Chat, self.CODE_TYPE, self.Message, self.Security)
-            ch.start()
+            self.ch = ConnectionHandler(self.username, self.portp2p, self.Log, self.Chat, self.CODE_TYPE, self.Message, self.Security)
+            self.ch.start()
         else:
             if value == 0 :
                 self.Log.log('Login : Wrong Username or Password')
@@ -514,8 +512,8 @@ class Client:
         msg['id'] = '0'
         self.sendServer(json.dumps(msg))
         self.username = None
-        self.Security.resetKeys()
-
+        self.Security = SecurityClient(self.XML.getSecurityServerKey())
+        self.ch._stop()
 
     def onClosing(self, ordinatedUserList = None): #clean up before close
         #close the socket connection
