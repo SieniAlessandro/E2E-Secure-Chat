@@ -145,6 +145,8 @@ class ConnectionHandler(Thread) :
                     pt = self.Security.AESDecryptText(ct, peerUsername)
                 except Exception as e:
                     #print(e)
+                    conn.shutdown(socket.SHUT_RDWR)
+                    conn.close()
                     self.Security.resetSymmetricKeyClient(peerUsername)
                     self.Log.log('Connection closed')
                     return -1
@@ -161,11 +163,14 @@ class ConnectionHandler(Thread) :
                 self.Message.addMessagetoConversations(dict['sender'], dict['text'], dict['time'], 1)
             except Exception as e:
                 #print(e)
+                conn.shutdown(socket.SHUT_RDWR)
+                conn.close()
                 self.Security.resetSymmetricKeyClient(peerUsername)
                 self.Log.log('Connection closed')
                 return -1
+        conn.shutdown(socket.SHUT_RDWR)
         conn.close()
-        return
+        return -1
     '''
         In a loop accept new connection with other clients
         and starts a new thread that will handle the single connection
@@ -180,5 +185,6 @@ class ConnectionHandler(Thread) :
             self.Log.log('Accepted a new connecion')
             t = Thread(target=self.receiveMessage, args=(conn, ))
             t.start()
+        print('mi sto fermando')
         self.socketListener.close()
-        return
+        return -1
