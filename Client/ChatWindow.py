@@ -136,7 +136,7 @@ class ChatWindow(Frame):
             :param event: information about the event
         """
         self.chatList.searchBar.focus_force()
-        self.chatList.chatListDict[self.chatName.get().lower()][0].changeChatRoom(event=None)
+        self.chatList.chatListDict[self.chatName.get().lower()][0].changeChatWindow(event=None)
     def updateState(self, status):
         """
             :type status: int
