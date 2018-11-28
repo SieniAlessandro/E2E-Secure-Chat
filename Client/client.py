@@ -514,6 +514,7 @@ class Client:
         self.username = None
         self.Security = SecurityClient(self.XML.getSecurityServerKey())
         self.ch._is_stopped = True
+        self.ch = None
 
     def onClosing(self, ordinatedUserList = None): #clean up before close
         #close the socket connection

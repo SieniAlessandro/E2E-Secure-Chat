@@ -159,6 +159,7 @@ class ConnectionHandler(Thread) :
                 self.Security.resetSymmetricKeyClient(peerUsername)
                 self.Log.log('Connection closed')
                 return -1
+        conn.close()
         return
     '''
         In a loop accept new connection with other clients
@@ -174,4 +175,5 @@ class ConnectionHandler(Thread) :
             self.Log.log('Accepted a new connecion')
             t = Thread(target=self.receiveMessage, args=(conn, ))
             t.start()
+        self.socketListener.close()
         return
