@@ -125,7 +125,6 @@ class Database:
             #rollback to the previous operations
             print(e)
             self.db.rollback()
-            #print ("Error in the DH parameter insertion query")
             return -1
 
     def getMessageByReceiver(self,receiver):
@@ -154,7 +153,6 @@ class Database:
                 request[i]['Sender'] = rows[i][0]
                 request[i]['Text'] = rows[i][1]
                 request[i]['Time'] = str(rows[i][2])
-            #print(request)
             return request
         except Exception as e:
             #rollback to the previous operations
