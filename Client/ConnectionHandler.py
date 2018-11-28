@@ -136,15 +136,34 @@ class ConnectionHandler(Thread) :
                 print('Mio Nb: ' + str(Nb))
                 print('Ricevuto Nb: ' + str(plainText))
                 return
-        #self.Chat.chatListDict[self.username][1].updateState(1)
+        self.Chat.chatListDict[peerUsername][1].updateState(1)
 ############################################################
-        while self._is_stopped == False:
-            try:
-                ct = conn.recv(self.BUFFER_SIZE)
-                if not ct :
-                    raise Exception()
+        try:
+            while self._is_stopped == False:
                 try:
-                    pt = self.Security.AESDecryptText(ct, peerUsername)
+                    ct = conn.recv(self.BUFFER_SIZE)
+                    if not ct :
+                        raise Exception()
+                    try:
+                        pt = self.Security.AESDecryptText(ct, peerUsername)
+                    except Exception as e:
+                        #print(e)
+                        conn.shutdown(socket.SHUT_RDWR)
+                        conn.close()
+                        self.Security.resetSymmetricKeyClient(peerUsername)
+                        self.Log.log('Connection closed')
+                        return -1
+                    #pt = ct
+                    msg = pt.decode(self.Code)
+
+                    #print('Message received: ' + msg + ' length : ' + length)
+                    dict = json.loads(msg)
+
+                    self.Log.log(dict['sender'] + ' send : ' + msg)
+                    if self.Chat is not None:
+                        self.Chat.notify(dict['sender'], dict['text'], dict['time'], False, False)
+                    #appendToConversation
+                    self.Message.addMessagetoConversations(dict['sender'], dict['text'], dict['time'], 1)
                 except Exception as e:
                     #print(e)
                     conn.shutdown(socket.SHUT_RDWR)
@@ -152,27 +171,15 @@ class ConnectionHandler(Thread) :
                     self.Security.resetSymmetricKeyClient(peerUsername)
                     self.Log.log('Connection closed')
                     return -1
-                #pt = ct
-                msg = pt.decode(self.Code)
+            conn.shutdown(socket.SHUT_RDWR)
+            conn.close()
+            return -1
+        except:
+            conn.shutdown(socket.SHUT_RDWR)
+            conn.close()
+            self.Security.resetSymmetricKeyClient(peerUsername)
+            print('Chiusura socket con ' + peerUsername)
 
-                #print('Message received: ' + msg + ' length : ' + length)
-                dict = json.loads(msg)
-
-                self.Log.log(dict['sender'] + ' send : ' + msg)
-                if self.Chat is not None:
-                    self.Chat.notify(dict['sender'], dict['text'], dict['time'], False, False)
-                #appendToConversation
-                self.Message.addMessagetoConversations(dict['sender'], dict['text'], dict['time'], 1)
-            except Exception as e:
-                #print(e)
-                conn.shutdown(socket.SHUT_RDWR)
-                conn.close()
-                self.Security.resetSymmetricKeyClient(peerUsername)
-                self.Log.log('Connection closed')
-                return -1
-        conn.shutdown(socket.SHUT_RDWR)
-        conn.close()
-        return -1
     '''
         In a loop accept new connection with other clients
         and starts a new thread that will handle the single connection
