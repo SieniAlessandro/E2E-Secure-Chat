@@ -29,7 +29,6 @@ class Security:
                 except ValueError:
                     try:
                         with open(BackupPath,"rb") as backup:
-                            print("The key is corrupted but i have the backup")
                             backup_key = serialization.load_pem_private_key(backup.read(),password=b'ServerMPSprivatekey',backend=default_backend())
                             with open(path,"wb") as pem_write:
                                 self.privateKey = backup_key
@@ -37,12 +36,10 @@ class Security:
                                 serializedPrivateKey = backup_key.private_bytes(encoding=serialization.Encoding.PEM,format=serialization.PrivateFormat.PKCS8,encryption_algorithm=serialization.BestAvailableEncryption(b'ServerMPSprivatekey'))
                                 pem_write.write(serializedPrivateKey)
                     except FileNotFoundError:
-                        print("I don't have the backup,and the key is corrupted")
                         self.generate_key(path,BackupPath)
         except FileNotFoundError:
             try:
                 with open(BackupPath,"rb") as backup,open (path,"wb") as pem:
-                    print("I don't have the private key but i have the backup")
                     try:
                         backup_key = serialization.load_pem_private_key(backup.read(),password=b'ServerMPSprivatekey',backend=default_backend())
                         SerializedPrivateKey = backup_key.private_bytes(encoding=serialization.Encoding.PEM,format=serialization.PrivateFormat.PKCS8,encryption_algorithm=serialization.BestAvailableEncryption(b'ServerMPSprivatekey'))
@@ -50,10 +47,8 @@ class Security:
                         self.publicKey = self.privateKey.public_key()
                         pem.write(SerializedPrivateKey)
                     except ValueError:
-                        print("The backup is corrupted")
                         self.generate_key(path,BackupPath)
             except FileNotFoundError:
-                print("I don't have anything")
                 with open(path,"wb") as pem, open(BackupPath,"wb") as backup:
                     self.generate_key(path,BackupPath)
 
@@ -84,7 +79,7 @@ class Security:
             :type text: Bytes
             :param text: The plain text that must be encrypted
             :rtype: Bytes
-            :return: cipherText: the cipher text relative to the plain text passed as argument
+            :return: The cipher text relative to the plain text passed as argument
         """
 
         cipherText = self.ClientPublicKey.encrypt(text,
@@ -102,7 +97,7 @@ class Security:
             :type cipherText: Bytes
             :param cipherText: The cipher text that must be decrypted
             :rtype: Bytes
-            :param plaintext: the plain text obtained by decriptying the plain text passed as argument
+            :return plaintext: the plain text obtained by decriptying the plain text passed as argument
         """
 
         plaintext = self.privateKey.decrypt(cipherText,
@@ -255,7 +250,6 @@ class Security:
             pt = aescgm.decrypt(self.nonce.to_bytes(16,byteorder='big'),ct,None)
             return pt
         except:
-            print("Error in decrypt with AESCGM")
             return None
 
     def AESEncryptText(self,pt):
@@ -274,7 +268,6 @@ class Security:
             self.nonce = self.nonce + 1
             return aesgcm.encrypt(self.nonce.to_bytes(16,byteorder='big'), pt, None)
         except:
-            print("Error in encrypt GCM")
             return None
 
     def PacketAESEncryptText(self,pt):
@@ -290,10 +283,8 @@ class Security:
         try:
             aesgcm = AESGCM(self.SymmetricKey)
             self.packetNonce = self.packetNonce + 1
-            print("Nonce per il pacchetto : "+str(self.packetNonce))
             return aesgcm.encrypt(self.packetNonce.to_bytes(16,byteorder='big'), pt, None)
         except:
-            print("Error in encrypt GCM")
             return None
 
     def addDHparameters(self,p,g):
