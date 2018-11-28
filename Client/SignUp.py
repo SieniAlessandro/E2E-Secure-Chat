@@ -196,7 +196,7 @@ class SignUpGUI(Frame):
             self.confirmButton.config(fg = self.errorColor, highlightbackground=self.errorColor, highlightcolor=self.errorColor, highlightthickness=1)
         else:
             self.confirmButton.config(fg = "black",  highlightthickness=0)
-            ret = self.client.register(self.usernameEntry.get(), self.passwordEntry.get(), self.emailEntry.get(), self.nameEntry.get(), self.surnameEntry.get(), '0')
+            ret = self.client.register(self.usernameEntry.get(), self.passwordEntry.get(), self.nameEntry.get(), self.surnameEntry.get(), self.emailEntry.get(), '0')
             if ret == 1:
                 self.cancelEvent()
                 self.loginWindow.showMessage("Succefully Registered", "#4bf442")
