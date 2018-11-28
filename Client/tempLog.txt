@@ -1,2 +1,21 @@
-2018-11-28 11:06:42	Client initialized
-2018-11-28 11:06:42	Message Handler has been initialized!
+2018-11-28 11:09:13	Client initialized
+2018-11-28 11:09:13	Message Handler has been initialized!
+2018-11-28 11:09:22	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 31469887098100001019446440049, "serverNonce": 237790032406254394999705818, "key": 86940959839378636502723062302128730174}
+2018-11-28 11:09:22	Succesfull logged in as a
+2018-11-28 11:09:22	Received a message from the SERVER: {"id": "0"}
+2018-11-28 11:09:22	No messages stored in the server
+2018-11-28 11:09:22	MessageHandler Initialized! Associated port: 18274
+2018-11-28 11:09:22	All the conversations has been charged : {}
+2018-11-28 11:09:32	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 47085908013872073152077379583, "serverNonce": 125646781317644825596066213, "key": 120027448958454866624500477359244728858}
+2018-11-28 11:09:32	Succesfull logged in as a
+2018-11-28 11:09:32	Received a message from the SERVER: {"id": "0"}
+2018-11-28 11:09:32	No messages stored in the server
+2018-11-28 11:09:32	MessageHandler Initialized! Associated port: 28367
+2018-11-28 11:09:32	All the conversations has been charged : {}
+2018-11-28 11:09:39	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 2021557555148468955094606987, "serverNonce": 297288620614292276541408465, "key": 338853110435585090294037094347020527017}
+2018-11-28 11:09:39	Succesfull logged in as a
+2018-11-28 11:09:39	Received a message from the SERVER: {"id": "0"}
+2018-11-28 11:09:39	No messages stored in the server
+2018-11-28 11:09:39	MessageHandler Initialized! Associated port: 58098
+2018-11-28 11:09:39	All the conversations has been charged : {}
+2018-11-28 11:09:46	Received a message from the SERVER: {"id": "!", "status": "0", "key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxUuUHmsPQkydU8ibCds0\norq5//mdDP9wzZBnSXq0WQbfnz1oVk5qQvH13IK7Ce4XsFYej7/rh9T89wOeXIY6\nI0hzaJ5dOcZDPGZ5mO0cvv61XCQtHEGW2Qj2CYhs8WKyknEovLVeI3WaQuWB93cx\njFx9NHJ49v/3P2IF3YLjnD6VgXsrkE5CjmjO4q7SYKs5TAzsEW3EdKG4Cf8xZbRs\ngYMDu/jAADvGJo0DWhJ4UGJlAChkUXnqqCayp5Uveq6GWTX0Z2VnfeLVXkb5mQ3r\n4U0lXEW2tBb3wBk49VCDGndsoOACHOxNQM/TdQbbr9/PI/d6NehO4ru9aoDxrkEj\nbwIDAQAB\n-----END PUBLIC KEY-----\n"}
