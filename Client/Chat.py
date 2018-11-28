@@ -118,6 +118,5 @@ if __name__ == '__main__':
             ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
     chat.chatList.addChatListElement("Rododendro", "Oggi piove", None)
-    chat.chatList.addChatListElement("ASD", "Oggi piove", None)
     chat.showChatFrame()
     root.mainloop()

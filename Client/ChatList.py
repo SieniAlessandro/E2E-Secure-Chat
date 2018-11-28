@@ -48,8 +48,6 @@ class ChatList(Frame):
             status = self.client.startConnection(searchKey)
             if status >= 0:
                 self.addChatListElement(username, "", lastMessageTime=None)
-                activeChat = self.chatListDict[searchKey][1]
-                self.chatListDict[searchKey][0].changeChatWindow(event=None)
                 self.searchBarFrame.config(highlightbackground="black", highlightcolor="black", highlightthickness=1)
                 self.searchBar.config(fg='white')
                 self.searchBar.delete(0, 'end')
@@ -58,7 +56,7 @@ class ChatList(Frame):
                 self.searchBarFrame.config(highlightbackground="red", highlightcolor="red", highlightthickness=1)
                 self.searchBar.config(fg='red')
         else:
-            self.chatListDict[searchKey][0].changeChatWindow(event='none')
+            self.chatListDict[searchKey][0].changeChatWindow(event=None)
     def pressEnterEvent(self, event):
         """
             :type event: Event
