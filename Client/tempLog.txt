@@ -1,21 +1,22 @@
-2018-11-28 11:09:13	Client initialized
-2018-11-28 11:09:13	Message Handler has been initialized!
-2018-11-28 11:09:22	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 31469887098100001019446440049, "serverNonce": 237790032406254394999705818, "key": 86940959839378636502723062302128730174}
-2018-11-28 11:09:22	Succesfull logged in as a
-2018-11-28 11:09:22	Received a message from the SERVER: {"id": "0"}
-2018-11-28 11:09:22	No messages stored in the server
-2018-11-28 11:09:22	MessageHandler Initialized! Associated port: 18274
-2018-11-28 11:09:22	All the conversations has been charged : {}
-2018-11-28 11:09:32	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 47085908013872073152077379583, "serverNonce": 125646781317644825596066213, "key": 120027448958454866624500477359244728858}
-2018-11-28 11:09:32	Succesfull logged in as a
-2018-11-28 11:09:32	Received a message from the SERVER: {"id": "0"}
-2018-11-28 11:09:32	No messages stored in the server
-2018-11-28 11:09:32	MessageHandler Initialized! Associated port: 28367
-2018-11-28 11:09:32	All the conversations has been charged : {}
-2018-11-28 11:09:39	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 2021557555148468955094606987, "serverNonce": 297288620614292276541408465, "key": 338853110435585090294037094347020527017}
-2018-11-28 11:09:39	Succesfull logged in as a
-2018-11-28 11:09:39	Received a message from the SERVER: {"id": "0"}
-2018-11-28 11:09:39	No messages stored in the server
-2018-11-28 11:09:39	MessageHandler Initialized! Associated port: 58098
-2018-11-28 11:09:39	All the conversations has been charged : {}
-2018-11-28 11:09:46	Received a message from the SERVER: {"id": "!", "status": "0", "key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxUuUHmsPQkydU8ibCds0\norq5//mdDP9wzZBnSXq0WQbfnz1oVk5qQvH13IK7Ce4XsFYej7/rh9T89wOeXIY6\nI0hzaJ5dOcZDPGZ5mO0cvv61XCQtHEGW2Qj2CYhs8WKyknEovLVeI3WaQuWB93cx\njFx9NHJ49v/3P2IF3YLjnD6VgXsrkE5CjmjO4q7SYKs5TAzsEW3EdKG4Cf8xZbRs\ngYMDu/jAADvGJo0DWhJ4UGJlAChkUXnqqCayp5Uveq6GWTX0Z2VnfeLVXkb5mQ3r\n4U0lXEW2tBb3wBk49VCDGndsoOACHOxNQM/TdQbbr9/PI/d6NehO4ru9aoDxrkEj\nbwIDAQAB\n-----END PUBLIC KEY-----\n"}
+2018-11-30 08:55:12	Client initialized
+2018-11-30 08:55:12	Message Handler has been initialized!
+2018-11-30 08:55:20	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 52677493306487799548304407685, "serverNonce": 52836533299576552545595266, "key": 39969403955799967972887449888723735729}
+2018-11-30 08:55:20	Succesfull logged in as b
+2018-11-30 08:55:20	Received a message from the SERVER: {"id": "0"}
+2018-11-30 08:55:20	No messages stored in the server
+2018-11-30 08:55:20	MessageHandler Initialized! Associated port: 17287
+2018-11-30 08:55:20	All the conversations has been charged : {"a": {"0": {"text": "ciao", "time": "2018-11-30 08:38:39.024019", "whoSendIt": 0}, "1": {"text": "oi", "time": "2018-11-30 08:38:43.310813", "whoSendIt": 1}, "2": {"text": "come va?", "time": "2018-11-30 08:39:27.332063", "whoSendIt": 0}, "3": {"text": "?", "time": "2018-11-30 08:40:09.801494", "whoSendIt": 0}, "4": {"text": "?", "time": "2018-11-30 08:40:44.750804", "whoSendIt": 0}, "5": {"text": "bene", "time": "2018-11-30 08:41:58.841863", "whoSendIt": 1}, "6": {"text": "te?", "time": "2018-11-30 08:44:44.273795", "whoSendIt": 1}, "7": {"text": "bene", "time": "2018-11-30 08:44:47.664944", "whoSendIt": 0}, "8": {"text": "sei online", "time": "2018-11-30 08:46:48.999846", "whoSendIt": 1}, "9": {"text": "anche te", "time": "2018-11-30 08:46:52.955059", "whoSendIt": 0}, "10": {"text": "sei online", "time": "2018-11-30 08:48:19.419592", "whoSendIt": 1}, "11": {"text": "ok", "time": "2018-11-30 08:48:22.008335", "whoSendIt": 0}, "12": {"text": "sdfsd", "time": "2018-11-30 08:54:26.562939", "whoSendIt": 0}}}
+2018-11-30 08:55:20	Received a message from the SERVER: {"id": "!", "status": "10.102.10.24:14659", "key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQE2018-11-30 08:55:20	Accepted a new connecion
+2018-11-30 08:55:27	b send : {"text": "fa?", "time": "2018-11-30 08:55:27.750135", "sender": "b", "logout": null}
+2018-11-30 08:55:27	Added message to the conversation : {"text": "fa?", "time": "2018-11-30 08:55:27.750135", "whoSendIt": 1}
+2018-11-30 08:55:39	Received a message from the SERVER: {"id": "!", "status": "0", "key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxDHGuAZ9InmxCspOfGI4\nPBl/PwJQ+6SQ+2iVu4AI71u2gWHY6riRiMsyq01B5TTn7kpAUV/WdpBu4H3oXlUk\nbfk7NLiJ0YDLuFRdzyK/FO9Wyr1G5/xMfm/n+mEkTdfBOvpyqwGV13dEgatEQoA4\nfEpFVZaHMNe9OTGx+n6n7oAAGiPwVeIMUaKOxXIq3ss1ri/V+LFuUdIcemHvzdV0\nF7a2fAGzXxd5SBExrqGUrHGZHnfFGUot/bKVpJa8U6ERTzOm8YK594wJ8xw8uHCU\n3bHhl5eE2hZx7k2RLVkPDYT3Cl71QeBZWBLFd1JtdK54ERLCVzhhB/S/R4Li2/YK\nmwIDAQAB\n-----END PUBLIC KEY-----\n"}
+2018-11-30 08:55:39	Added message to the conversation : {"text": "siiiiiiiiiiiiiiiiiiiiiiiiiiiii", "time": "2018-11-30 08:55:39.918190", "whoSendIt": 0}
+2018-11-30 08:55:39	Received a message from the SERVER: {"id": ".", "status": "1"}
+2018-11-30 08:55:39	Message send correctly to be stored in the Server
+79436839550923615127117894382060718653123028919772304314812587688647104462350963256377196393307864064572027716968785453172333773641568904534464766214432346578099246818362135698334822676075005355945724245983687415336242474111945504974166912598448162067588962040256682817084212860111519484986104793875258438150340448884306047358853244582297720179164288965383362920978643357298011234192179197116743582070614094486863121120826538906949580301497302018006222676517314392426780301830383392744140658452788067119344922481701098534182137460712707485610856779816992026320076623730891062928816471486086299061392736906924774758472026021829689856923207596198476863183120813471862603522513141250804589970219453105826574361344072553594569371092098025461208418433447631655375512719559288886269420008711357781657602084044701077954526153380679114359401553148}
+2018-11-30 08:55:20	Starting a new connection with a
+2018-11-30 08:55:20	b'x\x9c\x1d\x8cA\n\x80@\x0c\x03\xbf"{\xf6\xb0M7\xed\xd6G\xec\x1f\x14\xbc\x89\x17\x8f\xe2\xdf\xadB\x08\x19\x12r\x97q\xade\x99\x88\xaeFUD\xd0\x8d\x04\x1b\x19\x84\xc5<\x95c?\xc7\x96# \xe1O!\xa1*\xa4wC\xad"\r\xf4\xf8>j\xaauXKs\x86\x83Z\x99\xadt\xb3\xe7\x058V\x17\xcd'
+2018-11-30 08:55:27	Message to be send : {"text": "fa?", "time": "2018-11-30 08:55:27.750135", "sender": "b", "logout": null}
+2018-11-30 08:55:27	Added message to the conversation : {"text": "fa?", "time": "2018-11-30 08:55:27.756070", "whoSendIt": 0}
+2018-11-30 08:55:32	Message to be send : {"text": "logout", "time": "2018-11-30 08:55:32.012205", "sender": "b", "logout": 1}
+2018-11-30 08:55:32	Added message to the conversation : {"text": "logout", "time": "2018-11-30 08:55:32.014099", "whoSendIt": 0}

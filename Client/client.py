@@ -455,6 +455,8 @@ class Client:
             and the user exists then send the message to the server
             Handles the passage of the receiver from online to offline
         '''
+        print('sendClient chiamata -> logout:')
+        print(logout)
         if not receiver in self.socketClient.keys() or self.socketClient[receiver] == 'server' :
             value = self.startConnection(receiver)
             if value == 0 : #client offline
@@ -507,11 +509,13 @@ class Client:
         msg = {}
         msg['id'] = '0'
         self.sendServer(json.dumps(msg))
-        for x in self.socketClient :
-            if not isinstance(x, str) :
-                x.sendClient(x, 'logout', 1)
-                x.shutdown(socket.SHUT_RDWR)
-                x.close()
+        print(self.socketClient.keys())
+        for x in self.socketClient.keys() :
+            print(x)
+            if not self.socketClient[x] == 'server' :
+                self.sendClient(x, 'logout', 1)
+                self.socketClient[x].shutdown(socket.SHUT_RDWR)
+                self.socketClient[x].close()
 
         self.Message.saveConversations(self.username, ordinatedUserList)
         self.username = None

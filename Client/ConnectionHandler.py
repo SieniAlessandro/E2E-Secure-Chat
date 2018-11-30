@@ -140,7 +140,7 @@ class ConnectionHandler(Thread) :
         try:
             self.Chat.chatListDict[peerUsername][1].updateState(1)
         except:
-            print('tarabaralla')
+            print()
 ############################################################
         try:
             while self._is_stopped == False:
@@ -162,9 +162,11 @@ class ConnectionHandler(Thread) :
 
                     #print('Message received: ' + msg + ' length : ' + length)
                     dict = json.loads(msg)
+                    print(dict)
                     if(dict['logout'] == 1):
                         self.Chat.chatListDict[peerUsername][1].updateState(0)
-                        raise Exception()
+                        self.Security.resetSymmetricKeyClient(peerUsername)
+                        return -1
 
                     self.Log.log(dict['sender'] + ' send : ' + msg)
                     if self.Chat is not None:
