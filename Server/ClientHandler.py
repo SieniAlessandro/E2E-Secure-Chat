@@ -5,7 +5,8 @@ from User import User
 from Security.Security import Security
 import json
 import os
-import zlib
+import random
+
 class ClientHandler(Thread):
     """
         Used to handle the new user whenever he try to connect to the server.
@@ -111,7 +112,17 @@ class ClientHandler(Thread):
             :param signature: The signature of data
         """
         self.log.log("A client want to login")
+
         key = self.DB.getSecurityInfoFromUser(message['username'])
+        if key is None:
+            self.log.log("The user is not present")
+            response['id'] = "?"
+            response['status'] = "0"
+            jsonResponse = json.dumps(response)
+            self.log.log("Login Failed")
+            self.HandledUser.getSocket().send(jsonResponse.encode('utf-8'))
+            return
+
         self.HandledUser.GetSecurityModule().AddClientKey(key[0].encode('utf-8'))
         #Check if the signature is valid
         if(self.HandledUser.GetSecurityModule().VerifySignature(data,signature) == False):
