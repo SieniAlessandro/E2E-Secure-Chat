@@ -82,6 +82,7 @@ class ChatList(Frame):
             :type lastMessageTime: string
             :param lastMessageTime: time of the last arrived or sent message
         """
+        global activeChat
         if lastMessageTime is None:
             timeString = '-:--'
         else:
@@ -130,8 +131,8 @@ class ChatList(Frame):
             :type onLogin: boolean
             :param onLogin: true if this is called after the login to restore chats
         """
-        searchKey = sender.lower()
         global activeChat
+        searchKey = sender.lower()
         if searchKey not in self.chatListDict:
             #chatList not found in the list
             self.addChatListElement(sender, message, time)
@@ -139,12 +140,14 @@ class ChatList(Frame):
             self.chatListDict[searchKey][1].updateState(status)
             if not onLogin:
                 self.sortChatList(searchKey)
-        elif not activeChat.chatName.get() == sender and onLogin == False:
+        elif searchKey in self.chatListDict and activeChat is None:
+            self.chatListDict[searchKey][0].changeChatWindow()
+        elif activeChat is not None and not activeChat.chatName.get() == sender and onLogin == False:
             #there is an active chat but not the sender's one, so notify that
             self.chatListDict[searchKey][0].increaseNotifies(message, time)
             self.chatListDict[searchKey][1].updateState(1)
             self.sortChatList(searchKey)
-        elif activeChat.chatName.get() == sender and onLogin == False:
+        elif activeChat is not None and activeChat.chatName.get() == sender and onLogin == False:
             self.chatListDict[searchKey][1].updateState(1)
 
         # add the new message to that chatWindow anyway
@@ -301,7 +304,7 @@ class ChatListElement(Frame):
             self.lastMessageTimeLabel.bind('<Button-3>', self.popup)
             self.photoLabel.bind('<Button-3>', self.popup)
             self.notifiesLabel.bind('<Button-3>', self.popup)
-    def changeChatWindow(self, event):
+    def changeChatWindow(self, event=None):
         """
             When the element is clicked, it loads on the right frame, the clicked
             element's chatWindow
@@ -310,10 +313,10 @@ class ChatListElement(Frame):
             :param event: information about the event
         """
         global activeChat
-        if  activeChat is None:
+        if activeChat is None:
             activeChat = self.chatWindow
             activeChat.entryBar.focus_force()
-            self.chatWindow.pack(side=RIGHT, fill=BOTH, expand=True)
+            activeChat.pack(side=RIGHT, fill=BOTH, expand=True)
             self.notifies.set(0)
             self.notifiesLabel.grid_forget()
         elif self.chatName.get() == activeChat.chatName.get():
