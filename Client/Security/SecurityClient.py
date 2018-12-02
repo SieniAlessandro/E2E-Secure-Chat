@@ -15,6 +15,12 @@ import os
 
 class SecurityClient:
     def __init__(self, serverPublicKeyPath):
+        """
+            Initialize the security module loading the server public key using the path passed as argument
+
+            :type serverPublicKeyPath: String
+            :param serverPublicKeyPath: The path of the pem file where the public key of the server is
+        """
         self.privateKey = None
         self.publicKey = None
         self.DHPrivateKey = {}
@@ -27,10 +33,17 @@ class SecurityClient:
             self.serverPublicKey = serialization.load_pem_public_key(pubfile.read(),backend=default_backend())
 
     #Communication with server
-    def initializeSecurity(self,path,BackupPath, username):
+    def initializeSecurity(self,path, username):
+        """
+            Loads the private key of the user that is performing the login, using the path and the username passed as argument
+
+            :type path: String
+            :param path: The path of the pem file where the private key of the user is
+            :type username: String
+            :param username: The username of the user that is trying to login
+        """
         self.username = username
         path += '-' + username + '.pem'
-        BackupPath += '-' + username + '.pem'
 
         try:
             with open(path,"rb") as pem:
@@ -86,7 +99,6 @@ class SecurityClient:
                                          )
             return signature
         except Exception as e:
-            print(e)
             return None
 
     def VerifySignature(self,text,signature, user=None):
@@ -140,24 +152,23 @@ class SecurityClient:
             raise Exception()
 
     def AESEncryptText(self,pt, username = None):
-        try:
-            if username is None:
-                #print(self.serverNonce)
-                aesgcm = AESGCM(self.SymmetricKey)
-                self.serverNonce = self.serverNonce+1
-                #print('encryptnonce ' + str(self.serverNonce))
-                return aesgcm.encrypt(self.serverNonce.to_bytes(16, byteorder="big"), pt, None)
-            else:
-                aesgcm = AESGCM(self.clientSymmetricKeys[username])
-                self.clientNonce[username] = self.clientNonce[username]+1
-                print('Nonce client used for AES encrypt ' + str(self.clientNonce[username]))
-                #print('encryptnonce ' + str(self.serverNonce))
-                return aesgcm.encrypt(self.clientNonce[username].to_bytes(16, byteorder="big"), pt, None)
-
-        except Exception as e:
-            print(e)
-            print("Error in encrypt GCM")
-            return None
+        #try:
+        if username is None:
+            #print(self.serverNonce)
+            aesgcm = AESGCM(self.SymmetricKey)
+            self.serverNonce = self.serverNonce+1
+            #print('encryptnonce ' + str(self.serverNonce))
+            return aesgcm.encrypt(self.serverNonce.to_bytes(16, byteorder="big"), pt, None)
+        else:
+            aesgcm = AESGCM(self.clientSymmetricKeys[username])
+            self.clientNonce[username] = self.clientNonce[username]+1
+            print('Nonce client used for AES encrypt ' + str(self.clientNonce[username]))
+            #print('encryptnonce ' + str(self.serverNonce))
+            return aesgcm.encrypt(self.clientNonce[username].to_bytes(16, byteorder="big"), pt, None)
+        #except Exception as e:
+        #    print(e)
+        #    print("Error in encrypt GCM")
+        #    return None
 
     def decryptText(self, text):
         msg = b''
@@ -173,7 +184,7 @@ class SecurityClient:
             return self.AESDecryptText(text, None, 1)
 
 
-    def savePrivateKey(self, path, backupPath):
+    def savePrivateKey(self, path):
         with open(path,"wb") as pem:
             print("saving the keys")
             serializedPrivateKey = self.privateKey.private_bytes(
@@ -273,7 +284,10 @@ class SecurityClient:
         self.clientKeys[user] = serialization.load_pem_public_key(key.encode('utf-8'),backend=default_backend())
 
     def resetSymmetricKeyClient(self, user):
-        del self.clientSymmetricKeys[user]
+        try:
+            del self.clientSymmetricKeys[user]
+        except:
+            print()
 
     def isSymmetricKeyClientPresent(self,user):
         try:

@@ -34,8 +34,6 @@ class ConnectionHandler(Thread) :
         self.Security = Security
         self.Log.log('MessageHandler Initialized! Associated port: ' + str(self.portp2p))
         self.sizeNonce = 6
-        self.fermo = False
-        self.t = []
     '''
         Handle the connection with a specific user
         when a message is received is passed to the FrontEnd (AMEDEO)
@@ -142,52 +140,37 @@ class ConnectionHandler(Thread) :
         except:
             print()
 ############################################################
-        try:
-            while self._is_stopped == False:
-                try:
-                    ct = conn.recv(self.BUFFER_SIZE)
-                    if not ct :
-                        raise Exception()
-                    try:
-                        pt = self.Security.AESDecryptText(ct, peerUsername)
-                    except Exception as e:
-                        #print(e)
-                        conn.shutdown(socket.SHUT_RDWR)
-                        conn.close()
-                        self.Security.resetSymmetricKeyClient(peerUsername)
-                        self.Log.log('Connection closed')
-                        return -1
-                    #pt = ct
-                    msg = pt.decode(self.Code)
 
-                    #print('Message received: ' + msg + ' length : ' + length)
-                    dict = json.loads(msg)
-                    print(dict)
-                    if(dict['logout'] == 1):
-                        self.Chat.chatListDict[peerUsername][1].updateState(0)
-                        self.Security.resetSymmetricKeyClient(peerUsername)
-                        return -1
+        while True:
+            try:
+                ct = conn.recv(self.BUFFER_SIZE)
+                if not ct :
+                    raise Exception()
 
-                    self.Log.log(dict['sender'] + ' send : ' + msg)
-                    if self.Chat is not None:
-                        self.Chat.notify(dict['sender'], dict['text'], dict['time'], False, False)
-                    #appendToConversation
-                    self.Message.addMessagetoConversations(dict['sender'], dict['text'], dict['time'], 1)
-                except Exception as e:
-                    #print(e)
-                    conn.shutdown(socket.SHUT_RDWR)
-                    conn.close()
+                pt = self.Security.AESDecryptText(ct, peerUsername)
+
+                #pt = ct
+                msg = pt.decode(self.Code)
+
+                #print('Message received: ' + msg + ' length : ' + length)
+                dict = json.loads(msg)
+                print(dict)
+                if(dict['logout'] == 1):
+                    self.Chat.chatListDict[peerUsername][1].updateState(0)
                     self.Security.resetSymmetricKeyClient(peerUsername)
-                    self.Log.log('Connection closed')
                     return -1
-            conn.shutdown(socket.SHUT_RDWR)
-            conn.close()
-            return -1
-        except:
-            conn.shutdown(socket.SHUT_RDWR)
-            conn.close()
-            self.Security.resetSymmetricKeyClient(peerUsername)
-            print('Chiusura socket con ' + peerUsername)
+
+                self.Log.log(dict['sender'] + ' send : ' + msg)
+                if self.Chat is not None:
+                    self.Chat.notify(dict['sender'], dict['text'], dict['time'], False, False)
+                #appendToConversation
+                self.Message.addMessagetoConversations(dict['sender'], dict['text'], dict['time'], 1)
+
+            except Exception as e:
+                #print(e)
+                self.Security.resetSymmetricKeyClient(peerUsername)
+                self.Log.log('Connection closed')
+                return -1
 
     '''
         In a loop accept new connection with other clients
@@ -197,24 +180,18 @@ class ConnectionHandler(Thread) :
     '''
     def run(self) :
         try:
-            while self._is_stopped == False :
+            while True:
                 self.socketListener.listen(50)
                 (conn, (ip,port)) = self.socketListener.accept()
                 conn.settimeout(60)
                 self.Log.log('Accepted a new connecion')
-                self.t.append(Thread(target=self.receiveMessage, args=(conn, )))
-                self.t[-1].start()
-            print('mi sto fermando')
-            self.socketListener.close()
-            return -1
+                t = Thread(target=self.receiveMessage, args=(conn, ))
+                t.start()
 
         except:
-            print('mi sto fermando male')
+            self.Log.log('Connection Handler has been closed')
             self.socketListener.close()
             return -1
 
     def stop(self) :
-        self._is_stopped = True
         self.socketListener.close()
-        for x in self.t:
-            x._is_stopped = True

@@ -44,8 +44,6 @@ class XMLClientHandler:
         sec = etree.SubElement(self.root, "Security")
         sec_path = etree.SubElement(sec, "path")
         sec_path.text = "Security/PrivateKey"
-        sec_backup = etree.SubElement(sec, "backup")
-        sec_backup.text = "Security/Backup/PrivateKey"
         sec_path = etree.SubElement(sec, "serverPubKeyPath")
         sec_path.text = "Security/ServerPublicKey.pem"
         sec_path = etree.SubElement(sec, "parametersDH")
@@ -54,6 +52,8 @@ class XMLClientHandler:
         tree = etree.ElementTree(self.root)
         tree.write(self.PATH,pretty_print=True)
 
+    def getEnableLog(self):
+        return int(self.root[0].text)
     def getServerPort(self):
         return int(self.root[1][0].text)
     def getServerAddress(self):
@@ -64,16 +64,12 @@ class XMLClientHandler:
         return self.root[2][1].text
     def getUserPwd(self):
         return self.root[2][2].text
-    def getEnableLog(self):
-        return self.root[0][0].text
     def getSecurityPath(self):
         return self.root[3][0].text
-    def getSecurityBackup(self):
-        return self.root[3][1].text
     def getSecurityServerKey(self):
-        return self.root[3][2].text
+        return self.root[3][1].text
     def getSecurityParameters(self):
-        return self.root[3][3].text
+        return self.root[3][2].text
 
     def setAutoLogin(self, remember, user, password):
         self.root[2][0].text = str(remember)

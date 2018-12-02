@@ -3,7 +3,7 @@ import datetime
 class Log:
     def __init__(self,enableLog,path):
         """
-            Open the file in write mode (overwriting the precedent content) and instatiate a lock
+            Open the file in write mode (overwriting the precedent content) and instantiate a lock
 
             :param enableLog: Boolean variable meaning if the log must be enable or not
             :type enableLog: Boolean

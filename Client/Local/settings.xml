@@ -2,16 +2,15 @@
   <EnableLog>1</EnableLog>
   <Server>
     <ServerPort>6000</ServerPort>
-    <ServerAddress>10.102.22.38</ServerAddress>
+    <ServerAddress>127.0.0.1</ServerAddress>
   </Server>
   <AutoLogin>
     <remember>0</remember>
-    <UserName>b</UserName>
+    <UserName>prova4</UserName>
     <Password>Prova1234</Password>
   </AutoLogin>
   <Security>
     <path>Security/PrivateKey</path>
-    <backup>Security/Backup/PrivateKey</backup>
     <serverPubKeyPath>Security/ServerPublicKey.pem</serverPubKeyPath>
     <parametersDH>Security/ParametersDH</parametersDH>
   </Security>
