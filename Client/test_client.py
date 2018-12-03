@@ -22,7 +22,7 @@ while(continua) :
         name = str(input('inserire name : '))
         surname = str(input('inserire surname : '))
         email = str(input('inserire email : '))
-        a.register(user,psw,name,surname,email,'0')
+        a.register(user,psw,name,surname,email)
     elif x == 2 :
         user = str(input('inserire username : '))
         psw = str(input('inserire psw : '))

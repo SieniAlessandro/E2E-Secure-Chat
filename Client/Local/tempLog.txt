@@ -1,0 +1,44 @@
+2018-12-02 21:30:14	Message Handler has been initialized!
+2018-12-02 21:30:14	Client initialized
+2018-12-02 21:30:14	Connection established with the server
+2018-12-02 21:30:37	Starting Sign Up Protocol
+2018-12-02 21:30:37	Message sent to the Server
+2018-12-02 21:30:37	Message sent to the Server
+2018-12-02 21:30:37	Sent all M1
+2018-12-02 21:30:38	Received a message from the SERVER: {"id": "-", "status": "1", "clientNonce": 29771297231616, "serverNonce": 24303755225792659794530939}
+2018-12-02 21:30:38	Received M2
+2018-12-02 21:30:39	Message sent to the Server
+2018-12-02 21:30:39	Sent M3
+2018-12-02 21:30:40	Received M4
+2018-12-02 21:30:40	Succesfully completed the Sign Up Protocol
+2018-12-02 21:30:40	Succesfully registered
+2018-12-02 21:30:48	Starting the Authentication Protocol
+2018-12-02 21:30:48	Message sent to the Server
+2018-12-02 21:30:48	Sent M1
+2018-12-02 21:30:49	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 33258194056879368986981259417, "serverNonce": 24303755225792659794530939, "key": 279383080949696579295893336831498680944}
+2018-12-02 21:30:49	Received M2
+2018-12-02 21:30:49	Message sent to the Server
+2018-12-02 21:30:49	Sent M3
+2018-12-02 21:30:49	Authentication Protocol completed correctly
+2018-12-02 21:30:49	Succesfull logged in as prova4
+2018-12-02 21:30:49	Received a message from the SERVER: {"id": "0"}
+2018-12-02 21:30:49	No messages stored in the server
+2018-12-02 21:30:49	MessageHandler Initialized! Associated port: 7567
+2018-12-02 21:30:49	All the conversations has been charged : {}
+2018-12-02 21:30:53	Message sent to the Server
+2018-12-02 21:30:53	Connection Handler has been closed
+2018-12-02 21:33:35	Starting the Authentication Protocol
+2018-12-02 21:33:35	Message sent to the Server
+2018-12-02 21:33:35	Sent M1
+2018-12-02 21:33:36	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 69782745377017524716184004439, "serverNonce": 184353338825315547175420978, "key": 135629321212992423324149001686430539348}
+2018-12-02 21:33:36	Received M2
+2018-12-02 21:33:36	Message sent to the Server
+2018-12-02 21:33:36	Sent M3
+2018-12-02 21:33:36	Authentication Protocol completed correctly
+2018-12-02 21:33:36	Succesfull logged in as prova4
+2018-12-02 21:33:36	Received a message from the SERVER: {"id": "0"}
+2018-12-02 21:33:36	No messages stored in the server
+2018-12-02 21:33:36	MessageHandler Initialized! Associated port: 59447
+2018-12-02 21:33:36	All the conversations has been charged : {}
+2018-12-02 21:33:38	Message sent to the Server
+2018-12-02 21:33:38	Connection Handler has been closed

@@ -60,12 +60,13 @@ class Message :
             return self.Conversations[user]
         return 0
 
-    def saveConversations(self, username, ordinatedUserList) :
-        tempConversations = self.Conversations
-        self.Conversations = {}
-        for cle in ordinatedUserList:
-            searchKey = cle.lower()
-            self.Conversations[searchKey] = tempConversations[searchKey]
+    def saveConversations(self, username, ordinatedUserList = None) :
+        if ordinatedUserList is not None:
+            tempConversations = self.Conversations
+            self.Conversations = {}
+            for cle in ordinatedUserList:
+                searchKey = cle.lower()
+                self.Conversations[searchKey] = tempConversations[searchKey]
         username = username.lower()
         with open("Local/conversations-" + username + ".json","w") as outfile:
             json.dump(self.Conversations, outfile)
