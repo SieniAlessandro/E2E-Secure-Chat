@@ -39,8 +39,9 @@ class SignUpGUI(Frame):
         self.confirmPasswordEntry = Entry(self.rightFrame, show="*", validate="focus", vcmd= lambda: self.validateConfirmPassword(), invalidcommand = lambda: self.invalidate(self.confirmPasswordEntry), bg=self.backgroundItems, fg='white', relief='flat' )
 
         validation = self.register(self.validateEmail)
+        self.emailString = StringVar()
         self.emailLabel = Label(self.rightFrame, bg=self.backgroundWindow, fg='white', text="Email")
-        self.emailEntry = Entry(self.rightFrame,  validate="key", vcmd = (validation, '%s', '%S'), invalidcommand = lambda: self.invalidate(self.emailEntry), bg=self.backgroundItems, fg='white', relief='flat' )
+        self.emailEntry = Entry(self.rightFrame,  validate="focusout", textvariable = self.emailString, vcmd = (validation, '%P'), invalidcommand = lambda: self.invalidate(self.emailEntry), bg=self.backgroundItems, fg='white', relief='flat' )
 
         self.cancelButton = Button(self.mainFrame, takefocus = 0, text="Cancel", command=self.cancelEvent, bg=self.backgroundItems, fg='white', relief='flat', activebackground = self.activebackground, activeforeground='white')
         self.confirmButton = Button(self.mainFrame, takefocus = 0, text="Confirm", command=self.signUpEvent, bg=self.backgroundItems, fg='white', relief='flat', activebackground = self.activebackground, activeforeground='white')
@@ -130,15 +131,14 @@ class SignUpGUI(Frame):
             self.isFormValid[self.confirmPasswordEntry.winfo_name] = True
             return True
         return False
-    def validateEmail(self, old, new):
+    def validateEmail(self, change):
         """
             Email must have the right structure ( email@example.com )
 
             :rtype: boolean
             :return: is email valid?
         """
-        self.emailEntry.insert(0, old + new)
-        if validate_email(self.emailEntry.get()):
+        if validate_email(self.emailString.get()):
             self.emailEntry.config(fg = "green", highlightbackground="green", highlightcolor="green", highlightthickness=1)
             self.isFormValid[self.emailEntry.winfo_name] = True
             return True
