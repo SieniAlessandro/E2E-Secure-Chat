@@ -6,7 +6,7 @@ from ScrollableFrame import *
 activeChat = None
 
 class ChatList(Frame):
-
+    MAXSEARCHLEN = 20
     def __init__(self, master, background):
         """
             :type master: ChatGUI
@@ -23,7 +23,7 @@ class ChatList(Frame):
         self.searchBarFrame = Frame(self, bg=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         listFrame = Frame(self)
         self.scrollableFrame = Scrollable(listFrame, background)
-        self.searchBar = Entry(self.searchBarFrame, background=background, bd=0, fg='white')
+        self.searchBar = Entry(self.searchBarFrame, validate = "key", validatecommand = self.checkEntryLength, background=background, bd=0, fg='white')
         self.searchBar.bind('<Return>', self.pressEnterEvent )
         self.searchIcon = ImageTk.PhotoImage(Image.open("Images/searchIcon.png").resize( (30,30), Image.ANTIALIAS ))
         self.searchButton = Button(self.searchBarFrame, text="search", command=self.pressSearchButton, bg=background, bd=0, activebackground='#787878', image=self.searchIcon)
@@ -32,6 +32,7 @@ class ChatList(Frame):
         self.searchBar.pack(side=LEFT, padx=5,pady=5)
         self.searchButton.pack(side=RIGHT, padx=5, pady=5)
         listFrame.pack(fill=BOTH, expand=True)
+
     def pressSearchButton(self):
         """
             When search button is pressed, it checks if the chat already exists
@@ -57,6 +58,14 @@ class ChatList(Frame):
                 self.searchBar.config(fg='red')
         else:
             self.chatListDict[searchKey][0].changeChatWindow(event=None)
+    def checkEntryLength(self):
+        """
+            :rtype: boolean
+            :return: the length of entry's string cannot exceed MAXSEARCHLEN
+        """
+        if len(self.searchBar.get()) >= self.MAXSEARCHLEN:
+            return False
+        return True
     def pressEnterEvent(self, event):
         """
             :type event: Event
