@@ -23,7 +23,8 @@ class ChatList(Frame):
         self.searchBarFrame = Frame(self, bg=background, highlightbackground="black", highlightcolor="black", highlightthickness=1)
         listFrame = Frame(self)
         self.scrollableFrame = Scrollable(listFrame, background)
-        self.searchBar = Entry(self.searchBarFrame, validate = "key", validatecommand = self.checkEntryLength, background=background, bd=0, fg='white')
+        validation = self.register(self.checkEntryLength)
+        self.searchBar = Entry(self.searchBarFrame, validate = "key", validatecommand = (validation, '%d'), background=background, bd=0, fg='white')
         self.searchBar.bind('<Return>', self.pressEnterEvent )
         self.searchIcon = ImageTk.PhotoImage(Image.open("Images/searchIcon.png").resize( (30,30), Image.ANTIALIAS ))
         self.searchButton = Button(self.searchBarFrame, text="search", command=self.pressSearchButton, bg=background, bd=0, activebackground='#787878', image=self.searchIcon)
@@ -58,12 +59,12 @@ class ChatList(Frame):
                 self.searchBar.config(fg='red')
         else:
             self.chatListDict[searchKey][0].changeChatWindow(event=None)
-    def checkEntryLength(self):
+    def checkEntryLength(self, action):
         """
             :rtype: boolean
             :return: the length of entry's string cannot exceed MAXSEARCHLEN
         """
-        if len(self.searchBar.get()) >= self.MAXSEARCHLEN:
+        if action != '0' and len(self.searchBar.get()) >= self.MAXSEARCHLEN:
             return False
         return True
     def pressEnterEvent(self, event):

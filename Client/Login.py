@@ -6,6 +6,8 @@ class LoginGUI(Frame):
     backgroundItems = '#434d56'
     activebackground = '#657481'
     errorColor = '#ff3333'
+    MAXPASSWORDLEN = 30
+    MAXUSERNAMELEN = 20
     def __init__(self, master):
         """
             Login Grafic Interface, this is the first shown if the autologin is disabled
@@ -22,10 +24,13 @@ class LoginGUI(Frame):
 
         self.messageLabel = Label(self.mainFrame, bg=self.backgroundItems)
 
+        validation = self.register(self.checkEntryLength)
         self.usernameLabel = Label(self.mainFrame, bg=self.backgroundWindow, fg='white', text="Username")
         self.usernameEntry = Entry(self.mainFrame,bg=self.backgroundItems, fg='white', relief='flat' )
+        self.usernameEntry.config(validate="key", validatecommand=(validation, 'username', '%d') )
         self.passwordLabel = Label(self.mainFrame, text="Password", bg=self.backgroundWindow, fg='white')
         self.passwordEntry = Entry(self.mainFrame, show="*", bg=self.backgroundItems, fg='white', relief='flat')
+        self.passwordEntry.config(validate="key", validatecommand=(validation, 'password', '%d'))
         self.buttonsFrame = Frame(self.mainFrame, bg=self.backgroundWindow )
         self.rememberLoginCheckbutton = Checkbutton(self.mainFrame, variable = self.var, text="Autologin", bg=self.backgroundWindow, fg='#2a8c8c', activebackground=self.backgroundItems, activeforeground='#2a8c8c')
         self.signUpButton = Button(self.buttonsFrame, text="Sign Up", command=self.signUpEvent, bg=self.backgroundItems, fg='white', relief='flat', activebackground = self.activebackground, activeforeground='white')
@@ -60,6 +65,17 @@ class LoginGUI(Frame):
         y = (hs/2) - (h/2)
 
         self.master.geometry('%dx%d+%d+%d' % (w, h, x, y))
+    def checkEntryLength(self, entryName, action):
+        """
+            :rtype: boolean
+            :return: the length of entry's string cannot exceed length
+        """
+        if action != '0' and entryName == 'username' and len(self.usernameEntry.get()) > self.MAXUSERNAMELEN - 1:
+            print('user')
+            return False
+        elif action != '0' and entryName == 'password' and len(self.passwordEntry.get()) >= self.MAXPASSWORDLEN:
+            return False
+        return True
     def showLoginFrame(self):
         """
             Display login interface inside the root window
