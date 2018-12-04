@@ -320,7 +320,7 @@ class Client:
             self.Log.log('The nonce in M2 is not the expected one. Connection is not fresh for me!')
             return -2
 
-        self.Security.AddSymmetricKeyFromDict(dict['key'])
+        self.Security.AddServerSymmetricKey(dict['key'])
         self.Security.loadParameters(self.XML.getSecurityParameters())
 
         msg = {}
@@ -397,6 +397,9 @@ class Client:
         return int(value)
 
     def onlineKeyExchangeProtocol(self, receiver, dict):
+        """
+            Implements the Online Key Exchange protocol
+        """
         #info contains the symmetric message from the server to the client
         cipherText = dict['info'].to_bytes(dict['lenInfo'], byteorder='big')
         sign = self.Security.getSignature(cipherText)
