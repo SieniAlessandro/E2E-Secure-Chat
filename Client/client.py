@@ -131,7 +131,7 @@ class Client:
                 self.Log.log('Connection with the server closed!')
                 return -1
             else:
-                msg = self.Security.decryptText(ret)
+                msg = self.Security.decryptServerMessage(ret)
                 if msg is None:
                     print('The connection is not safe!')
                     self.onClosing()
@@ -193,7 +193,10 @@ class Client:
 
         if status == 1 :
             self.Log.log('Succesfully registered')
-            self.Security.savePrivateKey(self.XML.getSecurityPath()+'-'+username + '.pem')
+            if not self.Security.savePrivateKey(self.XML.getSecurityPath()+'-'+username + '.pem'):
+                self.Log.log('Problem saving the private key of the client!')
+            else:
+                self.Log.log('Key saved Succesfully')
 
         else :
             #we can handle better the possible error
@@ -236,13 +239,16 @@ class Client:
         msg = {}
         msg['serverNonce'] = dict['serverNonce']
         msg['g'],msg['p'] = self.Security.generateDHParameters()
-        self.Security.saveParameters(msg['g'], msg['p'], self.XML.getSecurityParameters()+'-'+username+'.')
+        if self.Security.saveParameters(msg['g'], msg['p'], self.XML.getSecurityParameters()+'-'+username+'.'):
+            self.Log.log('Succesfully saved the parameters')
+        else:
+            self.Log.log('Problems saving g and p')
 
         self.sendServer(json.dumps(msg), 'rsa')
         self.Log.log('Sent M3')
         ct = self.socketServer.recv(self.BUFFER_SIZE)
         self.Log.log('Received M4')
-        pt = self.Security.decryptText(ct)
+        pt = self.Security.decryptServerMessage(ct)
 
         if self.Security.getDigest(json.dumps(msg).encode(self.CODE_TYPE)) != pt:
             self.Security.resetKeys()
@@ -269,7 +275,8 @@ class Client:
         """
         self.username = username.lower()
         self.portp2p = random.randint(6001,60000)
-        self.Security.initializeSecurity(self.XML.getSecurityPath(), self.username)
+        if not self.Security.initializeSecurity(self.XML.getSecurityPath(), self.username):
+            return -2
 
         msg = {}
         msg['id'] = '2'
@@ -321,7 +328,10 @@ class Client:
             return -2
 
         self.Security.AddServerSymmetricKey(dict['key'])
-        self.Security.loadParameters(self.XML.getSecurityParameters())
+        if self.Security.loadDHParameters(self.XML.getSecurityParameters()):
+            self.Log.log('Parameters correctly loaded')
+        else:
+            self.Log.log('Problems loading the parameters')
 
         msg = {}
         msg['serverNonce'] = dict['serverNonce']
@@ -367,7 +377,7 @@ class Client:
 
         if value == '0' :
             self.Log.log('Communication offline with the user: ' + receiver)
-            self.Security.insertKeyClient(receiver, dict['key'])
+            self.Security.insertKeyClient(receiver, dict['key'].encode('utf-8'))
             self.socketClient[receiver] = 'server'
             return 0
         elif value == '-1' :
@@ -408,7 +418,7 @@ class Client:
         if self.Security.isSymmetricKeyClientPresent(receiver):
             return 1
 
-        self.Security.insertKeyClient(receiver, dict['key'])
+        self.Security.insertKeyClient(receiver, dict['key'].encode('utf-8'))
 
         self.Security.generateDH(dict['p'], dict['g'], receiver)
         plainText = self.Security.getSharedKey(receiver)
@@ -460,7 +470,7 @@ class Client:
         dict = json.loads(dictBin)
         print('message M4 received ' + json.dumps(dict))
         print('starting computing key')
-        self.Security.computeDHKey(receiver, sharedKey)
+        self.Security.computeDHKey(receiver, sharedKey, 0)
         print('Computed key in the sender')
         ###############VERIFICA CHE IL NONCE SIA GIUSTO############
         ###TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO###

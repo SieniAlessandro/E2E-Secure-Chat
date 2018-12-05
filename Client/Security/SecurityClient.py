@@ -41,20 +41,21 @@ class SecurityClient:
             :param path: The path of the pem file where the private key of the user is
             :type username: String
             :param username: The username of the user that is trying to login
+            :rtype: Boolean
+            :return: True if the key is loaded Succesfully, False if there is some problem
         """
         self.username = username
         path += '-' + username + '.pem'
 
         try:
             with open(path,"rb") as pem:
-                try:
-                    self.privateKey = serialization.load_pem_private_key(pem.read(),password=b'keyClients',backend=default_backend())
-                    self.publicKey = self.privateKey.public_key()
-                    self.clientKeys[username] = self.publicKey
-                except ValueError:
-                    print('utente non ha più la chiave privata')
+                self.privateKey = serialization.load_pem_private_key(pem.read(),password=b'keyClients',backend=default_backend())
+                self.publicKey = self.privateKey.public_key()
+                self.clientKeys[username] = self.publicKey
+                return True
         except FileNotFoundError:
             print('chiave persa')
+            return False
 
     def generate_key(self):
         """
@@ -124,16 +125,13 @@ class SecurityClient:
             :rtype: Bytes
             :return: the signature
         """
-        try:
-            signature = self.privateKey.sign(text,
-                                         padding.PSS(mgf=padding.MGF1(hashes.SHA256()),
-                                                     salt_length=padding.PSS.MAX_LENGTH
-                                                     ),
-                                         hashes.SHA256()
-                                         )
-            return signature
-        except Exception as e:
-            return None
+        signature = self.privateKey.sign(text,
+                                     padding.PSS(mgf=padding.MGF1(hashes.SHA256()),
+                                                 salt_length=padding.PSS.MAX_LENGTH
+                                                 ),
+                                     hashes.SHA256()
+                                     )
+        return signature
 
     def VerifySignature(self,text,signature, user=None):
         """
@@ -194,9 +192,9 @@ class SecurityClient:
         """
         return self.SymmetricKey;
 
-    def AESDecryptText(self,cipherText,username = None, nonce = None):
+    def AESDecryptText(self,cipherText,username = None, serverCommunication = None):
         """
-            Decrypt the passed cipherText with AES, if the nonce is not None, then
+            Decrypt the passed cipherText with AES, if the serverCommunication is not None, then
             uses the symmetricKey to send a message to the server, if there is a specified
             username then it uses the nonce of the client because the message is been received
             from the server for the Online Key Exchange Protocol, else it uses the nonce with the
@@ -207,109 +205,159 @@ class SecurityClient:
             :param cipherText: the cipher text that must be decrypted
             :type username: String or None
             :param username: None if we have to use the symmetric key of the server
-
+            :type serverCommunication: Int or None
+            :param serverCommunication: specify if the message will go to the server or to a client
         """
-        try:
-            if nonce is not None:
-                #decrypt with the symmetric key with the server
-                aescgm = AESGCM(self.SymmetricKey)
-                if username is None:
-                    self.serverNonce = self.serverNonce+1
-                    return aescgm.decrypt(self.serverNonce.to_bytes(16, byteorder="big"),cipherText,None)
-                else:
-                    self.clientNonce[username] = self.clientNonce[username]+1
-                    return aescgm.decrypt(self.clientNonce[username].to_bytes(16, byteorder="big"),cipherText,None)
+        if serverCommunication is not None:
+            #decrypt with the symmetric key with the server
+            aescgm = AESGCM(self.SymmetricKey)
+            if username is None:
+                #use the nonce created by the server
+                self.serverNonce = self.serverNonce+1
+                return aescgm.decrypt(self.serverNonce.to_bytes(16, byteorder="big"),cipherText,None)
             else:
-                #decrypt with the symmetric key with the client - username
-                aescgm = AESGCM(self.clientSymmetricKeys[username])
+                #use the nonce created by itself
                 self.clientNonce[username] = self.clientNonce[username]+1
-                print('decripto con AES , nonce '+ str(self.clientNonce[username]))
                 return aescgm.decrypt(self.clientNonce[username].to_bytes(16, byteorder="big"),cipherText,None)
-        except TypeError as t:
-            print(t)
-            print("Error in decrypt GCM")
-            return None
-        except:
-            print(sys.exc_info()[0])
-            raise Exception()
+        else:
+            #decrypt with the symmetric key of the conversation with the client - username
+            aescgm = AESGCM(self.clientSymmetricKeys[username])
+            #use the nonce generated during the online key exchange protocol
+            self.clientNonce[username] = self.clientNonce[username]+1
+            return aescgm.decrypt(self.clientNonce[username].to_bytes(16, byteorder="big"),cipherText,None)
 
-    def AESEncryptText(self,pt, username = None):
-        #try:
-        if username is None:
-            #print(self.serverNonce)
+    def AESEncryptText(self,plainText, user = None):
+        """
+            Encrypt the plain text passed using AES Galois Counter Mode. The nonce used
+            is, if the username is None, the one of the server, else is the associated nonce
+            with the user passed as parameter; the nonce is incremented every time in order
+            to not use more than one time one the same value for the nonce.
+
+            :type plainText: Bytes
+            :param plainText: the text that must be encrypted
+            :type user: String or None
+            :param user: Specify which nonce must be used
+            :rtype: Bytes
+            :return: The encrypted message
+        """
+        if user is None:
             aesgcm = AESGCM(self.SymmetricKey)
             self.serverNonce = self.serverNonce+1
-            #print('encryptnonce ' + str(self.serverNonce))
-            return aesgcm.encrypt(self.serverNonce.to_bytes(16, byteorder="big"), pt, None)
+            return aesgcm.encrypt(self.serverNonce.to_bytes(16, byteorder="big"), plainText, None)
         else:
-            aesgcm = AESGCM(self.clientSymmetricKeys[username])
-            self.clientNonce[username] = self.clientNonce[username]+1
-            print('Nonce client used for AES encrypt ' + str(self.clientNonce[username]))
-            #print('encryptnonce ' + str(self.serverNonce))
-            return aesgcm.encrypt(self.clientNonce[username].to_bytes(16, byteorder="big"), pt, None)
-        #except Exception as e:
-        #    print(e)
-        #    print("Error in encrypt GCM")
-        #    return None
+            aesgcm = AESGCM(self.clientSymmetricKeys[user])
+            self.clientNonce[user] = self.clientNonce[user]+1
+            return aesgcm.encrypt(self.clientNonce[user].to_bytes(16, byteorder="big"), plainText, None)
 
-    def decryptText(self, text):
-        msg = b''
+    def decryptServerMessage(self, cipherText):
+        """
+            Handles the decryption of the messages received from the Server, if
+            the symmetric key with the server does not exist then uses RSA else
+            AES is used
+
+            :type cipherText: Bytes
+            :param cipherText: The text that must decrypted
+            :rtype: Bytes or None
+            :return: The plain text or, if the signature is not valid, None
+        """
         if self.SymmetricKey is None:
-            #print(len(text[0:-1025]))
-            sign = text[-1025:]
-            msg = self.RSADecryptText(text[0:-1025])
-            if self.VerifySignature(msg, sign):
-                return msg
+            #the signature length of the server is 1024
+            sign = cipherText[-1025:]
+            plainText = self.RSADecryptText(cipherText[0:-1025])
+            if self.VerifySignature(plainText, sign):
+                return plainText
             else:
                 None
         else:
-            return self.AESDecryptText(text, None, 1)
+            return self.AESDecryptText(cipherText, None, 1)
 
 
     def savePrivateKey(self, path):
-        with open(path,"wb") as pem:
-            print("saving the keys")
-            serializedPrivateKey = self.privateKey.private_bytes(
-                                            encoding=serialization.Encoding.PEM,
-                                            format=serialization.PrivateFormat.PKCS8,
-                                            encryption_algorithm =serialization.BestAvailableEncryption(
-                                                b'keyClients'
-                                                )
-                                            )
-            pem.write(serializedPrivateKey)
+        """
+            Save the Private Key of the client in a file in the specified param path
 
-    '''
-        Methods to establish a secure communication client to client
-        using Diffie-Hellman
-    '''
+            :type path: String
+            :param path: The specific path of the file where the key must be saved
+            :rtype: Boolean
+            :return: True if the key has been saved, otherwise False
+        """
+        try:
+            with open(path,"wb") as pem:
+                serializedPrivateKey = self.privateKey.private_bytes(
+                                                encoding=serialization.Encoding.PEM,
+                                                format=serialization.PrivateFormat.PKCS8,
+                                                encryption_algorithm =serialization.BestAvailableEncryption(
+                                                    b'keyClients'
+                                                    )
+                                                )
+                pem.write(serializedPrivateKey)
+                return True
+        except:
+            return False
+
     def generateDHParameters(self):
-        '''
-        generates the parameters g and p, these are public and can be reused
-        '''
-        print('generate parameters')
+        """
+            Generates the public parameters g and p for the diffie-hellman protocol
+            :rtype: List<Int>
+            :return: g and p in a list
+        """
         self.parameters = dh.generate_parameters(
                                             generator=2,
                                             key_size=512,
                                             backend=default_backend()
                                             )
         self.parnum = self.parameters.parameter_numbers()
-        print('g: ' + str(self.parnum.g) + ' p:' + str(self.parnum.p))
         return [self.parnum.g, self.parnum.p]
 
     def saveParameters(self,g,p, path):
+        """
+            Save the diffie-hellman public parameters g and p in a json file,
+            these can be reused more than once
+
+            :type g: Int
+            :param g: the parameter g of diffie-hellman
+            :type p: Int
+            :param p: the parameter p of diffie-hellman
+            :type path: String
+            :param path: the path of the file where the parameters will be saved
+            :rtype: Boolean
+            :return: True if the save was done succesfully, False if it was not
+        """
         txt = {}
         txt['g'] = g
         txt['p'] = p
-        with open(path+'json', 'w') as parameters:
-            json.dump(txt, parameters)
+        try:
+            with open(path+'json', 'w') as parameters:
+                json.dump(txt, parameters)
+            return True
+        except:
+            return False
 
-    def loadParameters(self, path):
+    def loadDHParameters(self, path):
+        """
+            Loads the diffie-hellman parameters g and p from the json file specified by path
+            and starts the instance of the structure used to perform the diffie-hellman protocol
+
+            :type path: String
+            :param path: Path for the json file
+            :rtype: Boolean
+            :return: True if correctly loaded, False otherwise
+        """
         par = {}
-        with open(path+'-'+self.username+'.json', 'r') as parameters:
-            par = json.loads(parameters.read())
+        try:
+            with open(path+'-'+self.username+'.json', 'r') as parameters:
+                par = json.loads(parameters.read())
+        except:
+            return False
+        #self.username because this values will be used for all the received connections
         self.generateDH(par['p'], par['g'], self.username)
+        return True
+
 
     def resetKeys(self):
+        """
+            Reset all the keys and nonce stored
+        """
         self.privateKey = None
         self.publicKey = None
         self.DHPrivateKey = {}
@@ -320,34 +368,52 @@ class SecurityClient:
         self.clientNonce = {}
 
     def generateDH(self, p, g, user):
-        print('generateDH: parameters p, g and user:\np= ' +str(p) +'\ng= ' + str(g) + '\nuser= ' + str(user))
+        """
+            Generates a structure used for the Diffie-Hellman protcol, in
+            paricular it is generate the unknown random value used to create the
+            public value that must be sent to other peers and to compute the
+            shared key, user specifies who is the owner of the parameters g and p
+
+            :type p: Int
+            :param p: parameter p of diffie-hellman
+            :type g: Int
+            :param g: parameter g of diffie-hellman
+            :type user: String
+            :param user: the owner of p and g
+        """
         pn = dh.DHParameterNumbers(int(p), int(g))
         self.parameters = pn.parameters(default_backend())
-        #publicNumbers = self.parameters.DHPublicNumbers()
         self.DHPrivateKey[user] = self.parameters.generate_private_key()
 
-
-#    def computeDHtoSend(self, user):
-#        return self.DHPrivateKey[user]
     def getSharedKey(self, user):
+        """
+            Used to get the shared key used in the conversation with the passed user
 
-        y = self.DHPrivateKey[user].public_key().public_bytes(encoding=serialization.Encoding.PEM,format=serialization.PublicFormat.SubjectPublicKeyInfo)
-        print('the public key to send [y]')
-        print(y)
-        return y
+            :type user: String
+            :param user: the username
+            :rtype: Bytes
+            :return: the shared symmetric key with the user
+        """
+        return self.DHPrivateKey[user].public_key().public_bytes(encoding=serialization.Encoding.PEM,format=serialization.PublicFormat.SubjectPublicKeyInfo)
 
-    def computeDHKey(self, user, shared_key, mine=None):
-        '''
-            We must pass the value g^b mod p = shared_key received by the other client
-            and compute the key as (g^b mod p)^a mod p
-            when we compute this we remove from the system
-        '''
-        print('key of the communication with the other host has been computed')
+    def computeDHKey(self, user, sharedKey, mine):
+        """
+            Generates the symmetric key for the conversation with the user, if mine is None
+            this means that the parameters diffie-hellman used have been generated by the specified user,
+            otherwise they are mine
+
+            :type user: String
+            :param user: user with which the conversation is active
+            :type sharedKey: Bytes
+            :param sharedKey: the public value sent by the user to complete the protocol
+            :type mine: Boolean
+            :param mine: Specified who has created the public parameters for diffie hellman
+        """
         y = ''
-        if mine is None:
-            y = self.DHPrivateKey[user].exchange(serialization.load_pem_public_key(shared_key,backend=default_backend()))
+        if not mine:
+            y = self.DHPrivateKey[user].exchange(serialization.load_pem_public_key(sharedKey,backend=default_backend()))
         else:
-            y = self.DHPrivateKey[self.username].exchange(serialization.load_pem_public_key(shared_key,backend=default_backend()))
+            y = self.DHPrivateKey[self.username].exchange(serialization.load_pem_public_key(sharedKey,backend=default_backend()))
 
         self.clientSymmetricKeys[user] = HKDF(
                  algorithm=hashes.SHA256(),
@@ -356,40 +422,82 @@ class SecurityClient:
                  info=b'handshake data',
                  backend=default_backend()
             ).derive(y)
-        print('This is it:')
-        print(self.clientSymmetricKeys[user])
 
+    def insertKeyClient(self, user, publicKey):
+        """
+            insert the public key of the user passed as parameter
 
-    def insertKeyClient(self, user, key):
-        #print('inserting the key of ' + user)
-        #print(key)
-        self.clientKeys[user] = serialization.load_pem_public_key(key.encode('utf-8'),backend=default_backend())
+            :type user: String
+            :param user: the owner of the public key
+            :type publicKey: Bytes
+            :param publicKey: the public key of the user
+        """
+        self.clientKeys[user] = serialization.load_pem_public_key(publicKey,backend=default_backend())
 
     def resetSymmetricKeyClient(self, user):
-        try:
+        """
+            Delete the symmetric key of the conversation with the passed user
+
+            :type user: String
+            :param user: the user relative to the symmetric key
+        """
+        if user in self.clientSymmetricKeys:
             del self.clientSymmetricKeys[user]
-        except:
-            print()
 
     def isSymmetricKeyClientPresent(self,user):
+        """
+            Check if exists a symmetric key for the conversation with the passed user
+
+            :type user: String
+            :param user: the user relative to the symmetric key
+            :rtype: Boolean
+            :return: True if the symmetric key is present, False otherwise
+        """
         try:
             return self.clientSymmetricKeys[user] is not None
         except:
             return False
 
     def getKeyClient(self, user):
+        """
+            obtain the public key of the passed user
+
+            :type user: String
+            :param user: the owner of the public key required
+            :rtype: Bytes
+            :return: the public key of user
+        """
         return self.clientKeys[user]
 
     def addClientNonce(self, user, nonce):
+        """
+            Used to add the passed nonce to a dictionary indexed with the corrispective user
+
+            :type user: String
+            :param user: the username correlated to that specific nonce
+            :type nonce: Int
+            :param nonce: the nonce used for the conversation with user
+        """
         self.clientNonce[user] = nonce
 
     def getClientNonce(self, user):
+        """
+            obtain the nonce correlated with the passed user
+
+            :type user: String
+            :param user: used to obtain the correlated nonce
+            :rtype: Int
+            :return: nonce of the conversation with user
+        """
         return self.clientNonce[user]
 
     def generateNonce(self,size):
-        """ Generate a nonce of a dimension chosed (in bytes) a get it as an Integer encoded in Big Endian
-            Parameter:
-                    size: The size (in Bytes) of the nonce                                                                          : int
-            Return:
-                    A nonce generated using the system call specific for cryptography purpose of the dimensione passed as argument  : int """
+        """
+            Generate a nonce of a dimension chosed (in bytes) a get it as an Integer encoded in Big Endian
+
+            :type size: Int
+            :param size: The size (in Bytes) of the nonce
+            :rtype: Int
+            :return: A nonce generated using the system call specific for cryptography purpose of the dimensione passed as argument
+        """
         return int.from_bytes(os.urandom(size),byteorder='big')

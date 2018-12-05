@@ -56,7 +56,7 @@ class ConnectionHandler(Thread) :
             return
         dict = json.loads(text)
         peerUsername = dict['username']
-        ret = self.Security.insertKeyClient(peerUsername, dict['key'])
+        ret = self.Security.insertKeyClient(peerUsername, dict['key'].encode('utf-8'))
         if not self.Security.VerifySignature(msg, signature, peerUsername):
             print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
 
