@@ -43,11 +43,11 @@ class XMLClientHandler:
         # Security
         sec = etree.SubElement(self.root, "Security")
         sec_path = etree.SubElement(sec, "path")
-        sec_path.text = "Security/PrivateKey"
+        sec_path.text = "SecurityClient/PrivateKey"
         sec_path = etree.SubElement(sec, "serverPubKeyPath")
-        sec_path.text = "Security/ServerPublicKey.pem"
+        sec_path.text = "SecurityClient/ServerPublicKey.pem"
         sec_path = etree.SubElement(sec, "parametersDH")
-        sec_path.text = "Security/ParametersDH"
+        sec_path.text = "SecurityClient/ParametersDH"
         #Writing in the file
         tree = etree.ElementTree(self.root)
         tree.write(self.PATH,pretty_print=True)

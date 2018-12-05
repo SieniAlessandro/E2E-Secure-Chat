@@ -7,7 +7,7 @@ from Message import *
 from ConnectionHandler import *
 from Log import *
 from XMLClientHandler import *
-from Security.SecurityClient import *
+from SecurityClient.SecurityClient import *
 import os
 import binascii
 import zlib
@@ -409,6 +409,11 @@ class Client:
     def onlineKeyExchangeProtocol(self, receiver, dict):
         """
             Implements the Online Key Exchange protocol
+
+            :type receiver: String
+            :param receiver: the client with which we want to exchange the key with diffie-hellman
+            :type dict: Dict
+            :param dict: dictionary that contains the symmetric message destinated to the receiver, received from the server, and its length informations
         """
         #info contains the symmetric message from the server to the client
         cipherText = dict['info'].to_bytes(dict['lenInfo'], byteorder='big')
@@ -422,6 +427,7 @@ class Client:
 
         self.Security.generateDH(dict['p'], dict['g'], receiver)
         plainText = self.Security.getSharedKey(receiver)
+        #The plainText is too long to be send all together, so it is split in half
         pt1 = plainText[:round(len(plainText)/2)]
         pt2 = plainText[round(len(plainText)/2):]
 
@@ -433,6 +439,7 @@ class Client:
 
         print('sended all the M3 message')
         ############GETTING THE PUBLIC Y_B ##################
+        #The received message is composed by two messages
         msg = self.socketClient[receiver].recv(self.BUFFER_SIZE)
         msg1 = msg[:int(len(msg)/2)]
         msg2 = msg[int(len(msg)/2):]
