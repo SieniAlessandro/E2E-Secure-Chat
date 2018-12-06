@@ -14,8 +14,10 @@
 #
 import os
 import sys
-sys.path.insert(0,'../Client/')
-sys.path.insert(0,'../Server/')
+sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(1, os.path.abspath('../../Client'))
+sys.path.insert(2, os.path.abspath('../../Server'))
+print(sys.path)
 
 
 # -- Project information -----------------------------------------------------

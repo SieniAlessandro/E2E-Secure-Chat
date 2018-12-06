@@ -9,4 +9,4 @@
    XMLClientHandler
    SecurityClient
    client
-   main
+   

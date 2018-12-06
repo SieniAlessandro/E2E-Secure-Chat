@@ -28,9 +28,6 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="XMLHandler.html" title="XMLHandler module"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -47,131 +44,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-User">
-<span id="user-module"></span><h1>User module<a class="headerlink" href="#module-User" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="User.User">
-<em class="property">class </em><code class="descclassname">User.</code><code class="descname">User</code><span class="sig-paren">(</span><em>_socket</em>, <em>_ip</em>, <em>_ClientPort</em>, <em>_ServerPort</em>, <em>_UserName</em><span class="sig-paren">)</span><a class="headerlink" href="#User.User" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="User.User.GetSecurityModule">
-<code class="descname">GetSecurityModule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#User.User.GetSecurityModule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the security module in order to use its own method
-Parameter:</p>
-<blockquote>
-<div>Void</div></blockquote>
-<dl class="docutils">
-<dt>Return:</dt>
-<dd>The security Module     : Security</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="User.User.addSecurityModule">
-<code class="descname">addSecurityModule</code><span class="sig-paren">(</span><em>Security</em><span class="sig-paren">)</span><a class="headerlink" href="#User.User.addSecurityModule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add the security module for this user
-Parameter:</p>
-<blockquote>
-<div>Security: The security object   : Security</div></blockquote>
-<dl class="docutils">
-<dt>Return:</dt>
-<dd>Void</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="User.User.getClientPort">
-<code class="descname">getClientPort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#User.User.getClientPort" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the port used by the user to listen from other clients
-Parameter:</p>
-<blockquote>
-<div>Void</div></blockquote>
-<dl class="docutils">
-<dt>Return:</dt>
-<dd>The port used by the user to listen from the other clients     : int</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="User.User.getIp">
-<code class="descname">getIp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#User.User.getIp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the IP address of this user
-Parameter:</p>
-<blockquote>
-<div>Void</div></blockquote>
-<dl class="docutils">
-<dt>Return:</dt>
-<dd>The IP address of this user     : string</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="User.User.getServerPort">
-<code class="descname">getServerPort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#User.User.getServerPort" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the port used by the user to listen from the server
-Parameter:</p>
-<blockquote>
-<div>Void</div></blockquote>
-<dl class="docutils">
-<dt>Return:</dt>
-<dd>The port used by the user to listen from the server     : int</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="User.User.getSocket">
-<code class="descname">getSocket</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#User.User.getSocket" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the socket used to communicate with this user
-Parameter:</p>
-<blockquote>
-<div>Void</div></blockquote>
-<dl class="docutils">
-<dt>Return:</dt>
-<dd>The port used to communicate with this user     : Socket</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="User.User.getUserName">
-<code class="descname">getUserName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#User.User.getUserName" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the username of this user
-Parameter :</p>
-<blockquote>
-<div>Void</div></blockquote>
-<dl class="docutils">
-<dt>Return:</dt>
-<dd>The username of this user</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="User.User.setClientPort">
-<code class="descname">setClientPort</code><span class="sig-paren">(</span><em>_clientPort</em><span class="sig-paren">)</span><a class="headerlink" href="#User.User.setClientPort" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the port used by the user to listen from other clients
-Parameter:</p>
-<blockquote>
-<div>_clientPort: The port used by the user to listen from other clients     : int</div></blockquote>
-<dl class="docutils">
-<dt>Return:</dt>
-<dd>Void</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="User.User.setUserName">
-<code class="descname">setUserName</code><span class="sig-paren">(</span><em>_username</em><span class="sig-paren">)</span><a class="headerlink" href="#User.User.setUserName" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the username of this user
-Parameter:</p>
-<blockquote>
-<div>_username: the username to associate    : string</div></blockquote>
-<dl class="docutils">
-<dt>Return:</dt>
-<dd>Void</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="user-module">
+<h1>User module<a class="headerlink" href="#user-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -215,9 +89,6 @@ Parameter:</p>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
         <li class="right" >
           <a href="XMLHandler.html" title="XMLHandler module"
              >next</a> |</li>

@@ -14,8 +14,10 @@
 #
 import os
 import sys
-sys.path.insert(0,'C/Users/nabow/"OneDrive - University of Pisa"/Magistrale/Cybersecurity/Progetto/PCS/Client')
-sys.path.insert(0,'C/Users/nabow/"OneDrive - University of Pisa"/Magistrale/Cybersecurity/Progetto/PCS/Server')
+sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(1, os.path.abspath('../../Client'))
+sys.path.insert(2, os.path.abspath('../../Server'))
+print(sys.path)
 
 
 # -- Project information -----------------------------------------------------
