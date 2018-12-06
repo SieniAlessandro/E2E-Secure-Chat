@@ -28,6 +28,9 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="Log.html" title="Log module"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -49,11 +52,233 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="database-database-module">
-<h2>Database.Database module<a class="headerlink" href="#database-database-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-Database.Database">
+<span id="database-database-module"></span><h2>Database.Database module<a class="headerlink" href="#module-Database.Database" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Database.Database.Database">
+<em class="property">class </em><code class="descclassname">Database.Database.</code><code class="descname">Database</code><span class="sig-paren">(</span><em>_host</em>, <em>_port</em>, <em>_user</em>, <em>_password</em>, <em>_db</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="Database.Database.Database.CredentialCorrect">
+<code class="descname">CredentialCorrect</code><span class="sig-paren">(</span><em>_user</em>, <em>_password</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.CredentialCorrect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Control if the credential passed as arguments are corrected,</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>_user</strong> (<em>String</em>) – the username used to login</li>
+<li><strong>_password</strong> (<em>String</em>) – the password used to login</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Int</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>0 if The combination user/password is incorrect</p>
+<p>1 if he combination user/password is correct</p>
+<p>-1 if An error happened</p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.close_connection">
+<code class="descname">close_connection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.close_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the connection with the database</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.getMessageByReceiver">
+<code class="descname">getMessageByReceiver</code><span class="sig-paren">(</span><em>receiver</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.getMessageByReceiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obatain all the message waiting for that user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>receiver</strong> (<em>String</em>) – The username of the receiver</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Dictionary</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An array of dictionary containing all the information about the messages<p>[‘Sender’] means The sender of the message as String</p>
+<p>[‘Text’] means The text of the message as String</p>
+<p>[‘Time’] means The time in which the message is sended as String</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.getSecurityInfoFromUser">
+<code class="descname">getSecurityInfoFromUser</code><span class="sig-paren">(</span><em>_user</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.getSecurityInfoFromUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain the security parameter of an user as a list</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>_user</strong> (<em>String</em>) – The username of the user of which we want the security information</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">[String,Int,Int] or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The list of security information “Public key and DH parameters as [PublicKey,G,P] or None if
+an error happened during the search of the information</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.insertDHParameter">
+<code class="descname">insertDHParameter</code><span class="sig-paren">(</span><em>user</em>, <em>p</em>, <em>g</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.insertDHParameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert the Diffie Helmann parameter after of the registered user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>user</strong> (<em>String</em>) – the username associated with the parameter</li>
+<li><strong>p</strong> (<em>Int</em>) – the P parameter</li>
+<li><strong>g</strong> (<em>Int</em>) – the G parameter</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Int</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>0 if the insertion is done correctly</p>
+<p>-1 if an error happened</p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.insert_message">
+<code class="descname">insert_message</code><span class="sig-paren">(</span><em>sender</em>, <em>receiver</em>, <em>message</em>, <em>time</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.insert_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert the message in the database with all its own information,</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sender</strong> (<em>String</em>) – The username of the sender</li>
+<li><strong>receiver</strong> (<em>String</em>) – The username of the receiver</li>
+<li><strong>message</strong> (<em>String</em>) – The text of the message</li>
+<li><strong>time</strong> (<em>String</em>) – The time in which the message is sended (dd-mm-yyyy)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Int</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>0 if all is done correctly</p>
+<p>-1 if an error happened</p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.insert_user">
+<code class="descname">insert_user</code><span class="sig-paren">(</span><em>user</em>, <em>password</em>, <em>name</em>, <em>surname</em>, <em>email</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.insert_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a new user a is invoked when a new user has completed the registration form on the client application,</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>user</strong> (<em>String</em>) – username</li>
+<li><strong>password</strong> (<em>String</em>) – password</li>
+<li><strong>name</strong> (<em>String</em>) – Name of the user</li>
+<li><strong>surname</strong> (<em>String</em>) – surname of the user</li>
+<li><strong>email</strong> (<em>String</em>) – Email of the user</li>
+<li><strong>key</strong> (<em>String</em>) – The public ket generated by the user</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Int</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>0 if all is done correctly</p>
+<p>-1 if an error happened</p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.remove_user">
+<code class="descname">remove_user</code><span class="sig-paren">(</span><em>user</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.remove_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove that user from the database
+:type user: String
+:param user: The username of the user to remove</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Int</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">0 if the operation is done correctly<p>-1 if an error happened</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.remove_waiting_messages_by_receiver">
+<code class="descname">remove_waiting_messages_by_receiver</code><span class="sig-paren">(</span><em>receiver</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.remove_waiting_messages_by_receiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all the message destined to the user passed as argument from the database
+:type receiver: String
+:param receiver: The username of the user we want to delete all the messages</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Int</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">0 if the operation is done correctly<p>-1 if an error happened</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.userIsRegistered">
+<code class="descname">userIsRegistered</code><span class="sig-paren">(</span><em>_user</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.userIsRegistered" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the user is registred,</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>_user</strong> (<em>String</em>) – The username to check</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Int</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">0 if the username is not present in the database<p>1 if the username is present in the database</p>
+<p>-1 if An error happened</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-Database">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-Database" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -67,8 +292,8 @@
   <ul>
 <li><a class="reference internal" href="#">Database package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#database-database-module">Database.Database module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-Database.Database">Database.Database module</a></li>
+<li><a class="reference internal" href="#module-Database">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -108,6 +333,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="Log.html" title="Log module"
              >next</a> |</li>

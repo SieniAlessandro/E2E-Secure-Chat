@@ -25,6 +25,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol 1.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
@@ -34,8 +37,86 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="chat-module">
-<h1>Chat module<a class="headerlink" href="#chat-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-Chat">
+<span id="chat-module"></span><h1>Chat module<a class="headerlink" href="#module-Chat" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Chat.ChatGUI">
+<em class="property">class </em><code class="descclassname">Chat.</code><code class="descname">ChatGUI</code><span class="sig-paren">(</span><em>master</em><span class="sig-paren">)</span><a class="headerlink" href="#Chat.ChatGUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<p>Chat Grafic Interface, creates widgets and handles several events</p>
+<dl class="attribute">
+<dt id="Chat.ChatGUI.activebackground">
+<code class="descname">activebackground</code><em class="property"> = '#657481'</em><a class="headerlink" href="#Chat.ChatGUI.activebackground" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Chat.ChatGUI.backgroundItems">
+<code class="descname">backgroundItems</code><em class="property"> = '#282e33'</em><a class="headerlink" href="#Chat.ChatGUI.backgroundItems" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Chat.ChatGUI.backgroundWindow">
+<code class="descname">backgroundWindow</code><em class="property"> = '#1f2327'</em><a class="headerlink" href="#Chat.ChatGUI.backgroundWindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Chat.ChatGUI.createWidgets">
+<code class="descname">createWidgets</code><span class="sig-paren">(</span><em>client</em>, <em>login</em><span class="sig-paren">)</span><a class="headerlink" href="#Chat.ChatGUI.createWidgets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive client instance in order to call client’s functions, login instance in order to show/hide the login window</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>client</strong> (<a class="reference internal" href="client.html#client.Client" title="client.Client"><em>Client</em></a>) – instance of class Client</li>
+<li><strong>login</strong> (<a class="reference internal" href="Login.html#Login.LoginGUI" title="Login.LoginGUI"><em>LoginGUI</em></a>) – instance of class LoginGUI</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Chat.ChatGUI.hideChatFrame">
+<code class="descname">hideChatFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Chat.ChatGUI.hideChatFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hide chat interface from the root window</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Chat.ChatGUI.logout">
+<code class="descname">logout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Chat.ChatGUI.logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call client logout function and swap windows</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Chat.ChatGUI.onCloseEvent">
+<code class="descname">onCloseEvent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Chat.ChatGUI.onCloseEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate resource window and call onClosing event of client in order to save locally the conversations</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Chat.ChatGUI.onLoginEvent">
+<code class="descname">onLoginEvent</code><span class="sig-paren">(</span><em>username</em><span class="sig-paren">)</span><a class="headerlink" href="#Chat.ChatGUI.onLoginEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>After login, change window and load all the previous conversation + the new conversation received from the server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>username</strong> (<em>string</em>) – logged in username</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Chat.ChatGUI.showChatFrame">
+<code class="descname">showChatFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Chat.ChatGUI.showChatFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display chat interface inside the root window</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -73,6 +154,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol 1.0 documentation</a> &#187;</li> 
       </ul>
     </div>

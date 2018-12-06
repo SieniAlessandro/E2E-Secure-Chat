@@ -28,6 +28,9 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="Database.html" title="Database package"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -44,8 +47,112 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="clienthandler-module">
-<h1>ClientHandler module<a class="headerlink" href="#clienthandler-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-ClientHandler">
+<span id="clienthandler-module"></span><h1>ClientHandler module<a class="headerlink" href="#module-ClientHandler" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="ClientHandler.ClientHandler">
+<em class="property">class </em><code class="descclassname">ClientHandler.</code><code class="descname">ClientHandler</code><span class="sig-paren">(</span><em>Conn</em>, <em>ip</em>, <em>port</em>, <em>db</em>, <em>clients</em>, <em>Log</em>, <em>XML</em><span class="sig-paren">)</span><a class="headerlink" href="#ClientHandler.ClientHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Thread</span></code></p>
+<p>Used to handle the new user whenever he try to connect to the server.
+This mechanism implies that for each user there is an appropriate thread that handle all the
+requests coming from that clinet</p>
+<dl class="attribute">
+<dt id="ClientHandler.ClientHandler.MSG_LEN">
+<code class="descname">MSG_LEN</code><em class="property"> = 10240</em><a class="headerlink" href="#ClientHandler.ClientHandler.MSG_LEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ClientHandler.ClientHandler.StoreMessage">
+<code class="descname">StoreMessage</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#ClientHandler.ClientHandler.StoreMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store the message in the database waiting that the client come back online</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> (<em>Dictionary</em>) – The dictionary created by the received json message</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ClientHandler.ClientHandler.findUser">
+<code class="descname">findUser</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#ClientHandler.ClientHandler.findUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the information about the user (IPaddress:clientPort) related to the username passed as parameter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> (<em>Dictionary</em>) – The dictionary created by the json message received</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ClientHandler.ClientHandler.getHandledUser">
+<code class="descname">getHandledUser</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ClientHandler.ClientHandler.getHandledUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function gets back the username associate to the handled client</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The name of the user handled by this thread</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ClientHandler.ClientHandler.login">
+<code class="descname">login</code><span class="sig-paren">(</span><em>message</em>, <em>data</em>, <em>signature</em><span class="sig-paren">)</span><a class="headerlink" href="#ClientHandler.ClientHandler.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Login with inserted credential and search in the Database if the information
+sended are correct, in this case if there are several messagges sended to the user when
+he was offline, the server send them , specifying the sender and also the time (yy-mm-dd hh-mm-ss)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>Dictionary</em>) – The dictionary created by the json message receveid</li>
+<li><strong>data</strong> (<em>Bytes</em>) – The raw data reppresenting the message as Received</li>
+<li><strong>signature</strong> (<em>Bytes</em>) – The signature of data</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ClientHandler.ClientHandler.registerUser">
+<code class="descname">registerUser</code><span class="sig-paren">(</span><em>message</em>, <em>digest</em><span class="sig-paren">)</span><a class="headerlink" href="#ClientHandler.ClientHandler.registerUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert the information of the user in the database, checking if there is another user with the same Username
+and sending back the result</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>Dictionary</em>) – The dictionary created by the received json message</li>
+<li><strong>digest</strong> (<em>Bytes</em>) – The digest created by the data corresponding to the message creator of the dictionary</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ClientHandler.ClientHandler.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ClientHandler.ClientHandler.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waiting for the message coming from the associate client</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -89,6 +196,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="Database.html" title="Database package"
              >next</a> |</li>

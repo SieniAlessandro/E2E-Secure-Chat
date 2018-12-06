@@ -25,6 +25,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol 1.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
@@ -34,8 +37,182 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="chatwindow-module">
-<h1>ChatWindow module<a class="headerlink" href="#chatwindow-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-ChatWindow">
+<span id="chatwindow-module"></span><h1>ChatWindow module<a class="headerlink" href="#module-ChatWindow" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="ChatWindow.BoxMessage">
+<em class="property">class </em><code class="descclassname">ChatWindow.</code><code class="descname">BoxMessage</code><span class="sig-paren">(</span><em>master</em>, <em>background</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.BoxMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<dl class="method">
+<dt id="ChatWindow.BoxMessage.bindMouseWheel">
+<code class="descname">bindMouseWheel</code><span class="sig-paren">(</span><em>scrollableFrame</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.BoxMessage.bindMouseWheel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bind mouse wheel event so the scrollableFrame can scroll even if the
+cursor is over this frame</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scrollableFrame</strong> (<a class="reference internal" href="ScrollableFrame.html#ScrollableFrame.Scrollable" title="ScrollableFrame.Scrollable"><em>Scrollable</em></a>) – instance of class Scrollable</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.BoxMessage.createWidgets">
+<code class="descname">createWidgets</code><span class="sig-paren">(</span><em>message</em>, <em>time</em>, <em>isMine</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.BoxMessage.createWidgets" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>string</em>) – sent or received message</li>
+<li><strong>time</strong> (<em>string</em>) – arrival or sending time</li>
+<li><strong>isMine</strong> (<em>boolean</em>) – true if this is a message sent by me</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ChatWindow.ChatWindow">
+<em class="property">class </em><code class="descclassname">ChatWindow.</code><code class="descname">ChatWindow</code><span class="sig-paren">(</span><em>master</em>, <em>background</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<dl class="attribute">
+<dt id="ChatWindow.ChatWindow.MAXMESSAGELEN">
+<code class="descname">MAXMESSAGELEN</code><em class="property"> = 200</em><a class="headerlink" href="#ChatWindow.ChatWindow.MAXMESSAGELEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.addBoxMessageElement">
+<code class="descname">addBoxMessageElement</code><span class="sig-paren">(</span><em>message</em>, <em>time</em>, <em>isMine</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.addBoxMessageElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a new message and diplay it into the frame on the right if
+it is a message sent by me or on the left if it is a received message</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>string</em>) – sent or received message</li>
+<li><strong>time</strong> (<em>string</em>) – arrival or sending time</li>
+<li><strong>isMine</strong> (<em>boolean</em>) – true if this is a message sent by me</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ChatWindow.ChatWindow.backgroundWindow">
+<code class="descname">backgroundWindow</code><em class="property"> = '#1f2327'</em><a class="headerlink" href="#ChatWindow.ChatWindow.backgroundWindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.createWidgets">
+<code class="descname">createWidgets</code><span class="sig-paren">(</span><em>background</em>, <em>chatName</em>, <em>client</em>, <em>chatList</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.createWidgets" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>background</strong> (<em>string</em>) – background color</li>
+<li><strong>chatName</strong> (<em>string</em>) – name of the chat</li>
+<li><strong>client</strong> (<a class="reference internal" href="client.html#client.Client" title="client.Client"><em>Client</em></a>) – instance of class Client</li>
+<li><strong>chatList</strong> (<a class="reference internal" href="ChatList.html#ChatList.ChatList" title="ChatList.ChatList"><em>ChatList</em></a>) – list of available chats</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.getChatName">
+<code class="descname">getChatName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.getChatName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.pressEnterEvent">
+<code class="descname">pressEnterEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.pressEnterEvent" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>event</strong> (<em>Event</em>) – information about the event</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.pressEscEvent">
+<code class="descname">pressEscEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.pressEscEvent" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>event</strong> (<em>Event</em>) – information about the event</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.pressSendButton">
+<code class="descname">pressSendButton</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.pressSendButton" title="Permalink to this definition">¶</a></dt>
+<dd><p>When send button is pressed the message is splitted into chunks in
+order to avoid length of packet problems. In this way, a very long
+message is splitted into n chunks and the client.sendClient is called
+n times, as they were n independent messages, so this is transparent
+to the receiver</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.send">
+<code class="descname">send</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.send" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> (<em>string</em>) – message to be sent</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.setClient">
+<code class="descname">setClient</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.setClient" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>client</strong> (<a class="reference internal" href="client.html#client.Client" title="client.Client"><em>Client</em></a>) – instance of class Client</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatWindow.ChatWindow.updateState">
+<code class="descname">updateState</code><span class="sig-paren">(</span><em>status</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatWindow.ChatWindow.updateState" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>status</strong> (<em>int</em>) – online or offline</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -73,6 +250,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol 1.0 documentation</a> &#187;</li> 
       </ul>
     </div>

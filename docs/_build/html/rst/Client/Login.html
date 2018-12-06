@@ -25,6 +25,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol 1.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
@@ -34,8 +37,152 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="login-module">
-<h1>Login module<a class="headerlink" href="#login-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-Login">
+<span id="login-module"></span><h1>Login module<a class="headerlink" href="#module-Login" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Login.LoginGUI">
+<em class="property">class </em><code class="descclassname">Login.</code><code class="descname">LoginGUI</code><span class="sig-paren">(</span><em>master</em><span class="sig-paren">)</span><a class="headerlink" href="#Login.LoginGUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<dl class="attribute">
+<dt id="Login.LoginGUI.MAXPASSWORDLEN">
+<code class="descname">MAXPASSWORDLEN</code><em class="property"> = 30</em><a class="headerlink" href="#Login.LoginGUI.MAXPASSWORDLEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Login.LoginGUI.MAXUSERNAMELEN">
+<code class="descname">MAXUSERNAMELEN</code><em class="property"> = 20</em><a class="headerlink" href="#Login.LoginGUI.MAXUSERNAMELEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Login.LoginGUI.activebackground">
+<code class="descname">activebackground</code><em class="property"> = '#657481'</em><a class="headerlink" href="#Login.LoginGUI.activebackground" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Login.LoginGUI.backgroundItems">
+<code class="descname">backgroundItems</code><em class="property"> = '#434d56'</em><a class="headerlink" href="#Login.LoginGUI.backgroundItems" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Login.LoginGUI.backgroundWindow">
+<code class="descname">backgroundWindow</code><em class="property"> = '#1f2327'</em><a class="headerlink" href="#Login.LoginGUI.backgroundWindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Login.LoginGUI.checkEntryLength">
+<code class="descname">checkEntryLength</code><span class="sig-paren">(</span><em>entryName</em>, <em>action</em><span class="sig-paren">)</span><a class="headerlink" href="#Login.LoginGUI.checkEntryLength" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the length of entry’s string cannot exceed length</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Login.LoginGUI.errorColor">
+<code class="descname">errorColor</code><em class="property"> = '#ff3333'</em><a class="headerlink" href="#Login.LoginGUI.errorColor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Login.LoginGUI.hideLoginFrame">
+<code class="descname">hideLoginFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Login.LoginGUI.hideLoginFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hide login interface from the root window</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Login.LoginGUI.hideMessage">
+<code class="descname">hideMessage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Login.LoginGUI.hideMessage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Login.LoginGUI.loginEvent">
+<code class="descname">loginEvent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Login.LoginGUI.loginEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>When Confirm button is pressed, it checks that fields are not empty
+and call the client.login(), showing error if it doesn’t succed or
+showing chat if the user has been logged</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Login.LoginGUI.pressEnterEvent">
+<code class="descname">pressEnterEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#Login.LoginGUI.pressEnterEvent" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>event</strong> (<em>Event</em>) – information about the event</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Login.LoginGUI.setItems">
+<code class="descname">setItems</code><span class="sig-paren">(</span><em>client</em>, <em>chat</em>, <em>signUpWindow</em>, <em>online</em><span class="sig-paren">)</span><a class="headerlink" href="#Login.LoginGUI.setItems" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive client instance in order to call client’s functions, signUp
+and chat instance in order to show/hide them</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>client</strong> (<a class="reference internal" href="client.html#client.Client" title="client.Client"><em>Client</em></a>) – instance of class Client</li>
+<li><strong>chat</strong> (<a class="reference internal" href="Chat.html#Chat.ChatGUI" title="Chat.ChatGUI"><em>ChatGUI</em></a>) – instance of class ChatGUI</li>
+<li><strong>signUpWindow</strong> (<a class="reference internal" href="SignUp.html#SignUp.SignUpGUI" title="SignUp.SignUpGUI"><em>SignUpGUI</em></a>) – instance of class SignUpGUI</li>
+<li><strong>online</strong> (<em>int</em>) – server status</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Login.LoginGUI.setRootSize">
+<code class="descname">setRootSize</code><span class="sig-paren">(</span><em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#Login.LoginGUI.setRootSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set width and height of root window</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>height</strong> (<em>int</em>) – height of login frame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Login.LoginGUI.showError">
+<code class="descname">showError</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Login.LoginGUI.showError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show error label and set fields style to red</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Login.LoginGUI.showLoginFrame">
+<code class="descname">showLoginFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Login.LoginGUI.showLoginFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display login interface inside the root window</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Login.LoginGUI.showMessage">
+<code class="descname">showMessage</code><span class="sig-paren">(</span><em>message</em>, <em>color</em><span class="sig-paren">)</span><a class="headerlink" href="#Login.LoginGUI.showMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show a label to notify some event
+:type message: string
+:param message: message to be shown</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Login.LoginGUI.signUpEvent">
+<code class="descname">signUpEvent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Login.LoginGUI.signUpEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>When Sign Up button is pressed</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -73,6 +220,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol 1.0 documentation</a> &#187;</li> 
       </ul>
     </div>
