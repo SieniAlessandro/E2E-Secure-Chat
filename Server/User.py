@@ -7,13 +7,13 @@ class User:
 
             :type _socket: Socket
             :param _socket: The socket used by the server to communicate with this user
-            :type _ip: string
+            :type _ip: String
             :param _ip: The IP address of this user
             :type _ClientPort: int
             :param _ClientPort: The port used by the user to listen from other clients
             :type _ServerPort: int
             :param _ServerPort: The port used by the user to listen from the server
-            :type _UserName: string
+            :type _UserName: String
             :param _UserName: The username of this user (Probably in this moment is None)
         """
         self.Ip = _ip
@@ -37,7 +37,7 @@ class User:
 
             :rtype: String
             :return: The IP address of this user
-            """
+        """
         return self.Ip
 
     def getServerPort(self):
