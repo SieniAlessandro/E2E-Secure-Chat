@@ -1,0 +1,280 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ConnectionHandler &#8212; MPS Protocol 1 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ConnectionHandler</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">client</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">Thread</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">Log</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">zlib</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">cryptography.hazmat.backends</span> <span class="k">import</span> <span class="n">default_backend</span>
+<span class="kn">from</span> <span class="nn">cryptography.hazmat.primitives</span> <span class="k">import</span> <span class="n">serialization</span>
+
+
+<div class="viewcode-block" id="ConnectionHandler"><a class="viewcode-back" href="../rst/Client/ConnectionHandler.html#ConnectionHandler.ConnectionHandler">[docs]</a><span class="k">class</span> <span class="nc">ConnectionHandler</span><span class="p">(</span><span class="n">Thread</span><span class="p">)</span> <span class="p">:</span>
+    <span class="n">BUFFER_SIZE</span> <span class="o">=</span> <span class="mi">2048</span>
+    <span class="c1">#Constructor</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Create a new socket and bind it to the port destinated for connectio p2p</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">portp2p</span><span class="p">,</span> <span class="n">Log</span><span class="p">,</span> <span class="n">Chat</span><span class="p">,</span> <span class="n">Code</span><span class="p">,</span> <span class="n">Message</span><span class="p">,</span> <span class="n">Security</span><span class="p">)</span> <span class="p">:</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="s2">&quot;0.0.0.0&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">portp2p</span> <span class="o">=</span> <span class="n">portp2p</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">users</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socketListener</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span><span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socketListener</span><span class="o">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SOL_SOCKET</span><span class="p">,</span><span class="n">socket</span><span class="o">.</span><span class="n">SO_REUSEADDR</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socketListener</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span><span class="n">portp2p</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span> <span class="o">=</span> <span class="n">Log</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Chat</span> <span class="o">=</span> <span class="n">Chat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Code</span> <span class="o">=</span> <span class="n">Code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Message</span> <span class="o">=</span> <span class="n">Message</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Security</span> <span class="o">=</span> <span class="n">Security</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;MessageHandler Initialized! Associated port: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">portp2p</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sizeNonce</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Handle the connection with a specific user</span>
+<span class="sd">        when a message is received is passed to the FrontEnd (AMEDEO)</span>
+<span class="sd">        If the connection is closed the Thread return -1 after sending a signal</span>
+<span class="sd">        to the front end</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="ConnectionHandler.receiveMessage"><a class="viewcode-back" href="../rst/Client/ConnectionHandler.html#ConnectionHandler.ConnectionHandler.receiveMessage">[docs]</a>    <span class="k">def</span> <span class="nf">receiveMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span> <span class="p">:</span>
+        <span class="c1">#self.Log.log(&#39;Connection started with &#39; + str(user))</span>
+        <span class="n">messageFromServer</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">BUFFER_SIZE</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">messageFromServer</span><span class="p">[:</span><span class="o">-</span><span class="mi">256</span><span class="p">]</span>
+
+        <span class="c1">#print(&#39;P2P connection: &#39; + str(len(msg)))</span>
+        <span class="c1">#print(&#39;len msg &#39; + str(len(messageFromServer)))</span>
+        <span class="c1">#ct = int.from_bytes(msg, byteorder=&#39;big&#39;)</span>
+        <span class="n">signature</span> <span class="o">=</span> <span class="n">messageFromServer</span><span class="p">[</span><span class="o">-</span><span class="mi">256</span><span class="p">:]</span>
+        <span class="c1">#Decrypt the symmetric message from the server to retreìeve</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">AESDecryptText</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error in AES&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="nb">dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">peerUsername</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">insertKeyClient</span><span class="p">(</span><span class="n">peerUsername</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">VerifySignature</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">signature</span><span class="p">,</span> <span class="n">peerUsername</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The integrity is not valid for the receiver. Signature:</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">signature</span><span class="p">))</span>
+
+            <span class="k">return</span>
+
+        <span class="c1">#print(&#39;messaggio del server visto con successo!&#39;)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">isSymmetricKeyClientPresent</span><span class="p">(</span><span class="n">peerUsername</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">BUFFER_SIZE</span><span class="p">)</span>
+            <span class="n">msg1</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)]</span>
+            <span class="n">msg2</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">):]</span>
+            <span class="n">signature</span> <span class="o">=</span> <span class="n">msg1</span><span class="p">[</span><span class="o">-</span><span class="mi">256</span><span class="p">:]</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">msg1</span><span class="p">[:</span><span class="o">-</span><span class="mi">256</span><span class="p">]</span>
+            <span class="n">pt1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">RSADecryptText</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">VerifySignature</span><span class="p">(</span><span class="n">pt1</span><span class="p">,</span> <span class="n">signature</span><span class="p">,</span> <span class="n">peerUsername</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The integrity is not valid for the receiver. Signature:</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">signature</span><span class="p">))</span>
+                <span class="k">return</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;integrity of the DH shared_key is valid&#39;</span><span class="p">)</span>
+
+            <span class="n">signature</span> <span class="o">=</span> <span class="n">msg2</span><span class="p">[</span><span class="o">-</span><span class="mi">256</span><span class="p">:]</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">msg2</span><span class="p">[:</span><span class="o">-</span><span class="mi">256</span><span class="p">]</span>
+            <span class="n">pt2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">RSADecryptText</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">VerifySignature</span><span class="p">(</span><span class="n">pt2</span><span class="p">,</span> <span class="n">signature</span><span class="p">,</span> <span class="n">peerUsername</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The integrity is not valid for the receiver. Signature:</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">signature</span><span class="p">))</span>
+                <span class="k">return</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;integrity of the DH shared_key is valid&#39;</span><span class="p">)</span>
+
+            <span class="n">sharedKey</span> <span class="o">=</span> <span class="p">(</span><span class="n">pt1</span><span class="o">+</span><span class="n">pt2</span><span class="p">)</span>
+            <span class="c1">#print(&#39;YA è : &#39; + str(sharedKey))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">computeDHKey</span><span class="p">(</span><span class="n">peerUsername</span><span class="p">,</span> <span class="n">sharedKey</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1">#print(&#39;KEY COMPUTED!!!&#39;)</span>
+
+            <span class="n">plainText</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getSharedKey</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+            <span class="n">pt1</span> <span class="o">=</span> <span class="n">plainText</span><span class="p">[:</span><span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">plainText</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)]</span>
+            <span class="n">pt2</span> <span class="o">=</span> <span class="n">plainText</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">plainText</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">):]</span>
+
+            <span class="n">ct1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">RSAEncryptText</span><span class="p">(</span><span class="n">pt1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getKeyClient</span><span class="p">(</span><span class="n">peerUsername</span><span class="p">))</span>
+            <span class="n">sign1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getSignature</span><span class="p">(</span><span class="n">pt1</span><span class="p">)</span>
+            <span class="n">ct2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">RSAEncryptText</span><span class="p">(</span><span class="n">pt2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getKeyClient</span><span class="p">(</span><span class="n">peerUsername</span><span class="p">))</span>
+            <span class="n">sign2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getSignature</span><span class="p">(</span><span class="n">pt2</span><span class="p">)</span>
+
+            <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">ct1</span><span class="o">+</span><span class="n">sign1</span><span class="o">+</span><span class="n">ct2</span><span class="o">+</span><span class="n">sign2</span><span class="p">)</span>
+
+            <span class="c1">#print(&#39;sended all mine Y&#39;)</span>
+            <span class="n">plainText</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="c1">#        plainText[&#39;sharedKey&#39;] = int.from_bytes(self.Security.getSharedKey(self.username), byteorder=&#39;big&#39;)</span>
+            <span class="n">plainText</span><span class="p">[</span><span class="s1">&#39;Nsa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;Nsa&#39;</span><span class="p">]</span>
+            <span class="n">Nb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">generateNonce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizeNonce</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">addClientNonce</span><span class="p">(</span><span class="n">peerUsername</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">NbAES</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">AESEncryptText</span><span class="p">(</span><span class="n">Nb</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizeNonce</span><span class="p">,</span><span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">),</span> <span class="n">peerUsername</span><span class="p">)</span>
+            <span class="n">plainText</span><span class="p">[</span><span class="s1">&#39;lenNb&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">NbAES</span><span class="p">)</span>
+            <span class="n">plainText</span><span class="p">[</span><span class="s1">&#39;Nb&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">NbAES</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)</span>
+            <span class="c1">#print(&#39;CRIPTATO CON AES:&#39; + str(plainText[&#39;Nb&#39;]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">addClientNonce</span><span class="p">(</span><span class="n">peerUsername</span><span class="p">,</span><span class="n">Nb</span><span class="p">)</span>
+            <span class="n">ptBit</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">plainText</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Code</span><span class="p">)</span>
+
+            <span class="n">ptBitCompress</span> <span class="o">=</span> <span class="n">zlib</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">ptBit</span><span class="p">)</span>
+
+            <span class="c1">#print(&#39;Lunghezza messaggio M4: &#39; + str(len(ptBitCompress)))</span>
+            <span class="n">cipherText</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">RSAEncryptText</span><span class="p">(</span><span class="n">ptBitCompress</span><span class="p">,</span> <span class="n">serialization</span><span class="o">.</span><span class="n">load_pem_public_key</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span> <span class="n">backend</span><span class="o">=</span><span class="n">default_backend</span><span class="p">()))</span>
+            <span class="n">sign</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getSignature</span><span class="p">(</span><span class="n">ptBit</span><span class="p">)</span>
+            <span class="c1">#print(&#39;message prepared properly&#39;)</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">cipherText</span><span class="o">+</span><span class="n">sign</span><span class="p">)</span>
+            <span class="c1">#print(&#39;message M4 sended to &#39; + peerUsername)</span>
+
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">BUFFER_SIZE</span><span class="p">)</span>
+            <span class="n">plainText</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">AESDecryptText</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">peerUsername</span><span class="p">),</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">Nb</span> <span class="o">==</span> <span class="n">plainText</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Nb da usare &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Nb</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the connection has been set up in the correct way&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mio Nb: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Nb</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ricevuto Nb: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">plainText</span><span class="p">))</span>
+                <span class="k">return</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Chat</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">peerUsername</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">updateState</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">()</span>
+<span class="c1">############################################################</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ct</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">BUFFER_SIZE</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">ct</span> <span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">()</span>
+
+                <span class="n">pt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">AESDecryptText</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">peerUsername</span><span class="p">)</span>
+
+                <span class="c1">#pt = ct</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Code</span><span class="p">)</span>
+
+                <span class="c1">#print(&#39;Message received: &#39; + msg + &#39; length : &#39; + length)</span>
+                <span class="nb">dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+                <span class="k">if</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;logout&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">Chat</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">peerUsername</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">updateState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">resetSymmetricKeyClient</span><span class="p">(</span><span class="n">peerUsername</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;sender&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; send : &#39;</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Chat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">Chat</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;sender&#39;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                <span class="c1">#appendToConversation</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Message</span><span class="o">.</span><span class="n">addMessagetoConversations</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;sender&#39;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="c1">#print(e)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">resetSymmetricKeyClient</span><span class="p">(</span><span class="n">peerUsername</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Connection closed&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span></div>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        In a loop accept new connection with other clients</span>
+<span class="sd">        and starts a new thread that will handle the single connection</span>
+<span class="sd">        {this is done in order to distinguish the single connection</span>
+<span class="sd">         with the specific user}</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="ConnectionHandler.run"><a class="viewcode-back" href="../rst/Client/ConnectionHandler.html#ConnectionHandler.ConnectionHandler.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">socketListener</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+                <span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="p">(</span><span class="n">ip</span><span class="p">,</span><span class="n">port</span><span class="p">))</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">socketListener</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+                <span class="n">conn</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Accepted a new connecion&#39;</span><span class="p">)</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">receiveMessage</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="p">))</span>
+                <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Connection Handler has been closed&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">socketListener</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span></div>
+
+<div class="viewcode-block" id="ConnectionHandler.stop"><a class="viewcode-back" href="../rst/Client/ConnectionHandler.html#ConnectionHandler.ConnectionHandler.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socketListener</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Amedeo Pochiero.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
+</html>

@@ -6,12 +6,12 @@ Frontend
 .. toctree::
   :maxdepth: 2
 
-  ../Class Apidoc/Client/Frontend.rst
+  Client/Frontend.rst
 
 Middleware
 ``````````
 .. toctree::
   :maxdepth: 2
-  
 
-  ../Class Apidoc/Client/Middleware.rst
+
+  Client/Middleware.rst

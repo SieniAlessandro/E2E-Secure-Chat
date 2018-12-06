@@ -1,0 +1,457 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ChatList module &#8212; MPS Protocol 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ChatWindow module" href="ChatWindow.html" />
+    <link rel="prev" title="Chat module" href="Chat.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ChatWindow.html" title="ChatWindow module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Chat.html" title="Chat module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../Client.html" >List of Client’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="Frontend.html" accesskey="U">&lt;no title&gt;</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-ChatList">
+<span id="chatlist-module"></span><h1>ChatList module<a class="headerlink" href="#module-ChatList" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="ChatList.ChatList">
+<em class="property">class </em><code class="descclassname">ChatList.</code><code class="descname">ChatList</code><span class="sig-paren">(</span><em>master</em>, <em>background</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<dl class="attribute">
+<dt id="ChatList.ChatList.MAXSEARCHLEN">
+<code class="descname">MAXSEARCHLEN</code><em class="property"> = 20</em><a class="headerlink" href="#ChatList.ChatList.MAXSEARCHLEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatList.addChatListElement">
+<code class="descname">addChatListElement</code><span class="sig-paren">(</span><em>chatName</em>, <em>lastMessage</em>, <em>lastMessageTime</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatList.addChatListElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new chatListElement and adds it to the dictionary</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>chatName</strong> (<em>string</em>) – name of the chatListElement</li>
+<li><strong>lastMessage</strong> (<em>string</em>) – last arrived or sent message</li>
+<li><strong>lastMessageTime</strong> (<em>string</em>) – time of the last arrived or sent message</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatList.checkEntryLength">
+<code class="descname">checkEntryLength</code><span class="sig-paren">(</span><em>action</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatList.checkEntryLength" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the length of entry’s string cannot exceed MAXSEARCHLEN</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatList.deleteChatListElement">
+<code class="descname">deleteChatListElement</code><span class="sig-paren">(</span><em>username</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatList.deleteChatListElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the chat list element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>username</strong> (<em>string</em>) – name of the chat to be deleted</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatList.flushChatDict">
+<code class="descname">flushChatDict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatList.flushChatDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy all the chat of the list</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatList.getNotEmptyUsers">
+<code class="descname">getNotEmptyUsers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatList.getNotEmptyUsers" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a list of chat names with atleast one message sent or received</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of chat name</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatList.notify">
+<code class="descname">notify</code><span class="sig-paren">(</span><em>sender</em>, <em>message</em>, <em>time</em>, <em>isMine</em>, <em>onLogin</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatList.notify" title="Permalink to this definition">¶</a></dt>
+<dd><p>When a message is received, if the sender is not in dict create a new
+chatListElement and starts the connection with the sender. If the
+chatListElement is already in the dict, if the activeChat is not the
+sender’s one, then increment the number of unreaded messages of the
+sender. In any case, add the boxMessageElement to the sender chat</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sender</strong> (<em>string</em>) – name of the sender</li>
+<li><strong>message</strong> (<em>string</em>) – sent or received message</li>
+<li><strong>time</strong> (<em>string</em>) – arrival or sending time</li>
+<li><strong>isMine</strong> (<em>boolean</em>) – true if this is a message sent by me</li>
+<li><strong>onLogin</strong> (<em>boolean</em>) – true if this is called after the login to restore chats</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatList.pressEnterEvent">
+<code class="descname">pressEnterEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatList.pressEnterEvent" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>event</strong> (<em>Event</em>) – information about the event</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatList.pressSearchButton">
+<code class="descname">pressSearchButton</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatList.pressSearchButton" title="Permalink to this definition">¶</a></dt>
+<dd><p>When search button is pressed, it checks if the chat already exists
+and it open that chat if exists. Else starts a connection with the
+searched name calling client.startConnection. If this function succedes
+it creates a new chat element and add it into the dictionary using
+the chat name as key, otherwise it invalidates the entry</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatList.setItems">
+<code class="descname">setItems</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatList.setItems" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>client</strong> (<a class="reference internal" href="client.html#client.Client" title="client.Client"><em>Client</em></a>) – instance of class Client</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatList.sortChatList">
+<code class="descname">sortChatList</code><span class="sig-paren">(</span><em>searchKey</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatList.sortChatList" title="Permalink to this definition">¶</a></dt>
+<dd><p>bring the chat with chatname==searchKey in the first row of the list.
+The list is sorted by the last message time so the higher the element
+is in the list, the more recent the last message is</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>searchKey</strong> (<em>string</em>) – name of the chat in the dictionary</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatList.updateMessageTime">
+<code class="descname">updateMessageTime</code><span class="sig-paren">(</span><em>chatName</em>, <em>message</em>, <em>time</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatList.updateMessageTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Every time a new message is received or sent, it updates the last
+message of the chat list element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>chatName</strong> (<em>string</em>) – name of the chat</li>
+<li><strong>message</strong> (<em>string</em>) – sent or received message</li>
+<li><strong>time</strong> (<em>string</em>) – arrival or sending time</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ChatList.ChatListElement">
+<em class="property">class </em><code class="descclassname">ChatList.</code><code class="descname">ChatListElement</code><span class="sig-paren">(</span><em>master</em>, <em>background</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatListElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<dl class="attribute">
+<dt id="ChatList.ChatListElement.MAXMESSAGELEN">
+<code class="descname">MAXMESSAGELEN</code><em class="property"> = 10</em><a class="headerlink" href="#ChatList.ChatListElement.MAXMESSAGELEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatListElement.bindMouseWheel">
+<code class="descname">bindMouseWheel</code><span class="sig-paren">(</span><em>scrollableFrame</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatListElement.bindMouseWheel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mouse wheel event</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scrollableFrame</strong> (<a class="reference internal" href="ScrollableFrame.html#ScrollableFrame.Scrollable" title="ScrollableFrame.Scrollable"><em>Scrollable</em></a>) – instance of class Scrollable</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatListElement.changeChatWindow">
+<code class="descname">changeChatWindow</code><span class="sig-paren">(</span><em>event=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatListElement.changeChatWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>When the element is clicked, it loads on the right frame, the clicked
+element’s chatWindow</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>event</strong> (<em>Event</em>) – information about the event</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatListElement.checkStringLenght">
+<code class="descname">checkStringLenght</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatListElement.checkStringLenght" title="Permalink to this definition">¶</a></dt>
+<dd><p>if the message is too long, it is cut and “…” is concatenated to it</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> (<em>string</em>) – string to be checked</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatListElement.createWidgets">
+<code class="descname">createWidgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatListElement.createWidgets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates widgets inside the chat list element and binds the click
+event in order to change the chat on click and the right-click in
+order to display the menu and select “delete”</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatListElement.increaseNotifies">
+<code class="descname">increaseNotifies</code><span class="sig-paren">(</span><em>message</em>, <em>time</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatListElement.increaseNotifies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the notify label and add 1 to the variable</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>string</em>) – last message</li>
+<li><strong>time</strong> (<em>string</em>) – time of the last arrived message</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatListElement.popup">
+<code class="descname">popup</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatListElement.popup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles the right click event</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>event</strong> (<em>Event</em>) – information about the event</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatListElement.setChatList">
+<code class="descname">setChatList</code><span class="sig-paren">(</span><em>chatList</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatListElement.setChatList" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ChatListGUI</strong> – instance of class ChatList</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatListElement.setChatName">
+<code class="descname">setChatName</code><span class="sig-paren">(</span><em>chatName</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatListElement.setChatName" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>chatName</strong> (<em>string</em>) – name of the chat</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatListElement.setElements">
+<code class="descname">setElements</code><span class="sig-paren">(</span><em>chatWindow</em>, <em>chatName</em>, <em>lastMessage</em>, <em>lastMessageTime</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatListElement.setElements" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>chatWindow</strong> (<a class="reference internal" href="ChatWindow.html#ChatWindow.ChatWindow" title="ChatWindow.ChatWindow"><em>ChatWindow</em></a>) – instance of class ChatWindow</li>
+<li><strong>chatName</strong> (<em>string</em>) – name of the chat</li>
+<li><strong>lastMessage</strong> (<em>string</em>) – last message</li>
+<li><strong>lastMessageTime</strong> (<em>string</em>) – time of the last arrived or sent message</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatListElement.setLastMessage">
+<code class="descname">setLastMessage</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatListElement.setLastMessage" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> (<em>string</em>) – last message</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ChatList.ChatListElement.setLastMessageTime">
+<code class="descname">setLastMessageTime</code><span class="sig-paren">(</span><em>lastMessageTime</em><span class="sig-paren">)</span><a class="headerlink" href="#ChatList.ChatListElement.setLastMessageTime" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>lastMessageTime</strong> (<em>string</em>) – time of the last arrived or sent message</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Chat.html"
+                        title="previous chapter">Chat module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ChatWindow.html"
+                        title="next chapter">ChatWindow module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/Client/ChatList.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ChatWindow.html" title="ChatWindow module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Chat.html" title="Chat module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../Client.html" >List of Client’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="Frontend.html" >&lt;no title&gt;</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Amedeo Pochiero.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
+</html>

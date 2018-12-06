@@ -1,0 +1,170 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Message &#8212; MPS Protocol 1 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for Message</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">client</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">Thread</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">Log</span> <span class="k">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="Message"><a class="viewcode-back" href="../rst/Client/Message.html#Message.Message">[docs]</a><span class="k">class</span> <span class="nc">Message</span> <span class="p">:</span>
+    <span class="n">MSG_LEN</span> <span class="o">=</span> <span class="mi">2048</span>
+    <span class="c1">#Constructor</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Log</span><span class="p">)</span> <span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span> <span class="o">=</span> <span class="n">Log</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Message Handler has been initialized!&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Message.createMessageJson"><a class="viewcode-back" href="../rst/Client/Message.html#Message.Message.createMessageJson">[docs]</a>    <span class="k">def</span> <span class="nf">createMessageJson</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">sender</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">logout</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">:</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">text</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;sender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sender</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;logout&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">logout</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Message.addMessagetoConversations"><a class="viewcode-back" href="../rst/Client/Message.html#Message.Message.addMessagetoConversations">[docs]</a>    <span class="k">def</span> <span class="nf">addMessagetoConversations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">whoSendIt</span><span class="p">)</span> <span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            whoSendIt = 1 if the user send it else the client send it</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">text</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;whoSendIt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">whoSendIt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Added message to the conversation : &#39;</span> <span class="o">+</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">user</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span><span class="p">[</span><span class="n">user</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">index</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span><span class="p">[</span><span class="n">user</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span><span class="p">[</span><span class="n">user</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span><span class="p">[</span><span class="n">user</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span><span class="p">[</span><span class="n">user</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">msg</span></div>
+        <span class="c1">#print(&#39;Inserted message :&#39; + json.dumps(msg) + &#39; from : &#39; + user)</span>
+
+<div class="viewcode-block" id="Message.retrieveAllConversations"><a class="viewcode-back" href="../rst/Client/Message.html#Message.Message.retrieveAllConversations">[docs]</a>    <span class="k">def</span> <span class="nf">retrieveAllConversations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;All the conversations has been charged : &#39;</span> <span class="o">+</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span></div>
+
+<div class="viewcode-block" id="Message.retrieveConversation"><a class="viewcode-back" href="../rst/Client/Message.html#Message.Message.retrieveConversation">[docs]</a>    <span class="k">def</span> <span class="nf">retrieveConversation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span> <span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">user</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="c1">#print(&#39;This is the conversation with &#39; + user + &#39; : &#39; + json.dumps(self.Conversations[user]))</span>
+            <span class="c1">#print(&quot;END OF CONVERSATION&quot;)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Conversation with &#39;</span> <span class="o">+</span> <span class="n">user</span> <span class="o">+</span> <span class="s1">&#39; has been find : &#39;</span> <span class="o">+</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span><span class="p">[</span><span class="n">user</span><span class="p">]</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="Message.saveConversations"><a class="viewcode-back" href="../rst/Client/Message.html#Message.Message.saveConversations">[docs]</a>    <span class="k">def</span> <span class="nf">saveConversations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">ordinatedUserList</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="p">:</span>
+        <span class="k">if</span> <span class="n">ordinatedUserList</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tempConversations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">cle</span> <span class="ow">in</span> <span class="n">ordinatedUserList</span><span class="p">:</span>
+                <span class="n">searchKey</span> <span class="o">=</span> <span class="n">cle</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span><span class="p">[</span><span class="n">searchKey</span><span class="p">]</span> <span class="o">=</span> <span class="n">tempConversations</span><span class="p">[</span><span class="n">searchKey</span><span class="p">]</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">username</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;Local/conversations-&quot;</span> <span class="o">+</span> <span class="n">username</span> <span class="o">+</span> <span class="s2">&quot;.json&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Message.loadConversations"><a class="viewcode-back" href="../rst/Client/Message.html#Message.Message.loadConversations">[docs]</a>    <span class="k">def</span> <span class="nf">loadConversations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">)</span> <span class="p">:</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">username</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">try</span> <span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;Local/conversations-&quot;</span> <span class="o">+</span> <span class="n">username</span> <span class="o">+</span> <span class="s2">&quot;.json&quot;</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">input</span> <span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span> <span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="s2">&quot;Local&quot;</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s2">&quot;Local&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;created file for the backup of the conversations of &quot;</span> <span class="o">+</span> <span class="n">username</span><span class="p">)</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;Local/conversations-&quot;</span> <span class="o">+</span> <span class="n">username</span> <span class="o">+</span> <span class="s2">&quot;.json&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Conversations</span> <span class="o">=</span> <span class="p">{}</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Amedeo Pochiero.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
+</html>

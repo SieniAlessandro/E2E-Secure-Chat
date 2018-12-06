@@ -1,0 +1,701 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>client &#8212; MPS Protocol 1 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for client</h1><div class="highlight"><pre>
+<span></span><span class="c1">#from socket import AF_INET, socket, SOCK_STREAM</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">Thread</span>
+<span class="kn">from</span> <span class="nn">Message</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">ConnectionHandler</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">Log</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">XMLClientHandler</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">SecurityClient.SecurityClient</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">binascii</span>
+<span class="kn">import</span> <span class="nn">zlib</span>
+
+<div class="viewcode-block" id="Client"><a class="viewcode-back" href="../rst/Client/client.html#client.Client">[docs]</a><span class="k">class</span> <span class="nc">Client</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Back end of the client</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">BUFFER_SIZE</span> <span class="o">=</span> <span class="mi">2048</span><span class="o">*</span><span class="mi">1024</span>
+    <span class="n">CODE_TYPE</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span>
+    <span class="n">socketClient</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chat</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            The BackEnd of the client, initialize the structures used for the connection with</span>
+<span class="sd">            the server, for the Security, for handling json messages, to pass the data to the frontEnd</span>
+
+<span class="sd">            :type chat: ChatList or None, it is None only if the GUI is not used</span>
+<span class="sd">            :param chat: used to insert the messages in the front end of the client</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">XML</span> <span class="o">=</span> <span class="n">XMLClientHandler</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hostServer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getServerAddress</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">portServer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getServerPort</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span> <span class="o">=</span> <span class="n">Log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getEnableLog</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Chat</span> <span class="o">=</span> <span class="n">chat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Message</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Security</span> <span class="o">=</span> <span class="n">SecurityClient</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getSecurityServerKey</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Client initialized&#39;</span><span class="p">)</span>
+
+    <span class="c1">#Functions to communicate with Server#</span>
+<div class="viewcode-block" id="Client.sendServer"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.sendServer">[docs]</a>    <span class="k">def</span> <span class="nf">sendServer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="nb">id</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Send a message to the Server, containing the text passed as argument. With the</span>
+<span class="sd">            passed id we can distinguish the security protocol that must be used, if it is None</span>
+<span class="sd">            the encryption is not used</span>
+
+<span class="sd">            :type text: String</span>
+<span class="sd">            :param text: the string containing the message that must be sent to the server</span>
+<span class="sd">            :type id: String</span>
+<span class="sd">            :param id: the type of protocol that we must use. If &#39;rsa&#39; we use RSA, &#39;aes&#39; we use AES, None no encryption is used</span>
+<span class="sd">            :rtype: int</span>
+<span class="sd">            :return: If there is a problem with the communication -1, else return a number greater than 0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">id</span> <span class="o">==</span> <span class="s1">&#39;rsa&#39;</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CODE_TYPE</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">RSAEncryptText</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">serverPublicKey</span><span class="p">)</span>
+            <span class="c1">#hash is None if the signature can not be done</span>
+            <span class="nb">hash</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getSignature</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">hash</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">hash</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getDigest</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span><span class="o">+</span><span class="nb">hash</span>
+
+        <span class="k">elif</span> <span class="nb">id</span> <span class="o">==</span> <span class="s1">&#39;aes&#39;</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CODE_TYPE</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">AESEncryptText</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">socketServer</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1">#Socket is close</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Problem in the communication with the server&#39;</span><span class="p">)</span>
+            <span class="c1">#we try to reconnect to the Server</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectServer</span><span class="p">()</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logout</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;It is not possible to reconnect with the server&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Message sent to the Server&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">ret</span></div>
+
+<div class="viewcode-block" id="Client.connectServer"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.connectServer">[docs]</a>    <span class="k">def</span> <span class="nf">connectServer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Open the connection with the server creating the a new socket</span>
+<span class="sd">            :rtype: int</span>
+<span class="sd">            :return: if the connection has been set up in the correct way 1, else -1</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span> <span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">socketServer</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">socketServer</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">socketServer</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">hostServer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">portServer</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Connection established with the server&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">except</span> <span class="p">:</span>
+            <span class="c1">#print(&#39;Connection refused by the server! Please try again later!&#39;)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Error in connection with the server, is it down?&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Client.loadWaitingMessages"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.loadWaitingMessages">[docs]</a>    <span class="k">def</span> <span class="nf">loadWaitingMessages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msgs</span><span class="p">)</span> <span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Used only after the login is done correctly to handle all the waiting</span>
+<span class="sd">            messages, msgs, in the server, those have been stored while the user was offline.</span>
+<span class="sd">            All the messages are taken and putted in a structure containing all the</span>
+<span class="sd">            messages related to the specific communication. The text of the message is encrypted with RSA of the sender.</span>
+<span class="sd">            :type msgs: dict</span>
+<span class="sd">            :param msgs: Contains the list of all the waiting messages in the server, each message is inside a dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">msgs</span><span class="p">:</span>
+            <span class="n">ct</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">msgs</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;Text&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)</span>
+            <span class="n">pt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">RSADecryptText</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CODE_TYPE</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Message</span><span class="o">.</span><span class="n">addMessagetoConversations</span><span class="p">(</span><span class="n">msgs</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;Sender&#39;</span><span class="p">],</span> <span class="n">pt</span><span class="p">,</span> <span class="n">msgs</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;Time&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Loaded all the waiting messages&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.receiveServer"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.receiveServer">[docs]</a>    <span class="k">def</span> <span class="nf">receiveServer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Receive and decrypt the messages from the server</span>
+
+<span class="sd">            :rtype: Int or Dict</span>
+<span class="sd">            :return: -1 if there is an error, 1 if the client asked for the waiting messages, otherwise the dictionary received from the server</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">socketServer</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">BUFFER_SIZE</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Connection with the server closed!&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">decryptServerMessage</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">msg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The connection is not safe!&#39;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">onClosing</span><span class="p">()</span>
+                <span class="c1">#print(&#39;secondo me è qua!&#39;)</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CODE_TYPE</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Received a message from the SERVER: &#39;</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span>
+
+                <span class="n">dictMsg</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">dictMsg</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">dictMsg</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;There are messages pending in the server&#39;</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">loadWaitingMessages</span><span class="p">(</span><span class="n">dictMsg</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">])</span>
+                    <span class="k">else</span> <span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;No messages stored in the server&#39;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">dictMsg</span>
+                    <span class="c1">#ELIMINARE SE FUNZIONA LA SEND_MESSAGE_OFFLINE</span>
+                    <span class="c1">#if dictMsg[&#39;id&#39;] == &#39;.&#39; :</span>
+                    <span class="c1">#    return dictMsg[&#39;status&#39;]</span>
+                    <span class="c1">#else :</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;An Exception has been raised in the receiveServer function&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span></div>
+
+    <span class="c1">#Functions for the FrontEnd#</span>
+<div class="viewcode-block" id="Client.register"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.register">[docs]</a>    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">surname</span><span class="p">,</span> <span class="n">email</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Start the Sign Up Protocol with the server in order to register, call the security</span>
+<span class="sd">            to generate the Diffie-Hellman parameters, send the public parameters with the others</span>
+<span class="sd">            to the server</span>
+
+<span class="sd">            :type username: String</span>
+<span class="sd">            :param username: the username</span>
+<span class="sd">            :type password: String</span>
+<span class="sd">            :param password: the password that will be obscured with an hash</span>
+<span class="sd">            :type name: String</span>
+<span class="sd">            :param name: the name of the user</span>
+<span class="sd">            :typer surname: String</span>
+<span class="sd">            :param surname: the surname of the user</span>
+<span class="sd">            :type email: String</span>
+<span class="sd">            :param email: the email of the user</span>
+
+<span class="sd">            :rtype: Int</span>
+<span class="sd">            :return: 1 if all has gone in the correct way, 0 if error in registration, -1 if security error in the communication</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">username</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">password</span><span class="c1">#str(int.from_bytes(self.Security.getDigest(password.encode(self.CODE_TYPE)), byteorder=&#39;big&#39;))</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;surname&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">surname</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">email</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;clientNonce&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">generateNonce</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Starting Sign Up Protocol&#39;</span><span class="p">)</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">signUpProtocol</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Succesfully registered&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">savePrivateKey</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getSecurityPath</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;-&#39;</span><span class="o">+</span><span class="n">username</span> <span class="o">+</span> <span class="s1">&#39;.pem&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Problem saving the private key of the client!&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Key saved Succesfully&#39;</span><span class="p">)</span>
+
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="c1">#we can handle better the possible error</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Error in registration. Status &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">status</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">resetKeys</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">status</span></div>
+
+<div class="viewcode-block" id="Client.signUpProtocol"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.signUpProtocol">[docs]</a>    <span class="k">def</span> <span class="nf">signUpProtocol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Implements all the Sign Up Protocol in the client</span>
+
+<span class="sd">            :type msgToSend: Dict</span>
+<span class="sd">            :param msgToSend: content of the M1 message with the data of the user</span>
+<span class="sd">            :rtype: Int</span>
+<span class="sd">            :return: 1 if all has gone in the correct way, 0 if error in registration, -1 if security error in the communication</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span>
+        <span class="n">msgToSend</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendServer</span><span class="p">(</span><span class="n">msgToSend</span><span class="p">,</span> <span class="s1">&#39;rsa&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">generate_key</span><span class="p">()</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getSerializedPublicKey</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendServer</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Sent all M1&#39;</span><span class="p">)</span>
+
+        <span class="nb">dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">receiveServer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Received M2&#39;</span><span class="p">)</span>
+
+        <span class="n">status</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">resetKeys</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">status</span>
+
+        <span class="k">if</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;clientNonce&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;clientNonce&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;The nonce received in M2 is not equal to mine. Connection not fresh!&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">resetKeys</span><span class="p">()</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;serverNonce&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;serverNonce&#39;</span><span class="p">]</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">],</span><span class="n">msg</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">generateDHParameters</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">saveParameters</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">],</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getSecurityParameters</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;-&#39;</span><span class="o">+</span><span class="n">username</span><span class="o">+</span><span class="s1">&#39;.&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Succesfully saved the parameters&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Problems saving g and p&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendServer</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">),</span> <span class="s1">&#39;rsa&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Sent M3&#39;</span><span class="p">)</span>
+        <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">socketServer</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">BUFFER_SIZE</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Received M4&#39;</span><span class="p">)</span>
+        <span class="n">pt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">decryptServerMessage</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getDigest</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CODE_TYPE</span><span class="p">))</span> <span class="o">!=</span> <span class="n">pt</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">resetKeys</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;The digest received in M4 is not right!&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Succesfully completed the Sign Up Protocol&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">status</span></div>
+
+<div class="viewcode-block" id="Client.login"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.login">[docs]</a>    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Load the private key for he user specified, with the parameter username, then</span>
+<span class="sd">            start the Authentication Protocol and perform the login for the user username</span>
+<span class="sd">            with the password. The server will never see the real password but only the hash.</span>
+<span class="sd">            If all is correct it makes start an instance of ConnectionHandler in order to</span>
+<span class="sd">            handle the receiving connections for the peer to peer communication</span>
+
+<span class="sd">            :type username: String</span>
+<span class="sd">            :param username: the username</span>
+<span class="sd">            :type password: String</span>
+<span class="sd">            :param password: the password</span>
+<span class="sd">            :rtype: Int</span>
+<span class="sd">            :return: 1 of all is correct, 0 if the username or the password are wrong, -1 if the user is already connected with another device, -2 for security problems</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">portp2p</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">6001</span><span class="p">,</span><span class="mi">60000</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">initializeSecurity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getSecurityPath</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">2</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;2&#39;</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">password</span><span class="c1">#str(int.from_bytes(self.Security.getDigest(password.encode(self.CODE_TYPE)), byteorder=&#39;big&#39;))</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;porta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">portp2p</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">addClientNonce</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">generateNonce</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;clientNonce&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getClientNonce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+        <span class="n">msgToSend</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Starting the Authentication Protocol&#39;</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">authenticationProtocol</span><span class="p">(</span><span class="n">msgToSend</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Succesfull logged in as &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+            <span class="c1">#Load the local conversations</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Message</span><span class="o">.</span><span class="n">loadConversations</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+            <span class="c1">#Load the waiting messages stored in the server</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">receiveServer</span><span class="p">()</span>
+            <span class="c1">#starting the connectionHandler in order to manage the connections</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connectionHandler</span> <span class="o">=</span> <span class="n">ConnectionHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">portp2p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Chat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CODE_TYPE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connectionHandler</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Login : Wrong Username or Password&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Login : You are already connected with another device&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Login : Security problem&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logout</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">resetKeys</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Client.authenticationProtocol"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.authenticationProtocol">[docs]</a>    <span class="k">def</span> <span class="nf">authenticationProtocol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msgToSend</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Implements all the Authentication Protocol</span>
+
+<span class="sd">            :type msgToSend: Dict</span>
+<span class="sd">            :param msgToSend: contain the information that goes inside M1</span>
+<span class="sd">            :rtype: Int</span>
+<span class="sd">            :return: 1 if all is correct, 0 if the username or the password are wrong, -1 if the user is already logged connected with another device, -2 for security problems</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendServer</span><span class="p">(</span><span class="n">msgToSend</span><span class="p">,</span> <span class="s1">&#39;rsa&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Sent M1&#39;</span><span class="p">)</span>
+        <span class="nb">dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">receiveServer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Received M2&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;clientNonce&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getClientNonce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;The nonce in M2 is not the expected one. Connection is not fresh for me!&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">AddServerSymmetricKey</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">loadDHParameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getSecurityParameters</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Parameters correctly loaded&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Problems loading the parameters&#39;</span><span class="p">)</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;serverNonce&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;serverNonce&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">serverNonce</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;serverNonce&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendServer</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">),</span> <span class="s1">&#39;aes&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Sent M3&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Authentication Protocol completed correctly&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Client.startConnection"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.startConnection">[docs]</a>    <span class="k">def</span> <span class="nf">startConnection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receiver</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Ask to the server if a client, specified with the parameter receiver, is online: if it is</span>
+<span class="sd">            then it starts the Online Key Exchange Protocol, else it performs the Offline Communication</span>
+
+<span class="sd">            :type receiver: String</span>
+<span class="sd">            :param receiver: the username of the client to contact</span>
+<span class="sd">            :rtype: Int</span>
+<span class="sd">            :return: 1 if all is correct and client is online, 0 if all is correct and client is offline, -1 login not done, -2 talking to yourself, -3 receiver does not exist, -4 security problem</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Run of startConnection&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;User tries to contact someone without doing the login&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="n">receiver</span> <span class="o">=</span> <span class="n">receiver</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;3&#39;</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">receiver</span>
+
+        <span class="k">if</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;User tries to contact itself&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">2</span>
+
+        <span class="n">msgToSend</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendServer</span><span class="p">(</span><span class="n">msgToSend</span><span class="p">,</span> <span class="s1">&#39;aes&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Sent M1 of Online Key Exchange and Offline Communication&#39;</span><span class="p">)</span>
+
+        <span class="nb">dict</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">receiveServer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;received M2 of Online Key Exchange and Offline Communication&#39;</span><span class="p">)</span>
+
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span> <span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Communication offline with the user: &#39;</span> <span class="o">+</span> <span class="n">receiver</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">insertKeyClient</span><span class="p">(</span><span class="n">receiver</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;server&#39;</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;-1&#39;</span> <span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Error: user does not have done the login&#39;</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;-2&#39;</span> <span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Error: you can not connect with yourself&#39;</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;-3&#39;</span> <span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Error: the contacted user does not exist&#39;</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="n">msgs</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+            <span class="n">ip</span> <span class="o">=</span> <span class="n">msgs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="n">msgs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">receiver</span> <span class="o">+</span> <span class="s1">&#39; has IP:Port : &#39;</span> <span class="o">+</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Starting a new connection with &#39;</span> <span class="o">+</span> <span class="n">receiver</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">port</span><span class="p">)))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Continuing the Online Key Exchange Protocol&#39;</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">onlineKeyExchangeProtocol</span><span class="p">(</span><span class="n">receiver</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Problem connecting with the other client, starting the offline communication&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;server&#39;</span>
+                <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;startConnection correctly concluded&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.onlineKeyExchangeProtocol"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.onlineKeyExchangeProtocol">[docs]</a>    <span class="k">def</span> <span class="nf">onlineKeyExchangeProtocol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receiver</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Implements the Online Key Exchange protocol</span>
+
+<span class="sd">            :type receiver: String</span>
+<span class="sd">            :param receiver: the client with which we want to exchange the key with diffie-hellman</span>
+<span class="sd">            :type dict: Dict</span>
+<span class="sd">            :param dict: dictionary that contains the symmetric message destinated to the receiver, received from the server, and its length informations</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#info contains the symmetric message from the server to the client</span>
+        <span class="n">cipherText</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;lenInfo&#39;</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getSignature</span><span class="p">(</span><span class="n">cipherText</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">cipherText</span><span class="o">+</span><span class="n">sign</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">isSymmetricKeyClientPresent</span><span class="p">(</span><span class="n">receiver</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">insertKeyClient</span><span class="p">(</span><span class="n">receiver</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">generateDH</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">],</span> <span class="n">receiver</span><span class="p">)</span>
+        <span class="n">plainText</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getSharedKey</span><span class="p">(</span><span class="n">receiver</span><span class="p">)</span>
+        <span class="c1">#The plainText is too long to be send all together, so it is split in half</span>
+        <span class="n">pt1</span> <span class="o">=</span> <span class="n">plainText</span><span class="p">[:</span><span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">plainText</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)]</span>
+        <span class="n">pt2</span> <span class="o">=</span> <span class="n">plainText</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">plainText</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">):]</span>
+
+        <span class="n">ct1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">RSAEncryptText</span><span class="p">(</span><span class="n">pt1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getKeyClient</span><span class="p">(</span><span class="n">receiver</span><span class="p">))</span>
+        <span class="n">sign1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getSignature</span><span class="p">(</span><span class="n">pt1</span><span class="p">)</span>
+        <span class="n">ct2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">RSAEncryptText</span><span class="p">(</span><span class="n">pt2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getKeyClient</span><span class="p">(</span><span class="n">receiver</span><span class="p">))</span>
+        <span class="n">sign2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getSignature</span><span class="p">(</span><span class="n">pt2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">ct1</span><span class="o">+</span><span class="n">sign1</span><span class="o">+</span><span class="n">ct2</span><span class="o">+</span><span class="n">sign2</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sended all the M3 message&#39;</span><span class="p">)</span>
+        <span class="c1">############GETTING THE PUBLIC Y_B ##################</span>
+        <span class="c1">#The received message is composed by two messages</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">BUFFER_SIZE</span><span class="p">)</span>
+        <span class="n">msg1</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)]</span>
+        <span class="n">msg2</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">):]</span>
+        <span class="n">signature</span> <span class="o">=</span> <span class="n">msg1</span><span class="p">[</span><span class="o">-</span><span class="mi">256</span><span class="p">:]</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">msg1</span><span class="p">[:</span><span class="o">-</span><span class="mi">256</span><span class="p">]</span>
+        <span class="n">pt1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">RSADecryptText</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">VerifySignature</span><span class="p">(</span><span class="n">pt1</span><span class="p">,</span> <span class="n">signature</span><span class="p">,</span> <span class="n">receiver</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The integrity is not valid for the receiver. Signature:</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">signature</span><span class="p">))</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">4</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;integrity of the DH shared_key is valid&#39;</span><span class="p">)</span>
+
+        <span class="n">signature</span> <span class="o">=</span> <span class="n">msg2</span><span class="p">[</span><span class="o">-</span><span class="mi">256</span><span class="p">:]</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">msg2</span><span class="p">[:</span><span class="o">-</span><span class="mi">256</span><span class="p">]</span>
+        <span class="n">pt2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">RSADecryptText</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">VerifySignature</span><span class="p">(</span><span class="n">pt2</span><span class="p">,</span> <span class="n">signature</span><span class="p">,</span> <span class="n">receiver</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The integrity is not valid for the receiver. Signature:</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">signature</span><span class="p">))</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">4</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;integrity of the DH shared_key is valid&#39;</span><span class="p">)</span>
+
+        <span class="n">sharedKey</span> <span class="o">=</span> <span class="p">(</span><span class="n">pt1</span><span class="o">+</span><span class="n">pt2</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;YB è : &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sharedKey</span><span class="p">))</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">BUFFER_SIZE</span><span class="p">)</span>
+        <span class="n">signature</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[</span><span class="o">-</span><span class="mi">256</span><span class="p">:]</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[:</span><span class="o">-</span><span class="mi">256</span><span class="p">]</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">RSADecryptText</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">dictBin</span> <span class="o">=</span> <span class="n">zlib</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">VerifySignature</span><span class="p">(</span><span class="n">dictBin</span><span class="p">,</span> <span class="n">signature</span><span class="p">,</span> <span class="n">receiver</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The integrity is not valid for the sender. Signature:</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">signature</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">4</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;integrity of the DH shared_key is valid&#39;</span><span class="p">)</span>
+        <span class="nb">dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">dictBin</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;message M4 received &#39;</span> <span class="o">+</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="nb">dict</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;starting computing key&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">computeDHKey</span><span class="p">(</span><span class="n">receiver</span><span class="p">,</span> <span class="n">sharedKey</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Computed key in the sender&#39;</span><span class="p">)</span>
+        <span class="c1">###############VERIFICA CHE IL NONCE SIA GIUSTO############</span>
+        <span class="c1">###TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO###</span>
+        <span class="c1">###########################################################</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">addClientNonce</span><span class="p">(</span><span class="n">receiver</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">Nb</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;Nb&#39;</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CRIPTATO CON AES &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Nb</span><span class="p">))</span>
+        <span class="n">temp1</span> <span class="o">=</span> <span class="n">Nb</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;lenNb&#39;</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)</span>
+        <span class="n">temp2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">AESDecryptText</span><span class="p">(</span><span class="n">temp1</span><span class="p">,</span> <span class="n">receiver</span><span class="p">)</span>
+        <span class="c1">#print(temp2)</span>
+        <span class="n">Nb</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">temp2</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">addClientNonce</span><span class="p">(</span><span class="n">receiver</span><span class="p">,</span> <span class="n">Nb</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Invio M5&#39;</span><span class="p">)</span>
+        <span class="n">Nb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">AESEncryptText</span><span class="p">(</span><span class="n">temp2</span><span class="p">,</span> <span class="n">receiver</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">Nb</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Error in sending the message to the client connection redirected to the server&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;server&#39;</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="Client.sendMessageOffline"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.sendMessageOffline">[docs]</a>    <span class="k">def</span> <span class="nf">sendMessageOffline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receiver</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Used to send and store a message in the server for an offline user</span>
+<span class="sd">            The message is sent with the prefix &#39;4|&#39;</span>
+<span class="sd">            if the message has been sent correctly return 1</span>
+<span class="sd">            if there was an error in the db and the message has not been saved return 0</span>
+<span class="sd">            otherwise return -1 for general errors</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;4&#39;</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Receiver&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">receiver</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">RSAEncryptText</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CODE_TYPE</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getKeyClient</span><span class="p">(</span><span class="n">receiver</span><span class="p">))</span>
+        <span class="c1">#print(len(t))</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">RSAEncryptText</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CODE_TYPE</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">getKeyClient</span><span class="p">(</span><span class="n">receiver</span><span class="p">)),</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="n">msgToSend</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;message sent to server&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendServer</span><span class="p">(</span><span class="n">msgToSend</span><span class="p">,</span> <span class="s1">&#39;aes&#39;</span><span class="p">)</span>
+
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">receiveServer</span><span class="p">()[</span><span class="s1">&#39;status&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Message send correctly to be stored in the Server&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Error in the database! Try again later!&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">-</span><span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Client.sendClient"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.sendClient">[docs]</a>    <span class="k">def</span> <span class="nf">sendClient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receiver</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">logout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Used to send a message [text] to the user [receiver]</span>
+<span class="sd">            checks if there is an existing connection with the user [receiver]</span>
+<span class="sd">            if not then it tries to create the p2p connection if not possible</span>
+<span class="sd">            and the user exists then send the message to the server</span>
+<span class="sd">            Handles the passage of the receiver from online to offline</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sendClient chiamata -&gt; logout:&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">logout</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">receiver</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;server&#39;</span> <span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">startConnection</span><span class="p">(</span><span class="n">receiver</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">:</span> <span class="c1">#client offline</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;server&#39;</span>
+            <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span> <span class="c1">#client online, connection established correctly</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Connection established with &#39;</span> <span class="o">+</span> <span class="n">receiver</span><span class="p">)</span>
+                <span class="c1">#self.socketClient[receiver].send(text.encode(self.CODE_TYPE))</span>
+            <span class="k">else</span> <span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Client does not exist!!!&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">value</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Message</span><span class="o">.</span><span class="n">createMessageJson</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()),</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">logout</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;server&#39;</span> <span class="p">:</span>
+            <span class="c1">#Check after x time if receiver is now online</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Message</span><span class="o">.</span><span class="n">addMessagetoConversations</span><span class="p">(</span><span class="n">receiver</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()),</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendMessageOffline</span><span class="p">(</span><span class="n">receiver</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()))</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1">#value = self.socketClient[receiver].send(str(len(msg)).encode(self.CODE_TYPE))</span>
+                <span class="c1">#print(&#39;sended &#39; + str(len(msg)))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Message to be send : &#39;</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span>
+                <span class="n">pt</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CODE_TYPE</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Cripto il messaggio da inviare con AES&#39;</span><span class="p">)</span>
+                <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">AESEncryptText</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">receiver</span><span class="p">)</span>
+                <span class="c1">#ct = pt</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;message sended to client&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">Message</span><span class="o">.</span><span class="n">addMessagetoConversations</span><span class="p">(</span><span class="n">receiver</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()),</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="mi">1</span>
+                <span class="k">else</span> <span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ConnectionResetError</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">receiver</span> <span class="o">+</span> <span class="s1">&#39;has disconnected&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">resetSymmetricKeyClient</span><span class="p">(</span><span class="n">receiver</span><span class="p">)</span>
+                <span class="c1">#possible signal to FrontEnd</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">receiver</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;server&#39;</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendClient</span><span class="p">(</span><span class="n">receiver</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.setAutoLogin"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.setAutoLogin">[docs]</a>    <span class="k">def</span> <span class="nf">setAutoLogin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remember</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">setAutoLogin</span><span class="p">(</span><span class="n">remember</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.checkAutoLogin"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.checkAutoLogin">[docs]</a>    <span class="k">def</span> <span class="nf">checkAutoLogin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getRemember</span><span class="p">():</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">2</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getUserName</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getUserPwd</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Client.logout"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.logout">[docs]</a>    <span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ordinatedUserList</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendServer</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">),</span> <span class="s1">&#39;aes&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;server&#39;</span> <span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sendClient</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;logout&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_RDWR</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">socketClient</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Message</span><span class="o">.</span><span class="n">saveConversations</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">ordinatedUserList</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Security</span> <span class="o">=</span> <span class="n">SecurityClient</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getSecurityServerKey</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectionHandler</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectionHandler</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Client.onClosing"><a class="viewcode-back" href="../rst/Client/client.html#client.Client.onClosing">[docs]</a>    <span class="k">def</span> <span class="nf">onClosing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ordinatedUserList</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span> <span class="c1">#clean up before close</span>
+        <span class="c1">#close the socket connection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">saveXML</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">ordinatedUserList</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logout</span><span class="p">(</span><span class="n">ordinatedUserList</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">socketServer</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_RDWR</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">socketServer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exiting....&#39;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Amedeo Pochiero.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
+</html>

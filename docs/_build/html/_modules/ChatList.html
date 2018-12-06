@@ -1,0 +1,516 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ChatList &#8212; MPS Protocol 1 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ChatList</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">tkinter</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">ImageTk</span><span class="p">,</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">ChatWindow</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">ScrollableFrame</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">activeChat</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="ChatList"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatList">[docs]</a><span class="k">class</span> <span class="nc">ChatList</span><span class="p">(</span><span class="n">Frame</span><span class="p">):</span>
+    <span class="n">MAXSEARCHLEN</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">background</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            :type master: ChatGUI</span>
+<span class="sd">            :param master: parent widget</span>
+
+<span class="sd">            :type background: string</span>
+<span class="sd">            :param background: background color</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Frame</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="n">background</span><span class="p">,</span> <span class="n">highlightbackground</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">highlightcolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">highlightthickness</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">master</span> <span class="o">=</span> <span class="n">master</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">LEFT</span><span class="p">,</span><span class="n">fill</span><span class="o">=</span><span class="n">BOTH</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">searchBarFrame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="n">background</span><span class="p">,</span> <span class="n">highlightbackground</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">highlightcolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">highlightthickness</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">listFrame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scrollableFrame</span> <span class="o">=</span> <span class="n">Scrollable</span><span class="p">(</span><span class="n">listFrame</span><span class="p">,</span> <span class="n">background</span><span class="p">)</span>
+        <span class="n">validation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checkEntryLength</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">searchBar</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">searchBarFrame</span><span class="p">,</span> <span class="n">validate</span> <span class="o">=</span> <span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">validatecommand</span> <span class="o">=</span> <span class="p">(</span><span class="n">validation</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">background</span><span class="o">=</span><span class="n">background</span><span class="p">,</span> <span class="n">bd</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">searchBar</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Return&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pressEnterEvent</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">searchIcon</span> <span class="o">=</span> <span class="n">ImageTk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;Images/searchIcon.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="mi">30</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">searchButton</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">searchBarFrame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;search&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pressSearchButton</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="n">background</span><span class="p">,</span> <span class="n">bd</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">activebackground</span><span class="o">=</span><span class="s1">&#39;#787878&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">searchIcon</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">searchBarFrame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">searchBar</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">LEFT</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">searchButton</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">RIGHT</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">listFrame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">BOTH</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ChatList.pressSearchButton"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatList.pressSearchButton">[docs]</a>    <span class="k">def</span> <span class="nf">pressSearchButton</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            When search button is pressed, it checks if the chat already exists</span>
+<span class="sd">            and it open that chat if exists. Else starts a connection with the</span>
+<span class="sd">            searched name calling client.startConnection. If this function succedes</span>
+<span class="sd">            it creates a new chat element and add it into the dictionary using</span>
+<span class="sd">            the chat name as key, otherwise it invalidates the entry</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">searchBar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">searchKey</span> <span class="o">=</span> <span class="n">username</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">username</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">searchKey</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">startConnection</span><span class="p">(</span><span class="n">searchKey</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">addChatListElement</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">lastMessageTime</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">searchBarFrame</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">highlightbackground</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">highlightcolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">highlightthickness</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">searchBar</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">fg</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">searchBar</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">searchKey</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">updateState</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">searchBarFrame</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">highlightbackground</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">highlightcolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">highlightthickness</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">searchBar</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">searchKey</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">changeChatWindow</span><span class="p">(</span><span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div>
+<div class="viewcode-block" id="ChatList.checkEntryLength"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatList.checkEntryLength">[docs]</a>    <span class="k">def</span> <span class="nf">checkEntryLength</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            :rtype: boolean</span>
+<span class="sd">            :return: the length of entry&#39;s string cannot exceed MAXSEARCHLEN</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">action</span> <span class="o">!=</span> <span class="s1">&#39;0&#39;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">searchBar</span><span class="o">.</span><span class="n">get</span><span class="p">())</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAXSEARCHLEN</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+<div class="viewcode-block" id="ChatList.pressEnterEvent"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatList.pressEnterEvent">[docs]</a>    <span class="k">def</span> <span class="nf">pressEnterEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            :type event: Event</span>
+<span class="sd">            :param event: information about the event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pressSearchButton</span><span class="p">()</span></div>
+<div class="viewcode-block" id="ChatList.setItems"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatList.setItems">[docs]</a>    <span class="k">def</span> <span class="nf">setItems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span> <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            :type client: Client</span>
+<span class="sd">            :param client: instance of class Client</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">client</span></div>
+<div class="viewcode-block" id="ChatList.addChatListElement"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatList.addChatListElement">[docs]</a>    <span class="k">def</span> <span class="nf">addChatListElement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chatName</span><span class="p">,</span> <span class="n">lastMessage</span><span class="p">,</span> <span class="n">lastMessageTime</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Creates a new chatListElement and adds it to the dictionary</span>
+
+<span class="sd">            :type chatName: string</span>
+<span class="sd">            :param chatName: name of the chatListElement</span>
+
+<span class="sd">            :type lastMessage: string</span>
+<span class="sd">            :param lastMessage: last arrived or sent message</span>
+
+<span class="sd">            :type lastMessageTime: string</span>
+<span class="sd">            :param lastMessageTime: time of the last arrived or sent message</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">activeChat</span>
+        <span class="k">if</span> <span class="n">lastMessageTime</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">timeString</span> <span class="o">=</span> <span class="s1">&#39;-:--&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">timeString</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">lastMessageTime</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+        <span class="n">newChatListElement</span> <span class="o">=</span> <span class="n">ChatListElement</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scrollableFrame</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;bg&#39;</span><span class="p">])</span>
+        <span class="n">newChatListElement</span><span class="o">.</span><span class="n">setChatList</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">newChatListElement</span><span class="o">.</span><span class="n">createWidgets</span><span class="p">()</span>
+
+        <span class="n">newChatWindow</span> <span class="o">=</span> <span class="n">ChatWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;bg&#39;</span><span class="p">])</span>
+        <span class="n">newChatWindow</span><span class="o">.</span><span class="n">createWidgets</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;bg&#39;</span><span class="p">],</span> <span class="n">chatName</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">newChatListElement</span><span class="o">.</span><span class="n">bindMouseWheel</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">scrollableFrame</span><span class="p">)</span>
+
+        <span class="n">w</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">winfo_screenwidth</span><span class="p">()</span><span class="o">*</span><span class="mf">1.5</span><span class="o">/</span><span class="mi">3</span>
+        <span class="n">newChatWindow</span><span class="o">.</span><span class="n">scrollableFrame</span><span class="o">.</span><span class="n">setCanvasWidth</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">newChatListElement</span><span class="o">.</span><span class="n">setElements</span><span class="p">(</span><span class="n">newChatWindow</span><span class="p">,</span> <span class="n">chatName</span><span class="p">,</span> <span class="n">lastMessage</span><span class="p">,</span> <span class="n">timeString</span><span class="p">)</span>
+
+        <span class="n">index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">chatName</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="p">[</span><span class="n">newChatListElement</span><span class="p">,</span> <span class="n">newChatWindow</span><span class="p">,</span> <span class="n">index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">activeChat</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># there is no active chat</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">chatName</span><span class="o">.</span><span class="n">lower</span><span class="p">()][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">changeChatWindow</span><span class="p">(</span><span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">scrollableFrame</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scrollableFrame</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">yview_moveto</span><span class="p">(</span> <span class="mi">1</span> <span class="p">)</span></div>
+<div class="viewcode-block" id="ChatList.notify"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatList.notify">[docs]</a>    <span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">isMine</span><span class="p">,</span> <span class="n">onLogin</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            When a message is received, if the sender is not in dict create a new</span>
+<span class="sd">            chatListElement and starts the connection with the sender. If the</span>
+<span class="sd">            chatListElement is already in the dict, if the activeChat is not the</span>
+<span class="sd">            sender&#39;s one, then increment the number of unreaded messages of the</span>
+<span class="sd">            sender. In any case, add the boxMessageElement to the sender chat</span>
+
+<span class="sd">            :type sender: string</span>
+<span class="sd">            :param sender: name of the sender</span>
+
+<span class="sd">            :type message: string</span>
+<span class="sd">            :param message: sent or received message</span>
+
+<span class="sd">            :type time: string</span>
+<span class="sd">            :param time: arrival or sending time</span>
+
+<span class="sd">            :type isMine: boolean</span>
+<span class="sd">            :param isMine: true if this is a message sent by me</span>
+
+<span class="sd">            :type onLogin: boolean</span>
+<span class="sd">            :param onLogin: true if this is called after the login to restore chats</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">activeChat</span>
+        <span class="n">searchKey</span> <span class="o">=</span> <span class="n">sender</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">searchKey</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">:</span>
+            <span class="c1">#chatList not found in the list</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">addChatListElement</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">startConnection</span><span class="p">(</span><span class="n">searchKey</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">searchKey</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">updateState</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">onLogin</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sortChatList</span><span class="p">(</span><span class="n">searchKey</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">searchKey</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span> <span class="ow">and</span> <span class="n">activeChat</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">searchKey</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">changeChatWindow</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">activeChat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">activeChat</span><span class="o">.</span><span class="n">chatName</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="n">sender</span> <span class="ow">and</span> <span class="n">onLogin</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="c1">#there is an active chat but not the sender&#39;s one, so notify that</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">searchKey</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">increaseNotifies</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">searchKey</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">updateState</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sortChatList</span><span class="p">(</span><span class="n">searchKey</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">activeChat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">activeChat</span><span class="o">.</span><span class="n">chatName</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="n">sender</span> <span class="ow">and</span> <span class="n">onLogin</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">searchKey</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">updateState</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># add the new message to that chatWindow anyway</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">searchKey</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">addBoxMessageElement</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">isMine</span><span class="p">)</span></div>
+<div class="viewcode-block" id="ChatList.updateMessageTime"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatList.updateMessageTime">[docs]</a>    <span class="k">def</span> <span class="nf">updateMessageTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chatName</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Every time a new message is received or sent, it updates the last</span>
+<span class="sd">            message of the chat list element</span>
+
+<span class="sd">            :type chatName: string</span>
+<span class="sd">            :param chatName: name of the chat</span>
+
+<span class="sd">            :type message: string</span>
+<span class="sd">            :param message: sent or received message</span>
+
+<span class="sd">            :type time: string</span>
+<span class="sd">            :param time: arrival or sending time</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">searchKey</span> <span class="o">=</span> <span class="n">chatName</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">searchKey</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">setLastMessage</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">searchKey</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">setLastMessageTime</span><span class="p">(</span><span class="n">time</span><span class="p">)</span></div>
+<div class="viewcode-block" id="ChatList.sortChatList"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatList.sortChatList">[docs]</a>    <span class="k">def</span> <span class="nf">sortChatList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searchKey</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            bring the chat with chatname==searchKey in the first row of the list.</span>
+<span class="sd">            The list is sorted by the last message time so the higher the element</span>
+<span class="sd">            is in the list, the more recent the last message is</span>
+
+<span class="sd">            :type searchKey: string</span>
+<span class="sd">            :param searchKey: name of the chat in the dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">oldIndex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">searchKey</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">searchKey</span><span class="p">:</span>
+                <span class="n">val</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">elif</span> <span class="n">val</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">oldIndex</span><span class="p">:</span>
+                <span class="n">val</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">sortedByIndex</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">kv</span><span class="p">:</span> <span class="n">kv</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">cle</span> <span class="ow">in</span> <span class="n">sortedByIndex</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">cle</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">cle</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">cle</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">cle</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]]</span>
+
+        <span class="k">for</span> <span class="n">cle</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scrollableFrame</span><span class="o">.</span><span class="n">winfo_children</span><span class="p">():</span>
+            <span class="n">cle</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">cle</span> <span class="ow">in</span> <span class="n">sortedByIndex</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scrollableFrame</span><span class="o">.</span><span class="n">winfo_children</span><span class="p">()</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cle</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">cle</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scrollableFrame</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+<div class="viewcode-block" id="ChatList.getNotEmptyUsers"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatList.getNotEmptyUsers">[docs]</a>    <span class="k">def</span> <span class="nf">getNotEmptyUsers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            create a list of chat names with atleast one message sent or received</span>
+
+<span class="sd">            :rtype: list</span>
+<span class="sd">            :return: list of chat name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">cle</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">cle</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lastMessageTime</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;-:--&#39;</span><span class="p">:</span>
+                <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cle</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="nb">list</span></div>
+<div class="viewcode-block" id="ChatList.flushChatDict"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatList.flushChatDict">[docs]</a>    <span class="k">def</span> <span class="nf">flushChatDict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Destroy all the chat of the list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">cle</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">cle</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+            <span class="n">cle</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span> <span class="o">=</span> <span class="p">{}</span></div>
+<div class="viewcode-block" id="ChatList.deleteChatListElement"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatList.deleteChatListElement">[docs]</a>    <span class="k">def</span> <span class="nf">deleteChatListElement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Delete the chat list element</span>
+
+<span class="sd">            :type username: string</span>
+<span class="sd">            :param username: name of the chat to be deleted</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">activeChat</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">username</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">activeChat</span><span class="o">.</span><span class="n">chatName</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">username</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">chatName</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="n">activeChat</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">username</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">username</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+        <span class="n">indexToRemove</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">username</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="p">[</span><span class="n">username</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatListDict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">val</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">indexToRemove</span><span class="p">:</span>
+                <span class="n">val</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span></div></div>
+
+<div class="viewcode-block" id="ChatListElement"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatListElement">[docs]</a><span class="k">class</span> <span class="nc">ChatListElement</span><span class="p">(</span><span class="n">Frame</span><span class="p">):</span>
+    <span class="n">MAXMESSAGELEN</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">background</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Element of the list on left side of the chat</span>
+
+<span class="sd">            :type master: Scrollable</span>
+<span class="sd">            :param master: parent widget</span>
+
+<span class="sd">            :type background: string</span>
+<span class="sd">            :param background: background color</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">Frame</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="n">background</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">photo</span> <span class="o">=</span> <span class="n">ImageTk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;Images/profile.jpg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="mi">40</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatName</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastMessage</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageTime</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">(),</span> <span class="n">StringVar</span><span class="p">(),</span> <span class="n">StringVar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notifies</span> <span class="o">=</span> <span class="n">IntVar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notifies</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnconfigure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnconfigure</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="viewcode-block" id="ChatListElement.createWidgets"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatListElement.createWidgets">[docs]</a>    <span class="k">def</span> <span class="nf">createWidgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Creates widgets inside the chat list element and binds the click</span>
+<span class="sd">            event in order to change the chat on click and the right-click in</span>
+<span class="sd">            order to display the menu and select &quot;delete&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rightClickMenu</span> <span class="o">=</span> <span class="n">Menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tearoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rightClickMenu</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Delete&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatList</span><span class="o">.</span><span class="n">deleteChatListElement</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chatName</span><span class="o">.</span><span class="n">get</span><span class="p">()))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">photoLabel</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">photo</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatNameLabel</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">textvariable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatName</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;bg&#39;</span><span class="p">],</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="n">NW</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageLabel</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">textvariable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastMessage</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;bg&#39;</span><span class="p">],</span> <span class="n">anchor</span><span class="o">=</span><span class="n">NW</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageTimeLabel</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">textvariable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageTime</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;bg&#39;</span><span class="p">],</span>  <span class="n">anchor</span><span class="o">=</span><span class="n">NE</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notifiesLabel</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">textvariable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">notifies</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="s1">&#39;#7070db&#39;</span> <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">photoLabel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatNameLabel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="o">+</span><span class="n">E</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageLabel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="o">+</span><span class="n">E</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageTimeLabel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="o">+</span><span class="n">E</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-1&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">changeChatWindow</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatNameLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-1&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">changeChatWindow</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-1&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">changeChatWindow</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageTimeLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-1&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">changeChatWindow</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">photoLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-1&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">changeChatWindow</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notifiesLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-1&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">changeChatWindow</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;darwin&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-2&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">popup</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chatNameLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-2&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">popup</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-2&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">popup</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageTimeLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-2&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">popup</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">photoLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-2&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">popup</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">notifiesLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-2&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">popup</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-3&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">popup</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chatNameLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-3&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">popup</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-3&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">popup</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageTimeLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-3&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">popup</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">photoLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-3&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">popup</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">notifiesLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-3&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">popup</span><span class="p">)</span></div>
+<div class="viewcode-block" id="ChatListElement.changeChatWindow"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatListElement.changeChatWindow">[docs]</a>    <span class="k">def</span> <span class="nf">changeChatWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            When the element is clicked, it loads on the right frame, the clicked</span>
+<span class="sd">            element&#39;s chatWindow</span>
+
+<span class="sd">            :type event: Event</span>
+<span class="sd">            :param event: information about the event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">activeChat</span>
+        <span class="k">if</span> <span class="n">activeChat</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">activeChat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatWindow</span>
+            <span class="n">activeChat</span><span class="o">.</span><span class="n">entryBar</span><span class="o">.</span><span class="n">focus_force</span><span class="p">()</span>
+            <span class="n">activeChat</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">RIGHT</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">BOTH</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">notifies</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">notifiesLabel</span><span class="o">.</span><span class="n">grid_forget</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatName</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="n">activeChat</span><span class="o">.</span><span class="n">chatName</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="n">activeChat</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+            <span class="n">activeChat</span><span class="o">.</span><span class="n">entryBar</span><span class="o">.</span><span class="n">focus_force</span><span class="p">()</span>
+            <span class="n">activeChat</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">activeChat</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+            <span class="n">activeChat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chatWindow</span>
+            <span class="n">activeChat</span><span class="o">.</span><span class="n">entryBar</span><span class="o">.</span><span class="n">focus_force</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chatWindow</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">RIGHT</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">BOTH</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">notifies</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">notifiesLabel</span><span class="o">.</span><span class="n">grid_forget</span><span class="p">()</span></div>
+<div class="viewcode-block" id="ChatListElement.setChatList"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatListElement.setChatList">[docs]</a>    <span class="k">def</span> <span class="nf">setChatList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chatList</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            :type chatList: ChatList</span>
+<span class="sd">            :param ChatListGUI: instance of class ChatList</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatList</span> <span class="o">=</span> <span class="n">chatList</span></div>
+<div class="viewcode-block" id="ChatListElement.popup"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatListElement.popup">[docs]</a>    <span class="k">def</span> <span class="nf">popup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Handles the right click event</span>
+
+<span class="sd">            :type event: Event</span>
+<span class="sd">            :param event: information about the event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rightClickMenu</span><span class="o">.</span><span class="n">tk_popup</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">x_root</span><span class="o">+</span><span class="mi">40</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">y_root</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rightClickMenu</span><span class="o">.</span><span class="n">grab_release</span><span class="p">()</span></div>
+<div class="viewcode-block" id="ChatListElement.checkStringLenght"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatListElement.checkStringLenght">[docs]</a>    <span class="k">def</span> <span class="nf">checkStringLenght</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            if the message is too long, it is cut and &quot;...&quot; is concatenated to it</span>
+
+<span class="sd">            :type s: string</span>
+<span class="sd">            :param s: string to be checked</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAXMESSAGELEN</span> <span class="p">):</span>
+            <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">MAXMESSAGELEN</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; ...&quot;</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+<div class="viewcode-block" id="ChatListElement.bindMouseWheel"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatListElement.bindMouseWheel">[docs]</a>    <span class="k">def</span> <span class="nf">bindMouseWheel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scrollableFrame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Mouse wheel event</span>
+
+<span class="sd">            :type scrollableFrame: Scrollable</span>
+<span class="sd">            :param scrollableFrame: instance of class Scrollable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;MouseWheel&gt;&#39;</span><span class="p">,</span> <span class="n">scrollableFrame</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatNameLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;MouseWheel&gt;&#39;</span><span class="p">,</span> <span class="n">scrollableFrame</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;MouseWheel&gt;&#39;</span><span class="p">,</span> <span class="n">scrollableFrame</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageTimeLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;MouseWheel&gt;&#39;</span><span class="p">,</span> <span class="n">scrollableFrame</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">photoLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;MouseWheel&gt;&#39;</span><span class="p">,</span> <span class="n">scrollableFrame</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notifiesLabel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;MouseWheel&gt;&#39;</span><span class="p">,</span> <span class="n">scrollableFrame</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">)</span></div>
+<div class="viewcode-block" id="ChatListElement.setLastMessage"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatListElement.setLastMessage">[docs]</a>    <span class="k">def</span> <span class="nf">setLastMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            :type message: string</span>
+<span class="sd">            :param message: last message</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMessage</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checkStringLenght</span><span class="p">(</span><span class="n">message</span><span class="p">))</span></div>
+<div class="viewcode-block" id="ChatListElement.setChatName"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatListElement.setChatName">[docs]</a>    <span class="k">def</span> <span class="nf">setChatName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chatName</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            :type chatName: string</span>
+<span class="sd">            :param chatName: name of the chat</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatName</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checkStringLenght</span><span class="p">(</span><span class="n">chatName</span><span class="p">))</span></div>
+<div class="viewcode-block" id="ChatListElement.setLastMessageTime"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatListElement.setLastMessageTime">[docs]</a>    <span class="k">def</span> <span class="nf">setLastMessageTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lastMessageTime</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            :type lastMessageTime: string</span>
+<span class="sd">            :param lastMessageTime: time of the last arrived or sent message</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">timeString</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">lastMessageTime</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageTime</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">timeString</span><span class="p">)</span></div>
+<div class="viewcode-block" id="ChatListElement.setElements"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatListElement.setElements">[docs]</a>    <span class="k">def</span> <span class="nf">setElements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chatWindow</span><span class="p">,</span> <span class="n">chatName</span><span class="p">,</span> <span class="n">lastMessage</span><span class="p">,</span> <span class="n">lastMessageTime</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            :type chatWindow: ChatWindow</span>
+<span class="sd">            :param chatWindow: instance of class ChatWindow</span>
+
+<span class="sd">            :type chatName: string</span>
+<span class="sd">            :param chatName: name of the chat</span>
+
+<span class="sd">            :type lastMessage: string</span>
+<span class="sd">            :param lastMessage: last message</span>
+
+<span class="sd">            :type lastMessageTime: string</span>
+<span class="sd">            :param lastMessageTime: time of the last arrived or sent message</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatWindow</span> <span class="o">=</span> <span class="n">chatWindow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chatName</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checkStringLenght</span><span class="p">(</span><span class="n">chatName</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMessage</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checkStringLenght</span><span class="p">(</span><span class="n">lastMessage</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMessageTime</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">lastMessageTime</span><span class="p">)</span></div>
+<div class="viewcode-block" id="ChatListElement.increaseNotifies"><a class="viewcode-back" href="../rst/Client/ChatList.html#ChatList.ChatListElement.increaseNotifies">[docs]</a>    <span class="k">def</span> <span class="nf">increaseNotifies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Display the notify label and add 1 to the variable</span>
+
+<span class="sd">            :type message: string</span>
+<span class="sd">            :param message: last message</span>
+
+<span class="sd">            :type time: string</span>
+<span class="sd">            :param time: time of the last arrived message</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notifies</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">notifies</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notifiesLabel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="o">+</span><span class="n">E</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLastMessage</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLastMessageTime</span><span class="p">(</span><span class="n">time</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Amedeo Pochiero.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
+</html>

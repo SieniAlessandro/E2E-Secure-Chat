@@ -14,13 +14,13 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../Client/'))
-sys.path.insert(0, os.path.abspath('../Server/'))
+sys.path.insert(0,'C/Users/nabow/"OneDrive - University of Pisa"/Magistrale/Cybersecurity/Progetto/PCS/Client')
+sys.path.insert(0,'C/Users/nabow/"OneDrive - University of Pisa"/Magistrale/Cybersecurity/Progetto/PCS/Server')
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'MPS Protocol - Cybersecurity Project'
+project = 'MPS Protocol'
 copyright = '2018, Amedeo Pochiero'
 author = 'Amedeo Pochiero'
 
@@ -41,6 +41,7 @@ release = '1.0'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.githubpages',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -76,7 +77,6 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-
 html_theme = 'default'
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -104,7 +104,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'MPSProtocol-CybersecurityProjectdoc'
+htmlhelp_basename = 'MPSProtocoldoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -131,7 +131,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'MPSProtocol-CybersecurityProject.tex', 'MPS Protocol - Cybersecurity Project Documentation',
+    (master_doc, 'MPSProtocol.tex', 'MPS Protocol Documentation',
      'Amedeo Pochiero', 'manual'),
 ]
 
@@ -141,7 +141,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'mpsprotocol-cybersecurityproject', 'MPS Protocol - Cybersecurity Project Documentation',
+    (master_doc, 'mpsprotocol', 'MPS Protocol Documentation',
      [author], 1)
 ]
 
@@ -152,8 +152,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'MPSProtocol-CybersecurityProject', 'MPS Protocol - Cybersecurity Project Documentation',
-     author, 'MPSProtocol-CybersecurityProject', 'One line description of project.',
+    (master_doc, 'MPSProtocol', 'MPS Protocol Documentation',
+     author, 'MPSProtocol', 'One line description of project.',
      'Miscellaneous'),
 ]
 

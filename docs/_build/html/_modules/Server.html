@@ -1,0 +1,181 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Server &#8212; MPS Protocol 1 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for Server</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">from</span> <span class="nn">Database.Database</span> <span class="k">import</span> <span class="n">Database</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">Thread</span>
+<span class="kn">from</span> <span class="nn">ClientHandler</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">Log</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">signal</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">system</span><span class="p">,</span> <span class="n">name</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">User</span> <span class="k">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">XMLHandler</span> <span class="k">import</span> <span class="n">XMLHandler</span>
+<span class="kn">from</span> <span class="nn">Security.Security</span> <span class="k">import</span> <span class="n">Security</span>
+
+<div class="viewcode-block" id="Server"><a class="viewcode-back" href="../rst/Server/Server.html#Server.Server">[docs]</a><span class="k">class</span> <span class="nc">Server</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle the global information, and the connection with the database</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">XML</span> <span class="o">=</span> <span class="n">XMLHandler</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Users</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ActiveThreads</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="s2">&quot;0.0.0.0&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getServerPort</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sec</span> <span class="o">=</span> <span class="n">Security</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getPemPath</span><span class="p">(),</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getBackupPemPath</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span><span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">);</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SOL_SOCKET</span><span class="p">,</span><span class="n">socket</span><span class="o">.</span><span class="n">SO_REUSEADDR</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DB</span> <span class="o">=</span> <span class="n">Database</span><span class="p">(</span><span class="n">_host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getDatabaseAddress</span><span class="p">(),</span>\
+                           <span class="n">_port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getDatabasePort</span><span class="p">(),</span>\
+                           <span class="n">_user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getDatabaseUser</span><span class="p">(),</span>\
+                           <span class="n">_password</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getDatabasePwd</span><span class="p">(),</span>\
+                           <span class="n">_db</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getDatabaseName</span><span class="p">());</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span> <span class="o">=</span> <span class="n">Log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getEnableLog</span><span class="p">(),</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">GetLogPath</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Server Initialized&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="Server.start"><a class="viewcode-back" href="../rst/Server/Server.html#Server.Server.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Create a new thread able to handle the administrator request (like see the number of active thread or online users)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#Starting the thread able to handle the administrator request</span>
+        <span class="n">t2</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handleServer</span><span class="p">)</span>
+        <span class="n">t2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ActiveThreads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
+        <span class="c1">#Listen continously</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Waiting for connections...&quot;</span><span class="p">)</span>
+            <span class="c1">#Obtaining the parameters like the socket and the address/port of the incoming connection</span>
+            <span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="p">(</span><span class="n">ip</span><span class="p">,</span><span class="n">port</span><span class="p">))</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+            <span class="c1">#Creating a new thread able to handle the new connection with the client</span>
+            <span class="n">newClient</span> <span class="o">=</span> <span class="n">ClientHandler</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span><span class="n">ip</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Users</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="p">);</span>
+            <span class="c1">#Starting the new thread</span>
+            <span class="n">newClient</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+            <span class="c1">#Appending the thread to the list of active threads</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ActiveThreads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newClient</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Server.handleServer"><a class="viewcode-back" href="../rst/Server/Server.html#Server.Server.handleServer">[docs]</a>    <span class="k">def</span> <span class="nf">handleServer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Handle the administrator request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">choice</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">choice</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">choice</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;What you want to do?</span><span class="se">\n</span><span class="s2">1)Count online user </span><span class="se">\n</span><span class="s2">2)Count Active Thread</span><span class="se">\n</span><span class="s2">3)Print Public Key</span><span class="se">\n</span><span class="s2">)Other key to close the server:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Users</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;There are no online users&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">User</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Users</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;UserName: &quot;</span><span class="o">+</span><span class="n">User</span><span class="o">.</span><span class="n">getUserName</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot; has address: &quot;</span><span class="o">+</span><span class="n">User</span><span class="o">.</span><span class="n">getIp</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot; and a Client port: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">getClientPort</span><span class="p">()))</span>
+            <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Actually there are </span><span class="si">%d</span><span class="s2"> active thread&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">enumerate</span><span class="p">())))</span>
+            <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sec</span><span class="o">.</span><span class="n">getSerializedPublicKey</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ok i&#39;ll close the server&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Server.close"><a class="viewcode-back" href="../rst/Server/Server.html#Server.Server.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Close all the socket and close the connection with the database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Server Closed&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">User</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Users</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">User</span><span class="o">.</span><span class="n">getSocket</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_RDWR</span><span class="p">)</span>
+            <span class="n">User</span><span class="o">.</span><span class="n">getSocket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">close_connection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Log</span><span class="o">.</span><span class="n">closeFile</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div></div>
+
+
+<span class="c1">### SERVER EXECUTION ############</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">Server</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Amedeo Pochiero.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
+</html>

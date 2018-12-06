@@ -1,0 +1,319 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SignUp module &#8212; MPS Protocol 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="Middleware.html" />
+    <link rel="prev" title="ScrollableFrame module" href="ScrollableFrame.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Middleware.html" title="&lt;no title&gt;"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ScrollableFrame.html" title="ScrollableFrame module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../Client.html" >List of Client’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="Frontend.html" accesskey="U">&lt;no title&gt;</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-SignUp">
+<span id="signup-module"></span><h1>SignUp module<a class="headerlink" href="#module-SignUp" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="SignUp.SignUpGUI">
+<em class="property">class </em><code class="descclassname">SignUp.</code><code class="descname">SignUpGUI</code><span class="sig-paren">(</span><em>master</em><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<dl class="attribute">
+<dt id="SignUp.SignUpGUI.activebackground">
+<code class="descname">activebackground</code><em class="property"> = '#657481'</em><a class="headerlink" href="#SignUp.SignUpGUI.activebackground" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="SignUp.SignUpGUI.backgroundItems">
+<code class="descname">backgroundItems</code><em class="property"> = '#434d56'</em><a class="headerlink" href="#SignUp.SignUpGUI.backgroundItems" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="SignUp.SignUpGUI.backgroundWindow">
+<code class="descname">backgroundWindow</code><em class="property"> = '#1f2327'</em><a class="headerlink" href="#SignUp.SignUpGUI.backgroundWindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.cancelEvent">
+<code class="descname">cancelEvent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.cancelEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the entries and show login window</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SignUp.SignUpGUI.errorColor">
+<code class="descname">errorColor</code><em class="property"> = '#ff3333'</em><a class="headerlink" href="#SignUp.SignUpGUI.errorColor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.hideErrorLabel">
+<code class="descname">hideErrorLabel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.hideErrorLabel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.hideSignUpFrame">
+<code class="descname">hideSignUpFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.hideSignUpFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.invalidate">
+<code class="descname">invalidate</code><span class="sig-paren">(</span><em>entry</em><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.invalidate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invalidate entry if the check fails</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>entry</strong> (<em>Entry</em>) – entry to be invalidated</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.pressEnterEvent">
+<code class="descname">pressEnterEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.pressEnterEvent" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>event</strong> (<em>Event</em>) – information about the event</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.setClient">
+<code class="descname">setClient</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.setClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set client instance in order to call client.register when the form
+is valid and Confirm button is pressed</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>client</strong> (<a class="reference internal" href="client.html#client.Client" title="client.Client"><em>Client</em></a>) – instance of class Client</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.setLoginWindow">
+<code class="descname">setLoginWindow</code><span class="sig-paren">(</span><em>loginWindow</em><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.setLoginWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a loginGUI instance in order to show the login window if the
+cancel button is pressed</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>loginWindow</strong> (<a class="reference internal" href="Login.html#Login.LoginGUI" title="Login.LoginGUI"><em>LoginGUI</em></a>) – instance of LoginGUI</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.setRootSize">
+<code class="descname">setRootSize</code><span class="sig-paren">(</span><em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.setRootSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set width and height of root window</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>height</strong> (<em>int</em>) – height of signUp frame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.showErrorLabel">
+<code class="descname">showErrorLabel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.showErrorLabel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.showSignUpFrame">
+<code class="descname">showSignUpFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.showSignUpFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.signUpEvent">
+<code class="descname">signUpEvent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.signUpEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the form is valid then call client.register, showing error
+if something went wrong or showing loginWindow if the user has been
+registered on the server</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.validateConfirmPassword">
+<code class="descname">validateConfirmPassword</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.validateConfirmPassword" title="Permalink to this definition">¶</a></dt>
+<dd><p>Password string and ConfirmPassword string must be equal</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">is confirm password valid?</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.validateEmail">
+<code class="descname">validateEmail</code><span class="sig-paren">(</span><em>change</em><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.validateEmail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Email must have the right structure ( <a class="reference external" href="mailto:email&#37;&#52;&#48;example&#46;com">email<span>&#64;</span>example<span>&#46;</span>com</a> )</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">is email valid?</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.validateLength">
+<code class="descname">validateLength</code><span class="sig-paren">(</span><em>entry</em>, <em>length</em><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.validateLength" title="Permalink to this definition">¶</a></dt>
+<dd><p>entry cannot be longer than length</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>entry</strong> (<em>Entry</em>) – entry to be validated</li>
+<li><strong>length</strong> (<em>int</em>) – max length</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">boolean</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">is entry valid?</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SignUp.SignUpGUI.validatePassword">
+<code class="descname">validatePassword</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SignUp.SignUpGUI.validatePassword" title="Permalink to this definition">¶</a></dt>
+<dd><p>Password must contain atleast 8 characters,
+atleast 1 uppercase letter, atleast 1 lowercase letter and atleast
+1 digit</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">is password valid?</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ScrollableFrame.html"
+                        title="previous chapter">ScrollableFrame module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Middleware.html"
+                        title="next chapter">&lt;no title&gt;</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/Client/SignUp.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Middleware.html" title="&lt;no title&gt;"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ScrollableFrame.html" title="ScrollableFrame module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../Client.html" >List of Client’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="Frontend.html" >&lt;no title&gt;</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Amedeo Pochiero.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
+</html>

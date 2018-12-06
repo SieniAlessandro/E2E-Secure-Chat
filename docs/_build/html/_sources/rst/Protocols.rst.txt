@@ -33,7 +33,7 @@ Alice now is ready to send her Diffie Hellman parameters :math:`g_{a}, p_{a}`.
 The server sends back a digest ( less bytes, better performance ) of M3's data,
 so that Alice can realize that the server has received the DH parameters.
 
-.. image:: ../Images/SignUp.png
+.. image:: ../Img/SignUp.png
 
 Authentication Protocol
 `````````````````````````
@@ -46,7 +46,7 @@ case AES - Galois Counter Mode. This algorithm is able to provide both data auth
 to packets encrypted with this algorithm. The Session ID is used to keep the communication
 fresh in the others protocols.
 
-.. image:: ../Images/Authentication.png
+.. image:: ../Img/Authentication.png
 
 Online Key Exchange Protocol
 `````````````````````````````
@@ -86,7 +86,7 @@ he can realize that Alice has the symmetric key as well.
 Once both Alice and Bob have the symmetric key :math:`K_{ab}`, they can encrypt their
 messages, adding a sequence number in order to avoid reordering attacks.
 
-.. image:: ../Images/Online.png
+.. image:: ../Img/Online.png
 
 
 Offline Communication Protocol
@@ -105,4 +105,4 @@ incremented every time, so if the received message is encrypted with an already 
 nonce, the packet is discarded.
 
 
-.. image:: ../Images/Offline.png
+.. image:: ../Img/Offline.png

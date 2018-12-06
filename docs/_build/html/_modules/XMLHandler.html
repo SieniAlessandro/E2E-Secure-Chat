@@ -1,0 +1,229 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>XMLHandler &#8212; MPS Protocol 1 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for XMLHandler</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">lxml</span> <span class="k">import</span> <span class="n">etree</span>
+
+
+<div class="viewcode-block" id="XMLHandler"><a class="viewcode-back" href="../rst/Server/XMLHandler.html#XMLHandler.XMLHandler">[docs]</a><span class="k">class</span> <span class="nc">XMLHandler</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Module used to read the configuration of the server from an XML file &quot;&quot;&quot;</span>
+
+    <span class="n">PATH</span> <span class="o">=</span> <span class="s2">&quot;preferences.xml&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Open the XML file from the default PATH (preferences.xml) and if it is not present, create it and write</span>
+<span class="sd">            default configuration</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initilizeXML</span><span class="p">()</span>
+
+<div class="viewcode-block" id="XMLHandler.initilizeXML"><a class="viewcode-back" href="../rst/Server/XMLHandler.html#XMLHandler.XMLHandler.initilizeXML">[docs]</a>    <span class="k">def</span> <span class="nf">initilizeXML</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Intialize a new XML file with the default configuration:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">root</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;Server&#39;</span><span class="p">)</span>
+
+        <span class="c1">#General Config</span>
+        <span class="n">server_port</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="s2">&quot;ListenPort&quot;</span><span class="p">)</span>
+        <span class="n">server_port</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;6000&quot;</span>
+        <span class="n">EnableLog</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="s2">&quot;EnableLog&quot;</span><span class="p">)</span>
+        <span class="n">EnableLog</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+        <span class="n">LogPath</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="s2">&quot;LogPath&quot;</span><span class="p">)</span>
+        <span class="n">LogPath</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;tempLog.txt&quot;</span>
+
+        <span class="c1">#Database</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="s2">&quot;Database&quot;</span><span class="p">)</span>
+        <span class="n">db_addr</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">db</span><span class="p">,</span><span class="s2">&quot;Address&quot;</span><span class="p">)</span>
+        <span class="n">db_addr</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
+        <span class="n">db_port</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">db</span><span class="p">,</span><span class="s2">&quot;Port&quot;</span><span class="p">)</span>
+        <span class="n">db_port</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;3306&quot;</span>
+        <span class="n">db_user</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">db</span><span class="p">,</span><span class="s2">&quot;User&quot;</span><span class="p">)</span>
+        <span class="n">db_user</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span>
+        <span class="n">db_pwd</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">db</span><span class="p">,</span><span class="s2">&quot;Password&quot;</span><span class="p">)</span>
+        <span class="n">db_pwd</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;rootroot&quot;</span>
+        <span class="n">db_name</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">db</span><span class="p">,</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+        <span class="n">db_name</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;messaggistica_mps&quot;</span>
+
+        <span class="c1">#Security</span>
+        <span class="n">PemPath</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="s2">&quot;PemPath&quot;</span><span class="p">)</span>
+        <span class="n">PemPath</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Security/PrivateKey.pem&quot;</span>
+        <span class="n">BackupPemPath</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="s2">&quot;PemPath&quot;</span><span class="p">)</span>
+        <span class="n">BackupPemPath</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Security/Backup/PrivateKey.pem&quot;</span>
+
+        <span class="c1">#Writing in the file</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span><span class="n">pretty_print</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span></div>
+
+<div class="viewcode-block" id="XMLHandler.getDatabasePort"><a class="viewcode-back" href="../rst/Server/XMLHandler.html#XMLHandler.XMLHandler.getDatabasePort">[docs]</a>    <span class="k">def</span> <span class="nf">getDatabasePort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Obtain the port used by the DBMS to listen new requests</span>
+
+<span class="sd">            :rtype: Int</span>
+<span class="sd">            :return: The port used by the DBMS to listen new requests</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="XMLHandler.getDatabaseAddress"><a class="viewcode-back" href="../rst/Server/XMLHandler.html#XMLHandler.XMLHandler.getDatabaseAddress">[docs]</a>    <span class="k">def</span> <span class="nf">getDatabaseAddress</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Obtain the IP address of the database</span>
+
+<span class="sd">            :rtype: String</span>
+<span class="sd">            :return: The IP address of the database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span></div>
+
+<div class="viewcode-block" id="XMLHandler.getDatabaseUser"><a class="viewcode-back" href="../rst/Server/XMLHandler.html#XMLHandler.XMLHandler.getDatabaseUser">[docs]</a>    <span class="k">def</span> <span class="nf">getDatabaseUser</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Obtain the username to login on the database</span>
+
+<span class="sd">            :rtype: String</span>
+<span class="sd">            :return: The username to login on the database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">text</span></div>
+
+<div class="viewcode-block" id="XMLHandler.getDatabasePwd"><a class="viewcode-back" href="../rst/Server/XMLHandler.html#XMLHandler.XMLHandler.getDatabasePwd">[docs]</a>    <span class="k">def</span> <span class="nf">getDatabasePwd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Obtain the password to login on the database</span>
+
+<span class="sd">            :rtype: String</span>
+<span class="sd">            :return: The password to login on the database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">text</span></div>
+
+<div class="viewcode-block" id="XMLHandler.getServerPort"><a class="viewcode-back" href="../rst/Server/XMLHandler.html#XMLHandler.XMLHandler.getServerPort">[docs]</a>    <span class="k">def</span> <span class="nf">getServerPort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Obtain the port used by the server to listen for new requests</span>
+
+<span class="sd">            :rtype: Int</span>
+<span class="sd">            :return: The port used by the server to listen for new requests</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="XMLHandler.getDatabaseName"><a class="viewcode-back" href="../rst/Server/XMLHandler.html#XMLHandler.XMLHandler.getDatabaseName">[docs]</a>    <span class="k">def</span> <span class="nf">getDatabaseName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Obtain the name of the database</span>
+
+<span class="sd">            :rtype: String</span>
+<span class="sd">            :return: The name of the database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">text</span></div>
+
+<div class="viewcode-block" id="XMLHandler.getEnableLog"><a class="viewcode-back" href="../rst/Server/XMLHandler.html#XMLHandler.XMLHandler.getEnableLog">[docs]</a>    <span class="k">def</span> <span class="nf">getEnableLog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Obtain the boolean variable meaning if the Log must be enable or not</span>
+
+<span class="sd">            :rtype: Boolean</span>
+<span class="sd">            :return: The boolean variable meaning if the Log must be enable or not</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="XMLHandler.GetLogPath"><a class="viewcode-back" href="../rst/Server/XMLHandler.html#XMLHandler.XMLHandler.GetLogPath">[docs]</a>    <span class="k">def</span> <span class="nf">GetLogPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Obtain the path of the log file</span>
+
+<span class="sd">            :rtype: String</span>
+<span class="sd">            :return: The path of the log file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">text</span></div>
+
+<div class="viewcode-block" id="XMLHandler.getPemPath"><a class="viewcode-back" href="../rst/Server/XMLHandler.html#XMLHandler.XMLHandler.getPemPath">[docs]</a>    <span class="k">def</span> <span class="nf">getPemPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Obtain the path of the pem file with the private key of the server</span>
+
+<span class="sd">            :rtype: String</span>
+<span class="sd">            :return: The path of the pem file with the private key of the server</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">text</span></div>
+
+<div class="viewcode-block" id="XMLHandler.getBackupPemPath"><a class="viewcode-back" href="../rst/Server/XMLHandler.html#XMLHandler.XMLHandler.getBackupPemPath">[docs]</a>    <span class="k">def</span> <span class="nf">getBackupPemPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Obtain the path of the backup pem file with the private key of the server</span>
+
+<span class="sd">            :rtype: String</span>
+<span class="sd">            :return: The path of the backup pem file with the private key of the server</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">text</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Amedeo Pochiero.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
+</html>

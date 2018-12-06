@@ -1,0 +1,474 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ClientHandler &#8212; MPS Protocol 1 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ClientHandler</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">Thread</span>
+<span class="kn">from</span> <span class="nn">Log</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">User</span> <span class="k">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">Security.Security</span> <span class="k">import</span> <span class="n">Security</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<div class="viewcode-block" id="ClientHandler"><a class="viewcode-back" href="../rst/Server/ClientHandler.html#ClientHandler.ClientHandler">[docs]</a><span class="k">class</span> <span class="nc">ClientHandler</span><span class="p">(</span><span class="n">Thread</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Used to handle the new user whenever he try to connect to the server.</span>
+<span class="sd">        This mechanism implies that for each user there is an appropriate thread that handle all the</span>
+<span class="sd">        requests coming from that clinet</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">MSG_LEN</span> <span class="o">=</span> <span class="mi">10240</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">Conn</span><span class="p">,</span><span class="n">ip</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">db</span><span class="p">,</span><span class="n">clients</span><span class="p">,</span><span class="n">Log</span><span class="p">,</span><span class="n">XML</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Instatiate all the variabile and create the security module for the handled user</span>
+
+<span class="sd">            :type Conn: Socket</span>
+<span class="sd">            :param Conn: The socket used to send and receive data from and to the client</span>
+<span class="sd">            :type ip: String</span>
+<span class="sd">            :param ip: The ip address of the handled clients</span>
+<span class="sd">            :type port: Int</span>
+<span class="sd">            :param port: The port to communicate with the handled user</span>
+<span class="sd">            :type db: Database</span>
+<span class="sd">            :param db: The database module to store and find information in the database</span>
+<span class="sd">            :type clinets: List&lt;User&gt;</span>
+<span class="sd">            :param clients: The array of online client</span>
+<span class="sd">            :type Log: Log</span>
+<span class="sd">            :param Log: The module able to log the information on a FileNotFoundError</span>
+<span class="sd">            :type XML: XMLHandler</span>
+<span class="sd">            :param XML: The XML module able to obtain the parameter from thr XML File</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>   <span class="c1">#Instatation of the thread</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="n">Conn</span><span class="p">,</span><span class="n">ip</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DB</span> <span class="o">=</span> <span class="n">db</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">OnlineClients</span> <span class="o">=</span> <span class="n">clients</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">Log</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">XML</span> <span class="o">=</span> <span class="n">XML</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">addSecurityModule</span><span class="p">(</span><span class="n">Security</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getPemPath</span><span class="p">(),</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getBackupPemPath</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logged</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Client handled has address: &quot;</span><span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getIp</span><span class="p">()</span> <span class="o">+</span><span class="s2">&quot; and port &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getServerPort</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">serverNonce</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">generateNonce</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+        <span class="c1">#Setting a timeout in order to handle eventually fault during the communication</span>
+        <span class="c1">#self.HandledUser.getSocket().settimeout(60)</span>
+    <span class="c1">#Method whose listen the message coming from the handled client,showing its content</span>
+<div class="viewcode-block" id="ClientHandler.run"><a class="viewcode-back" href="../rst/Server/ClientHandler.html#ClientHandler.ClientHandler.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Waiting for the message coming from the associate client &quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_stopped</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="c1">#Receiving the data from the handled client</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MSG_LEN</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ConnectionResetError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Client had a problem, connection closed&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnlineClients</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnlineClients</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getUserName</span><span class="p">()]</span>
+                <span class="k">return</span>
+            <span class="c1">#Check if the connection is closed analyzing the data (0 means that is close)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Client disconnected, closing this thread&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnlineClients</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnlineClients</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getUserName</span><span class="p">()]</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logged</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="c1">#Check if there is a Digest</span>
+                    <span class="n">msg</span><span class="p">,</span><span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">splitMessage</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">RSADecryptText</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="c1">#Otherwise check if it was signed</span>
+                    <span class="n">msg</span><span class="p">,</span><span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">splitMessage</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="mi">256</span><span class="p">)</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">RSADecryptText</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">AESDecryptText</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">msg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Cannot decrypt the message&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">jsonMessage</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+                <span class="c1">#Registration</span>
+                <span class="k">if</span> <span class="n">jsonMessage</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">registerUser</span><span class="p">(</span><span class="n">jsonMessage</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
+                <span class="c1">#Login</span>
+                <span class="k">elif</span> <span class="n">jsonMessage</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">jsonMessage</span><span class="p">,</span><span class="n">msg</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
+                <span class="c1">#Find the state and the address of another user</span>
+                <span class="k">elif</span> <span class="n">jsonMessage</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;3&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">findUser</span><span class="p">(</span><span class="n">jsonMessage</span><span class="p">);</span>
+                <span class="c1">#Store the message waiting for the user</span>
+                <span class="k">elif</span> <span class="n">jsonMessage</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;4&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">StoreMessage</span><span class="p">(</span><span class="n">jsonMessage</span><span class="p">)</span>
+                <span class="c1">#logout</span>
+                <span class="k">elif</span> <span class="n">jsonMessage</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnlineClients</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getUserName</span><span class="p">()]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">setUserName</span><span class="p">(</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">serverNonce</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">generateNonce</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">addSecurityModule</span><span class="p">(</span><span class="n">Security</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getPemPath</span><span class="p">(),</span><span class="bp">self</span><span class="o">.</span><span class="n">XML</span><span class="o">.</span><span class="n">getBackupPemPath</span><span class="p">()))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logged</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="ClientHandler.login"><a class="viewcode-back" href="../rst/Server/ClientHandler.html#ClientHandler.ClientHandler.login">[docs]</a>    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">message</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">signature</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Login with inserted credential and search in the Database if the information</span>
+<span class="sd">            sended are correct, in this case if there are several messagges sended to the user when</span>
+<span class="sd">            he was offline, the server send them , specifying the sender and also the time (yy-mm-dd hh-mm-ss)</span>
+
+<span class="sd">            :type message: Dictionary</span>
+<span class="sd">            :param message: The dictionary created by the json message receveid</span>
+<span class="sd">            :type data: Bytes</span>
+<span class="sd">            :param data: The raw data reppresenting the message as Received</span>
+<span class="sd">            :type signature: Bytes</span>
+<span class="sd">            :param signature: The signature of data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;A client want to login&quot;</span><span class="p">)</span>
+
+        <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">getSecurityInfoFromUser</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;The user is not present&quot;</span><span class="p">)</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;?&quot;</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+            <span class="n">jsonResponse</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Login Failed&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">jsonResponse</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">AddClientKey</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="c1">#Check if the signature is valid</span>
+        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">VerifySignature</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">signature</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Signature Invalid, aborting login procedure&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1">#Check if this user is already Logged In</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnlineClients</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;?&quot;</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-1&quot;</span>
+            <span class="n">jsonResponse</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="n">signature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">getSignature</span><span class="p">(</span><span class="n">jsonResponse</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+            <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">RSAEncryptText</span><span class="p">(</span><span class="n">jsonResponse</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">ct</span><span class="o">+</span><span class="n">signature</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;The request is sended by an user already logged in&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">CredentialCorrect</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]):</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;?&quot;</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+            <span class="c1">#Generating the symmetric key used in communication with this client from now on</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">generateSymmetricKey</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">serverNonce</span><span class="p">)</span>
+            <span class="c1">#Adding the nonce used to encapsulate some information for the clients key exchange</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">AddPacketNonce</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;clientNonce&#39;</span><span class="p">])</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;clientNonce&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;clientNonce&#39;</span><span class="p">]</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;serverNonce&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serverNonce</span>
+            <span class="c1">#Getting the symmetric key as a dict in order to serialized in a json</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">getSymmetricKey</span><span class="p">(),</span><span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)</span>
+            <span class="c1">#Preparing the internal structure used to handle te connection between different clinet</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">setUserName</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">setClientPort</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;porta&#39;</span><span class="p">])</span>
+            <span class="n">key</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">getSecurityInfoFromUser</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getUserName</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">AddClientKey</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">addDHparameters</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">g</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Error in retriving security informations&quot;</span><span class="p">)</span>
+            <span class="n">jsonResponse</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="n">signature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">getSignature</span><span class="p">(</span><span class="n">jsonResponse</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+            <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">RSAEncryptText</span><span class="p">(</span><span class="n">jsonResponse</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+            <span class="c1">#Informing the client about the correctness of the login procedure</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">ct</span><span class="o">+</span><span class="n">signature</span><span class="p">)</span>
+            <span class="c1">#Adding the client to the list of active users</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">OnlineClients</span><span class="p">[</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logged</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">2048</span><span class="p">)</span>
+            <span class="n">pt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">AESDecryptText</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Error in decrypt with AESCGM&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;serverNonce&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">serverNonce</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">getMessageByReceiver</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getUserName</span><span class="p">())</span>
+                    <span class="n">response</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;There are no message for this client&quot;</span><span class="p">)</span>
+                        <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+                        <span class="n">jsonResponse</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+                        <span class="c1">#Informing the user that there are no message for him</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">lens</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;There are &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">lens</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; message for &quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getUserName</span><span class="p">())</span>
+                        <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">lens</span><span class="p">)</span>
+                        <span class="n">response</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                        <span class="n">response</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">msg</span>
+                        <span class="n">jsonResponse</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+                        <span class="c1">#Removing the messagess previously obtained</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">remove_waiting_messages_by_receiver</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getUserName</span><span class="p">())</span>
+                    <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">AESEncryptText</span><span class="p">(</span><span class="n">jsonResponse</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="n">ct</span> <span class="ow">is</span> <span class="kc">None</span> <span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Error in encrypt with AESCGM&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">nonce</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serverNonce</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Login completed correctly&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Connection is not fresh removing user&quot;</span><span class="p">)</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnlineClients</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getUserName</span><span class="p">()]</span>
+
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;?&quot;</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+            <span class="n">jsonResponse</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Login Failed&quot;</span><span class="p">)</span>
+            <span class="c1"># QUESTO NON VA CIFRATO</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">jsonResponse</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ClientHandler.registerUser"><a class="viewcode-back" href="../rst/Server/ClientHandler.html#ClientHandler.ClientHandler.registerUser">[docs]</a>    <span class="k">def</span> <span class="nf">registerUser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">message</span><span class="p">,</span><span class="n">digest</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Insert the information of the user in the database, checking if there is another user with the same Username</span>
+<span class="sd">            and sending back the result</span>
+
+<span class="sd">            :type message: Dictionary</span>
+<span class="sd">            :param message: The dictionary created by the received json message</span>
+<span class="sd">            :type digest: Bytes</span>
+<span class="sd">            :param digest: The digest created by the data corresponding to the message creator of the dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">checkdigest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">generateDigest</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">message</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">digest</span> <span class="o">!=</span> <span class="n">checkdigest</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Error in the hash,avorting the registration procedure&quot;</span><span class="p">)</span>
+            <span class="c1">#This recv is present because the client doesn&#39;t know if the signature is valid</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">2048</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;A client want to register&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Wait for the public key&quot;</span><span class="p">)</span>
+        <span class="c1">#Waiting for the public key</span>
+        <span class="n">publicKey</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">publicKey</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Problem during the receiving of the public key, aborting the registration procedure&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">AddClientKey</span><span class="p">(</span><span class="n">publicKey</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">insert_user</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">],</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;surname&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span><span class="n">publicKey</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="c1">#Send to the client that the request has succeded</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Registration failed&quot;</span><span class="p">)</span>
+            <span class="c1">#Send to the client that the request has failed</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+            <span class="n">jsonResponse</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="n">signature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">getSignature</span><span class="p">(</span><span class="n">jsonResponse</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+            <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">RSAEncryptText</span><span class="p">(</span><span class="n">jsonResponse</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">ct</span><span class="o">+</span><span class="n">signature</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1">#Preparing the nonce according the protocol</span>
+        <span class="n">response</span><span class="p">[</span><span class="s1">&#39;clientNonce&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;clientNonce&#39;</span><span class="p">]</span>
+        <span class="n">response</span><span class="p">[</span><span class="s1">&#39;serverNonce&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serverNonce</span>
+        <span class="n">jsonMessage</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="n">signature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">getSignature</span><span class="p">(</span><span class="n">jsonMessage</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">RSAEncryptText</span><span class="p">(</span><span class="n">jsonMessage</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">ct</span><span class="o">+</span><span class="n">signature</span><span class="p">)</span>
+
+        <span class="c1">#If the registration has succeded the server wait for the DH parameters generated by client</span>
+        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Wait for the DH parameters&quot;</span><span class="p">)</span>
+            <span class="c1">#Wait for the parameter</span>
+            <span class="n">ReceivedCt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MSG_LEN</span><span class="p">)</span>
+            <span class="c1">#Verifying that the paramter are correctly received</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ReceivedCt</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Error in receiving the dh parameters, removing the user&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Database</span><span class="o">.</span><span class="n">remove_user</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">])</span>
+                <span class="k">return</span>
+            <span class="n">ct</span><span class="p">,</span><span class="n">d</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">splitMessage</span><span class="p">(</span><span class="n">ReceivedCt</span><span class="p">,</span><span class="mi">256</span><span class="p">)</span>
+            <span class="n">pt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">RSADecryptText</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+            <span class="c1"># check if the signature is correct</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">VerifySignature</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span><span class="n">d</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">jsonResponse</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+                <span class="c1">#Check if it is the actual session</span>
+                <span class="k">if</span> <span class="n">jsonResponse</span><span class="p">[</span><span class="s1">&#39;serverNonce&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;serverNonce&#39;</span><span class="p">]</span> <span class="p">:</span>
+                    <span class="c1">#inserting the DH parameter in the DB</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">insertDHParameter</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">],</span><span class="n">jsonResponse</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">],</span><span class="n">jsonResponse</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;DH parameters inserted correctly&quot;</span><span class="p">)</span>
+                        <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">generateDigest</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+                        <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">RSAEncryptText</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+                        <span class="n">signature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">getSignature</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">ct</span><span class="o">+</span><span class="n">signature</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Registration completed correctly&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Error in the insertion of the DH parameters,removing the user&quot;</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">remove_user</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">])</span>
+                        <span class="k">return</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Session incorrect, removing user&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">remove_user</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">])</span>
+                    <span class="k">return</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Signature incorrect, removing the user&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">remove_user</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">])</span>
+                <span class="k">return</span></div>
+
+<div class="viewcode-block" id="ClientHandler.StoreMessage"><a class="viewcode-back" href="../rst/Server/ClientHandler.html#ClientHandler.ClientHandler.StoreMessage">[docs]</a>    <span class="k">def</span> <span class="nf">StoreMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">message</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Store the message in the database waiting that the client come back online</span>
+
+<span class="sd">            :type message: Dictionary</span>
+<span class="sd">            :param message: The dictionary created by the received json message</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sender</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getUserName</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Storing a message coming from &quot;</span><span class="o">+</span><span class="n">sender</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">insert_message</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;Receiver&#39;</span><span class="p">],</span><span class="nb">str</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;Text&#39;</span><span class="p">]),</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+        <span class="n">jsonResponse</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">AESEncryptText</span><span class="p">(</span><span class="n">jsonResponse</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Message stored correctly&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClientHandler.findUser"><a class="viewcode-back" href="../rst/Server/ClientHandler.html#ClientHandler.ClientHandler.findUser">[docs]</a>    <span class="k">def</span> <span class="nf">findUser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">message</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Find the information about the user (IPaddress:clientPort) related to the username passed as parameter</span>
+
+<span class="sd">            :type message: Dictionary</span>
+<span class="sd">            :param message: The dictionary created by the json message received</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;A client want to find another user&quot;</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnlineClients</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Cannot found the associate user&quot;</span><span class="p">)</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;!&quot;</span>
+            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-1&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnlineClients</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="c1">#Check if the client asks for its own import ip</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnlineClients</span><span class="p">[</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;The user want to talk with himself&quot;</span><span class="p">)</span>
+                    <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;!&quot;</span>
+                    <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-2&quot;</span>
+                 <span class="c1">#Otherwise the server provide the ip of the client and the clientPort and the Security parameter</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">FoundUser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnlineClients</span><span class="p">[</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+                    <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;!&quot;</span>
+                    <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">FoundUser</span><span class="o">.</span><span class="n">getIp</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;:&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">FoundUser</span><span class="o">.</span><span class="n">getClientPort</span><span class="p">())</span>
+                    <span class="n">response</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">FoundUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">getSerializedClientPublicKey</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+                    <span class="n">response</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">],</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">FoundUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">getDHparameters</span><span class="p">()</span>
+                    <span class="c1">#Preparing the packet with the information about the starter of the conversation</span>
+                    <span class="n">info</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="n">info</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">getSerializedClientPublicKey</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+                    <span class="n">info</span><span class="p">[</span><span class="s1">&#39;Nsa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">nonce</span>
+                    <span class="n">info</span><span class="p">[</span><span class="s1">&#39;Nsb&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">FoundUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">nonce</span>
+                    <span class="n">info</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getUserName</span><span class="p">()</span>
+                    <span class="n">pt</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">info</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+                    <span class="n">ct</span> <span class="o">=</span> <span class="n">FoundUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">PacketAESEncryptText</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">ct</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Error in encrpt the packet &quot;</span><span class="p">)</span>
+                        <span class="n">response</span><span class="p">[</span><span class="s1">&#39;lenInfo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="n">response</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">response</span><span class="p">[</span><span class="s1">&#39;lenInfo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+                        <span class="n">response</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span><span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Ip found: &quot;</span><span class="o">+</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1">#Check if the receiver is not registered</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">userIsRegistered</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;!&quot;</span>
+                    <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-3&quot;</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot; is not registered&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;The user &quot;</span><span class="o">+</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot; is offline&quot;</span><span class="p">)</span>
+                    <span class="n">response</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;!&quot;</span>
+                    <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+                    <span class="n">SecurityParameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">getSecurityInfoFromUser</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+                    <span class="n">response</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">SecurityParameters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">jsonResponse</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="c1">#Using symmetric key criptography because this request can be done only by logged user</span>
+        <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">GetSecurityModule</span><span class="p">()</span><span class="o">.</span><span class="n">AESEncryptText</span><span class="p">(</span><span class="n">jsonResponse</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">ct</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Error in encrptying with AES&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getSocket</span><span class="p">()</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClientHandler.getHandledUser"><a class="viewcode-back" href="../rst/Server/ClientHandler.html#ClientHandler.ClientHandler.getHandledUser">[docs]</a>    <span class="k">def</span> <span class="nf">getHandledUser</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            This function gets back the username associate to the handled client</span>
+
+<span class="sd">            :rtype: String</span>
+<span class="sd">            :return: The name of the user handled by this thread</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">HandledUser</span><span class="o">.</span><span class="n">getUserName</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MPS Protocol 1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Amedeo Pochiero.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
+</html>

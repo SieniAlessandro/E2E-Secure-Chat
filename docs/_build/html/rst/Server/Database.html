@@ -1,0 +1,355 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Database package &#8212; MPS Protocol 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Log module" href="Log.html" />
+    <link rel="prev" title="ClientHandler module" href="ClientHandler.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Log.html" title="Log module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ClientHandler.html" title="ClientHandler module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../Server.html" >List of Server’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="modules.html" accesskey="U">&lt;no title&gt;</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="database-package">
+<h1>Database package<a class="headerlink" href="#database-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-Database.Database">
+<span id="database-database-module"></span><h2>Database.Database module<a class="headerlink" href="#module-Database.Database" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Database.Database.Database">
+<em class="property">class </em><code class="descclassname">Database.Database.</code><code class="descname">Database</code><span class="sig-paren">(</span><em>_host</em>, <em>_port</em>, <em>_user</em>, <em>_password</em>, <em>_db</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="Database.Database.Database.CredentialCorrect">
+<code class="descname">CredentialCorrect</code><span class="sig-paren">(</span><em>_user</em>, <em>_password</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.CredentialCorrect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Control if the credential passed as arguments are corrected,</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>_user</strong> (<em>String</em>) – the username used to login</li>
+<li><strong>_password</strong> (<em>String</em>) – the password used to login</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Int</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>0 if The combination user/password is incorrect</p>
+<p>1 if he combination user/password is correct</p>
+<p>-1 if An error happened</p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.close_connection">
+<code class="descname">close_connection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.close_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the connection with the database</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.getMessageByReceiver">
+<code class="descname">getMessageByReceiver</code><span class="sig-paren">(</span><em>receiver</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.getMessageByReceiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obatain all the message waiting for that user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>receiver</strong> (<em>String</em>) – The username of the receiver</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Dictionary</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An array of dictionary containing all the information about the messages<p>[‘Sender’] means The sender of the message as String</p>
+<p>[‘Text’] means The text of the message as String</p>
+<p>[‘Time’] means The time in which the message is sended as String</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.getSecurityInfoFromUser">
+<code class="descname">getSecurityInfoFromUser</code><span class="sig-paren">(</span><em>_user</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.getSecurityInfoFromUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain the security parameter of an user as a list</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>_user</strong> (<em>String</em>) – The username of the user of which we want the security information</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">[String,Int,Int] or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The list of security information “Public key and DH parameters as [PublicKey,G,P] or None if
+an error happened during the search of the information</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.insertDHParameter">
+<code class="descname">insertDHParameter</code><span class="sig-paren">(</span><em>user</em>, <em>p</em>, <em>g</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.insertDHParameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert the Diffie Helmann parameter after of the registered user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>user</strong> (<em>String</em>) – the username associated with the parameter</li>
+<li><strong>p</strong> (<em>Int</em>) – the P parameter</li>
+<li><strong>g</strong> (<em>Int</em>) – the G parameter</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Int</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>0 if the insertion is done correctly</p>
+<p>-1 if an error happened</p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.insert_message">
+<code class="descname">insert_message</code><span class="sig-paren">(</span><em>sender</em>, <em>receiver</em>, <em>message</em>, <em>time</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.insert_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert the message in the database with all its own information,</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sender</strong> (<em>String</em>) – The username of the sender</li>
+<li><strong>receiver</strong> (<em>String</em>) – The username of the receiver</li>
+<li><strong>message</strong> (<em>String</em>) – The text of the message</li>
+<li><strong>time</strong> (<em>String</em>) – The time in which the message is sended (dd-mm-yyyy)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Int</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>0 if all is done correctly</p>
+<p>-1 if an error happened</p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.insert_user">
+<code class="descname">insert_user</code><span class="sig-paren">(</span><em>user</em>, <em>password</em>, <em>name</em>, <em>surname</em>, <em>email</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.insert_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a new user a is invoked when a new user has completed the registration form on the client application,</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>user</strong> (<em>String</em>) – username</li>
+<li><strong>password</strong> (<em>String</em>) – password</li>
+<li><strong>name</strong> (<em>String</em>) – Name of the user</li>
+<li><strong>surname</strong> (<em>String</em>) – surname of the user</li>
+<li><strong>email</strong> (<em>String</em>) – Email of the user</li>
+<li><strong>key</strong> (<em>String</em>) – The public ket generated by the user</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Int</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>0 if all is done correctly</p>
+<p>-1 if an error happened</p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.remove_user">
+<code class="descname">remove_user</code><span class="sig-paren">(</span><em>user</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.remove_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove that user from the database
+:type user: String
+:param user: The username of the user to remove</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Int</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">0 if the operation is done correctly<p>-1 if an error happened</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.remove_waiting_messages_by_receiver">
+<code class="descname">remove_waiting_messages_by_receiver</code><span class="sig-paren">(</span><em>receiver</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.remove_waiting_messages_by_receiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all the message destined to the user passed as argument from the database
+:type receiver: String
+:param receiver: The username of the user we want to delete all the messages</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Int</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">0 if the operation is done correctly<p>-1 if an error happened</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Database.Database.Database.userIsRegistered">
+<code class="descname">userIsRegistered</code><span class="sig-paren">(</span><em>_user</em><span class="sig-paren">)</span><a class="headerlink" href="#Database.Database.Database.userIsRegistered" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the user is registred,</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>_user</strong> (<em>String</em>) – The username to check</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Int</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">0 if the username is not present in the database<p>1 if the username is present in the database</p>
+<p>-1 if An error happened</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Database">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-Database" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Database package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-Database.Database">Database.Database module</a></li>
+<li><a class="reference internal" href="#module-Database">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ClientHandler.html"
+                        title="previous chapter">ClientHandler module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Log.html"
+                        title="next chapter">Log module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/rst/Server/Database.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Log.html" title="Log module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ClientHandler.html" title="ClientHandler module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../Server.html" >List of Server’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="modules.html" >&lt;no title&gt;</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Amedeo Pochiero.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
+</html>
