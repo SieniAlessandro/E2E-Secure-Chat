@@ -127,7 +127,8 @@ class ChatWindow(Frame):
             :param message: message to be sent
         """
         self.addBoxMessageElement(message, datetime.datetime.now(), True)
-        status = self.client.sendClient(str(self.chatName.get().lower()), message)
+        #the False is used for the non-logout messages
+        status = self.client.sendClient(str(self.chatName.get().lower()), message, False)
         self.chatList.sortChatList(self.chatName.get().lower())
         self.updateState(status)
     def pressEscEvent(self, event):

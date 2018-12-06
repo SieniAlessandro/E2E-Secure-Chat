@@ -155,7 +155,7 @@ class ConnectionHandler(Thread) :
                 #print('Message received: ' + msg + ' length : ' + length)
                 dict = json.loads(msg)
                 print(dict)
-                if(dict['logout'] == 1):
+                if dict['logout']:
                     self.Chat.chatListDict[peerUsername][1].updateState(0)
                     self.Security.resetSymmetricKeyClient(peerUsername)
                     return -1

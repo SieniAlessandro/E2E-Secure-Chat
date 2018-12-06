@@ -404,6 +404,8 @@ class Client:
                 return 0
 
         self.Log.log('startConnection correctly concluded')
+        self.Log.log(msg)
+
         return int(value)
 
     def onlineKeyExchangeProtocol(self, receiver, dict):
@@ -414,6 +416,8 @@ class Client:
             :param receiver: the client with which we want to exchange the key with diffie-hellman
             :type dict: Dict
             :param dict: dictionary that contains the symmetric message destinated to the receiver, received from the server, and its length informations
+            :rtype: Int
+            :return: 1 if all is correct and client is online, 0 if all is correct and client is offline, -1 login not done, -2 talking to yourself, -3 receiver does not exist, -4 security problem
         """
         #info contains the symmetric message from the server to the client
         cipherText = dict['info'].to_bytes(dict['lenInfo'], byteorder='big')
@@ -437,115 +441,121 @@ class Client:
         sign2 = self.Security.getSignature(pt2)
         self.socketClient[receiver].send(ct1+sign1+ct2+sign2)
 
-        print('sended all the M3 message')
-        ############GETTING THE PUBLIC Y_B ##################
-        #The received message is composed by two messages
+        self.Log.log('Sended M3 message')
+        #The received message is composed by two messages and the two parts
+        #together are the public value computed by the receiver needed to compute the
+        #symmetric key
         msg = self.socketClient[receiver].recv(self.BUFFER_SIZE)
         msg1 = msg[:int(len(msg)/2)]
-        msg2 = msg[int(len(msg)/2):]
+        msg2 = msg[int0(len(msg)/2):]
         signature = msg1[-256:]
         msg = msg1[:-256]
         pt1 = self.Security.RSADecryptText(msg)
         if not self.Security.VerifySignature(pt1, signature, receiver):
-            print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
+            self.Log.log('The integrity is not valid for the receiver. Signature:\n' + str(signature))
             return -4
         else:
-            print('integrity of the DH shared_key is valid')
+            self.Log.log('integrity of the DH shared_key is valid')
 
         signature = msg2[-256:]
         msg = msg2[:-256]
         pt2 = self.Security.RSADecryptText(msg)
         if not self.Security.VerifySignature(pt2, signature, receiver):
-            print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
+            self.Log.log('The integrity is not valid for the receiver. Signature:\n' + str(signature))
             return -4
         else:
-            print('integrity of the DH shared_key is valid')
+            self.Log.log('integrity of the DH shared_key is valid')
 
         sharedKey = (pt1+pt2)
-        print('YB è : ' + str(sharedKey))
-
+        #Obtain all the M4 message
         msg = self.socketClient[receiver].recv(self.BUFFER_SIZE)
         signature = msg[-256:]
         msg = msg[:-256]
         msg = self.Security.RSADecryptText(msg)
         dictBin = zlib.decompress(msg)
         if not self.Security.VerifySignature(dictBin, signature, receiver):
-            print('The integrity is not valid for the sender. Signature:\n' + signature)
+            self.Log.log('The integrity is not valid for the sender. Signature:\n' + signature)
             return -4
         else:
-            print('integrity of the DH shared_key is valid')
+            self.Log.log('integrity of the DH shared_key is valid')
         dict = json.loads(dictBin)
-        print('message M4 received ' + json.dumps(dict))
-        print('starting computing key')
+        self.Log.log('message M4 received ' + json.dumps(dict))
+
+        #0 is the nonce used only this time and only one time for symmetric key
         self.Security.computeDHKey(receiver, sharedKey, 0)
-        print('Computed key in the sender')
-        ###############VERIFICA CHE IL NONCE SIA GIUSTO############
-        ###TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO###
-        ###########################################################
         self.Security.addClientNonce(receiver, 0)
 
         Nb = dict['Nb']
-        print('CRIPTATO CON AES ' + str(Nb))
         temp1 = Nb.to_bytes(dict['lenNb'], byteorder='big')
         temp2 = self.Security.AESDecryptText(temp1, receiver)
-        #print(temp2)
+
         Nb = int.from_bytes(temp2, byteorder='big')
         self.Security.addClientNonce(receiver, Nb)
-        print('Invio M5')
+        self.Log.log('Invio M5')
         Nb = self.Security.AESEncryptText(temp2, receiver)
         ret = self.socketClient[receiver].send(Nb)
         if ret == 0:
-            msg = 'Error in sending the message to the client connection redirected to the server'
+            self.Log.log('Error in sending the message to the client connection redirected to the server')
             self.socketClient[receiver] = 'server'
             return 0
         return 1
 
 
     def sendMessageOffline(self, receiver, text, time):
-        '''
-            Used to send and store a message in the server for an offline user
-            The message is sent with the prefix '4|'
-            if the message has been sent correctly return 1
-            if there was an error in the db and the message has not been saved return 0
-            otherwise return -1 for general errors
-        '''
+        """
+            Used to send and store a message in the server destinated to an
+            offline user, passed as the parameter receiver
+
+            :type receiver: String
+            :param receiver: the receiver of the message
+            :type text: String
+            :param text: the text of the message
+            :type time: String
+            :param time: the moment when the message has been sent
+            :rtype: Int
+            :return: 0 if all is correct and the message has been store in the server, -1 if there are some problems
+        """
         msg = {}
         msg['id'] = '4'
         msg['Receiver'] = receiver
         t = self.Security.RSAEncryptText(text.encode(self.CODE_TYPE), self.Security.getKeyClient(receiver))
-        #print(len(t))
         msg['Text'] = int.from_bytes(self.Security.RSAEncryptText(text.encode(self.CODE_TYPE), self.Security.getKeyClient(receiver)), byteorder='big')
         msg['Time'] = time
         msgToSend = json.dumps(msg)
-        print('message sent to server')
         self.sendServer(msgToSend, 'aes')
 
         value = int(self.receiveServer()['status'])
         if value == 1:
-            self.Log.log('Message send correctly to be stored in the Server')
+            self.Log.log('Message insert in the waiting list of the user ' + receiver)
         elif value == 0:
             self.Log.log('Error in the database! Try again later!')
         return value-1
 
-    def sendClient(self, receiver, text, logout=None):
-        '''
-            Used to send a message [text] to the user [receiver]
-            checks if there is an existing connection with the user [receiver]
-            if not then it tries to create the p2p connection if not possible
-            and the user exists then send the message to the server
-            Handles the passage of the receiver from online to offline
-        '''
-        print('sendClient chiamata -> logout:')
-        print(logout)
+    def sendClient(self, receiver, text, logout):
+        """
+            Used to send a message, text, to the user, receiver,
+            checks if there is an existing connection with the user,
+            if not then it tries to create the p2p connection and send the message
+            to that communication; if not possible and the user exists then send
+            the message to the server to store it
+            At the end handles the passage of the receiver from online to offline
+            with the except block
+            :type receiver: String
+            :param receiver: the receiver of the message
+            :type text: String
+            :param text: the text of the message
+            :type logout: Boolean
+            :param logout: True if it is a logout message, False otherwise
+            :rtype: Int
+            :return: 1 if the message is sent to the online user, 0 to the offline user, -1 login not done by the local user, -2 talking to yourself, -3 receiver does not exist, -4 security problem
+        """
         if not receiver in self.socketClient.keys() or self.socketClient[receiver] == 'server' :
             value = self.startConnection(receiver)
             if value == 0 : #client offline
                 self.socketClient[receiver] = 'server'
             elif value == 1 : #client online, connection established correctly
                 self.Log.log('Connection established with ' + receiver)
-                #self.socketClient[receiver].send(text.encode(self.CODE_TYPE))
-            else :
-                print('Client does not exist!!!')
+            else: # problem in the startConnection
                 return value
 
         msg = self.Message.createMessageJson(text, str(datetime.datetime.now()), self.username, logout)
@@ -555,56 +565,81 @@ class Client:
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()))
         else :
             try:
-                #value = self.socketClient[receiver].send(str(len(msg)).encode(self.CODE_TYPE))
-                #print('sended ' + str(len(msg)))
-                self.Log.log('Message to be send : ' + msg)
                 pt = msg.encode(self.CODE_TYPE)
-                print('Cripto il messaggio da inviare con AES')
                 ct = self.Security.AESEncryptText(pt, receiver)
-                #ct = pt
                 value = self.socketClient[receiver].send(ct)
-                print('message sended to client')
                 if value > 0:
+                    self.Log.log('message sent to ' + receiver)
                     self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
                     return 1
                 else :
                     raise ConnectionResetError()
             except:
-                self.Log.log(receiver + 'has disconnected')
+                self.Log.log(receiver + ' has disconnected')
                 self.Security.resetSymmetricKeyClient(receiver)
-                #possible signal to FrontEnd
                 self.socketClient[receiver] = 'server'
-                return self.sendClient(receiver, text)
+                #use of sendClient instead of sendMessageOffline to avoid false negatives
+                return self.sendClient(receiver, text, False)
 
     def setAutoLogin(self, remember, username, password):
-        self.XML.setAutoLogin(remember, username, password)
+        """
+            used to do the set the auto login functionality when the user starts the application
+            :type remember: Int
+            :param remember: 1 if enabled, 0 otherwise
+            :type username: String
+            :param username: the username that must be saved
+            :type password: String
+            :param password: the password that must be saved
+        """
+        if remember:
+            self.XML.setAutoLogin(remember, username, password)
+        else:
+            self.XML.setAutoLogin(remember, "", "")
 
     def checkAutoLogin(self):
+        """
+            check if the auto login is enabled, if it is perform the login
+            :rtype: Int
+            :return: -3 if the auto login is not enable, otherwise return the login values
+        """
         if not self.XML.getRemember():
-            return -2
+            return -3
         else :
             self.username = self.XML.getUserName()
             return self.login(self.username, self.XML.getUserPwd())
 
     def logout(self, ordinatedUserList = None):
+        """
+            performs the logout from the application, informs the server and all
+            the connected peers, close the sockets with the peers, and saves the
+            conversations locally ordinated by time using the ordinatedUserList
+            :type ordinatedUserList: List or None
+            :param ordinatedUserList: the list of the users ordinated by the time of the last message in the conversation
+        """
         msg = {}
         msg['id'] = '0'
         self.sendServer(json.dumps(msg), 'aes')
-        print(self.socketClient.keys())
+        self.Log.log('Logut sent to the server')
         for x in self.socketClient.keys() :
-            print(x)
             if not self.socketClient[x] == 'server' :
-                self.sendClient(x, 'logout', 1)
+                self.sendClient(x, 'logout', True)
                 self.socketClient[x].shutdown(socket.SHUT_RDWR)
                 self.socketClient[x].close()
         if self.username is not None:
             self.Message.saveConversations(self.username, ordinatedUserList)
+        #Reset the parameters of the user
         self.username = None
         self.Security = SecurityClient(self.XML.getSecurityServerKey())
+        #stop the thread that receives the message
         self.connectionHandler.stop()
         self.connectionHandler = None
 
-    def onClosing(self, ordinatedUserList = None): #clean up before close
+    def onClosing(self, ordinatedUserList = None):
+        """
+            clean up before close
+            :type ordinatedUserList: List or None
+            :param ordinatedUserList: The list of the ordinated user list
+        """
         #close the socket connection
         self.XML.saveXML()
         if ordinatedUserList is not None :
@@ -614,5 +649,5 @@ class Client:
             self.socketServer.close()
         except:
             os._exit(0)
-        print('Exiting....')
+        self.Log.log('Exiting...')
         os._exit(0)
