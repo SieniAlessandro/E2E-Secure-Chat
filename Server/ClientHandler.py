@@ -43,9 +43,7 @@ class ClientHandler(Thread):
         self.logged = False
         self.log.log("Client handled has address: "+ self.HandledUser.getIp() +" and port "+str(self.HandledUser.getServerPort()))
         self.serverNonce = self.HandledUser.GetSecurityModule().generateNonce(11)
-        #Setting a timeout in order to handle eventually fault during the communication
-        #self.HandledUser.getSocket().settimeout(60)
-    #Method whose listen the message coming from the handled client,showing its content
+        
     def run(self):
         """ Waiting for the message coming from the associate client """
         while self._is_stopped == False:
