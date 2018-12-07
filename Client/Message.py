@@ -36,12 +36,8 @@ class Message :
             :param sender: The sender of the message
             :type logout: Boolean
             :param logout: specify if it is a logout message or not
-            :rtype: Dict
-            :return:
-                    msg['text'] = text
-                    msg['time'] = time
-                    msg['sender'] = sender
-                    msg['logout'] = logout
+            :rtype: String
+            :return: The json string containing the dictionary
         """
         msg = {}
         msg['text'] = text

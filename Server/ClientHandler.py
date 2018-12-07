@@ -158,8 +158,8 @@ class ClientHandler(Thread):
             else:
                 self.log.log("Error in retriving security informations")
             jsonResponse = json.dumps(response)
-            signature = self.HandledUser.GetSecurityModule().getSignature(jsonResponse.encode("utf-8"))
-            ct = self.HandledUser.GetSecurityModule().RSAEncryptText(jsonResponse.encode("utf-8"))
+            signature = self.HandledUser.GetSecurityModule().getSignature(jsonResponse.encode('utf-8'))
+            ct = self.HandledUser.GetSecurityModule().RSAEncryptText(jsonResponse.encode('utf-8'))
             #Informing the client about the correctness of the login procedure
             self.HandledUser.getSocket().send(ct+signature)
             #Adding the client to the list of active users
