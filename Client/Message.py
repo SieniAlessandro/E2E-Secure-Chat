@@ -28,6 +28,7 @@ class Message :
     def createMessageJson(self, text, time, sender, logout) :
         """
             Create the dictionary with the passed data
+
             :type text: String
             :param text: the text of the message
             :type time: String
@@ -50,6 +51,7 @@ class Message :
         """
             creates a dictionary from the passed data and inserts it in the
             Conversation from the local user and the passed user
+
             :type user: String
             :param user: the user relative to the active conversation
             :type text: String
@@ -82,6 +84,7 @@ class Message :
     def retrieveAllConversations(self) :
         """
             Used to get all the conversations
+
             :rtype: Dict
             :return: The dictionary containing all the conversations with all the users
                     Conversations[user][index][text]
@@ -94,6 +97,7 @@ class Message :
     def retrieveConversation(self, user) :
         """
             Used to get the conversation with the specified user
+            
             :type user: String
             :param user: the user of the wanted conversation
             :rtype: Dict or Int

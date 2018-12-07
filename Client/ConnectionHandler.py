@@ -54,6 +54,7 @@ class ConnectionHandler(Thread) :
         """
             Handle the connection with a the user connected to the socket passed as param conn.
             Call the Online Key Exchange Protocol as the peer receiving the connection
+
             :type conn: Socket
             :param conn: the socket used for the communication with the peer
         """
@@ -121,6 +122,7 @@ class ConnectionHandler(Thread) :
 
         #print('messaggio del server visto con successo!')
         if not self.Security.isSymmetricKeyClientPresent(peerUsername):
+            #The msg contains 2 messages
             msg = conn.recv(self.BUFFER_SIZE)
             msg1 = msg[:int(len(msg)/2)]
             msg2 = msg[int(len(msg)/2):]
@@ -128,27 +130,27 @@ class ConnectionHandler(Thread) :
             msg = msg1[:-256]
             plainText1 = self.Security.RSADecryptText(msg)
             if not self.Security.VerifySignature(plainText1, signature, peerUsername):
-                print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
+                self.Log.log('The integrity is not valid for the receiver. Signature:\n' + str(signature))
                 return
             else:
-                print('integrity of the DH shared_key is valid')
+                self.Log.log('integrity of the DH shared_key is valid')
 
             signature = msg2[-256:]
             msg = msg2[:-256]
             plainText2 = self.Security.RSADecryptText(msg)
             if not self.Security.VerifySignature(plainText2, signature, peerUsername):
-                print('The integrity is not valid for the receiver. Signature:\n' + str(signature))
+                self.Log.log('The integrity is not valid for the receiver. Signature:\n' + str(signature))
                 return
             else:
-                print('integrity of the DH shared_key is valid')
+                self.Log.log('integrity of the DH shared_key is valid')
 
             sharedKey = (plainText1+plainText2)
-            #print('YA è : ' + str(sharedKey))
+            self.Log.log('Obtained all the M3 message')
 
             self.Security.computeDHKey(peerUsername, sharedKey,1)
-            #print('KEY COMPUTED!!!')
 
             plainText = self.Security.getSharedKey(self.username)
+            #plaintText brocken in two messages because it's too big for be encrypted with RSA
             plainText1 = plainText[:round(len(plainText)/2)]
             plainText2 = plainText[round(len(plainText)/2):]
 
@@ -159,48 +161,41 @@ class ConnectionHandler(Thread) :
 
             conn.send(cipherText1+sign1+cipherText2+sign2)
 
-            #print('sended all mine Y')
             plainText = {}
-            #        plainText['sharedKey'] = int.from_bytes(self.Security.getSharedKey(self.username), byteorder='big')
             plainText['Nsa'] = dict['Nsa']
             Nb = self.Security.generateNonce(self.sizeNonce)
             self.Security.addClientNonce(peerUsername,0)
 
+            #Nonce used for the communication between the two peers
             NbAES = self.Security.AESEncryptText(Nb.to_bytes(self.sizeNonce,byteorder='big'), peerUsername)
             plainText['lenNb'] = len(NbAES)
             plainText['Nb'] = int.from_bytes(NbAES, byteorder='big')
-            #print('CRIPTATO CON AES:' + str(plainText['Nb']))
             self.Security.addClientNonce(peerUsername,Nb)
             plainTextBit = json.dumps(plainText).encode('utf-8')
-
+            #VEDI SE SI PUò RIMUOVERE
             plainTextBitCompress = zlib.compress(plainTextBit)
 
-            #print('Lunghezza messaggio M4: ' + str(len(ptBitCompress)))
             cipherText = self.Security.RSAEncryptText(plainTextBitCompress, serialization.load_pem_public_key(dict['key'].encode('utf-8'), backend=default_backend()))
             sign = self.Security.getSignature(plainTextBit)
-            #print('message prepared properly')
             conn.send(cipherText+sign)
-            #print('message M4 sended to ' + peerUsername)
+            self.Log.log('message M4 sended to ' + peerUsername)
 
             msg = conn.recv(self.BUFFER_SIZE)
+            self.Log.log('message M5 received')
             plainText = int.from_bytes(self.Security.AESDecryptText(msg, peerUsername), byteorder='big')
             if Nb == plainText:
-                print('Nb da usare ' + str(Nb))
-                print('the connection has been set up in the correct way')
+                self.Log.log('onlineKeyExchangeProtocol ended in the correct way')
             else:
-                print('Mio Nb: ' + str(Nb))
-                print('Ricevuto Nb: ' + str(plainText))
+                self.Log.log('Problems with the freshness of the message')
                 return
 
         return peerUsername
 
-    '''
-        In a loop accept new connection with other clients
-        and starts a new thread that will handle the single connection
-        {this is done in order to distinguish the single connection
-         with the specific user}
-    '''
     def run(self) :
+        """
+            Accept new connections with other clients
+            and starts a new thread that will handle the single connection
+        """
         try:
             while True:
                 self.socketListener.listen(50)
@@ -213,7 +208,10 @@ class ConnectionHandler(Thread) :
         except:
             self.Log.log('Connection Handler has been closed')
             self.socketListener.close()
-            return -1
+            return
 
     def stop(self) :
+        """
+            Close the p2p socket
+        """
         self.socketListener.close()
