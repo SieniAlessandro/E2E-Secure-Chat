@@ -43,6 +43,7 @@
 <dt id="XMLClientHandler.XMLClientHandler">
 <em class="property">class </em><code class="descclassname">XMLClientHandler.</code><code class="descname">XMLClientHandler</code><a class="headerlink" href="#XMLClientHandler.XMLClientHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Module used to read the configuration of the client from an XML file</p>
 <dl class="attribute">
 <dt id="XMLClientHandler.XMLClientHandler.PATH">
 <code class="descname">PATH</code><em class="property"> = 'Local/settings.xml'</em><a class="headerlink" href="#XMLClientHandler.XMLClientHandler.PATH" title="Permalink to this definition">¶</a></dt>
@@ -51,62 +52,164 @@
 <dl class="method">
 <dt id="XMLClientHandler.XMLClientHandler.getEnableLog">
 <code class="descname">getEnableLog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLClientHandler.XMLClientHandler.getEnableLog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the boolean variable meaning if the Log must be enable or not</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The boolean variable meaning if the Log must be enable or not</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLClientHandler.XMLClientHandler.getRemember">
 <code class="descname">getRemember</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLClientHandler.XMLClientHandler.getRemember" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the boolean variable meaning if the AutoLogin is enabled or not</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The boolean variable meaning if the AutoLogin is enabled or not</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLClientHandler.XMLClientHandler.getSecurityParameters">
 <code class="descname">getSecurityParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLClientHandler.XMLClientHandler.getSecurityParameters" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the path of the diffie hellman public parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The path of the diffie hellman public parameters</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLClientHandler.XMLClientHandler.getSecurityPath">
 <code class="descname">getSecurityPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLClientHandler.XMLClientHandler.getSecurityPath" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the path of the security folder</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The path of the security folder</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLClientHandler.XMLClientHandler.getSecurityServerKey">
 <code class="descname">getSecurityServerKey</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLClientHandler.XMLClientHandler.getSecurityServerKey" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the path of the server public key</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The path of the server public key</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLClientHandler.XMLClientHandler.getServerAddress">
 <code class="descname">getServerAddress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLClientHandler.XMLClientHandler.getServerAddress" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the IP address of the server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The IP address of the server</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLClientHandler.XMLClientHandler.getServerPort">
 <code class="descname">getServerPort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLClientHandler.XMLClientHandler.getServerPort" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the port used by the server to listen for new requests</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Int</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The port used by the server to listen for new requests</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLClientHandler.XMLClientHandler.getUserName">
 <code class="descname">getUserName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLClientHandler.XMLClientHandler.getUserName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the name of the username to do the AutoLogin</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The name of the username to do the AutoLogin</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLClientHandler.XMLClientHandler.getUserPwd">
 <code class="descname">getUserPwd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLClientHandler.XMLClientHandler.getUserPwd" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtain the name of the password to do the AutoLogin</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The name of the password to do the AutoLogin</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLClientHandler.XMLClientHandler.initilizeXML">
 <code class="descname">initilizeXML</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLClientHandler.XMLClientHandler.initilizeXML" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Intialize a new XML file with the default configuration</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLClientHandler.XMLClientHandler.saveXML">
 <code class="descname">saveXML</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#XMLClientHandler.XMLClientHandler.saveXML" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Save the XML file</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="XMLClientHandler.XMLClientHandler.setAutoLogin">
 <code class="descname">setAutoLogin</code><span class="sig-paren">(</span><em>remember</em>, <em>user</em>, <em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#XMLClientHandler.XMLClientHandler.setAutoLogin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Modify the values relative to the AutoLogin parameters</p>
+</dd></dl>
 
 </dd></dl>
 
