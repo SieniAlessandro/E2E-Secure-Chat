@@ -43,7 +43,7 @@ class ClientHandler(Thread):
         self.logged = False
         self.log.log("Client handled has address: "+ self.HandledUser.getIp() +" and port "+str(self.HandledUser.getServerPort()))
         self.serverNonce = self.HandledUser.GetSecurityModule().generateNonce(11)
-        
+
     def run(self):
         """ Waiting for the message coming from the associate client """
         while self._is_stopped == False:
