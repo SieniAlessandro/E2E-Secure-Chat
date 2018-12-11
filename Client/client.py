@@ -559,14 +559,19 @@ class Client:
                 return value
 
         msg = self.Message.createMessageJson(text, str(datetime.datetime.now()), self.username, logout)
-        if self.socketClient[receiver] == 'server' :
+        if self.socketClient[receiver] == 'server':
+            if logout:
+                return 0
             #Check after x time if receiver is now online
             self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()))
         else :
             try:
                 pt = msg.encode('utf-8')
-                ct = self.Security.AESEncryptText(pt, receiver)
+                if self.Security.isSymmetricKeyClientPresent(receiver):
+                    ct = self.Security.AESEncryptText(pt, receiver)
+                else:
+                    raise Exception()
                 value = self.socketClient[receiver].send(ct)
                 if value > 0:
                     self.Log.log('message sent to ' + receiver)

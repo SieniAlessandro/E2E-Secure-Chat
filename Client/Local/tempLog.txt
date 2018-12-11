@@ -1,44 +1,106 @@
-2018-12-11 11:46:05	Message Handler has been initialized!
-2018-12-11 11:46:05	Client initialized
-2018-12-11 11:46:05	Connection established with the server
-2018-12-11 11:46:13	Starting the Authentication Protocol
-2018-12-11 11:46:13	Message sent to the Server
-2018-12-11 11:46:13	Sent M1
-2018-12-11 11:46:13	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 3709728114278031285202564351, "serverNonce": 87040279819777908224750056, "key": 91978324638183362939281276910232574684}
-2018-12-11 11:46:13	Received M2
-2018-12-11 11:46:13	Parameters correctly loaded
-2018-12-11 11:46:13	Message sent to the Server
-2018-12-11 11:46:13	Sent M3
-2018-12-11 11:46:13	Authentication Protocol completed correctly
-2018-12-11 11:46:13	Succesfull logged in as pochiero
-2018-12-11 11:46:13	Received a message from the SERVER: {"id": "0"}
-2018-12-11 11:46:13	No messages stored in the server
-2018-12-11 11:46:13	MessageHandler Initialized! Associated port: 46670
-2018-12-11 11:46:13	All the conversations has been charged : {"magherini": {"0": {"text": "ciao", "time": "2018-12-11 10:08:43.878263", "whoSendIt": 0}, "1": {"text": "ciao", "time": "2018-12-11 10:36:37.663498", "whoSendIt": 0}, "2": {"text": "o", "time": "2018-12-11 11:09:21", "whoSendIt": 1}, "3": {"text": "va", "time": "2018-12-11 11:29:09.433650", "whoSendIt": 1}, "4": {"text": "benissimo", "time": "2018-12-11 11:29:13.350508", "whoSendIt": 0}, "5": {"text": "logout", "time": "2018-12-11 11:29:27.615167", "whoSendIt": 0}}}
-2018-12-11 11:46:14	Run of startConnection
-2018-12-11 11:46:14	Message sent to the Server
-2018-12-11 11:46:14	Sent M1 of Online Key Exchange and Offline Communication
-2018-12-11 11:46:14	Received a message from the SERVER: {"id": "!", "status": "127.0.0.1:12148", "key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0NY9AezZrDkREcG+TKrv\nb+eSgIoV4+61FNzFlu761jZzuxAE9pVUhnOzRvwtKDP0WIXun0rInwqSyB0lQnda\nBD2izSssjt8Ni3PVmxiHeM21JdwIPMDmqQkI9xJMY2pVV9TEvnFkru0bt7ag2Jk/\nSgc1h5Ow7NtoNRY+cfQ419l52LMxFRbEQSPJ9MIkuuzAffqDqFPJLEaRdUUZNwiT\nd3irsgSqpFjcigEP2ZG/WCTI9ib9ugqqy/h5tAtU+fnzjDOPmgldNUEMNTWyeHrM\n+6mvIzcq2Ic4uEOlr4Qnh12tu7jAovBsraQbISdMbegmi/nPU/lGN3s5OeM+/WVe\nuwIDAQAB\n-----END PUBLIC KE2018-12-11 11:46:14	Accepted a new connecion
-2018-12-11 11:46:14	integrity of the DH shared_key is valid
-2018-12-11 11:46:14	integrity of the DH shared_key is valid
-2018-12-11 11:46:14	Obtained all the M3 message
-2018-12-11 11:46:14	message M4 sended to pochiero
-2018-12-11 11:46:14	message M5 received
-2018-12-11 11:46:14	onlineKeyExchangeProtocol ended in the correct way
-2018-12-11 11:46:18	pochiero send : {"text": "asdas\u00f9", "time": "2018-12-11 11:46:18.171577", "sender": "pochiero", "logout": false}
-2018-12-11 11:46:18	Added message to the conversation : {"text": "asdas\u00f9", "time": "2018-12-11 11:46:18.171577", "whoSendIt": 1}
-2018-12-11 11:46:20	Run of startConnection
-2018-12-11 11:46:20	Message sent to the Server
-2018-12-11 11:46:20	Sent M1 of Online Key Exchange and Offline Communication
-2018-12-11 11:46:20	Received a message from the SERVER: {"id": "!", "status": "127.0.0.1:46670", "key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA/EwrG6rNTVcvH3ddky4G\nAymOo/AjFVpFRq59F5lKTwIada3v37SRV5mv66UZqNtC1bTK2a2GCjWhVUAzdYhv\nJON8MP/KaupUi1M3HANNMssSX4IZu7EX157TpeCFaIQE4rL6v/qXXruEMMgHEul6\nEqHqSpaoLBntqQOWUu7vMsr73N5Xup8dn4quIah4/q6R83yPset3D59JadvWfMHX\nWZhWjG2ndPctr5DxpcpV07C+SwkrEPSAx55OPTMoMrKlGZChLiat/p3bAWOdhfYA\nFtFNkMVRyQBeCdK9nqWl8JyONxLFL1xH2ruHyBLt0FepOwolpAIRoLnhpdqIbn3k\n4QIDAQAB\n-----END PUBLIC KEY-----\n", "p": "11518166619684502740086072749703081040455112629121066227526354410570690699760363121247716751490206514429364507833577956248904179347346382078925180103073203", "g": "2", "lenInfo": 583, "info": 416445295018105307422512519752940238259092539507086960302399466089147758025298224756816603169021847456894777082974989351830193640868329993411442731247834099146689962207178952726305979735836131069198813513804935566119841947634266512380962355764997534484820043166357709964260643269789843986597685902223865299717530658774844527460450682341599494399959338305470847078842117057337471319291480758667685009537696558048746660139790677398835658671077940630627018353963394301119745103099241221757877018233170968152889966758666645290805648878363915381281263068950153661022582022037767322319548952750411031210517611799642522265199528465296857925098777077952549610291302728944056201556554902627406864212713806790103450026046048974460841818307637743561990147789344869567070999458947205095546442176743409048238650441352030488084083632804619141066876736934449426914159722069425286613643293412018-12-11 11:46:20	Accepted a new connecion
-2018-12-11 11:46:20	magherini send : {"text": "afdgdfg", "time": "2018-12-11 11:46:20.712396", "sender": "magherini", "logout": false}
-2018-12-11 11:46:20	Added message to the conversation : {"text": "afdgdfg", "time": "2018-12-11 11:46:20.712396", "whoSendIt": 1}
-2018-12-11 11:46:24	Connection closed
-785857803661753448333707329245935399503431789956495174169999228737349531996358453104445982845157958486001868258339615336682468453997720251813780460046520089385030340678173883793}
-2018-12-11 11:46:20	received M2 of Online Key Exchange and Offline Communication
-2018-12-11 11:46:20	Starting a new connection with pochiero
-2018-12-11 11:46:20	Continuing the Online Key Exchange Protocol
-2018-12-11 11:46:20	startConnection correctly concluded
-2018-12-11 11:46:20	Connection established with pochiero
-2018-12-11 11:46:20	message sent to pochiero
-2018-12-11 11:46:20	Added message to the conversation : {"text": "afdgdfg", "time": "2018-12-11 11:46:20.712396", "whoSendIt": 0}
+2018-12-11 12:32:16	Message Handler has been initialized!
+2018-12-11 12:32:16	Client initialized
+2018-12-11 12:32:16	Connection established with the server
+2018-12-11 12:32:21	Starting the Authentication Protocol
+2018-12-11 12:32:21	Message sent to the Server
+2018-12-11 12:32:21	Sent M1
+2018-12-11 12:32:23	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 75306570548482709974715027603, "serverNonce": 266590702552004994166905547, "key": 171038828334398371332247588374339572889}
+2018-12-11 12:32:23	Received M2
+2018-12-11 12:32:23	Parameters correctly loaded
+2018-12-11 12:32:23	Message sent to the Server
+2018-12-11 12:32:23	Sent M3
+2018-12-11 12:32:23	Authentication Protocol completed correctly
+2018-12-11 12:32:23	Succesfull logged in as pochiero
+2018-12-11 12:32:23	Received a message from the SERVER: {"id": "1", "messages": {"0": {"Sender": "magherini", "Text": "25982416588724414310546879801481777248422831046744332603169399051395053016933017661608676043467545142080390496758951853703873915580055747194571703233852274819842435848637569427916313034838325914162699851129228205081622340921389038934104847333432117122852203525326952477757005453818350538586457640254174802138276587051816594560256188713274244653681576603493017620316952470206945904902550919829264182144647727902811246628142439189137373596073662872406823708967827091089330371510178075377368652934090759723520200774600482591816975451250761290169683476864804617374914282900280272410550373742493290937014816215103863866569", "Time": "2018-12-11 12:32:12"}}}
+2018-12-11 12:32:23	There are messages pending in the server
+2018-12-11 12:32:23	Added message to the conversation : {"text": "ciao", "time": "2018-12-11 12:32:12", "whoSendIt": 1}
+2018-12-11 12:32:23	Loaded all the waiting messages
+2018-12-11 12:32:23	MessageHandler Initialized! Associated port: 47392
+2018-12-11 12:32:23	All the conversations has been charged : {"magherini": {"0": {"text": "ciao", "time": "2018-12-11 11:55:04", "whoSendIt": 1}, "1": {"text": "ciao", "time": "2018-12-11 11:55:15.468927", "whoSendIt": 0}, "2": {"text": "pincopallino", "time": "2018-12-11 11:55:22.533088", "whoSendIt": 1}, "3": {"text": "leggendario", "time": "2018-12-11 11:55:26.824567", "whoSendIt": 0}, "4": {"text": "questa \u00e8 andata a capo a caso", "time": "2018-12-11 11:55:37.425368", "whoSendIt": 0}, "5": {"text": "visto che \u00e8 pi\u00f9 corta di pincopallino", "time": "2018-12-11 11:55:51.752171", "whoSendIt": 1}, "6": {"text": "logout", "time": "2018-12-11 11:56:40.204142", "whoSendIt": 0}, "7": {"text": "ciao", "time": "2018-12-11 12:10:42.630822", "whoSendIt": 0}, "8": {"text": "ciao", "time": "2018-12-11 12:10:47.541528", "whoSendIt": 1}, "9": {"text": "logout", "time": "2018-12-11 12:10:53.208084", "whoSendIt": 0}, "10": {"text": "ciao", "time": "2018-12-11 12:32:12", "whoSendIt": 1}}}
+2018-12-11 12:32:23	Run of startConnection
+2018-12-11 12:32:23	Message sent to the Server
+2018-12-11 12:32:23	Sent M1 of Online Key Exchange and Offline Communication
+2018-12-11 12:32:23	Received a message from the SERVER: {"id": "!", "status": "127.0.0.1:22018-12-11 12:32:23	Accepted a new connecion
+2018-12-11 12:32:23	integrity of the DH shared_key is valid
+2018-12-11 12:32:23	integrity of the DH shared_key is valid
+2018-12-11 12:32:23	Obtained all the M3 message
+2018-12-11 12:32:23	message M4 sended to pochiero
+2018-12-11 12:32:23	message M5 received
+2018-12-11 12:32:23	onlineKeyExchangeProtocol ended in the correct way
+2018-12-11 12:32:29	pochiero send : {"text": "boia sta logout", "time": "2018-12-11 12:32:29.736982", "sender": "pochiero", "logout": false}
+2018-12-11 12:32:29	Added message to the conversation : {"text": "boia sta logout", "time": "2018-12-11 12:32:29.736982", "whoSendIt": 1}
+2018-12-11 12:32:44	Message sent to the Server
+2018-12-11 12:32:44	Logout sent to the server
+2018-12-11 12:32:44	Connection Handler has been closed
+2018-12-11 12:32:49	received the logout message from pochiero
+2018-12-11 12:32:49	Connection closed
+2018-12-11 12:33:11	Starting the Authentication Protocol
+2018-12-11 12:33:12	Message sent to the Server
+2018-12-11 12:33:12	Sent M1
+2018-12-11 12:33:13	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 54607651297818180704296623967, "serverNonce": 46888434464119345676907499, "key": 126759119649385054154029670512924086415}
+2018-12-11 12:33:13	Received M2
+2018-12-11 12:33:13	Parameters correctly loaded
+2018-12-11 12:33:13	Message sent to the Server
+2018-12-11 12:33:13	Sent M3
+2018-12-11 12:33:13	Authentication Protocol completed correctly
+2018-12-11 12:33:13	Succesfull logged in as magherini
+2018-12-11 12:33:13	Received a message from the SERVER: {"id": "0"}
+2018-12-11 12:33:13	No messages stored in the server
+2018-12-11 12:33:13	MessageHandler Initialized! Associated port: 46379
+2018-12-11 12:33:13	All the conversations has been charged : {"pochiero": {"0": {"text": "ciao", "time": "2018-12-11 12:32:12.499352", "whoSendIt": 0}, "1": {"text": "boia sta logout", "time": "2018-12-11 12:32:29.736982", "whoSendIt": 1}}}
+2018-12-11 12:33:13	Run of startConnection
+2018-12-11 12:33:13	Message sent to the Server
+2018-12-11 12:33:13	Sent M1 of Online Key Exchange and Offline Communication
+2018-12-11 12:33:13	Received a message from the SERVER: {"id": "!", "status": "127.0.0.1:52121", "key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA/EwrG6rNTVcvH3ddky4G\nAymOo/AjFVpFRq59F5lKTwIada3v37SRV5mv66UZqNtC1bTK2a2GCjWhVUAzdYhv\nJON8MP/KaupUi1M3HANNMssSX4IZu7EX157TpeCFaIQE4rL6v/qXXruEMMgHEul6\nEqHqSpaoLBntqQOWUu7vMsr73N5Xup8dn4quIah4/q6R83yPset3D59JadvWfMHX\nWZhWjG2ndPctr5DxpcpV07C+SwkrEPSAx55OPTMoMrKlGZChLiat/p3bAWOdhfYA\nFtFNkMVRyQBeCdK9nqWl8JyONxLFL1xH2ruHyBLt0FepOwolpAIRoLnhpdqIbn3k\n4QIDAQAB\n-----END PUBLIC KEY-----\n", "p": "11518166619684502740086072749703081040455112629121066227526354410570690699760363121247716751490206514429364507833577956248904179347346382078925180103073203", "g": "2", "lenInfo": 582, "info": 3003352204263544292117455702916263411871903903255931151612136610210283112337844129092133124237008566798998482767080668070934956356663057746203521580281953611865849461869633830784900783748522578683234871562745771475355062053882778838715136281369805626745018478345824870571843670303969457548997234188584024428364056185365200929075955030236749464083749114809645023899007442136889770937437474980218046990249043651902985885183171198737473611271294450488178926696929931133257034172842700650539390100561706057452132980500643496581782534291143737942309904843636684265418432889847621845169196212726785832123843215857590398156540696843754971271977578314115932810044909710197438785920492401162307890566716843709982005800302055559719563245805035820600666201712747372928750574111480178242637462055512651850025949745001116253876602879903425468915330529920665890066677292458871495227872542408644958528499281049466008597345707723796669423827368165275644913754602421511381806992513604228353545376241103485943142361533420675690501574013949007085736710340178235566574048976439675756416696757998490409976720606298426844156064503006482263114817694970300015114842681239654491243455581426044694135548493728460238005220541462026216467032628515535989486147204078356188451266167164968088419731491511845116666166185747220714401062559092598302354153006314889993790110858229854957798577728085165398616550937114049835897155502922263}
+2018-12-11 12:33:13	received M2 of Online Key Exchange and Offline Communication
+2018-12-11 12:33:13	Starting a new connection with pochiero
+2018-12-11 12:33:13	Continuing the Online Key Exchange Protocol
+2018-12-11 12:33:13	Sended M3 message
+2018-12-11 12:33:13	integrity of the DH shared_key is valid
+2018-12-11 12:33:13	integrity of the DH shared_key is valid
+2018-12-11 12:33:13	integrity of the DH shared_key is valid
+2018-12-11 12:33:13	message M4 received {"Nsa": 46888434464119345676907502, "lenNb": 22, "Nb": 1756334746763786277712555834291592498638659807839360}
+2018-12-11 12:33:13	Invio M5
+2018-12-11 12:33:13	startConnection correctly concluded
+2018-12-11 12:33:27	Message sent to the Server
+2018-12-11 12:33:27	Logout sent to the server
+2018-12-11 12:33:27	message sent to pochiero
+2018-12-11 12:33:27	Added message to the conversation : {"text": "logout", "time": "2018-12-11 12:33:27.674455", "whoSendIt": 0}
+2018-12-11 12:33:27	Connection Handler has been closed
+2018-12-11 12:33:32	Starting the Authentication Protocol
+2018-12-11 12:33:32	Message sent to the Server
+2018-12-11 12:33:32	Sent M1
+2018-12-11 12:33:34	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 38141460332524807018961554648, "serverNonce": 228437025309192057382593727, "key": 172571079263383815735608557500488660911}
+2018-12-11 12:33:34	Received M2
+2018-12-11 12:33:34	Parameters correctly loaded
+2018-12-11 12:33:34	Message sent to the Server
+2018-12-11 12:33:34	Sent M3
+2018-12-11 12:33:34	Authentication Protocol completed correctly
+2018-12-11 12:33:34	Succesfull logged in as pochiero
+2018-12-11 12:33:34	Received a message from the SERVER: {"id": "0"}
+2018-12-11 12:33:34	No messages stored in the server
+2018-12-11 12:33:34	MessageHandler Initialized! Associated port: 40424
+2018-12-11 12:33:34	All the conversations has been charged : {"magherini": {"0": {"text": "ciao", "time": "2018-12-11 11:55:04", "whoSendIt": 1}, "1": {"text": "ciao", "time": "2018-12-11 11:55:15.468927", "whoSendIt": 0}, "2": {"text": "pincopallino", "time": "2018-12-11 11:55:22.533088", "whoSendIt": 1}, "3": {"text": "leggendario", "time": "2018-12-11 11:55:26.824567", "whoSendIt": 0}, "4": {"text": "questa \u00e8 andata a capo a caso", "time": "2018-12-11 11:55:37.425368", "whoSendIt": 0}, "5": {"text": "visto che \u00e8 pi\u00f9 corta di pincopallino", "time": "2018-12-11 11:55:51.752171", "whoSendIt": 1}, "6": {"2018-12-11 12:34:02	Starting the Authentication Protocol
+2018-12-11 12:34:02	Message sent to the Server
+2018-12-11 12:34:02	Sent M1
+2018-12-11 12:34:04	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 12859763849817894742673677467, "serverNonce": 255191336133653353809927410, "key": 306849016299282158115916472647410321617}
+2018-12-11 12:34:04	Received M2
+2018-12-11 12:34:04	Parameters correctly loaded
+2018-12-11 12:34:04	Message sent to the Server
+2018-12-11 12:34:04	Sent M3
+2018-12-11 12:34:04	Authentication Protocol completed correctly
+2018-12-11 12:34:04	Succesfull logged in as pochiero
+2018-12-11 12:34:04	Received a message from the SERVER: {"id": "0"}
+2018-12-11 12:34:04	No messages stored in the server
+2018-12-11 12:34:04	MessageHandler Initialized! Associated port: 29448
+2018-12-11 12:34:04	All the conversations has been charged : {"magherini": {"0": {"text": "ciao", "time": "2018-12-11 11:55:04", "whoSendIt": 1}, "1": {"text": "ciao", "time": "2018-12-11 11:55:15.468927", "whoSendIt": 0}, "2": {"text": "pincopallino", "time": "2018-12-11 11:55:22.533088", "whoSendIt": 1}, "3": {"text": "leggendario", "time": "2018-12-11 11:55:26.824567", "whoSendIt": 0}, "4": {"text": "questa \u00e8 andata a capo a caso", "time": "2018-12-11 11:55:37.425368", "whoSendIt": 0}, "5": {"text": "visto che \u00e8 pi\u00f9 corta di pincopallino", "time": "2018-12-11 11:55:51.752171", "whoSendIt": 1}, "6": {"text": "logout", "time": "2018-12-11 11:56:40.204142", "whoSendIt": 0}, "7": {"text": "ciao", "time": "2018-12-11 12:10:42.630822", "whoSendIt": 0}, "8": {"text": "ciao", "time": "2018-12-11 12:10:47.541528", "whoSendIt": 1}, "9": {"text": "logout", "time": "2018-12-11 12:10:53.208084", "whoSendIt": 0}, "10": {"text": "ciao", "time": "2018-12-11 12:32:12", "whoSendIt": 1}, "11": {"text": "boia sta logout", "time": "2018-12-11 12:32:29.737987", "whoSendIt": 0}, "12": {"text": "logout", "time": "2018-12-11 12:32:49.194709", "whoSendIt": 0}}}
+2018-12-11 12:34:04	Run of startConnection
+2018-12-11 12:34:04	Message sent to the Server
+2018-12-11 12:34:04	Sent M1 of Online Key Exchange and Offline Communication
+2018-12-11 12:34:04	Received a message from the SERVER: {"id": "!", "status": "0", "key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0NY9AezZrDkREcG+TKrv\nb+eSgIoV4+61FNzFlu761jZzuxAE9pVUhnOzRvwtKDP0WIXun0rInwqSyB0lQnda\nBD2izSssjt8Ni3PVmxiHeM21JdwIPMDmqQkI9xJMY2pVV9TEvnFkru0bt7ag2Jk/\nSgc1h5Ow7NtoNRY+cfQ419l52LMxFRbEQSPJ9MIkuuzAffqDqFPJLEaRdUUZNwiT\nd3irsgSqpFjcigEP2ZG/WCTI9ib9ugqqy/h5tAtU+fnzjDOPmgldNUEMNTWyeHrM\n+6mvIzcq2Ic4uEOlr4Qnh12tu7jAovBsraQbISdMbegmi/nPU/lGN3s5OeM+/WVe\nuwIDAQAB\n-----END PUBLIC KEY-----\n"}
+2018-12-11 12:34:04	received M2 of Online Key Exchange and Offline Communication
+2018-12-11 12:34:04	Communication offline with the user: magherini
+2018-12-11 12:34:08	Message sent to the Server
+2018-12-11 12:34:08	Logout sent to the server
+2018-12-11 12:34:08	Connection Handler has been closed
+2018-12-11 12:34:08	Exiting...

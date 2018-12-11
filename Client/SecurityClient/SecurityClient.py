@@ -444,8 +444,11 @@ class SecurityClient:
             :type user: String
             :param user: the user relative to the symmetric key
         """
-        if user in self.clientSymmetricKeys:
-            del self.clientSymmetricKeys[user]
+        try:
+            if user in self.clientSymmetricKeys:
+                del self.clientSymmetricKeys[user]
+        except:
+            print()
 
     def isSymmetricKeyClientPresent(self,user):
         """
