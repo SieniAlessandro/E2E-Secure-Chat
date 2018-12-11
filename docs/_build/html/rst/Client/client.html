@@ -17,7 +17,9 @@
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="List of Server’s Modules" href="../Server.html" />
+    <link rel="prev" title="SecurityClient package" href="SecurityClient.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,7 +30,15 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol 1.0 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="../Server.html" title="List of Server’s Modules"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="SecurityClient.html" title="SecurityClient package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../Client.html" >List of Client’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="Middleware.html" accesskey="U">&lt;no title&gt;</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -41,17 +51,12 @@
 <span id="client-module"></span><h1>client module<a class="headerlink" href="#module-client" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="client.Client">
-<em class="property">class </em><code class="descclassname">client.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>chat=None</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Client" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">client.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>chat</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Back end of the client</p>
 <dl class="attribute">
 <dt id="client.Client.BUFFER_SIZE">
 <code class="descname">BUFFER_SIZE</code><em class="property"> = 2097152</em><a class="headerlink" href="#client.Client.BUFFER_SIZE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="client.Client.CODE_TYPE">
-<code class="descname">CODE_TYPE</code><em class="property"> = 'utf-8'</em><a class="headerlink" href="#client.Client.CODE_TYPE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -75,7 +80,10 @@
 <dl class="method">
 <dt id="client.Client.checkAutoLogin">
 <code class="descname">checkAutoLogin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.Client.checkAutoLogin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>check if the auto login is enabled, if it is perform the login
+:rtype: Int
+:return: -3 if the auto login is not enable, otherwise return the login values</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="client.Client.connectServer">
@@ -127,25 +135,39 @@ handle the receiving connections for the peer to peer communication</p>
 <dl class="method">
 <dt id="client.Client.logout">
 <code class="descname">logout</code><span class="sig-paren">(</span><em>ordinatedUserList=None</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Client.logout" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>performs the logout from the application, informs the server and all
+the connected peers, close the sockets with the peers, and saves the
+conversations locally ordinated by time using the ordinatedUserList
+:type ordinatedUserList: List or None
+:param ordinatedUserList: the list of the users ordinated by the time of the last message in the conversation</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="client.Client.onClosing">
 <code class="descname">onClosing</code><span class="sig-paren">(</span><em>ordinatedUserList=None</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Client.onClosing" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>clean up before close
+:type ordinatedUserList: List or None
+:param ordinatedUserList: The list of the ordinated user list</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="client.Client.onlineKeyExchangeProtocol">
-<code class="descname">onlineKeyExchangeProtocol</code><span class="sig-paren">(</span><em>receiver</em>, <em>dict</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Client.onlineKeyExchangeProtocol" title="Permalink to this definition">¶</a></dt>
+<dt id="client.Client.onlineKeyExchangeProtocolSender">
+<code class="descname">onlineKeyExchangeProtocolSender</code><span class="sig-paren">(</span><em>receiver</em>, <em>dict</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Client.onlineKeyExchangeProtocolSender" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the Online Key Exchange protocol</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>receiver</strong> (<em>String</em>) – the client with which we want to exchange the key with diffie-hellman</li>
 <li><strong>dict</strong> (<em>Dict</em>) – dictionary that contains the symmetric message destinated to the receiver, received from the server, and its length informations</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Int</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">1 if all is correct and client is online, 0 if all is correct and client is offline, -1 login not done, -2 talking to yourself, -3 receiver does not exist, -4 security problem</p>
 </td>
 </tr>
 </tbody>
@@ -202,22 +224,48 @@ to the server</p>
 
 <dl class="method">
 <dt id="client.Client.sendClient">
-<code class="descname">sendClient</code><span class="sig-paren">(</span><em>receiver</em>, <em>text</em>, <em>logout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Client.sendClient" title="Permalink to this definition">¶</a></dt>
-<dd><p>Used to send a message [text] to the user [receiver]
-checks if there is an existing connection with the user [receiver]
-if not then it tries to create the p2p connection if not possible
-and the user exists then send the message to the server
-Handles the passage of the receiver from online to offline</p>
+<code class="descname">sendClient</code><span class="sig-paren">(</span><em>receiver</em>, <em>text</em>, <em>logout</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Client.sendClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to send a message, text, to the user, receiver,
+checks if there is an existing connection with the user,
+if not then it tries to create the p2p connection and send the message
+to that communication; if not possible and the user exists then send
+the message to the server to store it
+At the end handles the passage of the receiver from online to offline
+with the except block
+:type receiver: String
+:param receiver: the receiver of the message
+:type text: String
+:param text: the text of the message
+:type logout: Boolean
+:param logout: True if it is a logout message, False otherwise
+:rtype: Int
+:return: 1 if the message is sent to the online user, 0 to the offline user, -1 login not done by the local user, -2 talking to yourself, -3 receiver does not exist, -4 security problem</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="client.Client.sendMessageOffline">
 <code class="descname">sendMessageOffline</code><span class="sig-paren">(</span><em>receiver</em>, <em>text</em>, <em>time</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Client.sendMessageOffline" title="Permalink to this definition">¶</a></dt>
-<dd><p>Used to send and store a message in the server for an offline user
-The message is sent with the prefix ‘4|’
-if the message has been sent correctly return 1
-if there was an error in the db and the message has not been saved return 0
-otherwise return -1 for general errors</p>
+<dd><p>Used to send and store a message in the server destinated to an
+offline user, passed as the parameter receiver</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>receiver</strong> (<em>String</em>) – the receiver of the message</li>
+<li><strong>text</strong> (<em>String</em>) – the text of the message</li>
+<li><strong>time</strong> (<em>String</em>) – the moment when the message has been sent</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Int</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">0 if all is correct and the message has been store in the server, -1 if there are some problems</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -249,7 +297,14 @@ the encryption is not used</p>
 <dl class="method">
 <dt id="client.Client.setAutoLogin">
 <code class="descname">setAutoLogin</code><span class="sig-paren">(</span><em>remember</em>, <em>username</em>, <em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Client.setAutoLogin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>used to do the set the auto login functionality when the user starts the application
+:type remember: Int
+:param remember: 1 if enabled, 0 otherwise
+:type username: String
+:param username: the username that must be saved
+:type password: String
+:param password: the password that must be saved</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="client.Client.signUpProtocol">
@@ -278,7 +333,8 @@ the encryption is not used</p>
 <dt id="client.Client.startConnection">
 <code class="descname">startConnection</code><span class="sig-paren">(</span><em>receiver</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Client.startConnection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ask to the server if a client, specified with the parameter receiver, is online: if it is
-then it starts the Online Key Exchange Protocol, else it performs the Offline Communication</p>
+then it starts the Online Key Exchange Protocol as the peer that wants to connect with another peer,
+else it performs the Offline Communication</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -303,6 +359,12 @@ then it starts the Online Key Exchange Protocol, else it performs the Offline Co
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="SecurityClient.html"
+                        title="previous chapter">SecurityClient package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../Server.html"
+                        title="next chapter">List of Server’s Modules</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -335,7 +397,15 @@ then it starts the Online Key Exchange Protocol, else it performs the Offline Co
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol 1.0 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="../Server.html" title="List of Server’s Modules"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="SecurityClient.html" title="SecurityClient package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">MPS Protocol 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../Client.html" >List of Client’s Modules</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="Middleware.html" >&lt;no title&gt;</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

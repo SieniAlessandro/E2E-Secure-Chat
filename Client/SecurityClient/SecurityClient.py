@@ -125,13 +125,16 @@ class SecurityClient:
             :rtype: Bytes
             :return: the signature
         """
-        signature = self.privateKey.sign(text,
-                                     padding.PSS(mgf=padding.MGF1(hashes.SHA256()),
-                                                 salt_length=padding.PSS.MAX_LENGTH
-                                                 ),
-                                     hashes.SHA256()
-                                     )
-        return signature
+        try:
+            signature = self.privateKey.sign(text,
+                                         padding.PSS(mgf=padding.MGF1(hashes.SHA256()),
+                                                     salt_length=padding.PSS.MAX_LENGTH
+                                                     ),
+                                         hashes.SHA256()
+                                         )
+            return signature
+        except:
+            return None
 
     def VerifySignature(self,text,signature, user=None):
         """

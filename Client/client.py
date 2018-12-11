@@ -17,15 +17,14 @@ class Client:
     Back end of the client
     """
     BUFFER_SIZE = 2048*1024
-    CODE_TYPE = 'utf-8'
     socketClient = {}
 
-    def __init__(self, chat = None):
+    def __init__(self, chat):
         """
             The BackEnd of the client, initialize the structures used for the connection with
             the server, for the Security, for handling json messages, to pass the data to the frontEnd
 
-            :type chat: ChatList or None, it is None only if the GUI is not used
+            :type chat: ChatList
             :param chat: used to insert the messages in the front end of the client
         """
         self.XML = XMLClientHandler()
@@ -58,7 +57,7 @@ class Client:
             msg = text.encode('utf-8')
 
         elif id == 'rsa':
-            text = text.encode(self.CODE_TYPE)
+            text = text.encode('utf-8')
             msg = self.Security.RSAEncryptText(text, self.Security.serverPublicKey)
             #hash is None if the signature can not be done
             hash = self.Security.getSignature(text)
@@ -67,7 +66,7 @@ class Client:
             msg = msg+hash
 
         elif id == 'aes':
-            text = text.encode(self.CODE_TYPE)
+            text = text.encode('utf-8')
             msg = self.Security.AESEncryptText(text)
 
         ret = self.socketServer.send(msg)
@@ -113,7 +112,7 @@ class Client:
         """
         for x in msgs:
             ct = int(msgs[x]['Text']).to_bytes(256,byteorder='big')
-            pt = self.Security.RSADecryptText(ct).decode(self.CODE_TYPE)
+            pt = self.Security.RSADecryptText(ct).decode('utf-8')
             self.Message.addMessagetoConversations(msgs[x]['Sender'], pt, msgs[x]['Time'], 1)
 
         self.Log.log('Loaded all the waiting messages')
@@ -136,7 +135,7 @@ class Client:
                     print('The connection is not safe!')
                     self.onClosing()
                 #print('secondo me è qua!')
-                msg = msg.decode(self.CODE_TYPE)
+                msg = msg.decode('utf-8')
                 self.Log.log('Received a message from the SERVER: ' + msg)
 
                 dictMsg = json.loads(msg)
@@ -182,7 +181,7 @@ class Client:
         msg = {}
         msg['id'] = '1'
         msg['user'] = username.lower()
-        msg['password'] = password#str(int.from_bytes(self.Security.getDigest(password.encode(self.CODE_TYPE)), byteorder='big'))
+        msg['password'] = password#str(int.from_bytes(self.Security.getDigest(password.encode('utf-8')), byteorder='big'))
         msg['name'] = name
         msg['surname'] = surname
         msg['email'] = email
@@ -250,7 +249,7 @@ class Client:
         self.Log.log('Received M4')
         pt = self.Security.decryptServerMessage(ct)
 
-        if self.Security.getDigest(json.dumps(msg).encode(self.CODE_TYPE)) != pt:
+        if self.Security.getDigest(json.dumps(msg).encode('utf-8')) != pt:
             self.Security.resetKeys()
             self.Log.log('The digest received in M4 is not right!')
             return -1
@@ -281,9 +280,9 @@ class Client:
         msg = {}
         msg['id'] = '2'
         msg['username'] = self.username
-        msg['password'] = password#str(int.from_bytes(self.Security.getDigest(password.encode(self.CODE_TYPE)), byteorder='big'))
+        msg['password'] = password#str(int.from_bytes(self.Security.getDigest(password.encode('utf-8')), byteorder='big'))
         msg['porta'] = str(self.portp2p)
-        self.Security.addClientNonce(username, self.Security.generateNonce(12))
+        self.Security.addClientNonce(self.username, self.Security.generateNonce(12))
         msg['clientNonce'] = self.Security.getClientNonce(self.username)
         msgToSend = json.dumps(msg)
 
@@ -296,7 +295,7 @@ class Client:
             #Load the waiting messages stored in the server
             self.receiveServer()
             #starting the connectionHandler in order to manage the connections
-            self.connectionHandler = ConnectionHandler(self.username, self.portp2p, self.Log, self.Chat, self.CODE_TYPE, self.Message, self.Security)
+            self.connectionHandler = ConnectionHandler(self.username, self.portp2p, self.Log, self.Chat, self.Message, self.Security)
             self.connectionHandler.start()
         else:
             if value == 0 :
@@ -344,7 +343,8 @@ class Client:
     def startConnection(self, receiver):
         '''
             Ask to the server if a client, specified with the parameter receiver, is online: if it is
-            then it starts the Online Key Exchange Protocol, else it performs the Offline Communication
+            then it starts the Online Key Exchange Protocol as the peer that wants to connect with another peer,
+            else it performs the Offline Communication
 
             :type receiver: String
             :param receiver: the username of the client to contact
@@ -397,18 +397,16 @@ class Client:
 
                 self.socketClient[receiver].connect((ip, int(port)))
                 self.Log.log('Continuing the Online Key Exchange Protocol')
-                value = self.onlineKeyExchangeProtocol(receiver, dict)
+                value = self.onlineKeyExchangeProtocolSender(receiver, dict)
             except:
                 self.Log.log('Problem connecting with the other client, starting the offline communication')
                 self.socketClient[receiver] = 'server'
                 return 0
 
         self.Log.log('startConnection correctly concluded')
-        self.Log.log(msg)
-
         return int(value)
 
-    def onlineKeyExchangeProtocol(self, receiver, dict):
+    def onlineKeyExchangeProtocolSender(self, receiver, dict):
         """
             Implements the Online Key Exchange protocol
 
@@ -472,7 +470,8 @@ class Client:
         signature = msg[-256:]
         msg = msg[:-256]
         msg = self.Security.RSADecryptText(msg)
-        dictBin = zlib.decompress(msg)
+        #dictBin = zlib.decompress(msg)
+        dictBin = msg
         if not self.Security.VerifySignature(dictBin, signature, receiver):
             self.Log.log('The integrity is not valid for the sender. Signature:\n' + signature)
             return -4
@@ -518,8 +517,8 @@ class Client:
         msg = {}
         msg['id'] = '4'
         msg['Receiver'] = receiver
-        t = self.Security.RSAEncryptText(text.encode(self.CODE_TYPE), self.Security.getKeyClient(receiver))
-        msg['Text'] = int.from_bytes(self.Security.RSAEncryptText(text.encode(self.CODE_TYPE), self.Security.getKeyClient(receiver)), byteorder='big')
+        t = self.Security.RSAEncryptText(text.encode('utf-8'), self.Security.getKeyClient(receiver))
+        msg['Text'] = int.from_bytes(self.Security.RSAEncryptText(text.encode('utf-8'), self.Security.getKeyClient(receiver)), byteorder='big')
         msg['Time'] = time
         msgToSend = json.dumps(msg)
         self.sendServer(msgToSend, 'aes')
@@ -565,7 +564,7 @@ class Client:
             return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()))
         else :
             try:
-                pt = msg.encode(self.CODE_TYPE)
+                pt = msg.encode('utf-8')
                 ct = self.Security.AESEncryptText(pt, receiver)
                 value = self.socketClient[receiver].send(ct)
                 if value > 0:
@@ -619,7 +618,7 @@ class Client:
         msg = {}
         msg['id'] = '0'
         self.sendServer(json.dumps(msg), 'aes')
-        self.Log.log('Logut sent to the server')
+        self.Log.log('Logout sent to the server')
         for x in self.socketClient.keys() :
             if not self.socketClient[x] == 'server' :
                 self.sendClient(x, 'logout', True)
