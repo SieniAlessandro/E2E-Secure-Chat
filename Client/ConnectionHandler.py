@@ -131,7 +131,7 @@ class ConnectionHandler(Thread) :
             plainText1 = self.Security.RSADecryptText(msg)
             if not self.Security.VerifySignature(plainText1, signature, peerUsername):
                 self.Log.log('The integrity is not valid for the receiver. Signature:\n' + str(signature))
-                return
+                return -2
             else:
                 self.Log.log('integrity of the DH shared_key is valid')
 
@@ -140,7 +140,7 @@ class ConnectionHandler(Thread) :
             plainText2 = self.Security.RSADecryptText(msg)
             if not self.Security.VerifySignature(plainText2, signature, peerUsername):
                 self.Log.log('The integrity is not valid for the receiver. Signature:\n' + str(signature))
-                return
+                return -2
             else:
                 self.Log.log('integrity of the DH shared_key is valid')
 
