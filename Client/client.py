@@ -10,7 +10,6 @@ from XMLClientHandler import *
 from SecurityClient.SecurityClient import *
 import os
 import binascii
-import zlib
 
 class Client:
     """
@@ -92,7 +91,7 @@ class Client:
 
         try :
             self.socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.socketServer.settimeout(20)
+            self.socketServer.settimeout(30)
             self.socketServer.connect((self.hostServer, self.portServer))
             self.Log.log('Connection established with the server')
             return 1
@@ -246,6 +245,7 @@ class Client:
         self.sendServer(json.dumps(msg), 'rsa')
         self.Log.log('Sent M3')
         ct = self.socketServer.recv(self.BUFFER_SIZE)
+        print(ct)
         self.Log.log('Received M4')
         pt = self.Security.decryptServerMessage(ct)
 
@@ -398,7 +398,8 @@ class Client:
                 self.socketClient[receiver].connect((ip, int(port)))
                 self.Log.log('Continuing the Online Key Exchange Protocol')
                 value = self.onlineKeyExchangeProtocolSender(receiver, dict)
-            except:
+            except Exception as e:
+                print(e)
                 self.Log.log('Problem connecting with the other client, starting the offline communication')
                 self.socketClient[receiver] = 'server'
                 return 0
@@ -445,7 +446,7 @@ class Client:
         #symmetric key
         msg = self.socketClient[receiver].recv(self.BUFFER_SIZE)
         msg1 = msg[:int(len(msg)/2)]
-        msg2 = msg[int0(len(msg)/2):]
+        msg2 = msg[int(len(msg)/2):]
         signature = msg1[-256:]
         msg = msg1[:-256]
         pt1 = self.Security.RSADecryptText(msg)
@@ -466,20 +467,20 @@ class Client:
 
         sharedKey = (pt1+pt2)
         #Obtain all the M4 message
-        msg = self.socketClient[receiver].recv(self.BUFFER_SIZE)
-        signature = msg[-256:]
-        msg = msg[:-256]
-        msg = self.Security.RSADecryptText(msg)
-        #dictBin = zlib.decompress(msg)
-        dictBin = msg
-        if not self.Security.VerifySignature(dictBin, signature, receiver):
-            self.Log.log('The integrity is not valid for the sender. Signature:\n' + signature)
-            return -4
-        else:
-            self.Log.log('integrity of the DH shared_key is valid')
-        dict = json.loads(dictBin)
-        self.Log.log('message M4 received ' + json.dumps(dict))
-
+        try:
+            msg = self.socketClient[receiver].recv(self.BUFFER_SIZE)
+            signature = msg[-256:]
+            msg = msg[:-256]
+            msg = self.Security.RSADecryptText(msg)
+            if not self.Security.VerifySignature(msg, signature, receiver):
+                self.Log.log('The integrity is not valid for the sender. Signature:\n' + signature)
+                return -4
+            else:
+                self.Log.log('integrity of the DH shared_key is valid')
+            dict = json.loads(msg)
+            self.Log.log('message M4 received ' + json.dumps(dict))
+        except:
+            print('il problema forse è nel client?')
         #0 is the nonce used only this time and only one time for symmetric key
         self.Security.computeDHKey(receiver, sharedKey, 0)
         self.Security.addClientNonce(receiver, 0)

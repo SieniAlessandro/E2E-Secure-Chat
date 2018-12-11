@@ -5,7 +5,6 @@ from client import *
 from threading import Thread
 import json
 from Log import *
-import zlib
 import os
 
 from cryptography.hazmat.backends import default_backend
@@ -64,7 +63,6 @@ class ConnectionHandler(Thread) :
             return
 
         try:
-            #Chiedi ad AMEDEO
             self.Chat.chatListDict[peerUsername][1].updateState(1)
         except:
             print()
@@ -173,15 +171,11 @@ class ConnectionHandler(Thread) :
             plainText['Nb'] = int.from_bytes(NbAES, byteorder='big')
             self.Security.addClientNonce(peerUsername,Nb)
             plainTextBit = json.dumps(plainText).encode('utf-8')
-            #VEDI SE SI PUò RIMUOVERE
-            #plainTextBitCompress = zlib.compress(plainTextBit)
-            plainTextBitCompress = plainTextBit
 
-            cipherText = self.Security.RSAEncryptText(plainTextBitCompress, serialization.load_pem_public_key(dict['key'].encode('utf-8'), backend=default_backend()))
+            cipherText = self.Security.RSAEncryptText(plainTextBit, serialization.load_pem_public_key(dict['key'].encode('utf-8'), backend=default_backend()))
             sign = self.Security.getSignature(plainTextBit)
             conn.send(cipherText+sign)
             self.Log.log('message M4 sended to ' + peerUsername)
-
             msg = conn.recv(self.BUFFER_SIZE)
             self.Log.log('message M5 received')
             plainText = int.from_bytes(self.Security.AESDecryptText(msg, peerUsername), byteorder='big')
@@ -202,7 +196,7 @@ class ConnectionHandler(Thread) :
             while True:
                 self.socketListener.listen(50)
                 (conn, (ip,port)) = self.socketListener.accept()
-                conn.settimeout(60)
+                #conn.settimeout(60)
                 self.Log.log('Accepted a new connecion')
                 t = Thread(target=self.receiveMessage, args=(conn, ))
                 t.start()
