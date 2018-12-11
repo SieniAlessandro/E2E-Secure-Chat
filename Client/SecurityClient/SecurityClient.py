@@ -263,6 +263,7 @@ class SecurityClient:
             :rtype: Bytes or None
             :return: The plain text or, if the signature is not valid, None
         """
+
         if self.SymmetricKey is None:
             #the signature length of the server is 1024
             sign = cipherText[-1025:]
@@ -273,7 +274,6 @@ class SecurityClient:
                 None
         else:
             return self.AESDecryptText(cipherText, None, 1)
-
 
     def savePrivateKey(self, path):
         """

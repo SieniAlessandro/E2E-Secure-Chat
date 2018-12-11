@@ -129,12 +129,15 @@ class Client:
                 self.Log.log('Connection with the server closed!')
                 return -1
             else:
-                msg = self.Security.decryptServerMessage(ret)
-                if msg is None:
-                    print('The connection is not safe!')
+                try:
+                    ret = self.Security.decryptServerMessage(ret)
+                except:
+                    ret = ret
+                if ret is None:
+                    self.Log.log('The connection is not safe!')
                     self.onClosing()
-                #print('secondo me è qua!')
-                msg = msg.decode('utf-8')
+
+                msg = ret.decode('utf-8')
                 self.Log.log('Received a message from the SERVER: ' + msg)
 
                 dictMsg = json.loads(msg)
@@ -275,7 +278,7 @@ class Client:
         self.username = username.lower()
         self.portp2p = random.randint(6001,60000)
         if not self.Security.initializeSecurity(self.XML.getSecurityPath(), self.username):
-            return -2
+            return 0
 
         msg = {}
         msg['id'] = '2'
@@ -321,7 +324,8 @@ class Client:
         self.Log.log('Sent M1')
         dict = self.receiveServer()
         self.Log.log('Received M2')
-
+        if int(dict['status']) < 1:
+            return int(dict['status'])
         if dict['clientNonce'] != self.Security.getClientNonce(self.username):
             self.Log.log('The nonce in M2 is not the expected one. Connection is not fresh for me!')
             return -2
@@ -575,7 +579,8 @@ class Client:
                 value = self.socketClient[receiver].send(ct)
                 if value > 0:
                     self.Log.log('message sent to ' + receiver)
-                    self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
+                    if not logout:
+                        self.Message.addMessagetoConversations(receiver, text, str(datetime.datetime.now()), 0)
                     return 1
                 else :
                     raise ConnectionResetError()
@@ -584,7 +589,7 @@ class Client:
                 self.Security.resetSymmetricKeyClient(receiver)
                 self.socketClient[receiver] = 'server'
                 #use of sendClient instead of sendMessageOffline to avoid false negatives
-                return self.sendClient(receiver, text, False)
+                return self.sendClient(receiver, text, logout)
 
     def setAutoLogin(self, remember, username, password):
         """
@@ -627,9 +632,10 @@ class Client:
         self.Log.log('Logout sent to the server')
         for x in self.socketClient.keys() :
             if not self.socketClient[x] == 'server' :
-                self.sendClient(x, 'logout', True)
-                self.socketClient[x].shutdown(socket.SHUT_RDWR)
-                self.socketClient[x].close()
+                if not isinstance(self.socketClient[x], str):
+                    self.sendClient(x, 'logout', True)
+                    self.socketClient[x].shutdown(socket.SHUT_RDWR)
+                    self.socketClient[x].close()
         if self.username is not None:
             self.Message.saveConversations(self.username, ordinatedUserList)
         #Reset the parameters of the user
