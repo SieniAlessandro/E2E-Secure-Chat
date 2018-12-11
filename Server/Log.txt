@@ -1,12 +1,149 @@
-2018-11-27 20:13:35	Server Initialized
-2018-11-27 20:13:35	Waiting for connections...
-2018-11-27 20:13:40	Client handled has address: 127.0.0.1 and port 60037
-2018-11-27 20:13:40	Waiting for connections...
-2018-11-27 20:13:44	A client want to login
-2018-11-27 20:13:45	Active users: {'1': Username: 1 IP: 127.0.0.1 ServerPort: 60037 ClientPort: 59389}
-2018-11-27 20:13:45	There are no message for this client
-2018-11-27 20:13:45	Login completed correctly
-2018-11-27 20:13:45	A client want to find another user
-2018-11-27 20:13:45	The user 2 is offline
-2018-11-27 20:13:55	Client had a problem, connection closed
-2018-11-27 20:15:14	Server Closed
+2018-12-11 09:49:42	Server Initialized
+2018-12-11 09:49:42	Waiting for connections...
+2018-12-11 09:49:46	Client handled has address: 127.0.0.1 and port 62064
+2018-12-11 09:49:46	Waiting for connections...
+2018-12-11 09:49:52	A client want to login
+2018-12-11 09:49:52	There are no message for this client
+2018-12-11 09:49:52	Login completed correctly
+2018-12-11 09:49:53	A client want to find another user
+2018-12-11 09:49:53	The user pochiero is offline
+2018-12-11 09:49:58	Client handled has address: 127.0.0.1 and port 62065
+2018-12-11 09:49:58	Waiting for connections...
+2018-12-11 09:50:06	A client want to login
+2018-12-11 09:50:06	There are 1 message for pochiero
+2018-12-11 09:50:06	Login completed correctly
+2018-12-11 09:51:32	Client had a problem, connection closed
+2018-12-11 09:51:46	A client want to login
+2018-12-11 09:51:46	There are no message for this client
+2018-12-11 09:51:46	Login completed correctly
+2018-12-11 09:51:58	A client want to login
+2018-12-11 09:51:59	There are no message for this client
+2018-12-11 09:51:59	Login completed correctly
+2018-12-11 09:51:59	A client want to find another user
+2018-12-11 09:51:59	The user pochiero is offline
+2018-12-11 09:52:04	A client want to find another user
+2018-12-11 09:52:04	The user pochiero is offline
+2018-12-11 09:52:04	Storing a message coming from magherini
+2018-12-11 09:52:04	Message stored correctly
+2018-12-11 09:52:13	A client want to login
+2018-12-11 09:52:14	There are 1 message for pochiero
+2018-12-11 09:52:14	Login completed correctly
+2018-12-11 09:52:14	A client want to find another user
+2018-12-11 09:52:14	The user magherini is offline
+2018-12-11 09:52:35	Client handled has address: 127.0.0.1 and port 62072
+2018-12-11 09:52:35	Waiting for connections...
+2018-12-11 09:53:11	A client want to login
+2018-12-11 09:53:12	There are no message for this client
+2018-12-11 09:53:12	Login completed correctly
+2018-12-11 09:53:12	A client want to find another user
+2018-12-11 09:53:12	Ip found: 127.0.0.1:59856
+2018-12-11 09:54:04	Client had a problem, connection closed
+2018-12-11 09:54:05	Client disconnected, closing this thread
+2018-12-11 09:59:32	Client handled has address: 127.0.0.1 and port 62075
+2018-12-11 09:59:32	Waiting for connections...
+2018-12-11 09:59:37	A client want to login
+2018-12-11 09:59:38	There are no message for this client
+2018-12-11 09:59:38	Login completed correctly
+2018-12-11 09:59:38	A client want to find another user
+2018-12-11 09:59:38	The user pochiero is offline
+2018-12-11 09:59:44	Client handled has address: 127.0.0.1 and port 62076
+2018-12-11 09:59:44	Waiting for connections...
+2018-12-11 09:59:51	A client want to login
+2018-12-11 09:59:52	There are no message for this client
+2018-12-11 09:59:52	Login completed correctly
+2018-12-11 09:59:56	A client want to find another user
+2018-12-11 09:59:56	Ip found: 127.0.0.1:33778
+2018-12-11 10:00:05	A client want to find another user
+2018-12-11 10:00:05	Ip found: 127.0.0.1:8457
+2018-12-11 10:00:10	A client want to find another user
+2018-12-11 10:00:10	Ip found: 127.0.0.1:33778
+2018-12-11 10:05:17	Client had a problem, connection closed
+2018-12-11 10:05:29	A client want to find another user
+2018-12-11 10:05:29	The user pochiero is offline
+2018-12-11 10:05:29	Storing a message coming from magherini
+2018-12-11 10:05:29	Message stored correctly
+2018-12-11 10:05:32	Client disconnected, closing this thread
+2018-12-11 10:05:38	Client handled has address: 127.0.0.1 and port 62087
+2018-12-11 10:05:38	Waiting for connections...
+2018-12-11 10:05:44	A client want to login
+2018-12-11 10:05:45	There are 1 message for pochiero
+2018-12-11 10:05:45	Login completed correctly
+2018-12-11 10:05:45	A client want to find another user
+2018-12-11 10:05:45	The user magherini is offline
+2018-12-11 10:05:50	A client want to find another user
+2018-12-11 10:05:50	The user magherini is offline
+2018-12-11 10:05:50	Storing a message coming from pochiero
+2018-12-11 10:05:50	Message stored correctly
+2018-12-11 10:05:56	Client handled has address: 127.0.0.1 and port 62093
+2018-12-11 10:05:56	Waiting for connections...
+2018-12-11 10:06:12	A client want to login
+2018-12-11 10:06:13	There are 1 message for magherini
+2018-12-11 10:06:13	Login completed correctly
+2018-12-11 10:06:13	A client want to find another user
+2018-12-11 10:06:13	Ip found: 127.0.0.1:20826
+2018-12-11 10:06:52	A client want to find another user
+2018-12-11 10:06:52	Ip found: 127.0.0.1:49485
+2018-12-11 10:07:06	A client want to find another user
+2018-12-11 10:07:06	Ip found: 127.0.0.1:20826
+2018-12-11 10:07:34	Client had a problem, connection closed
+2018-12-11 10:07:37	Client had a problem, connection closed
+2018-12-11 10:07:59	Client handled has address: 127.0.0.1 and port 62101
+2018-12-11 10:07:59	Waiting for connections...
+2018-12-11 10:08:10	A client want to login
+2018-12-11 10:08:11	There are no message for this client
+2018-12-11 10:08:11	Login completed correctly
+2018-12-11 10:08:11	A client want to find another user
+2018-12-11 10:08:11	The user pochiero is offline
+2018-12-11 10:08:15	Client handled has address: 127.0.0.1 and port 62103
+2018-12-11 10:08:15	Waiting for connections...
+2018-12-11 10:08:20	A client want to login
+2018-12-11 10:08:21	There are no message for this client
+2018-12-11 10:08:21	Login completed correctly
+2018-12-11 10:08:26	A client want to find another user
+2018-12-11 10:08:26	Ip found: 127.0.0.1:43476
+2018-12-11 10:08:30	A client want to find another user
+2018-12-11 10:08:30	Ip found: 127.0.0.1:43476
+2018-12-11 10:08:43	Client had a problem, connection closed
+2018-12-11 10:08:43	Storing a message coming from pochiero
+2018-12-11 10:08:44	Message stored correctly
+2018-12-11 10:08:45	Client disconnected, closing this thread
+2018-12-11 10:09:47	Client handled has address: 127.0.0.1 and port 62145
+2018-12-11 10:09:47	Waiting for connections...
+2018-12-11 10:09:56	A client want to login
+2018-12-11 10:09:56	There are 1 message for magherini
+2018-12-11 10:09:57	Login completed correctly
+2018-12-11 10:09:57	A client want to find another user
+2018-12-11 10:09:57	The user pochiero is offline
+2018-12-11 10:10:02	A client want to find another user
+2018-12-11 10:10:02	The user pochiero is offline
+2018-12-11 10:10:02	Storing a message coming from magherini
+2018-12-11 10:10:02	Message stored correctly
+2018-12-11 10:10:07	Client handled has address: 127.0.0.1 and port 62146
+2018-12-11 10:10:07	Waiting for connections...
+2018-12-11 10:10:13	A client want to login
+2018-12-11 10:10:14	There are 1 message for pochiero
+2018-12-11 10:10:14	Login completed correctly
+2018-12-11 10:10:14	A client want to find another user
+2018-12-11 10:10:14	Ip found: 127.0.0.1:27901
+2018-12-11 10:10:18	A client want to find another user
+2018-12-11 10:10:18	Ip found: 127.0.0.1:27901
+2018-12-11 10:10:35	Client had a problem, connection closed
+2018-12-11 10:10:35	Storing a message coming from pochiero
+2018-12-11 10:10:35	Message stored correctly
+2018-12-11 10:10:37	Client had a problem, connection closed
+2018-12-11 10:12:42	Client handled has address: 127.0.0.1 and port 62153
+2018-12-11 10:12:42	Waiting for connections...
+2018-12-11 10:12:51	A client want to login
+2018-12-11 10:12:51	There are 1 message for magherini
+2018-12-11 10:12:52	Login completed correctly
+2018-12-11 10:12:52	A client want to find another user
+2018-12-11 10:12:52	The user pochiero is offline
+2018-12-11 10:12:57	Client handled has address: 127.0.0.1 and port 62154
+2018-12-11 10:12:57	Waiting for connections...
+2018-12-11 10:13:11	A client want to login
+2018-12-11 10:13:12	There are no message for this client
+2018-12-11 10:13:12	Login completed correctly
+2018-12-11 10:13:12	A client want to find another user
+2018-12-11 10:13:12	Ip found: 127.0.0.1:9813
+2018-12-11 10:18:03	Client had a problem, connection closed
+2018-12-11 10:18:07	Client had a problem, connection closed

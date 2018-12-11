@@ -1,44 +1,31 @@
-2018-12-02 21:30:14	Message Handler has been initialized!
-2018-12-02 21:30:14	Client initialized
-2018-12-02 21:30:14	Connection established with the server
-2018-12-02 21:30:37	Starting Sign Up Protocol
-2018-12-02 21:30:37	Message sent to the Server
-2018-12-02 21:30:37	Message sent to the Server
-2018-12-02 21:30:37	Sent all M1
-2018-12-02 21:30:38	Received a message from the SERVER: {"id": "-", "status": "1", "clientNonce": 29771297231616, "serverNonce": 24303755225792659794530939}
-2018-12-02 21:30:38	Received M2
-2018-12-02 21:30:39	Message sent to the Server
-2018-12-02 21:30:39	Sent M3
-2018-12-02 21:30:40	Received M4
-2018-12-02 21:30:40	Succesfully completed the Sign Up Protocol
-2018-12-02 21:30:40	Succesfully registered
-2018-12-02 21:30:48	Starting the Authentication Protocol
-2018-12-02 21:30:48	Message sent to the Server
-2018-12-02 21:30:48	Sent M1
-2018-12-02 21:30:49	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 33258194056879368986981259417, "serverNonce": 24303755225792659794530939, "key": 279383080949696579295893336831498680944}
-2018-12-02 21:30:49	Received M2
-2018-12-02 21:30:49	Message sent to the Server
-2018-12-02 21:30:49	Sent M3
-2018-12-02 21:30:49	Authentication Protocol completed correctly
-2018-12-02 21:30:49	Succesfull logged in as prova4
-2018-12-02 21:30:49	Received a message from the SERVER: {"id": "0"}
-2018-12-02 21:30:49	No messages stored in the server
-2018-12-02 21:30:49	MessageHandler Initialized! Associated port: 7567
-2018-12-02 21:30:49	All the conversations has been charged : {}
-2018-12-02 21:30:53	Message sent to the Server
-2018-12-02 21:30:53	Connection Handler has been closed
-2018-12-02 21:33:35	Starting the Authentication Protocol
-2018-12-02 21:33:35	Message sent to the Server
-2018-12-02 21:33:35	Sent M1
-2018-12-02 21:33:36	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 69782745377017524716184004439, "serverNonce": 184353338825315547175420978, "key": 135629321212992423324149001686430539348}
-2018-12-02 21:33:36	Received M2
-2018-12-02 21:33:36	Message sent to the Server
-2018-12-02 21:33:36	Sent M3
-2018-12-02 21:33:36	Authentication Protocol completed correctly
-2018-12-02 21:33:36	Succesfull logged in as prova4
-2018-12-02 21:33:36	Received a message from the SERVER: {"id": "0"}
-2018-12-02 21:33:36	No messages stored in the server
-2018-12-02 21:33:36	MessageHandler Initialized! Associated port: 59447
-2018-12-02 21:33:36	All the conversations has been charged : {}
-2018-12-02 21:33:38	Message sent to the Server
-2018-12-02 21:33:38	Connection Handler has been closed
+2018-12-11 10:12:57	Message Handler has been initialized!
+2018-12-11 10:12:57	Client initialized
+2018-12-11 10:12:57	Connection established with the server
+2018-12-11 10:13:11	Starting the Authentication Protocol
+2018-12-11 10:13:11	Message sent to the Server
+2018-12-11 10:13:11	Sent M1
+2018-12-11 10:13:12	Received a message from the SERVER: {"id": "?", "status": "1", "clientNonce": 69436510969089796585510403875, "serverNonce": 142189554226721290943635079, "key": 93565487678769958723337351048455821781}
+2018-12-11 10:13:12	Received M2
+2018-12-11 10:13:12	Parameters correctly loaded
+2018-12-11 10:13:12	Message sent to the Server
+2018-12-11 10:13:12	Sent M3
+2018-12-11 10:13:12	Authentication Protocol completed correctly
+2018-12-11 10:13:12	Succesfull logged in as pochiero
+2018-12-11 10:13:12	Received a message from the SERVER: {"id": "0"}
+2018-12-11 10:13:12	No messages stored in the server
+2018-12-11 10:13:12	MessageHandler Initialized! Associated port: 45967
+2018-12-11 10:13:12	All the conversations has been charged : {"magherini": {"0": {"text": "ciao", "time": "2018-12-11 10:08:43.878263", "whoSendIt": 0}}}
+2018-12-11 10:13:12	Run of startConnection
+2018-12-11 10:13:12	Message sent to the Server
+2018-12-11 10:13:12	Sent M1 of Online Key Exchange and Offline Communication
+2018-12-11 10:13:12	Received a message from the SERVER: {"id": "!", "status": "127.0.0.1:9813", "key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0NY9AezZrDkREcG+TKrv\nb+eSgIoV4+61FNzFlu761jZzuxAE9pVUhnOzRvwtKDP0WIXun0rInwqSyB0lQnda\nBD2izSssjt8Ni3PVmxiHeM21JdwIPMDmqQkI9xJMY2pVV9TEvnFkru0bt7ag2Jk/\nSgc1h5Ow7NtoNRY+cfQ419l52LMxFRbEQSPJ9MIkuuzAffqDqFPJLEaRdUUZNwiT\nd3irsgSqpFjcigEP2ZG/WCTI9ib9ugqqy/h5tAtU+fnzjDOPmgldNUEMNTWyeHrM\n+6mvIzcq2Ic4uEOlr4Qnh12tu7jAovBsraQbISdMbegmi/nPU/lGN3s5OeM+/WVe\nuwIDAQAB\n-----END PUBLIC KEY-----\n", "p": "10069594966107150641490575149282892213307796097693365939640800827028358626247793064994302718105794393212532809828519197242362563867391341263138619891456963", "g": "2", "lenInfo": 583, "info": 8194531330276275642899774045844344132541845084843791572222513403994319511583748087058763348995411101121206393139349883783477952427381542770491946228573003030774594222526967403616821194496708994292533929942282954774052340204873552345324281731356734570887013608047174547093948964640903015860395611215294073682485096676969330581643413748098568870300630932860186100099316944148403393653683527179489572692212291527062943711194249999166397875092718832807610603757359765633464966340904232643140007667535091667801525980689584069142991687093158214535796290464505240554284564624009753119691300147196613134170175633613661775179516896608000856225985157458585482300558280228596498826425487706327702959465922202561756471836788733199694379700584845642960989490709082702644756490396007863001735185850047698586564219140378771355708116623661837726714200110248136076737665102979043960895987573124391012563571567596787712609380697507383348004624547489217730726567355643522371735578610628798567664474398475830740429883093282224696638704511437355593539017925999199491830254977944681873249476060582249952410233185554196487524896849965359152882018-12-11 10:13:12	Accepted a new connecion
+2018-12-11 10:13:12	integrity of the DH shared_key is valid
+2018-12-11 10:13:12	integrity of the DH shared_key is valid
+2018-12-11 10:13:12	Obtained all the M3 message
+2018-12-11 10:13:12	message M4 sended to pochiero
+1344375680691086}
+2018-12-11 10:13:12	received M2 of Online Key Exchange and Offline Communication
+2018-12-11 10:13:12	Starting a new connection with magherini
+2018-12-11 10:13:12	Continuing the Online Key Exchange Protocol
+2018-12-11 10:13:12	Sended M3 message
+2018-12-11 10:13:12	Problem connecting with the other client, starting the offline communication

@@ -58,8 +58,8 @@ class ConnectionHandler(Thread) :
             :type conn: Socket
             :param conn: the socket used for the communication with the peer
         """
-        peerUsername = self.onlineKeyExchangeProtocolReceiver()
-        if not isString(peerUsername):
+        peerUsername = self.onlineKeyExchangeProtocolReceiver(conn)
+        if not isinstance(peerUsername, str):
             self.Log.log('Error in the Security Protocol')
             return
 
@@ -97,14 +97,17 @@ class ConnectionHandler(Thread) :
                 self.Log.log('Connection closed')
                 return
 
-    def onlineKeyExchangeProtocolReceiver(self):
+    def onlineKeyExchangeProtocolReceiver(self, conn):
         """
             Implements the Online Key Exchange Protocol for the receiver peer
 
+            :type conn: Socket
+            :param conn: the socket used for the message exchange
             :rtype: String or Int
             :return: the username of the peer with which the conneciton has been established or an error code
         """
         messageFromServer = conn.recv(self.BUFFER_SIZE)
+        print(messageFromServer)
         msg = messageFromServer[:-256]
         #signature of the server is composed by 256 bytes
         signature = messageFromServer[-256:]
@@ -173,7 +176,8 @@ class ConnectionHandler(Thread) :
             self.Security.addClientNonce(peerUsername,Nb)
             plainTextBit = json.dumps(plainText).encode('utf-8')
             #VEDI SE SI PUò RIMUOVERE
-            plainTextBitCompress = zlib.compress(plainTextBit)
+            #plainTextBitCompress = zlib.compress(plainTextBit)
+            plainTextBitCompress = plainTextBit
 
             cipherText = self.Security.RSAEncryptText(plainTextBitCompress, serialization.load_pem_public_key(dict['key'].encode('utf-8'), backend=default_backend()))
             sign = self.Security.getSignature(plainTextBit)

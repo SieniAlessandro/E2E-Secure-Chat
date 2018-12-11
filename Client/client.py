@@ -282,7 +282,7 @@ class Client:
         msg['username'] = self.username
         msg['password'] = password#str(int.from_bytes(self.Security.getDigest(password.encode('utf-8')), byteorder='big'))
         msg['porta'] = str(self.portp2p)
-        self.Security.addClientNonce(username, self.Security.generateNonce(12))
+        self.Security.addClientNonce(self.username, self.Security.generateNonce(12))
         msg['clientNonce'] = self.Security.getClientNonce(self.username)
         msgToSend = json.dumps(msg)
 
@@ -470,7 +470,8 @@ class Client:
         signature = msg[-256:]
         msg = msg[:-256]
         msg = self.Security.RSADecryptText(msg)
-        dictBin = zlib.decompress(msg)
+        #dictBin = zlib.decompress(msg)
+        dictBin = msg
         if not self.Security.VerifySignature(dictBin, signature, receiver):
             self.Log.log('The integrity is not valid for the sender. Signature:\n' + signature)
             return -4
@@ -617,7 +618,7 @@ class Client:
         msg = {}
         msg['id'] = '0'
         self.sendServer(json.dumps(msg), 'aes')
-        self.Log.log('Logut sent to the server')
+        self.Log.log('Logout sent to the server')
         for x in self.socketClient.keys() :
             if not self.socketClient[x] == 'server' :
                 self.sendClient(x, 'logout', True)
