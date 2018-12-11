@@ -107,7 +107,6 @@ class ConnectionHandler(Thread) :
             :return: the username of the peer with which the conneciton has been established or an error code
         """
         messageFromServer = conn.recv(self.BUFFER_SIZE)
-        print(messageFromServer)
         msg = messageFromServer[:-256]
         #signature of the server is composed by 256 bytes
         signature = messageFromServer[-256:]
@@ -123,7 +122,6 @@ class ConnectionHandler(Thread) :
             self.Log.log('The integrity is not valid for the receiver. Signature:\n' + str(signature))
             return -2
 
-        #print('messaggio del server visto con successo!')
         if not self.Security.isSymmetricKeyClientPresent(peerUsername):
             #The msg contains 2 messages
             msg = conn.recv(self.BUFFER_SIZE)
