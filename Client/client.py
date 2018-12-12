@@ -424,10 +424,10 @@ class Client:
         #info contains the symmetric message from the server to the client
         cipherText = dict['info'].to_bytes(dict['lenInfo'], byteorder='big')
         sign = self.Security.getSignature(cipherText)
+        self.socketClient[receiver].send(cipherText+sign)
 
         if self.Security.isSymmetricKeyClientPresent(receiver):
             return 1
-        self.socketClient[receiver].send(cipherText+sign)
 
         self.Security.insertKeyClient(receiver, dict['key'].encode('utf-8'))
 
