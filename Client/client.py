@@ -129,15 +129,17 @@ class Client:
                 self.Log.log('Connection with the server closed!')
                 return -1
             else:
+                msg = ''
                 try:
-                    ret = self.Security.decryptServerMessage(ret)
+                    msg = self.Security.decryptServerMessage(ret)
                 except:
-                    ret = ret
-                if ret is None:
+                    msg = ret
+                if msg is None:
                     self.Log.log('The connection is not safe!')
                     self.onClosing()
-
-                msg = ret.decode('utf-8')
+                self.Log.log(msg)
+                msg = msg.decode('utf-8')
+                self.Log.log(msg)
                 self.Log.log('Received a message from the SERVER: ' + msg)
 
                 dictMsg = json.loads(msg)
@@ -248,7 +250,6 @@ class Client:
         self.sendServer(json.dumps(msg), 'rsa')
         self.Log.log('Sent M3')
         ct = self.socketServer.recv(self.BUFFER_SIZE)
-        print(ct)
         self.Log.log('Received M4')
         pt = self.Security.decryptServerMessage(ct)
 
@@ -425,10 +426,10 @@ class Client:
         #info contains the symmetric message from the server to the client
         cipherText = dict['info'].to_bytes(dict['lenInfo'], byteorder='big')
         sign = self.Security.getSignature(cipherText)
-        self.socketClient[receiver].send(cipherText+sign)
 
         if self.Security.isSymmetricKeyClientPresent(receiver):
             return 1
+        self.socketClient[receiver].send(cipherText+sign)
 
         self.Security.insertKeyClient(receiver, dict['key'].encode('utf-8'))
 
