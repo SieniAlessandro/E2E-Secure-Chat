@@ -87,6 +87,7 @@ class LoginGUI(Frame):
         self.master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
         self.usernameEntry.focus_force()
         self.master.bind('<Return>', self.pressEnterEvent)
+        self.confirmButton.config(fg='white', relief='flat', activebackground = self.activebackground, activeforeground='white')
 
     def hideLoginFrame(self):
         """

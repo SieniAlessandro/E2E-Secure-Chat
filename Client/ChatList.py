@@ -236,7 +236,7 @@ class ChatList(Frame):
         """
         global activeChat
         username = username.lower()
-        if activeChat.chatName.get() == self.chatListDict[username][1].chatName.get():
+        if activeChat is not None and activeChat.chatName.get() == self.chatListDict[username][1].chatName.get():
             activeChat = None
 
         self.chatListDict[username][0].destroy()

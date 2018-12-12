@@ -224,6 +224,7 @@ class SignUpGUI(Frame):
         self.master.resizable(width=FALSE, height=FALSE)
         self.master.title("Sign Up")
         self.master.protocol("WM_DELETE_WINDOW", self.client.onClosing )
+        self.master.bind('<Return>', self.pressEnterEvent)
     def hideSignUpFrame(self):
         self.usernameEntry.delete(0, 'end')
         self.emailEntry.delete(0, 'end')
