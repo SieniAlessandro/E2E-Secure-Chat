@@ -587,7 +587,7 @@ class Client:
                 self.Log.log(receiver + ' has disconnected')
                 self.Security.resetSymmetricKeyClient(receiver)
                 self.socketClient[receiver] = 'server'
-                #use of sendClient instead of sendMessageOffline to avoid false negatives
+                #use of sendClient instead of sendMessageOffline
                 return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()))
 
     def setAutoLogin(self, remember, username, password):
@@ -632,14 +632,15 @@ class Client:
         for x in self.socketClient.keys() :
             if not self.socketClient[x] == 'server' :
                 if not isinstance(self.socketClient[x], str):
-                    self.sendClient(x, 'logout', True)
+                    if self.Security.isSymmetricKeyClientPresent(x):
+                        self.sendClient(x, 'logout', True)
                     self.socketClient[x].shutdown(socket.SHUT_RDWR)
                     self.socketClient[x].close()
         if self.username is not None:
             self.Message.saveConversations(self.username, ordinatedUserList)
         #Reset the parameters of the user
         self.username = None
-        self.Security = SecurityClient(self.XML.getSecurityServerKey())
+        self.Security.resetKeys()
         #stop the thread that receives the message
         self.connectionHandler.stop()
         self.connectionHandler = None
