@@ -130,16 +130,15 @@ class Client:
                 return -1
             else:
                 msg = ''
-                try:
-                    msg = self.Security.decryptServerMessage(ret)
-                except:
+                #try:
+                msg = self.Security.decryptServerMessage(ret)
+                #except:
                     msg = ret
                 if msg is None:
                     self.Log.log('The connection is not safe!')
                     self.onClosing()
-                self.Log.log(msg)
+                self.Log.log('decoding the message of the server')
                 msg = msg.decode('utf-8')
-                self.Log.log(msg)
                 self.Log.log('Received a message from the SERVER: ' + msg)
 
                 dictMsg = json.loads(msg)
