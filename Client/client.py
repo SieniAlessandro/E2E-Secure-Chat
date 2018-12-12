@@ -133,7 +133,6 @@ class Client:
                 #try:
                 msg = self.Security.decryptServerMessage(ret)
                 #except:
-                    msg = ret
                 if msg is None:
                     self.Log.log('The connection is not safe!')
                     self.onClosing()
