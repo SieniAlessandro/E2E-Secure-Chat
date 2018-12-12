@@ -183,7 +183,7 @@ class Client:
         msg = {}
         msg['id'] = '1'
         msg['user'] = username.lower()
-        msg['password'] = password#str(int.from_bytes(self.Security.getDigest(password.encode('utf-8')), byteorder='big'))
+        msg['password'] = str(int.from_bytes(self.Security.getDigest(password.encode('utf-8')), byteorder='big'))
         msg['name'] = name
         msg['surname'] = surname
         msg['email'] = email
@@ -283,7 +283,7 @@ class Client:
         msg = {}
         msg['id'] = '2'
         msg['username'] = self.username
-        msg['password'] = password#str(int.from_bytes(self.Security.getDigest(password.encode('utf-8')), byteorder='big'))
+        msg['password'] = str(int.from_bytes(self.Security.getDigest(password.encode('utf-8')), byteorder='big'))
         msg['porta'] = str(self.portp2p)
         self.Security.addClientNonce(self.username, self.Security.generateNonce(12))
         msg['clientNonce'] = self.Security.getClientNonce(self.username)
