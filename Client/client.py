@@ -588,7 +588,7 @@ class Client:
                 self.Security.resetSymmetricKeyClient(receiver)
                 self.socketClient[receiver] = 'server'
                 #use of sendClient instead of sendMessageOffline to avoid false negatives
-                return self.sendClient(receiver, text, logout)
+                return self.sendMessageOffline(receiver, text, str(datetime.datetime.now()))
 
     def setAutoLogin(self, remember, username, password):
         """
