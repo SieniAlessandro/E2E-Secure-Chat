@@ -62,15 +62,17 @@ the packets received from them</p>
 
 <dl class="method">
 <dt id="ConnectionHandler.ConnectionHandler.onlineKeyExchangeProtocolReceiver">
-<code class="descname">onlineKeyExchangeProtocolReceiver</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConnectionHandler.ConnectionHandler.onlineKeyExchangeProtocolReceiver" title="Permalink to this definition">¶</a></dt>
+<code class="descname">onlineKeyExchangeProtocolReceiver</code><span class="sig-paren">(</span><em>conn</em><span class="sig-paren">)</span><a class="headerlink" href="#ConnectionHandler.ConnectionHandler.onlineKeyExchangeProtocolReceiver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the Online Key Exchange Protocol for the receiver peer</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String or Int</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>conn</strong> (<em>Socket</em>) – the socket used for the message exchange</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the username of the peer with which the conneciton has been established or an error code</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">String or Int</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the username of the peer with which the conneciton has been established or an error code</td>
 </tr>
 </tbody>
 </table>
