@@ -220,7 +220,7 @@ class ClientHandler(Thread):
         """
         checkdigest = self.HandledUser.GetSecurityModule().generateDigest(json.dumps(message).encode('utf-8'))
         if digest != checkdigest:
-            self.log.log("Error in the hash,avorting the registration procedure")
+            self.log.log("Error in the hash,aborting the registration procedure")
             #This recv is present because the client doesn't know if the signature is valid
             self.HandledUser.getSocket().recv(2048)
             return
@@ -228,7 +228,14 @@ class ClientHandler(Thread):
         self.log.log("A client want to register")
         self.log.log("Wait for the public key")
         #Waiting for the public key
-        publicKey = self.HandledUser.getSocket().recv(4096)
+        msg = self.HandledUser.getSocket().recv(4096)
+        hash = msg[-32:]
+        publicKey = msg[:-32]
+        digest =  self.HandledUser.GetSecurityModule().generateDigest(publicKey+message['clientNonce'].to_bytes(6, byteorder='big'))
+        if digest != hash:
+            self.log.log("Error in the hash of the key,aborting the registration procedure")
+            return
+
         if not publicKey:
             self.log.log("Problem during the receiving of the public key, aborting the registration procedure")
             return
