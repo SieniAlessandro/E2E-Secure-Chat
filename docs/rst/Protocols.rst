@@ -21,7 +21,7 @@ Hellman parameters. Every message, except M1, is signed using a RSA digital sign
 
 The Public Key :math:`K_{a}` in M1 is sent in plaintext because its size is too big to be encrypted
 with RSA using the server's public key. Its integrity is guaranteed by :math:`S(K_{a}, N_{a})`,
-that cannot be generated because the adversary doesn't know :math:`N_{a}`.
+that cannot be generated because the adversary doesn't know :math:`N_{a}`.  
 The encrypted portion of M1 contains Alice's identifier, a nonce
 that will be used to guarantee the freshness of M2 and the Alice's public key digest
 to ensure its integrity.
