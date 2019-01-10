@@ -62,8 +62,9 @@ you can find the BAN logic analysis of the 4 protocols.</p>
 in order to store into the Server’s database the Client’s Public Key and the Diffie
 Hellman parameters. Every message, except M1, is signed using a RSA digital signature.</p>
 <p>The Public Key <span class="math notranslate nohighlight">\(K_{a}\)</span> in M1 is sent in plaintext because its size is too big to be encrypted
-with RSA using the server’s public key and since it’s a public key there is nothing
-to worry about. The encrypted portion of M1 contains Alice’s identifier, a nonce
+with RSA using the server’s public key. Its integrity is granted by <span class="math notranslate nohighlight">\(S(K_{a}, N_{a})\)</span>,
+that cannot be generated because the adversary doesn’t know <span class="math notranslate nohighlight">\(N_{a}\)</span>.
+The encrypted portion of M1 contains Alice’s identifier, a nonce
 that will be used to guarantee the freshness of M2 and the Alice’s public key digest
 to ensure its integrity.</p>
 <p>M2 is just a notification that the server is ready to store Alice’s information and
