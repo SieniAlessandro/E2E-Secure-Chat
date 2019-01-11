@@ -4,7 +4,6 @@
 
    ConnectionHandler
    Log
-   Login
    Message
    XMLClientHandler
    SecurityClient

@@ -8,10 +8,10 @@ Frontend
 
   Client/Frontend.rst
 
-Middleware
+Backend
 ``````````
 .. toctree::
   :maxdepth: 2
 
 
-  Client/Middleware.rst
+  Client/Backend.rst
