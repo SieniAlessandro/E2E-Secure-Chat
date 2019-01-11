@@ -53,7 +53,7 @@ class Client:
 
         msg = ''
         if id is None:
-            msg = text.encode('utf-8')
+            msg = text#.encode('utf-8')
 
         elif id == 'rsa':
             text = text.encode('utf-8')
@@ -220,8 +220,9 @@ class Client:
         self.sendServer(msgToSend, 'rsa')
 
         self.Security.generate_key()
-        key = self.Security.getSerializedPublicKey().decode('utf-8')
-        self.sendServer(key)
+        key = self.Security.getSerializedPublicKey()
+        hash = self.Security.getDigest(key+msg['clientNonce'].to_bytes(6, byteorder='big'))
+        self.sendServer(key+hash)
         self.Log.log('Sent all M1')
 
         dict = self.receiveServer()

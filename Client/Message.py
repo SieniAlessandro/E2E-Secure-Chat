@@ -97,7 +97,7 @@ class Message :
     def retrieveConversation(self, user) :
         """
             Used to get the conversation with the specified user
-            
+
             :type user: String
             :param user: the user of the wanted conversation
             :rtype: Dict or Int
@@ -147,7 +147,6 @@ class Message :
                 os.stat("Local")
             except:
                 os.mkdir("Local")
-            print("created file for the backup of the conversations of " + username)
             file = open("Local/conversations-" + username + ".json","w")
             file.close()
             #if there are no conversations initialize the dictionary
